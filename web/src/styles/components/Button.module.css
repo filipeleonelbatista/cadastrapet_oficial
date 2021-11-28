@@ -1,0 +1,51 @@
+.button{  
+  width: fit-content;
+  height: auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+
+  padding: 0.8rem 1.4rem;
+  font-weight: 500;  
+  border: none;
+  margin: 0.4rem 0;
+  border-radius: 0.8rem;
+  background-color: #566DEA;
+  color: #fff;
+}
+
+.buttonTransparent{  
+  width: fit-content;
+  height: auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+
+  padding: 0.8rem 1.4rem;
+  font-weight: 500;  
+  border: none;
+  margin: 0.4rem 0;
+  border-radius: 0.8rem;
+  background-color: transparent;
+  color: #566DEA;
+}
+.button,
+.buttonTransparent{
+  transition: 0.3s;
+}
+
+.button:hover,
+.buttonTransparent:hover{
+  filter: brightness(0.8);
+}
+
+.button:active,
+.buttonTransparent:active{
+  filter: brightness(0.6);
+}
