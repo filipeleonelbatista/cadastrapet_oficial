@@ -8,12 +8,14 @@ import {
 
 import { styles } from './styles';
 
-export function Input({label, error, onChangeText, placeholder, ...rest}){
+export function Input({label, error, onChangeText, placeholder, disabled=false, ...rest}){
   return (
     <View style={styles.container}>
       {label && <Text style={styles.label}>{label}</Text>}
       <TextInput
-        style={styles.input}
+        editable={!disabled}
+        selectTextOnFocus={!disabled}
+        style={disabled ? styles.inputDisabled : styles.input}
         onChangeText={text => onChangeText(text)}
         placeholder={placeholder} 
         {...rest}

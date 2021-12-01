@@ -24,4 +24,13 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 8,
   },
+  inputDisabled:{
+    width: '100%',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    backgroundColor: '#F3F5FF',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#0000004D'
+  },
 });

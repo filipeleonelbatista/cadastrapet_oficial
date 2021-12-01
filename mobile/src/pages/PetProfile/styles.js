@@ -14,8 +14,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal:24,
   },
   content:{
+    flexDirection: 'row',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
+    paddingHorizontal:24,
+    marginVertical: 16,
   },
   title:{
     fontWeight: 'bold',
@@ -23,24 +26,12 @@ export const styles = StyleSheet.create({
     color: '#566DEA',
     marginVertical: 8,
   },
-  image:{
-    textAlign: 'center',
-    marginVertical: 32,
-    width: 180,
-    height: 30, 
-    resizeMode: 'contain'
-  },
-  petGroup:{
-    width: Dimensions.get('window').width,
-    paddingHorizontal: 24,
-    marginVertical: 24,
-  },
   petItem:{
     borderRadius: 8,
     backgroundColor:"#FFF",
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 8,
+    padding: 16,
     marginVertical: 8,
   },
   petImage:{ 
@@ -54,8 +45,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     color: '#566DEA',
-    marginVertical: 28,
-    marginRight: 16,
+    marginVertical: 14,
   },
   petActions:{
     flex: 1, 
@@ -71,19 +61,5 @@ export const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent: 'center',
     marginVertical: 8,
-  },
-  buttonRoundedWhite:{
-    width: 96,
-    height: 96,
-    borderRadius: 96,
-    backgroundColor: "#FFF",   
-    alignItems:'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  actions:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 16,
   },
 });

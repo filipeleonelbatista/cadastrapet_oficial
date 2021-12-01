@@ -14,7 +14,7 @@ import {FontAwesome5} from '@expo/vector-icons'
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 
-export function CreatePet(){
+export function AddVaccine(){
   return (    
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -24,7 +24,7 @@ export function CreatePet(){
       <FontAwesome5 name="arrow-left" size={24} color="#566DEA"/> 
     </TouchableOpacity>     
     <View style={styles.content}>
-      <Text style={styles.title}>Adicionar Pet</Text>  
+      <Text style={styles.title}>Adicionar Vacina</Text>  
     </View>
       <ScrollView style={styles.scrollView}>
       <View style={styles.content}>    
@@ -32,10 +32,9 @@ export function CreatePet(){
           <FontAwesome5 name="camera" size={48} color="#566DEA"/> 
         </TouchableOpacity>
         <View style={styles.content}>
-          <Input label="Nome" />
-          <Input label="Tipo de animal" />
-          <Input label="Data Nascimento" placeholder="DD/MM/AAAA" />
-          <Input label="Tipo Sanguíneo" />
+          <Input label="Tipo vacina" />
+          <Input label="Data" />
+          <Input label="Proxima dose" placeholder="DD/MM/AAAA" />
         </View>
         <View style={styles.actions}>
           <Button text="Salvar" />
