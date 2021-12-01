@@ -1,15 +1,24 @@
 import React from 'react';
 
 import {
-  View
+  View,
+  Text,
+  TextInput
 } from 'react-native';
 
 import { styles } from './styles';
 
-export function Input(){
+export function Input({label, error, onChangeText, placeholder, ...rest}){
   return (
-    <View>
-
+    <View style={styles.container}>
+      {label && <Text style={styles.label}>{label}</Text>}
+      <TextInput
+        style={styles.input}
+        onChangeText={text => onChangeText(text)}
+        placeholder={placeholder} 
+        {...rest}
+        />
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 }

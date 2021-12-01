@@ -11,7 +11,7 @@ const buttonBase = {
 }
 
 const buttonFontBase = {
-  fontWeight: '500',
+  fontWeight: 'bold',
   fontSize: 14,
 }
 
@@ -19,6 +19,8 @@ export const styles = StyleSheet.create({
   button: {    
     ...buttonBase,
     backgroundColor: '#566DEA',
+    borderColor: '#566DEA',
+    borderWidth: 2,
   },
   
   buttonTransparent:{    
