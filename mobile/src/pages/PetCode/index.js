@@ -5,11 +5,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { QRCode } from 'react-native-custom-qr-codes-expo';
 import { styles } from './styles';
 import { Input } from '../../components/Input';
+import { useNavigation } from '@react-navigation/native';
 
 export function PetCode(){
+  const { navigate } = useNavigation();
   return (    
     <View style={styles.container}>  
-      <TouchableOpacity style={styles.buttonRounded}>
+      <TouchableOpacity onPress={ () => navigate('PetProfile') }  style={styles.buttonRounded}>
         <FontAwesome5 name="arrow-left" size={24} color="#566DEA"/> 
       </TouchableOpacity>     
       <View style={styles.content}>

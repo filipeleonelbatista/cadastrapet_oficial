@@ -1,10 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-const buttonFontBase = {
-  fontWeight: '500',
-  fontSize: 16,
-}
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -21,7 +16,8 @@ export const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   subtitle:{
-    ...buttonFontBase,
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 16,
     color: '#6CA6FD',
     marginVertical: 14,
   },

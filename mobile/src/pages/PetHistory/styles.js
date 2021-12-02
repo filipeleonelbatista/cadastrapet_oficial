@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   scrollView: {
     marginVertical: 4,
     width: Dimensions.get('window').width,
-    paddingHorizontal:24,
+    height: '100%',
   },
   content:{
     flexDirection: 'row',
@@ -20,12 +20,19 @@ export const styles = StyleSheet.create({
     paddingHorizontal:24,
     marginVertical: 16,
   },
+  inputGroup:{
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal:24,
+    marginVertical: 16,
+  },
   title:{
     fontWeight: 'bold',
-    fontFamily: 'Poppins_700Bold',
     fontSize: 24,
     color: '#566DEA',
     marginVertical: 8,
+    fontFamily: 'Poppins_700Bold',
   },
   petItem:{
     borderRadius: 8,
@@ -54,6 +61,18 @@ export const styles = StyleSheet.create({
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent:'flex-end'
+  },
+  buttonNavGroup:{
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    width: '100%',
+    paddingHorizontal:14,
+  },
+  buttonGroup:{
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    width: '100%',
+    paddingHorizontal:14,
   },
   buttonRounded:{
     width: 48,

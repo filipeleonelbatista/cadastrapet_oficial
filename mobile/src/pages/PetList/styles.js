@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
   },
   title:{
     fontWeight: 'bold',
+    fontFamily: 'Poppins_700Bold',
     fontSize: 24,
     color: '#566DEA',
     marginVertical: 28,
@@ -44,6 +45,7 @@ export const styles = StyleSheet.create({
   },
   petName:{
     fontWeight: 'bold',
+    fontFamily: 'Poppins_700Bold',
     fontSize: 20,
     color: '#566DEA',
     marginVertical: 28,
@@ -87,5 +89,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'normal',
     fontSize: 18,
     color: '#566DEA',
+    fontFamily: 'Poppins_400Regular',
   },
 });

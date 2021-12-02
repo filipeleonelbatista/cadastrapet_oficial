@@ -13,14 +13,16 @@ import { styles } from './styles';
 import {FontAwesome5} from '@expo/vector-icons'
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { useNavigation } from '@react-navigation/native';
 
 export function CreatePet(){
+  const { navigate } = useNavigation();
   return (    
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >  
-    <TouchableOpacity style={styles.buttonRounded}>
+    <TouchableOpacity onPress={ () => navigate('PetProfile') } style={styles.buttonRounded}>
       <FontAwesome5 name="arrow-left" size={24} color="#566DEA"/> 
     </TouchableOpacity>     
     <View style={styles.content}>
@@ -38,8 +40,8 @@ export function CreatePet(){
           <Input label="Tipo Sanguíneo" />
         </View>
         <View style={styles.actions}>
-          <Button text="Salvar" />
-          <Button text="Cancelar" transparent />
+          <Button onPress={ () => navigate('PetProfile') } text="Salvar" />
+          <Button onPress={ () => navigate('PetProfile') } text="Cancelar" transparent />
         </View>
       </View>
       </ScrollView>

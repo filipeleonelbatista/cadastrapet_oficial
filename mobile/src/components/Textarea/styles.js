@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     marginVertical: 4,
     width: '100%',
+    height: 250,
   },
   label:{    
     fontWeight: 'normal',
@@ -20,7 +21,9 @@ export const styles = StyleSheet.create({
     fontFamily: 'Poppins_700Bold',
   },
   input:{
+    textAlignVertical: 'top',
     width: '100%',
+    height: '100%',
     paddingHorizontal: 14,
     paddingVertical: 10,
     backgroundColor: '#FFF',
@@ -28,7 +31,9 @@ export const styles = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
   },
   inputDisabled:{
+    textAlignVertical: 'top',
     width: '100%',
+    height: '100%',
     paddingHorizontal: 14,
     paddingVertical: 10,
     backgroundColor: '#F3F5FF',

@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
   },
   title:{
     fontWeight: 'bold',
+    fontFamily: 'Poppins_700Bold',
     fontSize: 24,
     color: '#566DEA',
     marginVertical: 8,
@@ -32,7 +33,6 @@ export const styles = StyleSheet.create({
     height: 64,
     borderRadius: 32,
     resizeMode: 'cover',
-    marginRight: 8,
   },
   buttonRounded:{
     width: 48,
