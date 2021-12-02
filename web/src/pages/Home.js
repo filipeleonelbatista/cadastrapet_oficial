@@ -14,7 +14,7 @@ import {Link} from 'react-router-dom'
 import ScrollContainer from "react-indiana-drag-scroll";
 import api from "../services/api";
 import styles from "../styles/pages/Home.module.css";
-
+import Floating from '../components/Floating'
 
 function Home(){
   const [isShow, setIsShow] = useState(false);
@@ -82,11 +82,6 @@ function Home(){
     value = value.replace(/(\d)(\d{4})$/, "$1-$2");
     return value;
   }
-
-  useEffect(() => {
-    setIsShowStatusMessage(!isShowStatusMessage);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusmessage])
 
   return (
     <div id="landing-page" className={styles.container}>
@@ -312,6 +307,7 @@ function Home(){
           <a href="/">Trabalhe conosco</a>
         </div>
       </footer>
+      <Floating />
     </div>
   );
 }

@@ -19,7 +19,7 @@ function PetHistoryFormPage(){
           <div className={styles.divider}></div>
         </div>  
         <div className={styles.petInfoContainer}>
-          <img src="" className={styles.imagePet} />
+          <img src="" alt="Cadastra Pet" className={styles.imagePet} />
           <h3>Doguinho</h3>
         </div> 
         <div className={styles.menuContainer}>
