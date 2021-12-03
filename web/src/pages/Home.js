@@ -63,10 +63,12 @@ function Home(){
       setquant('')
       handleToggleModal();
       setstatusmessage(true)
+      setIsShowStatusMessage(true);
       return
     }else{
       handleToggleModal();
       setstatusmessage(false)
+      setIsShowStatusMessage(true);
     }
   }
 

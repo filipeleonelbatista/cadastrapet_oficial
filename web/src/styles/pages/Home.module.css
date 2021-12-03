@@ -194,6 +194,7 @@
   margin-bottom: 2.4rem;
   font-weight: 700;
   font-size: 1.8rem;
+  text-align: center;
   color: rgba(0, 0, 0, 0.85);
 }
 
@@ -202,6 +203,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
 }
 
 .card {
@@ -243,6 +246,7 @@
 }
 
 .how h2 {
+  text-align: center;
   margin-bottom: 2.4rem;
   font-weight: 700;
   font-size: 1.8rem;
@@ -268,6 +272,7 @@
 }
 
 .catalog h2 {
+  text-align: center;
   margin: 2.4rem 0;
   font-weight: 400;
   font-size: 1.8rem;
@@ -275,7 +280,7 @@
 }
 
 .carrossel {
-  width: 100%;
+  width: 100vw;
   display: grid;
   grid-template-columns: repeat(4, 300px);
   overflow-x: auto;
@@ -288,6 +293,7 @@
 }
 
 .cardItem {
+  width: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -520,6 +526,8 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.85);
   position: fixed;
+  overflow: hidden;
+  z-index: 150;
 }
 
 .closeButton {
@@ -579,10 +587,7 @@
 .formContainer ul {
   list-style: none;
   margin: 0.8rem 0.4rem;
-}
-
-.formContainer ul {
-  list-style: none;
+  font-size: 1.2rem;
 }
 
 .formContainer div {
@@ -629,10 +634,118 @@
 }
 
 
-@media (max-width: 900px)
+@media (max-width: 400px)
 {
-  .hideImg
+  .carrossel {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(4, 25rem);
+    overflow-x: auto;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  .cardContainer {
+    width: 80%;
+    height: 80vh;
+    background-color: #fff;
+    border-radius: 1.4rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+  .imageContainer {
+    width: 100%;
+    height: 50%;
+    background-image: url("../../assets/images/pet.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }  
+
+  .formContainer {
+    width: 100%;
+    height: 50%;
+    padding: 1.4rem;
+    overflow: auto;
+  }
+
+  .cta {
+    width: 100vw;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    margin: 0 0 2.4rem 0;
+  }
+  .cta img
    {
-    display: none;
+    height: 40vh;
+    width: auto;
    }
+   
+.about {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  margin: 0 0 2.4rem 0;
+}
+
+  .about img {
+    width: auto;
+    height: 50vh;
+    margin: 0 2.8rem;
+  }
+  
+  .how img {
+    width: 100vw;
+    height: auto;
+  }
+
+  .catalog {
+    position: relative;
+    background-color: #232323;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4.8rem 2.4rem 4.8rem;
+    margin: -3rem 0 0 0;
+  }
+  .footerContent{
+    width: 100%;
+  }
+  .footerContent > img{
+    width: 20rem;
+    height: auto;
+    margin: 0 0 0.8rem 0;
+  }
+  .footerContent > div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin: 0.4rem 0;
+  }
+  .footerContent > div > a{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .footerLinks{
+    display: none;
+  }
+
 }
