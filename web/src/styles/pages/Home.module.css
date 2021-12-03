@@ -634,7 +634,7 @@
 }
 
 
-@media (max-width: 400px)
+@media (max-width: 720px)
 {
   .carrossel {
     width: 100vw;
