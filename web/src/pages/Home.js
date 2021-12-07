@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaHandHoldingHeart,
   FaInstagram,
@@ -14,6 +14,7 @@ import ScrollContainer from "react-indiana-drag-scroll";
 import api from "../services/api";
 import styles from "../styles/pages/Home.module.css";
 import Floating from '../components/Floating'
+import Input from '../components/Input'
 
 function Home(){
   const [isShow, setIsShow] = useState(false);
@@ -23,6 +24,15 @@ function Home(){
   const [telefone, settelefone] = useState("");
   const [email, setemail] = useState("");
   const [quant, setquant] = useState("");
+  const [myIp, setMyIp] = useState("");
+
+  async function getCurrentIP(){
+    await fetch("https://api.ipify.org/?format=json")
+      .then(results => results.json())
+      .then(data => {
+        setMyIp(data.ip)
+      })    
+  }
 
   function handleToggleModal() {
     setIsShow(!isShow);
@@ -31,19 +41,42 @@ function Home(){
   function handleToggleModalStatusMessage() {
     setIsShowStatusMessage(!isShowStatusMessage);
   }
+  async function handleBetaAccess(){
+    if (!name || !telefone || !email) {
+      alert("Por favor preencha todos os campos");
+      return;
+    }
+    
+      const data = {
+        ip: myIp,
+        tipoContato: "CTA Beta Contato",
+        celular: telefone,
+        email,
+        nome: name,
+        mensagem: `Eu quero acesso antecipado ao app`,
+        feitoContato: false,
+        convertido: false
+      }
+
+    alert('Recebemos seu contato. Aguarde no seu email o convite para a beta!')
+    const result = await api.post("contatos", data);
+    if (result.status === 201) {
+      setname('')
+      settelefone('')
+      setemail('')
+      setquant('')
+      console.log('Contato feito!')
+      return
+    }else{      
+      alert('Houve um problema ao registrar seu contato. Por favor tente novamente mais tarde!')
+    }
+  }
 
   async function handleForm() {
     if (!name || !telefone || !email || !quant) {
       alert("Por favor preencha todos os campos");
+      return;
     }
-
-    let myIp;
-
-    await fetch("https://api.ipify.org/?format=json")
-      .then(results => results.json())
-      .then(data => {
-        myIp = data.ip
-      })
 
       const data = {
         ip: myIp,
@@ -84,6 +117,10 @@ function Home(){
     return value;
   }
 
+  useEffect(()=>{
+    getCurrentIP();
+  },[])
+  
   return (
     <div id="landing-page" className={styles.container}>
       {isShowStatusMessage && (
@@ -176,7 +213,41 @@ function Home(){
           </div>
         </nav>
       </header>
-      <main>
+      <main>                
+      <section id="ctaBeta" className={styles.ctaBeta}>
+          <div className={styles.contentBeta}>
+            <h2>Participe da beta do app</h2>
+            <p>
+              Cadastre seu pet, sugira melhorias e tenha acesso especial ao nosso o app.
+              <br /><sub>Vagas limitadas.</sub>
+            </p>
+            <div className={styles.formGroup}>
+              <Input 
+                id="name" 
+                label="Nome" 
+                onChange={(e) => setname(e.target.value)} 
+                value={name} 
+                />
+              <Input 
+                id="email" 
+                label="Email" 
+                onChange={(e) => setemail(e.target.value)} 
+                value={email} 
+                />
+              <Input 
+                id="telefone" 
+                label="Celular/Whatsapp" 
+                onChange={(e) => settelefone(handleMaskPhoneNumber(e.target.value))} 
+                value={telefone} 
+                maxLength={15}
+                />
+              
+              <button onClick={handleBetaAccess}>
+                Receber meu acesso à beta
+              </button>
+            </div>
+          </div>
+        </section>
         {/* CTA */}
         <section id="cta" className={styles.cta}>
           <div className={styles.content}>
