@@ -362,13 +362,13 @@ function Home(){
         <div className={styles.footerContent}>
           <img src="./images/logo.png" alt="CadastraPet" />
           <div className="social-networks">
-            <a href="/">
+            <a href="https://wa.me/+5551986445578">
               <FaWhatsapp />
             </a>
             <a href="https://instagram.com/cadastra.pet">
               <FaInstagram />
             </a>
-            <a href="/">
+            <a href="https://instagram.com/cadastra.pet">
               <FaLinkedinIn />
             </a>
           </div>
@@ -376,7 +376,6 @@ function Home(){
         <div className={styles.footerLinks}>
           <a href="/">Políticas e privacidade</a>
           <a href="/">Termos de uso</a>
-          <a href="/">Trabalhe conosco</a>
         </div>
       </footer>
       <Floating />
