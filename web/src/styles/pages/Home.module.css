@@ -674,6 +674,13 @@
   align-items: center;
   justify-content: center;
 }
+.formGroup label{  
+  color: #566DEA;
+  opacity: 50%;
+  font-weight: 600;
+  margin: 0.8rem 0;
+}
+
 .formGroup input{
   border: 1px solid #6ca6fd !important;
 }
@@ -740,6 +747,12 @@
   gap: .8rem;
   align-items: center;
   justify-content: center;
+}
+.formGroup label{  
+  color: #566DEA;
+  opacity: 50%;
+  font-weight: 600;
+  margin: 0.8rem 0;
 }
 .formGroup input{
   border: 1px solid #6ca6fd;
