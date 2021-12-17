@@ -1,11 +1,10 @@
+import { Poppins_400Regular, Poppins_600SemiBold, Poppins_700Bold, useFonts } from '@expo-google-fonts/poppins';
+import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import AppLoading from 'expo-app-loading';
-import {Poppins_400Regular, Poppins_600SemiBold, Poppins_700Bold, useFonts} from '@expo-google-fonts/poppins';
-
 import Routes from './src/routes';
 
-export default function App() {
+export default function App() { 
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
@@ -17,8 +16,8 @@ export default function App() {
 
   return (
     <>
+      <StatusBar style={{height: 24}} backgroundColor='#566DEA' style="light" />
       <Routes />
-      <StatusBar style="dark" />
     </>
   );
 

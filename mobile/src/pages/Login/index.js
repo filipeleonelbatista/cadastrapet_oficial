@@ -1,26 +1,43 @@
-import React from 'react';
-
-import {
-  View,
-  Text,
-  Image
-} from 'react-native';
-
 import { useNavigation } from '@react-navigation/native';
-
-import { styles } from './styles';
+import React, { useEffect, useState } from 'react';
+import { Image, KeyboardAvoidingView, Platform, Text, View } from 'react-native';
 import { Button } from '../../components/Button';
+import { Input } from '../../components/Input';
+import { styles } from './styles';
+import { authentication } from '../../firebase/firebase-config'
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export function Login(){
   const { navigate } = useNavigation();
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const SignInUser = () => {
+    signInWithEmailAndPassword(authentication, email, password)
+    .then((re) => {
+      navigate('PetList')
+    })
+    .catch(err => console.log(err))
+  }
+
+  useEffect(()=>{
+    
+  }, [])
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}>
       <Image source={require('../../assets/logo.png')} style={styles.image} />
       <Text style={styles.subtitle}>Cadastrando e Prolongando Vidas</Text>
-      <View style={styles.buttonGroup}>
-        <Button text="Login" onPress={ () => navigate('PetList') } />
-        <Button transparent text="Criar" />
+      <View style={styles.buttonGroup}>        
+        <Input label="Email" value={email} onChangeText={text=>setEmail(text)} />
+        <Input label="Senha" value={password} onChangeText={text=>setPassword(text)} secureTextEntry />
+        <Button text="Entrar" onPress={ SignInUser } />
+        <Button text="Cadastrar" transparent onPress={ () => navigate('Register') } />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
