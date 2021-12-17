@@ -1,14 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
 import { Image, KeyboardAvoidingView, Platform, Text, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { authentication } from '../../firebase/firebase-config';
 import { styles } from './styles';
-import { authentication } from '../../firebase/firebase-config'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { sendDiscordNotification } from '../../services/discord-notify'
+
 export function Register(){
   const { navigate } = useNavigation();
-  const [isSignedIn, setIsSignedIn] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,6 +17,12 @@ export function Register(){
   const RegisterUser = () => {
     createUserWithEmailAndPassword(authentication, email, password)
     .then((re) => {
+      const discordMessage = `
+      Novo cadastro realizado pelo app
+
+      **Email:** ${email}
+      `
+      sendDiscordNotification(discordMessage,'doguinho')
       navigate("PetList")
     })
     .catch((err) => {
