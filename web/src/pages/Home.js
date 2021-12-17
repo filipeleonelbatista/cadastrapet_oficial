@@ -15,6 +15,7 @@ import api from "../services/api";
 import styles from "../styles/pages/Home.module.css";
 import Floating from '../components/Floating'
 import Input from '../components/Input'
+import { sendDiscordNotification } from "../services/discord-notify";
 
 function Home(){
   const [isShow, setIsShow] = useState(false);
@@ -57,6 +58,25 @@ function Home(){
         feitoContato: false,
         convertido: false
       }
+      const whatsMessage = 
+      `Olá
+      Recebemos seu interesse em participar da beta do nosso app
+      Logo mandaremos mais detalhes sobre como voce poderá ter acesso ao nosso app
+
+      Att,  Equipe Cadastra Pet
+      `
+      const discordMessage = `
+      Contato feito pelo form da BETA
+      
+**Nome:** ${data.nome}
+**IP:** ${data.ip}
+**Celular:** ${data.celular}
+**Email:** ${data.email}
+
+https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessage)}
+`
+
+      sendDiscordNotification(discordMessage,'doguinho')
 
     alert('Recebemos seu contato. Aguarde no seu email o convite para a beta!')
     const result = await api.post("contatos", data);
@@ -88,6 +108,27 @@ function Home(){
         feitoContato: false,
         convertido: false
       }
+      
+      const whatsMessage = 
+      `Olá
+      Recebemos seu interesse em acessar o nosso app
+      Logo mandaremos mais detalhes sobre como voce poderá ter acesso ao nosso app
+
+      Att,  Equipe Cadastra Pet
+      `
+      const discordMessage = `
+      Contato feito pelo form da Modal landing tutor
+      
+**Nome:** ${data.nome}
+**IP:** ${data.ip}
+**Celular:** ${data.celular}
+**Email:** ${data.email}
+
+https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessage)}
+`
+
+      sendDiscordNotification(discordMessage,'doguinho')
+
     const result = await api.post("contatos", data);
     if (result.status === 201) {
       setname('')
