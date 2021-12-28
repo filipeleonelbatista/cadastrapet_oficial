@@ -7,5 +7,6 @@ import { AddVaccine } from "./AddVaccine";
 import { PetHistory } from "./PetHistory";
 import { PetVaccineHistory } from "./PetVaccineHistory";
 import { Register } from "./Register";
+import { TutorProfile } from "./TutorProfile";
 
-export { Login, Register, PetList, CreatePet, PetProfile, PetCode, AddVaccine, PetHistory, PetVaccineHistory };
+export { Login, Register, PetList, CreatePet, PetProfile, PetCode, AddVaccine, PetHistory, PetVaccineHistory, TutorProfile };
