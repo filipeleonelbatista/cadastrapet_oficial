@@ -32,7 +32,7 @@ export function PetProfile(){
           <FontAwesome5 style={{marginRight: 8}} name="book-open" size={44} color="#566DEA"/> 
           <Text style={styles.petName}>Dados Gerais</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigate('PetHistory')} style={styles.petItem}>
+        <TouchableOpacity onPress={() => navigate('PetMedicalHistory')} style={styles.petItem}>
           <FontAwesome5 style={{marginRight: 8}} name="book-medical" size={44} color="#566DEA"/> 
           <Text style={styles.petName}>Histórico de Consultas</Text>
         </TouchableOpacity>

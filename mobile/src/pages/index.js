@@ -8,7 +8,8 @@ import { PetHistory } from "./PetHistory";
 import { PetList } from "./PetList";
 import { PetProfile } from "./PetProfile";
 import { PetVaccineHistory } from "./PetVaccineHistory";
+import { PetMedicalHistory } from "./PetMedicalHistory";
 import { Register } from "./Register";
 import { TutorProfile } from "./TutorProfile";
 
-export { Login, Register, PetList, CreatePet, EditPet, PetProfile, PetCode, AddVaccine, PetHistory, PetVaccineHistory, TutorProfile, PetGeneralData };
+export { Login, Register, PetList, CreatePet, EditPet, PetProfile, PetCode, AddVaccine, PetHistory, PetVaccineHistory, PetMedicalHistory, TutorProfile, PetGeneralData };

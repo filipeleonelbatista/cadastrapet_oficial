@@ -8,7 +8,7 @@ import { styles } from './styles';
 
 import { useNavigation } from '@react-navigation/native';
 
-export function PetVaccineHistory(){
+export function PetMedicalHistory(){
   const { navigate } = useNavigation();
   return (    
     <View style={styles.container}>  
@@ -20,28 +20,21 @@ export function PetVaccineHistory(){
       <Text style={styles.title}>Doguinho</Text>  
     </View>
     <View style={styles.header}>
-      <Text style={styles.headerTitle}>Vacinas</Text>  
+      <Text style={styles.headerTitle}>Histórico médico</Text>  
     </View>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.petItem}>
+        <TouchableOpacity style={styles.petItem}>
           <View style={styles.itemRow}>            
-            <Text style={styles.vaccine}>Raiva</Text>
+            <Text style={styles.medicalRecordTitle}>Consulta</Text>
             <View style={styles.line}></View>
-            <Text style={styles.applicationDate}>23/12/2021</Text>
+            <Text style={styles.medicalRecordDate}>23/12/2021</Text>
           </View>
-          <Text style={styles.repeatApplicationDate}>Próx. dose: 11/01/2022</Text>
-        </View>
-        <View style={styles.petItem}>
-          <View style={styles.itemRow}>            
-            <Text style={styles.vaccine}>Raiva</Text>
-            <View style={styles.line}></View>
-            <Text style={styles.applicationDate}>23/12/2021</Text>
-          </View>
-          <Text style={styles.repeatApplicationDate}></Text>
-        </View>
-        <TouchableOpacity onPress={ () => navigate('AddVaccine') } style={styles.addPetButton}>
+          <Text style={styles.repeatApplicationDate}>Resuminho</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={ () => navigate('PetHistory') } style={styles.addPetButton}>
           <FontAwesome5 name="plus" size={16} color="#566DEA" style={{marginRight: 8}}/> 
-          <Text style={styles.addPetButtonText}>Adicionar vacina</Text>
+          <Text style={styles.addPetButtonText}>Adicionar histórico</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

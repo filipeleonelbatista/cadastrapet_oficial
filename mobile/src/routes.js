@@ -14,7 +14,8 @@ import {
   PetVaccineHistory,
   TutorProfile,
   EditPet,
-  PetGeneralData
+  PetGeneralData,
+  PetMedicalHistory
 } from "./pages";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import { PetContextProvider } from "./contexts/PetContext";
@@ -38,6 +39,7 @@ function Routes() {
             <Screen name="PetCode" component={PetCode} />
             <Screen name="PetHistory" component={PetHistory} />
             <Screen name="PetVaccineHistory" component={PetVaccineHistory} />
+            <Screen name="PetMedicalHistory" component={PetMedicalHistory} />
             <Screen name="PetGeneralData" component={PetGeneralData} />
           </Navigator>
         </PetContextProvider>
