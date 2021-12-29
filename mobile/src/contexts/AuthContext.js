@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDocs, collection, getDoc } from "firebase/firestore";
 import React, { useState, createContext, useEffect } from "react";
 import { authentication, db } from "../firebase/firebase-config";
 import { sendDiscordNotification } from "../services/discord-notify";
@@ -13,14 +13,46 @@ export function AuthContextProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = authentication.onAuthStateChanged((user) => {
-      console.log("Estou aqui =>", user.uid);
+    const unsubscribe = authentication.onAuthStateChanged(async (user) => {
+      if(user){
+        setIsLoggedIn(true)
+        const loggedUser = await getUserByID(user.uid)
+        setUser(loggedUser)
+      }else{
+        setIsLoggedIn(false)
+      }
     });
 
     return () => {
       unsubscribe();
     };
   }, []);
+
+  async function getUserByID(id){
+    const usersRef = doc(db, 'users', id)
+    const userSnap = await getDoc(usersRef);
+    const user = userSnap.data()
+    return user;
+  }
+
+  async function updateUserByID(id, data){
+    const userData = await getUserByID(id)
+    const userUpdated = {
+      ...userData,
+      ...data,
+    }
+    try {
+      await setDoc(doc(db, "users", id), userUpdated);
+      setUser(userUpdated);
+      return true;
+    } catch (err) {
+      Alert.alert(
+        "Erro",
+        `Houve um erro ao atualizar dados do usuário. Tente novamente mais tarde`
+      );
+      return false;
+    }
+  }
 
   async function RegisterUser({email, password, user}) {
     return createUserWithEmailAndPassword(authentication, email, password)
@@ -52,7 +84,6 @@ export function AuthContextProvider(props) {
         }
       })
       .catch((err) => {
-        console.log(err.code);
         Alert.alert("Erro", AuthErrorHandler[err.code]);
         return false
       });
@@ -66,6 +97,7 @@ export function AuthContextProvider(props) {
         RegisterUser,
         isLoggedIn,
         setIsLoggedIn,
+        updateUserByID,
       }}
     >
       {props.children}

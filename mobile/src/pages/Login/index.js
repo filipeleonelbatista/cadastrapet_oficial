@@ -6,11 +6,11 @@ import { Input } from '../../components/Input';
 import { styles } from './styles';
 import { authentication } from '../../firebase/firebase-config'
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import {useAuth} from '../../hooks/useAuth'
 
 export function Login(){
   const { navigate } = useNavigation();
-  const [isSignedIn, setIsSignedIn] = useState(false);
-
+  const { isLoggedIn } = useAuth()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,9 +23,17 @@ export function Login(){
   }
 
   useEffect(()=>{
-    
-  }, [])
+    if(isLoggedIn){
+      navigate("PetList")
+    }
+  }, [isLoggedIn])
 
+  useEffect(()=>{
+    if(isLoggedIn){
+      navigate("PetList")
+    }
+  }, [])
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}

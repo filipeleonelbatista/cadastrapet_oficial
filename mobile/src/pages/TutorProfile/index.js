@@ -1,29 +1,26 @@
+import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from 'firebase/firestore';
 import React, { useState } from "react";
 import {
-  KeyboardAvoidingView,
+  Alert, ImageBackground, KeyboardAvoidingView,
   Platform,
   Text,
-  View,
-  ImageBackground,
-  Alert,
+  View
 } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-import { authentication, db, storage } from "../../firebase/firebase-config";
-import {doc, setDoc} from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { authentication, db } from "../../firebase/firebase-config";
+import { uploadImageAsync } from '../../firebase/functions';
 import { sendDiscordNotification } from "../../services/discord-notify";
 import { getCepInformation } from "../../utils/cep";
+import { AuthErrorHandler } from "../../utils/handleFirebaseError";
 import { cep as formatCep, cpf as formatCpf } from "../../utils/masks";
 import { isStringEmpty } from "../../utils/string";
 import { styles } from "./styles";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { FontAwesome5 } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
-import uuid from "uuid";
-import { AuthErrorHandler } from "../../utils/handleFirebaseError";
 
 export function TutorProfile() {
   const { navigate } = useNavigation();
@@ -137,31 +134,7 @@ export function TutorProfile() {
       return true;
     }
   }
-  async function uploadImageAsync(uri) {
-    // Why are we using XMLHttpRequest? See:
-    // https://github.com/expo/expo/issues/2402#issuecomment-443726662
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function (e) {
-        console.log(e);
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", uri, true);
-      xhr.send(null);
-    });
   
-    const fileRef = ref(getStorage(), `/users/${Math.random()*999999}.jpg`);
-    const result = await uploadBytes(fileRef, blob);
-  
-    // We're done with the blob, close and release it
-    blob.close();
-  
-    return await getDownloadURL(fileRef);
-  }
   const RegisterUser = async () => {
     if(ValidateFields()) return;   
     createUserWithEmailAndPassword(authentication, email, password)
@@ -169,7 +142,7 @@ export function TutorProfile() {
         let uploadURLImage = '';
 
         if(!selectedImage.cancelled){
-          uploadURLImage = await uploadImageAsync(selectedImage.uri)
+          uploadURLImage = await uploadImageAsync(selectedImage.uri, '/users')
         }
 
         const data = {

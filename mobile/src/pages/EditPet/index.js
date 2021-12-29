@@ -1,7 +1,7 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImageBackground, KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Button } from "../../components/Button";
@@ -12,10 +12,10 @@ import { usePet } from "../../hooks/usePet";
 import { isStringEmpty } from "../../utils/string";
 import { styles } from "./styles";
 
-export function CreatePet() {
+export function EditPet() {
   const { navigate } = useNavigation();
   const {user} = useAuth()
-  const {getNewPetID, updatePetByID} = usePet()
+  const {selectedPet, updatePetByID} = usePet()
 
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
@@ -35,7 +35,6 @@ export function CreatePet() {
     }
   };
 
-  
   const ValidateFields = () => {
     if (isStringEmpty(name)) {
       Alert.alert("Campo vazio", "O campo nome não foi preenchido");
@@ -54,16 +53,15 @@ export function CreatePet() {
     }
   }
 
-  async function handleCreatePet(){
+  async function handleEditPet(){
     if(ValidateFields()) return;   
     let uploadURLImage = '';
     if(!selectedImage.cancelled){
       uploadURLImage = await uploadImageAsync(selectedImage.uri, '/pets')
     }
 
-    const petID = await getNewPetID()
     const data = {
-      uid: petID,
+      uid: selectedPet.uid,
       name,
       avatar: uploadURLImage,
       tutor: [user.uid],
@@ -72,9 +70,16 @@ export function CreatePet() {
       events: []
     };
 
-    if(await updatePetByID(petID, data, user, true)) return navigate("PetProfile")
+    if(await updatePetByID(selectedPet.uid, data, user)) return navigate("PetProfile")
 
   }
+
+  useEffect(() => {
+    setAdoptionDate(selectedPet.adoption_date)
+    setSelectedImage({uri: selectedPet.avatar})
+    setBirthDate(selectedPet.birth_date)
+    setName(selectedPet.name)
+  },[])
 
   return (
     <KeyboardAvoidingView
@@ -88,7 +93,7 @@ export function CreatePet() {
         <FontAwesome5 name="arrow-left" size={24} color="#566DEA" />
       </TouchableOpacity>
       <View style={styles.content}>
-        <Text style={styles.title}>Adicionar Pet</Text>
+        <Text style={styles.title}>Editar Pet</Text>
       </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.content}>
@@ -134,7 +139,7 @@ export function CreatePet() {
             />
           </View>
           <View style={styles.actions}>
-            <Button onPress={handleCreatePet} text="Salvar" />
+            <Button onPress={handleEditPet} text="Salvar" />
             <Button
               onPress={() => navigate("PetProfile")}
               text="Cancelar"
