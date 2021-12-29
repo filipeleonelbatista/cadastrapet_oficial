@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React, {useState, useEffect} from "react";
 import { useNavigation } from '@react-navigation/native';
-import { Image, Text, View } from 'react-native';
+import { Image, Text, View, Alert } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { styles } from "./styles";
 import {usePet} from '../../hooks/usePet'

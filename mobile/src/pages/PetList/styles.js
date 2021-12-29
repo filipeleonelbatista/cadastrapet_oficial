@@ -23,11 +23,11 @@ export const styles = StyleSheet.create({
     color: '#566DEA',
     marginVertical: 28,
   },
-  petGroup:{
+  scrollView: {
+    marginVertical: 4,
     width: Dimensions.get('window').width,
-    paddingHorizontal: 24,
-    marginVertical: 24,
-  },  
+    paddingHorizontal:24,
+  },
   addPetButton:{
     width: '100%',
     borderRadius: 8,

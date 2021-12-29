@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Text, View, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { PetItem } from '../../components/PetItem';
 import { useAuth } from '../../hooks/useAuth';
@@ -22,14 +22,14 @@ export function PetList(){
     <View style={styles.container}>
       <Image source={require('../../assets/logo.png')} style={styles.image} />
       <Text style={styles.title}>Meus Pets</Text>
-      <View style={styles.petGroup}>
+      <ScrollView style={styles.scrollView}>
         { CurrentUser?.pets.length === 0 && <Text style={styles.title}>Nenhum Pet cadastrado</Text> }
         {CurrentUser?.pets.map(pet => <PetItem key={pet} id={pet} />)}          
           <TouchableOpacity onPress={ () => navigate('CreatePet') } style={styles.addPetButton}>
             <FontAwesome5 name="plus" size={16} color="#566DEA" style={{marginRight: 8}}/> 
             <Text style={styles.addPetButtonText}>Adicionar pet</Text>
           </TouchableOpacity>
-      </View>
+      </ScrollView>
     </View>
   );
 }
