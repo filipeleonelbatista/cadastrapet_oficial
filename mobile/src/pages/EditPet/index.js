@@ -8,14 +8,12 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { uploadImageAsync } from '../../firebase/functions';
 import { useAuth } from "../../hooks/useAuth";
-import { usePet } from "../../hooks/usePet";
 import { isStringEmpty } from "../../utils/string";
 import { styles } from "./styles";
 
 export function EditPet() {
   const { navigate } = useNavigation();
-  const {user} = useAuth()
-  const {selectedPet, updatePetByID} = usePet()
+  const {selectedPet, updatePetByID, user} = useAuth()
 
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");

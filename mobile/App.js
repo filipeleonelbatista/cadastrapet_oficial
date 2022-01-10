@@ -3,8 +3,11 @@ import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import Routes from './src/routes';
+import { LogBox } from 'react-native';
 
 export default function App() { 
+  LogBox.ignoreAllLogs()
+
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,

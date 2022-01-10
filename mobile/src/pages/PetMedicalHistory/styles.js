@@ -107,4 +107,11 @@ export const styles = StyleSheet.create({
     color: '#566DEA',
     fontFamily: 'Poppins_400Regular',
   },
+  petImage:{ 
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    resizeMode: 'cover',
+    marginRight: 8,
+  },
 });

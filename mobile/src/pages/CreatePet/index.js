@@ -8,14 +8,12 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { uploadImageAsync } from '../../firebase/functions';
 import { useAuth } from "../../hooks/useAuth";
-import { usePet } from "../../hooks/usePet";
 import { isStringEmpty } from "../../utils/string";
 import { styles } from "./styles";
 
 export function CreatePet() {
   const { navigate } = useNavigation();
-  const {user} = useAuth()
-  const {getNewPetID, updatePetByID} = usePet()
+  const {getNewPetID, updatePetByID, user} = useAuth()
 
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
@@ -35,7 +33,6 @@ export function CreatePet() {
     }
   };
 
-  
   const ValidateFields = () => {
     if (isStringEmpty(name)) {
       Alert.alert("Campo vazio", "O campo nome não foi preenchido");

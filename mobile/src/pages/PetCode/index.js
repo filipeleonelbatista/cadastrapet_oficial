@@ -6,13 +6,13 @@ import { QRCode } from 'react-native-custom-qr-codes-expo';
 import { styles } from './styles';
 import { Input } from '../../components/Input';
 import { useNavigation } from '@react-navigation/native';
-import { usePet } from "../../hooks/usePet";
+import { useAuth } from "../../hooks/useAuth";
 import { SITE_URL } from '../../utils/constants';
 
 export function PetCode(){
   const { navigate } = useNavigation();
   const [pet, setPet] = useState();
-  const { selectedPet } = usePet();
+  const { selectedPet } = useAuth();
 
   async function handleShare(){
     try {

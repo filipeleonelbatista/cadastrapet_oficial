@@ -3,14 +3,14 @@ import { useNavigation } from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import { Image, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { usePet } from '../../hooks/usePet';
+import { useAuth } from '../../hooks/useAuth';
 import { styles } from './styles';
 
 export function PetProfile(){
   const { navigate } = useNavigation();
   const [pet, setPet] = useState();
   
-  const { selectedPet } = usePet()
+  const { selectedPet } = useAuth()
 
   useEffect(() => {    
     setPet(selectedPet)

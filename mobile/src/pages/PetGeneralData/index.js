@@ -5,13 +5,13 @@ import { ImageBackground, KeyboardAvoidingView, Platform, Text, View } from "rea
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-import { usePet } from "../../hooks/usePet";
+import { useAuth } from "../../hooks/useAuth";
 import { styles } from "./styles";
 
 export function PetGeneralData() {
   const { navigate } = useNavigation();
   const [pet, setPet] = useState();
-  const { selectedPet } = usePet();
+  const { selectedPet } = useAuth();
 
   useEffect(() => {
     setPet(selectedPet);

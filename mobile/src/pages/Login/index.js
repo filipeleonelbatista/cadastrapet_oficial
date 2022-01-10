@@ -1,12 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform, Text, View } from 'react-native';
+import { Alert, Image, KeyboardAvoidingView, Platform, Text, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { styles } from './styles';
 import { authentication } from '../../firebase/firebase-config'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {useAuth} from '../../hooks/useAuth'
+import { AuthErrorHandler } from "../../utils/handleFirebaseError";
 
 export function Login(){
   const { navigate } = useNavigation();
@@ -19,7 +20,9 @@ export function Login(){
     .then((re) => {
       navigate('PetList')
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      Alert.alert("Erro", AuthErrorHandler[err.code]);
+    })
   }
 
   useEffect(()=>{
@@ -40,6 +43,7 @@ export function Login(){
       style={styles.container}>
       <Image source={require('../../assets/logo.png')} style={styles.image} />
       <Text style={styles.subtitle}>Cadastrando e Prolongando Vidas</Text>
+      <Text style={styles.subtitle}>ALPHA FECHADO Ver. 110122.123</Text>
       <View style={styles.buttonGroup}>        
         <Input label="Email" value={email} onChangeText={text=>setEmail(text)} />
         <Input label="Senha" value={password} onChangeText={text=>setPassword(text)} secureTextEntry />

@@ -18,7 +18,6 @@ import {
   PetMedicalHistory
 } from "./pages";
 import { AuthContextProvider } from "./contexts/AuthContext";
-import { PetContextProvider } from "./contexts/PetContext";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -26,7 +25,6 @@ function Routes() {
   return (
     <NavigationContainer>
       <AuthContextProvider>
-        <PetContextProvider>
           <Navigator screenOptions={{ headerShown: false }}>
             <Screen name="Login" component={Login} />
             <Screen name="Register" component={Register} />
@@ -42,7 +40,6 @@ function Routes() {
             <Screen name="PetMedicalHistory" component={PetMedicalHistory} />
             <Screen name="PetGeneralData" component={PetGeneralData} />
           </Navigator>
-        </PetContextProvider>
       </AuthContextProvider>
     </NavigationContainer>
   );

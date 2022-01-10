@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import {
   FaHandHoldingHeart,
-  FaInstagram,
-  FaLinkedinIn,
-  FaMobile,
+  FaInstagram, FaMobile,
   FaShareAlt,
   FaWhatsapp,
+  FaFacebook,
+  FaDiscord,
+  FaFacebookMessenger
 } from "react-icons/fa";
-
-import {Link} from 'react-router-dom'
-
 import ScrollContainer from "react-indiana-drag-scroll";
+import { Link } from 'react-router-dom';
+import Floating from '../components/Floating';
+import Input from '../components/Input';
 import api from "../services/api";
-import styles from "../styles/pages/Home.module.css";
-import Floating from '../components/Floating'
-import Input from '../components/Input'
 import { sendDiscordNotification } from "../services/discord-notify";
+import styles from "../styles/pages/Home.module.css";
 
 function Home(){
   const [isShow, setIsShow] = useState(false);
@@ -409,8 +408,14 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
             <a href="https://instagram.com/cadastra.pet">
               <FaInstagram />
             </a>
-            <a href="https://instagram.com/cadastra.pet">
-              <FaLinkedinIn />
+            <a href="https://fb.me/cadastra.pet">
+              <FaFacebook />
+            </a>
+            <a href="https://m.me/cadastra.pet">
+              <FaFacebookMessenger />
+            </a>
+            <a href="https://discord.gg/tSTqcBceaA">
+              <FaDiscord />
             </a>
           </div>
         </div>
