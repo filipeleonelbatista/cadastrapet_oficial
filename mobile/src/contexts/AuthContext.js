@@ -5,14 +5,19 @@ import { authentication, db } from "../firebase/firebase-config";
 import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
 import { Alert } from "react-native";
-import {Loading} from "../components/Loading"
+import { Loading } from "../components/Loading"
 
 export const AuthContext = createContext({});
 
 export function AuthContextProvider(props) {
   const [user, setUser] = useState();
-  const [petList, setPetList] = useState();
+  const [user_id, setUserId] = useState();
+  const [petList, setPetList] = useState([]);
   const [selectedPet, setSelectedPet] = useState();
+  const [medicalHistoryList, setMedicalHistoryList] = useState([]);
+  const [vaccineList, setVaccineList] = useState([]);
+  const [selectedMedicalHistory, setSelectedMedicalHistory] = useState();
+  const [selectedVaccine, setSelectedVaccine] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -28,7 +33,7 @@ export function AuthContextProvider(props) {
           const loadedPet = await getPetByID(id);
           if (loadedPet) currentPetList.push(loadedPet);
         });
-
+        setUserId(loggedUser.uid)
         setUser(loggedUser);
         setPetList(currentPetList);
       } else {
@@ -41,10 +46,20 @@ export function AuthContextProvider(props) {
     };
   }, []);
 
-  function logout(){
+  useEffect(()=>{    
+    const updateMedicalHistory = async () => await updateMedicalHistoryList()
+    updateMedicalHistory()
+    const updateVaccine = async () => await updateVaccineList()
+    updateVaccine()
+  }, [selectedPet])
+
+  function logout() {
     signOut(authentication).then(() => {
       setUser(null)
-      setPetList(null)
+      setUserId(null)
+      setPetList([])
+      setMedicalHistoryList([])
+      setSelectedMedicalHistory(null)
       setSelectedPet(null)
       setIsLoaded(false)
       setIsLoggedIn(false)
@@ -54,7 +69,161 @@ export function AuthContextProvider(props) {
         `Houve um erro ao tentar sair. Tente novamente mais tarde`
       );
     });
-    
+
+  }
+
+  async function getNewVaccineID() {
+    const vaccineRef = collection(db, "vaccine");
+    const newVaccine = await addDoc(vaccineRef, {});
+    return newVaccine.id;
+  }
+
+  async function updateVaccineList(){
+    let currentVaccineList = []
+
+    selectedPet.vaccines.map(async (id) => {
+      const loadedVaccine = await getVaccineByID(id);      
+      if (loadedVaccine) currentVaccineList.push(loadedVaccine);
+    })
+
+    setVaccineList(currentVaccineList)
+  }
+
+  async function getVaccineByID(id) {
+    const vaccineRef = doc(db, "vaccine", id);
+    const vaccineSnap = await getDoc(vaccineRef);
+    const vaccine = vaccineSnap.data();
+    return vaccine;
+  }
+
+  async function updatePetVaccineByID(id, data) {
+    const petData = await getPetByID(id);
+    const updatedPet = {
+      ...petData,
+      ...data,
+    };
+    try {
+      await setDoc(doc(db, "pets", id), updatedPet);
+      setSelectedPet(updatedPet);
+      return true;
+    } catch (err) {
+      sendDiscordNotification(
+        `Houve um erro ao atualizar dados do pet\n\n ${JSON.stringify(data)}\n\nlog do erro:\n\n${err}`,
+        "doguinho"
+      );
+      Alert.alert(
+        "Erro",
+        `Houve um erro ao atualizar dados do pet. Tente novamente mais tarde`
+      );
+      return false;
+    }
+  }
+
+  async function updateVaccineByID(id, data, pet) {
+    const vaccineData = await getVaccineByID(id);
+    const updatedVaccine = {
+      ...vaccineData,
+      ...data,
+    };
+    try {
+      await setDoc(doc(db, "vaccine", id), updatedVaccine);
+      setSelectedVaccine(updatedVaccine);
+
+      const updateVaccineArray = pet.vaccines.includes(id)
+        ? [...pet.vaccines]
+        : [...pet.vaccines, id];
+      if (!(await updatePetVaccineByID(pet.uid, { vaccines: [...updateVaccineArray] })))
+        return false;
+        updateVaccineList()
+      return true;
+    } catch (err) {
+      sendDiscordNotification(
+        `Houve um erro ao adicionar histórico de vacina\n\n ${JSON.stringify(data)}\n\nlog do erro:\n\n${err}`,
+        "doguinho"
+      );
+      Alert.alert(
+        "Erro",
+        `Houve um erro ao adicionar histórico de vacina. Tente novamente mais tarde`
+      );
+      return false;
+    }
+  }
+
+  async function updateMedicalHistoryList(){
+    let currentMedicalHistoryList = []
+
+    selectedPet.events.map(async (id) => {
+      const loadedMedicalHistory = await getMedicalHistoryID(id);      
+      if (loadedMedicalHistory) currentMedicalHistoryList.push(loadedMedicalHistory);
+    })
+
+    setMedicalHistoryList(currentMedicalHistoryList)
+  }
+
+  async function getNewMedicalHistoryID() {
+    const medicalHistoryRef = collection(db, "medical-history");
+    const newMedicalHistory = await addDoc(medicalHistoryRef, {});
+    return newMedicalHistory.id;
+  }
+
+  async function getMedicalHistoryID(id){
+    const medicalHistoryRef = doc(db, "medical-history", id);
+    const medicalHistorySnap = await getDoc(medicalHistoryRef);
+    const medicalHistory = medicalHistorySnap.data();
+    return medicalHistory;
+  }
+
+  async function updatePetMedicalHistoryByID(id, data) {
+    const petData = await getPetByID(id);
+    const updatedPet = {
+      ...petData,
+      ...data,
+    };
+    try {
+      await setDoc(doc(db, "pets", id), updatedPet);
+      setSelectedPet(updatedPet);
+      return true;
+    } catch (err) {
+      sendDiscordNotification(
+        `Houve um erro ao atualizar dados do pet\n\n ${JSON.stringify(data)}\n\nlog do erro:\n\n${err}`,
+        "doguinho"
+      );
+      Alert.alert(
+        "Erro",
+        `Houve um erro ao atualizar dados do pet. Tente novamente mais tarde`
+      );
+      return false;
+    }
+  }
+
+  async function updateMedicalHistoryByID(id, data, pet) {
+    const medicalHistoryData = await getMedicalHistoryID(id);
+    const updatedMedicalHistory = {
+      ...medicalHistoryData,
+      ...data,
+    };
+    try {
+      await setDoc(doc(db, "medical-history", id), updatedMedicalHistory);
+      setSelectedMedicalHistory(updatedMedicalHistory);
+
+      const updatePetMedicalHistoryArray = pet.events.includes(id)
+        ? [...pet.events]
+        : [...pet.events, id];
+      if (!(await updatePetMedicalHistoryByID(pet.uid, { events: [...updatePetMedicalHistoryArray] })))
+        return false;
+        updateMedicalHistoryList()
+      return true;
+    } catch (err) {
+      sendDiscordNotification(
+        `Houve um erro ao adicionar histórico medico\n\n ${JSON.stringify(data)}\n\nlog do erro:\n\n${err}`,
+        "doguinho"
+      );
+      Alert.alert(
+        "Erro",
+        `Houve um erro ao adicionar histórico medico. Tente novamente mais tarde`
+      );
+      return false;
+    }
   }
 
   async function getNewPetID() {
@@ -95,23 +264,20 @@ export function AuthContextProvider(props) {
 
       if (message)
         sendDiscordNotification(
-          `Novo Pet Adicionado pelo tutor: ${
-            user.name
+          `Novo Pet Adicionado pelo tutor: ${user.name
           } no app\n\n**Pet:** ${JSON.stringify(data)}`,
           "doguinho"
         );
       return true;
     } catch (err) {
       sendDiscordNotification(
-        `Houve um erro ao ${
-          message ? "adicionar" : "atualizar dados do"
+        `Houve um erro ao ${message ? "adicionar" : "atualizar dados do"
         } pet\n\n ${JSON.stringify(data)}\n\nlog do erro:\n\n${err}`,
         "doguinho"
       );
       Alert.alert(
         "Erro",
-        `Houve um erro ao ${
-          message ? "adicionar" : "atualizar dados do"
+        `Houve um erro ao ${message ? "adicionar" : "atualizar dados do"
         } pet. Tente novamente mais tarde`
       );
       return false;
@@ -126,7 +292,8 @@ export function AuthContextProvider(props) {
     };
     try {
       await setDoc(doc(db, "users", id), userUpdated);
-      setUser(userUpdated);
+      setUser(userUpdated);      
+      setUserId(userUpdated.uid)
       return true;
     } catch (err) {
       Alert.alert(
@@ -151,6 +318,7 @@ export function AuthContextProvider(props) {
             "doguinho"
           );
           setUser(newUser);
+          setUserId(newUser.uid)
           return true;
         } catch (err) {
           sendDiscordNotification(
@@ -183,6 +351,7 @@ export function AuthContextProvider(props) {
     });
 
     setUser(loggedUser);
+    setUserId(loggedUser.uid)
     setPetList(currentPetList);
   }
 
@@ -190,6 +359,7 @@ export function AuthContextProvider(props) {
     <AuthContext.Provider
       value={{
         user,
+        user_id,
         setUser,
         RegisterUser,
         isLoggedIn,
@@ -205,7 +375,22 @@ export function AuthContextProvider(props) {
         isLoaded,
         setIsLoaded,
         updateContextData,
-        logout
+        logout,
+        getNewMedicalHistoryID,
+        updateMedicalHistoryByID,
+        selectedMedicalHistory,
+        updateMedicalHistoryList,
+        medicalHistoryList, 
+        setSelectedMedicalHistory,
+        updateVaccineByID,
+        updatePetVaccineByID,
+        getVaccineByID,
+        updateVaccineList,
+        getNewVaccineID,
+        selectedVaccine, 
+        setSelectedVaccine,
+        vaccineList, 
+        setVaccineList
       }}
     >
       {isLoaded ? <Loading /> : <>{props.children}</>}

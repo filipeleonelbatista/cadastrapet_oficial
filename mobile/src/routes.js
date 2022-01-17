@@ -11,11 +11,13 @@ import {
   PetCode,
   AddVaccine,
   PetHistory,
+  PetHistoryView,
   PetVaccineHistory,
   TutorProfile,
   EditPet,
   PetGeneralData,
-  PetMedicalHistory
+  PetMedicalHistory,
+  ViewVaccine
 } from "./pages";
 import { AuthContextProvider } from "./contexts/AuthContext";
 
@@ -36,9 +38,11 @@ function Routes() {
             <Screen name="AddVaccine" component={AddVaccine} />
             <Screen name="PetCode" component={PetCode} />
             <Screen name="PetHistory" component={PetHistory} />
+            <Screen name="PetHistoryView" component={PetHistoryView} />
             <Screen name="PetVaccineHistory" component={PetVaccineHistory} />
             <Screen name="PetMedicalHistory" component={PetMedicalHistory} />
             <Screen name="PetGeneralData" component={PetGeneralData} />
+            <Screen name="ViewVaccine" component={ViewVaccine} />
           </Navigator>
       </AuthContextProvider>
     </NavigationContainer>

@@ -23,7 +23,6 @@ export function PetList() {
           text: "Sim", onPress: () => {
             logout()
             navigate('Login')
-            BackHandler.exitApp()
           }
         }
       ]);
@@ -38,9 +37,9 @@ export function PetList() {
     return () => backHandler.remove();
   }, []);
 
-
   useEffect(() => {
-    updateContextData()
+    const currentFunction = async () => await updateContextData()
+    currentFunction()
   }, []);
 
   return (

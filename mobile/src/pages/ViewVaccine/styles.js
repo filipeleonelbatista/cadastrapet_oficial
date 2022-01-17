@@ -11,35 +11,37 @@ export const styles = StyleSheet.create({
   scrollView: {
     marginVertical: 4,
     width: Dimensions.get('window').width,
-    height: '100%',
+    paddingHorizontal:24,
   },
   content:{
-    flexDirection: 'row',
     alignItems: 'center',
-    width: '100%',
-    paddingHorizontal:24,
-    marginVertical: 16,
-  },
-  inputGroup:{
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    paddingHorizontal:24,
-    marginVertical: 16,
+    width: '100%'
   },
   title:{
     fontWeight: 'bold',
+    fontFamily: 'Poppins_700Bold',
     fontSize: 24,
     color: '#566DEA',
     marginVertical: 8,
-    fontFamily: 'Poppins_700Bold',
+  },
+  image:{
+    textAlign: 'center',
+    marginVertical: 32,
+    width: 180,
+    height: 30, 
+    resizeMode: 'contain'
+  },
+  petGroup:{
+    width: Dimensions.get('window').width,
+    paddingHorizontal: 24,
+    marginVertical: 24,
   },
   petItem:{
     borderRadius: 8,
     backgroundColor:"#FFF",
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
+    padding: 8,
     marginVertical: 8,
   },
   petImage:{ 
@@ -54,25 +56,14 @@ export const styles = StyleSheet.create({
     fontFamily: 'Poppins_700Bold',
     fontSize: 20,
     color: '#566DEA',
-    marginVertical: 14,
+    marginVertical: 28,
+    marginRight: 16,
   },
   petActions:{
     flex: 1, 
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent:'flex-end'
-  },
-  buttonNavGroup:{
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    width: '100%',
-    paddingHorizontal:14,
-  },
-  buttonGroup:{
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    width: '100%',
-    paddingHorizontal:14,
   },
   buttonRounded:{
     width: 48,
@@ -91,5 +82,10 @@ export const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent: 'center',
     marginBottom: 16,
+  },
+  actions:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 16,
   },
 });

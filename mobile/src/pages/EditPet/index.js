@@ -65,7 +65,10 @@ export function EditPet() {
       tutor: [user.uid],
       adoption_date,
       birth_date,
-      events: []
+      events: selectedPet.events,
+      vaccines: selectedPet.vaccines,
+      created_at: selectedPet.created_at,
+      updated_at: Date.now()
     };
 
     if(await updatePetByID(selectedPet.uid, data, user)) return navigate("PetProfile")

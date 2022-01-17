@@ -45,7 +45,7 @@ export function Login(){
       <Text style={styles.subtitle}>Cadastrando e Prolongando Vidas</Text>
       <View style={styles.buttonGroup}>        
         <Input label="Email" value={email} onChangeText={text=>setEmail(text)} />
-        <Input label="Senha" value={password} onChangeText={text=>setPassword(text)} secureTextEntry />
+        <Input label="Senha" value={password} onChangeText={text=>setPassword(text)} passwordInputType />
         <Button text="Entrar" onPress={ SignInUser } />
         <Button text="Cadastrar" transparent onPress={ () => navigate('Register') } />
       </View>

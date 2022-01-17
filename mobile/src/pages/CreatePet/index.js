@@ -66,7 +66,10 @@ export function CreatePet() {
       tutor: [user.uid],
       adoption_date,
       birth_date,
-      events: []
+      events: [],
+      vaccines: [],
+      created_at: Date.now(),
+      updated_at: Date.now()
     };
 
     if (await updatePetByID(petID, data, user, true)) return navigate("PetProfile")
