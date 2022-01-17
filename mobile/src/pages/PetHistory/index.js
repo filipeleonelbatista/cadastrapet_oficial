@@ -1,13 +1,13 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import React, {useState} from "react";
-import { Text, View, Image, KeyboardAvoidingView } from "react-native";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Button, ButtonNav } from "../../components/Button";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import { Image, KeyboardAvoidingView, Text, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { Button, ButtonNav, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Textarea } from "../../components/Textarea";
+import { useAuth } from '../../hooks/useAuth';
 import { styles } from "./styles";
-import { useNavigation } from "@react-navigation/native";
-import {useAuth} from '../../hooks/useAuth'
 
 export function PetHistory() {
   const { navigate } = useNavigation();
@@ -23,12 +23,12 @@ export function PetHistory() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <TouchableOpacity
+      <ButtonRounded
         onPress={() => navigate("PetMedicalHistory")}
-        style={styles.buttonRounded}
+        transparent
       >
         <FontAwesome5 name="arrow-left" size={24} color="#566DEA" />
-      </TouchableOpacity>
+      </ButtonRounded>
       <View style={styles.content}>
         <Image
           source={{uri: selectedPet.avatar}}

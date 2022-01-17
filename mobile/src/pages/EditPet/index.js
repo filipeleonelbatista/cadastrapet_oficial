@@ -4,7 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import React, { useEffect, useState } from "react";
 import { ImageBackground, KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Button } from "../../components/Button";
+import { Button, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { uploadImageAsync } from '../../firebase/functions';
 import { useAuth } from "../../hooks/useAuth";
@@ -84,12 +84,12 @@ export function EditPet() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <TouchableOpacity
+      <ButtonRounded
         onPress={() => navigate("PetList")}
-        style={styles.buttonRounded}
+        transparent
       >
         <FontAwesome5 name="arrow-left" size={24} color="#566DEA" />
-      </TouchableOpacity>
+      </ButtonRounded>
       <View style={styles.content}>
         <Text style={styles.title}>Editar Pet</Text>
       </View>

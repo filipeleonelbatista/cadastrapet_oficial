@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { QRCode } from 'react-native-custom-qr-codes-expo';
 import { styles } from './styles';
 import { Input } from '../../components/Input';
+import { ButtonRounded } from '../../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from "../../hooks/useAuth";
 import { SITE_URL } from '../../utils/constants';
@@ -32,9 +33,9 @@ export function PetCode(){
 
   return (    
     <View style={styles.container}>  
-      <TouchableOpacity onPress={ () => navigate('PetProfile') }  style={styles.buttonRounded}>
+      <ButtonRounded onPress={ () => navigate('PetProfile') } transparent>
         <FontAwesome5 name="arrow-left" size={24} color="#566DEA"/> 
-      </TouchableOpacity>     
+      </ButtonRounded>     
       <View style={styles.content}>
         <Image source={{uri: pet.avatar}} style={styles.petImage} />
         <Text style={styles.title}>{pet.name}</Text>  

@@ -1,10 +1,11 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, setDoc, addDoc, collection, getDoc } from "firebase/firestore";
 import React, { useState, createContext, useEffect } from "react";
 import { authentication, db } from "../firebase/firebase-config";
 import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
 import { Alert } from "react-native";
+import {Loading} from "../components/Loading"
 
 export const AuthContext = createContext({});
 
@@ -39,6 +40,22 @@ export function AuthContextProvider(props) {
       unsubscribe();
     };
   }, []);
+
+  function logout(){
+    signOut(authentication).then(() => {
+      setUser(null)
+      setPetList(null)
+      setSelectedPet(null)
+      setIsLoaded(false)
+      setIsLoggedIn(false)
+    }).catch((error) => {
+      Alert.alert(
+        "Erro",
+        `Houve um erro ao tentar sair. Tente novamente mais tarde`
+      );
+    });
+    
+  }
 
   async function getNewPetID() {
     const petRef = collection(db, "pets");
@@ -188,6 +205,7 @@ export function AuthContextProvider(props) {
         isLoaded,
         setIsLoaded,
         updateContextData,
+        logout
       }}
     >
       {isLoaded ? <Loading /> : <>{props.children}</>}

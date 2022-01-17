@@ -5,6 +5,7 @@ import { Image, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { styles } from './styles';
 import {useAuth} from '../../hooks/useAuth'
+import { ButtonRounded } from '../../components/Button';
 
 
 export function PetMedicalHistory(){
@@ -12,9 +13,9 @@ export function PetMedicalHistory(){
   const { selectedPet } =  useAuth()
   return (    
     <View style={styles.container}>  
-    <TouchableOpacity onPress={ () => navigate('PetProfile') } style={styles.buttonRounded}>
+    <ButtonRounded onPress={ () => navigate('PetProfile') } transparent>
       <FontAwesome5 name="arrow-left" size={24} color="#566DEA"/> 
-    </TouchableOpacity>     
+    </ButtonRounded>     
     <View style={styles.content}>
       <Image source={{uri: selectedPet.avatar}} style={styles.petImage} />
       <Text style={styles.title}>{selectedPet.name}</Text>  

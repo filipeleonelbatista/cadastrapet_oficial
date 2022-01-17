@@ -1,20 +1,14 @@
+import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-
 import {
-  View,
-  Text,
   KeyboardAvoidingView,
-  Platform,
+  Platform, Text, View
 } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-
-import { styles } from './styles';
-
-import {FontAwesome5} from '@expo/vector-icons'
-import { Button } from '../../components/Button';
+import { Button, ButtonRounded } from '../../components/Button';
 import { Input } from '../../components/Input';
-
-import { useNavigation } from '@react-navigation/native';
+import { styles } from './styles';
 
 export function AddVaccine(){
   const { navigate } = useNavigation();
@@ -23,9 +17,9 @@ export function AddVaccine(){
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >  
-    <TouchableOpacity onPress={ () => navigate('PetVaccineHistory') } style={styles.buttonRounded}>
+    <ButtonRounded onPress={ () => navigate('PetVaccineHistory') } transparent >
       <FontAwesome5 name="arrow-left" size={24} color="#566DEA"/> 
-    </TouchableOpacity>     
+    </ButtonRounded>     
     <View style={styles.content}>
       <Text style={styles.title}>Adicionar Vacina</Text>  
     </View>

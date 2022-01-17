@@ -11,7 +11,7 @@ import {
   View
 } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Button } from "../../components/Button";
+import { Button, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { authentication, db } from "../../firebase/firebase-config";
 import { uploadImageAsync } from '../../firebase/functions';
@@ -185,12 +185,11 @@ export function TutorProfile() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <TouchableOpacity
-        onPress={() => navigate("Login")}
-        style={styles.buttonRounded}
+      <ButtonRounded
+        onPress={() => navigate("Login")} transparent
       >
         <FontAwesome5 name="arrow-left" size={24} color="#566DEA" />
-      </TouchableOpacity>
+      </ButtonRounded>
       <ScrollView style={styles.scrollView}>
         <View style={styles.content}>
           <Text style={styles.title}>Cadastrar</Text>

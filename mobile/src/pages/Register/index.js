@@ -6,10 +6,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   Text,
-  View,
+  View
 } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Button } from "../../components/Button";
+import { Button, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { useAuth } from "../../hooks/useAuth";
 import { cpf as formatCpf } from "../../utils/masks";
@@ -89,12 +89,12 @@ export function Register() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <TouchableOpacity
+      <ButtonRounded
         onPress={() => navigate("Login")}
-        style={styles.buttonRounded}
+        transparent
       >
         <FontAwesome5 name="arrow-left" size={24} color="#566DEA" />
-      </TouchableOpacity>
+      </ButtonRounded>
       <ScrollView style={styles.scrollView}>
         <View style={styles.content}>
           <Text style={styles.title}>Cadastrar</Text>

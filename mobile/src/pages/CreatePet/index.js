@@ -4,7 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
 import { ImageBackground, KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Button } from "../../components/Button";
+import { Button, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { uploadImageAsync } from '../../firebase/functions';
 import { useAuth } from "../../hooks/useAuth";
@@ -13,7 +13,7 @@ import { styles } from "./styles";
 
 export function CreatePet() {
   const { navigate } = useNavigation();
-  const {getNewPetID, updatePetByID, user} = useAuth()
+  const { getNewPetID, updatePetByID, user } = useAuth()
 
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
@@ -51,10 +51,10 @@ export function CreatePet() {
     }
   }
 
-  async function handleCreatePet(){
-    if(ValidateFields()) return;   
+  async function handleCreatePet() {
+    if (ValidateFields()) return;
     let uploadURLImage = '';
-    if(!selectedImage.cancelled){
+    if (!selectedImage.cancelled) {
       uploadURLImage = await uploadImageAsync(selectedImage.uri, '/pets')
     }
 
@@ -69,7 +69,7 @@ export function CreatePet() {
       events: []
     };
 
-    if(await updatePetByID(petID, data, user, true)) return navigate("PetProfile")
+    if (await updatePetByID(petID, data, user, true)) return navigate("PetProfile")
 
   }
 
@@ -78,12 +78,10 @@ export function CreatePet() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <TouchableOpacity
-        onPress={() => navigate("PetList")}
-        style={styles.buttonRounded}
-      >
+      <ButtonRounded
+        onPress={() => navigate("PetList")} transparent >
         <FontAwesome5 name="arrow-left" size={24} color="#566DEA" />
-      </TouchableOpacity>
+      </ButtonRounded>
       <View style={styles.content}>
         <Text style={styles.title}>Adicionar Pet</Text>
       </View>
@@ -106,11 +104,11 @@ export function CreatePet() {
             )}
           </TouchableOpacity>
           <View style={styles.content}>
-            <Input 
+            <Input
               label="Nome"
               value={name}
               onChangeText={(text) => setName(text)}
-               />
+            />
             <Input
               maxLength={10}
               dateInputType

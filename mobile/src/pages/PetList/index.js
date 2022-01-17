@@ -1,7 +1,7 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Alert, BackHandler, Image, ScrollView, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { PetItem } from "../../components/PetItem";
 import { useAuth } from "../../hooks/useAuth";
@@ -9,7 +9,35 @@ import { styles } from "./styles";
 
 export function PetList() {
   const { navigate } = useNavigation();
-  const { user, updateContextData } = useAuth();
+  const { user, updateContextData, logout } = useAuth();
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Está de saida?", "Tem certeza que deseja sair da aplicação?", [
+        {
+          text: "Não",
+          onPress: () => null,
+          style: "cancel"
+        },
+        {
+          text: "Sim", onPress: () => {
+            logout()
+            navigate('Login')
+            BackHandler.exitApp()
+          }
+        }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
 
   useEffect(() => {
     updateContextData()

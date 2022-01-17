@@ -1,20 +1,18 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import {
-  Text, View, Image
-} from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { styles } from './styles';
-
-import { useNavigation } from '@react-navigation/native';
+import {ButtonRounded} from '../../components/Button'
 
 export function PetVaccineHistory(){
   const { navigate } = useNavigation();
   return (    
     <View style={styles.container}>  
-    <TouchableOpacity onPress={ () => navigate('PetProfile') } style={styles.buttonRounded}>
+    <ButtonRounded onPress={ () => navigate('PetProfile') } transparent>
       <FontAwesome5 name="arrow-left" size={24} color="#566DEA"/> 
-    </TouchableOpacity>     
+    </ButtonRounded>     
     <View style={styles.content}>
       <Image source={require('../../assets/doginho.png')} style={styles.petImage} />
       <Text style={styles.title}>Doguinho</Text>  

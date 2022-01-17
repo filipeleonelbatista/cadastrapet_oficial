@@ -65,4 +65,27 @@ export const styles = StyleSheet.create({
     color: '#566DEA4D',
     fontFamily: 'Poppins_400Regular',
    },
+   containerButtonRounded:{
+     width:48,
+     height:48,
+     alignItems:'center',
+     justifyContent: 'center', 
+     margin: 8,
+   },
+  buttonRounded:{
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "transparent",   
+    alignItems:'center',
+    justifyContent: 'center',   
+  },
+  buttonRoundedBlue:{
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "#566DEA",   
+    alignItems:'center',
+    justifyContent: 'center',
+  },
 });
