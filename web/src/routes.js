@@ -4,15 +4,19 @@ import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import PetHistoryFormPage from './pages/PetHistoryFormPage';
 import NotFound from './pages/NotFound';
+import { AuthContextProvider } from './context/AuthContext';
 
 function Routes() {
     return (
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact element={<Home />} />
-                <Route path="/veterinario" exact element={<LoginPage />} />
-                <Route path="/historico-pet" exact element={<PetHistoryFormPage />} />
-                <Route path="*" element={<NotFound />}/>
+
+                <AuthContextProvider>
+                    <Route path="/veterinario" exact element={<LoginPage />} />
+                    <Route path="/historico-pet" exact element={<PetHistoryFormPage />} />
+                </AuthContextProvider>
+                <Route path="*" element={<NotFound />} />
             </Switch>
         </BrowserRouter>
     );
