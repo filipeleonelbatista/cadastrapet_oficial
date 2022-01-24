@@ -6,6 +6,7 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Button, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { useAuth } from "../../hooks/useAuth";
+import { dateToString } from "../../utils/string";
 import { styles } from "./styles";
 
 export function PetGeneralData() {
@@ -47,13 +48,13 @@ export function PetGeneralData() {
             <Input
               label="Data Nascimento"
               placeholder="DD/MM/AAAA"
-              value={pet.birth_date} 
+              value={dateToString(pet.birth_date)} 
               disabled
             />
             <Input
               label="Data Adoção"
               placeholder="DD/MM/AAAA"
-              value={pet.adoption_date}
+              value={dateToString(pet.adoption_date)}
               disabled
             />
           </View>

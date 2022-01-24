@@ -8,12 +8,12 @@ import { Button, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { uploadImageAsync } from '../../firebase/functions';
 import { useAuth } from "../../hooks/useAuth";
-import { isStringEmpty } from "../../utils/string";
+import { dateToString, isStringEmpty, stringToDate } from "../../utils/string";
 import { styles } from "./styles";
 
 export function EditPet() {
   const { navigate } = useNavigation();
-  const {selectedPet, updatePetByID, user} = useAuth()
+  const { selectedPet, updatePetByID, user } = useAuth()
 
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
@@ -43,6 +43,27 @@ export function EditPet() {
       return true;
     }
     if (isStringEmpty(birth_date)) {
+      if (birth_date.length < 10) {
+        Alert.alert(
+          "Erro na data",
+          "O campo data de nascimento não está completo"
+        );
+        return true;
+      }
+      Alert.alert(
+        "Campo vazio",
+        "O campo data de nascimento não foi preenchido"
+      );
+      return true;
+    }
+    if (isStringEmpty(adoption_date)) {
+      if (adoption_date.length < 10) {
+        Alert.alert(
+          "Erro na data",
+          "O campo data de nascimento não está completo"
+        );
+        return true;
+      }
       Alert.alert(
         "Campo vazio",
         "O campo data de nascimento não foi preenchido"
@@ -51,11 +72,13 @@ export function EditPet() {
     }
   }
 
-  async function handleEditPet(){
-    if(ValidateFields()) return;   
+  async function handleEditPet() {
+    if (ValidateFields()) return;
     let uploadURLImage = '';
-    if(!selectedImage.cancelled){
+    if (!selectedImage.cancelled) {
       uploadURLImage = await uploadImageAsync(selectedImage.uri, '/pets')
+    } else {
+      uploadURLImage = selectedImage.uri
     }
 
     const data = {
@@ -63,24 +86,24 @@ export function EditPet() {
       name,
       avatar: uploadURLImage,
       tutor: [user.uid],
-      adoption_date,
-      birth_date,
+      adoption_date: stringToDate(adoption_date).getTime(),
+      birth_date: stringToDate(birth_date).getTime(),
       events: selectedPet.events,
       vaccines: selectedPet.vaccines,
       created_at: selectedPet.created_at,
       updated_at: Date.now()
     };
 
-    if(await updatePetByID(selectedPet.uid, data, user)) return navigate("PetProfile")
+    if (await updatePetByID(selectedPet.uid, data, user)) return navigate("PetProfile")
 
   }
 
   useEffect(() => {
-    setAdoptionDate(selectedPet.adoption_date)
-    setSelectedImage({uri: selectedPet.avatar})
-    setBirthDate(selectedPet.birth_date)
+    setAdoptionDate(dateToString(selectedPet.adoption_date))
+    setSelectedImage({ uri: selectedPet.avatar, cancelled: false })
+    setBirthDate(dateToString(selectedPet.birth_date))
     setName(selectedPet.name)
-  },[])
+  }, [])
 
   return (
     <KeyboardAvoidingView
@@ -115,11 +138,11 @@ export function EditPet() {
             )}
           </TouchableOpacity>
           <View style={styles.content}>
-            <Input 
+            <Input
               label="Nome"
               value={name}
               onChangeText={(text) => setName(text)}
-               />
+            />
             <Input
               maxLength={10}
               dateInputType

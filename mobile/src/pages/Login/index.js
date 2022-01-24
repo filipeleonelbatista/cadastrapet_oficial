@@ -21,6 +21,7 @@ export function Login(){
       navigate('PetList')
     })
     .catch(err => {
+      console.log(err)
       Alert.alert("Erro", AuthErrorHandler[err.code]);
     })
   }

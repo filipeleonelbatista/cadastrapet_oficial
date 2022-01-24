@@ -2,13 +2,13 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
-import { ImageBackground, KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import { Alert, ImageBackground, KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Button, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { uploadImageAsync } from '../../firebase/functions';
 import { useAuth } from "../../hooks/useAuth";
-import { isStringEmpty } from "../../utils/string";
+import { isStringEmpty, stringToDate } from "../../utils/string";
 import { styles } from "./styles";
 
 export function CreatePet() {
@@ -43,6 +43,27 @@ export function CreatePet() {
       return true;
     }
     if (isStringEmpty(birth_date)) {
+      if (birth_date.length < 10) {
+        Alert.alert(
+          "Erro na data",
+          "O campo data de nascimento não está completo"
+        );
+        return true;
+      }
+      Alert.alert(
+        "Campo vazio",
+        "O campo data de nascimento não foi preenchido"
+      );
+      return true;
+    }
+    if (isStringEmpty(adoption_date)) {
+      if (adoption_date.length < 10) {
+        Alert.alert(
+          "Erro na data",
+          "O campo data de nascimento não está completo"
+        );
+        return true;
+      }
       Alert.alert(
         "Campo vazio",
         "O campo data de nascimento não foi preenchido"
@@ -64,8 +85,8 @@ export function CreatePet() {
       name,
       avatar: uploadURLImage,
       tutor: [user.uid],
-      adoption_date,
-      birth_date,
+      adoption_date: stringToDate(adoption_date).getTime(),
+      birth_date: stringToDate(birth_date).getTime(),
       events: [],
       vaccines: [],
       created_at: Date.now(),

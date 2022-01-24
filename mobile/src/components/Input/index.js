@@ -11,6 +11,7 @@ import {FontAwesome5} from '@expo/vector-icons'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { styles } from './styles';
 import {date as convertToHumanDate} from '../../utils/masks'
+import { dateToString, pad } from '../../utils/string';
 
 export function Input({dateInputType=false, passwordInputType=false, label, error, onChangeText, placeholder, disabled=false, ...rest}){
 
@@ -26,8 +27,8 @@ export function Input({dateInputType=false, passwordInputType=false, label, erro
   }
 
   const datePickerChangeDate = (date) => {
-    const newDate = new Date(date.nativeEvent.timestamp)
-    onChangeText(convertToHumanDate(`${ newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear()}`))
+    const currentDate = dateToString(date.nativeEvent.timestamp)
+    onChangeText(currentDate)
     setShowDatePicker(false)
   }
 
