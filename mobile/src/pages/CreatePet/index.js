@@ -1,10 +1,11 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Camera } from 'expo-camera';
 import * as ImagePicker from "expo-image-picker";
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { Alert, ImageBackground, KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Button, ButtonRounded } from "../../components/Button";
+import { Button, ButtonNav, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { uploadImageAsync } from '../../firebase/functions';
 import { useAuth } from "../../hooks/useAuth";
@@ -12,13 +13,19 @@ import { isStringEmpty, stringToDate } from "../../utils/string";
 import { styles } from "./styles";
 
 export function CreatePet() {
+
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
+  const [navigationSelected, setNavigationSelected] = useState("addPet");
+
   const { navigate } = useNavigation();
-  const { getNewPetID, updatePetByID, user } = useAuth()
+  const { getNewPetID, updatePetByID, user, user_id, updateUserByID, getPetByID, setSelectedPet } = useAuth()
 
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
   const [adoption_date, setAdoptionDate] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -97,6 +104,37 @@ export function CreatePet() {
 
   }
 
+  const handleBarCodeScanned = async ({ type, data }) => {
+    if (user.pets.includes(data)) {
+      Alert.alert(
+        "Opa!",
+        "O pet que está tentando adicionar ja está em sua lista"
+      );
+    } else {
+      const pets = [...user.pets, data]
+      if (await updateUserByID(user_id, { pets })) {
+        const addedPet = await getPetByID(data)
+        setSelectedPet(addedPet)
+        return navigate("PetProfile")
+      }
+    }
+    setScanned(false);
+  };
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+  if (hasPermission === null) {
+    return <Text>Solicitando permissões de acesso à camera</Text>;
+  }
+  if (hasPermission === false) {
+    return <Text>Sem acesso a camera</Text>;
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -109,59 +147,83 @@ export function CreatePet() {
       <View style={styles.content}>
         <Text style={styles.title}>Adicionar Pet</Text>
       </View>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.content}>
-          <TouchableOpacity
-            onPress={pickImage}
-            style={styles.buttonRoundedWhite}
-          >
-            {!selectedImage ? (
-              <FontAwesome5 name="camera" size={48} color="#566DEA" />
-            ) : (
-              <ImageBackground
-                source={{
-                  uri: selectedImage.uri,
-                }}
-                style={{ width: 96, height: 96 }}
-                imageStyle={{ borderRadius: 96 }}
-              />
-            )}
-          </TouchableOpacity>
+
+      <View style={styles.buttonNavGroup}>
+        <ButtonNav text="Adicionar pet" selected={navigationSelected === 'addPet'} onPress={() => setNavigationSelected('addPet')} />
+        <ButtonNav text="Ler Código" selected={navigationSelected === 'ler'} onPress={() => setNavigationSelected('ler')} />
+      </View>
+      {navigationSelected === 'addPet' && (
+        <ScrollView style={styles.scrollView}>
           <View style={styles.content}>
-            <Input
-              label="Nome"
-              value={name}
-              onChangeText={(text) => setName(text)}
-            />
-            <Input
-              maxLength={10}
-              dateInputType
-              label="Data de nascimento"
-              placeholder="DD/MM/AAAA"
-              keyboardType="decimal-pad"
-              value={birth_date}
-              onChangeText={(text) => setBirthDate(text)}
-            />
-            <Input
-              maxLength={10}
-              dateInputType
-              label="Data Adoção"
-              placeholder="DD/MM/AAAA"
-              keyboardType="decimal-pad"
-              value={adoption_date}
-              onChangeText={(text) => setAdoptionDate(text)}
-            />
+            <TouchableOpacity
+              onPress={pickImage}
+              style={styles.buttonRoundedWhite}
+            >
+              {!selectedImage ? (
+                <FontAwesome5 name="camera" size={48} color="#566DEA" />
+              ) : (
+                <ImageBackground
+                  source={{
+                    uri: selectedImage.uri,
+                  }}
+                  style={{ width: 96, height: 96 }}
+                  imageStyle={{ borderRadius: 96 }}
+                />
+              )}
+            </TouchableOpacity>
+            <View style={styles.content}>
+              <Input
+                label="Nome"
+                value={name}
+                onChangeText={(text) => setName(text)}
+              />
+              <Input
+                maxLength={10}
+                dateInputType
+                label="Data de nascimento"
+                placeholder="DD/MM/AAAA"
+                keyboardType="decimal-pad"
+                value={birth_date}
+                onChangeText={(text) => setBirthDate(text)}
+              />
+              <Input
+                maxLength={10}
+                dateInputType
+                label="Data Adoção"
+                placeholder="DD/MM/AAAA"
+                keyboardType="decimal-pad"
+                value={adoption_date}
+                onChangeText={(text) => setAdoptionDate(text)}
+              />
+            </View>
+            <View style={styles.actions}>
+              <Button onPress={handleCreatePet} text="Salvar" />
+              <Button
+                onPress={() => navigate("PetProfile")}
+                text="Cancelar"
+                transparent
+              />
+            </View>
           </View>
-          <View style={styles.actions}>
-            <Button onPress={handleCreatePet} text="Salvar" />
-            <Button
-              onPress={() => navigate("PetProfile")}
-              text="Cancelar"
-              transparent
-            />
-          </View>
+        </ScrollView>
+      )}
+
+      {navigationSelected === 'ler' && (
+        <View style={styles.content}>
+          <Button text="Ler QR Code" transparent onPress={() => setScanned(true)} />
+          {
+            scanned && (
+              <Camera
+                onBarCodeScanned={handleBarCodeScanned}
+                barCodeScannerSettings={{
+                  barCodeTypes: ['qr'],
+                }}
+                style={styles.barcodeContainer}
+              />
+            )
+          }
         </View>
-      </ScrollView>
+      )}
     </KeyboardAvoidingView>
   );
 }

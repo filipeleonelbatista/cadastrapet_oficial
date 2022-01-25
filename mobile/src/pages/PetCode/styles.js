@@ -9,11 +9,6 @@ export const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
     position: 'relative',
   },
-  barcodeContainer: {
-    position: 'absolute',
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
   content:{
     alignItems: 'center',
     width: '100%',

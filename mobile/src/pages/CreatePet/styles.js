@@ -7,6 +7,12 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F3F5FF',
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+    position: 'relative',
+  },
+  barcodeContainer: {
+    position: 'absolute',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
   scrollView: {
     marginVertical: 4,
@@ -30,6 +36,12 @@ export const styles = StyleSheet.create({
     width: 180,
     height: 30, 
     resizeMode: 'contain'
+  },
+  buttonNavGroup:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal:14,
   },
   petGroup:{
     width: Dimensions.get('window').width,
