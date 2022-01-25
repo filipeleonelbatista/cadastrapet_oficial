@@ -7,6 +7,12 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F3F5FF',
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+    position: 'relative',
+  },
+  barcodeContainer: {
+    position: 'absolute',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
   content:{
     alignItems: 'center',
@@ -20,6 +26,12 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     color: '#566DEA',
     marginVertical: 8,
+  },
+  buttonNavGroup:{
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    width: '100%',
+    paddingHorizontal:14,
   },
   subtitle:{
     textAlign: 'center',
