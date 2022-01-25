@@ -5,8 +5,8 @@ import { Dimensions, Image, ImageBackground, KeyboardAvoidingView, Text, View } 
 import { ScrollView } from "react-native-gesture-handler";
 import { ButtonNav, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
-import { Textarea } from "../../components/Textarea";
 import { useAuth } from '../../hooks/useAuth';
+import { dateToString } from "../../utils/string";
 import { styles } from "./styles";
 
 export function PetHistoryView() {
@@ -43,7 +43,7 @@ export function PetHistoryView() {
           />
           <Input
             label="Data da consulta"
-            value={selectedMedicalHistory.event_date}
+            value={dateToString(selectedMedicalHistory.event_date)}
             disabled
           />
         </View>

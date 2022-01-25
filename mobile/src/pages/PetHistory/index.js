@@ -2,14 +2,14 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
-import { Image, ImageBackground, KeyboardAvoidingView, Text, View } from "react-native";
+import { Alert, Image, ImageBackground, KeyboardAvoidingView, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Button, ButtonNav, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Textarea } from "../../components/Textarea";
 import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from '../../hooks/useAuth';
-import { isStringEmpty } from "../../utils/string";
+import { isStringEmpty, stringToDate } from "../../utils/string";
 import { styles } from "./styles";
 
 export function PetHistory() {
@@ -45,6 +45,13 @@ export function PetHistory() {
       return true;
     }
     if (isStringEmpty(event_date)) {
+      if (event_date.length < 10) {
+        Alert.alert(
+          "Erro na data",
+          "O campo Data da consulta não está completo"
+        );
+        return true;
+      }
       Alert.alert(
         "Campo vazio",
         "O campo Data da consulta não foi preenchido"
@@ -55,9 +62,12 @@ export function PetHistory() {
 
   async function handleCreateMedicalHistory() {
     if (ValidateFields()) return;
+
     let uploadURLImage = '';
     if (!selectedImage.cancelled) {
       uploadURLImage = await uploadImageAsync(selectedImage.uri, '/medical-history')
+    } else {
+      uploadURLImage = '';
     }
 
     const medicalHistoryID = await getNewMedicalHistoryID()
@@ -68,7 +78,7 @@ export function PetHistory() {
       attachment: uploadURLImage,
       title: eventName,
       notes: anotation,
-      event_date,
+      event_date: stringToDate(event_date).getTime(),
       created_at: Date.now(),
       updated_at: Date.now()
     };

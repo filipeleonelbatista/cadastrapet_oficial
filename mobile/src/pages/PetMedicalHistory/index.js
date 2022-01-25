@@ -5,6 +5,7 @@ import { Image, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { ButtonRounded } from '../../components/Button';
 import { useAuth } from '../../hooks/useAuth';
+import { dateToString } from '../../utils/string';
 import { styles } from './styles';
 
 
@@ -34,13 +35,13 @@ export function PetMedicalHistory() {
         {
           (medicalHistoryList.length > 0) && (
             medicalHistoryList.map(medicalHistory => (
-              <TouchableOpacity onPress={() => handleSelectMedicalHistory(medicalHistory)} style={styles.petItem}>
+              <TouchableOpacity key={medicalHistory.uid} onPress={() => handleSelectMedicalHistory(medicalHistory)} style={styles.petItem}>
                 <View style={styles.itemRow}>
-                  <Text style={styles.medicalRecordTitle}>{medicalHistory.title.substr(0, 15) + '...'}</Text>
+                  <Text style={styles.medicalRecordTitle}>{medicalHistory.title.length > 10 ? medicalHistory.title.substr(0, 10) + '...' : medicalHistory.title}</Text>
                   <View style={styles.line}></View>
-                  <Text style={styles.medicalRecordDate}>{medicalHistory.event_date}</Text>
+                  <Text style={styles.medicalRecordDate}>{dateToString(medicalHistory.event_date)}</Text>
                 </View>
-                <Text style={styles.repeatApplicationDate}>{medicalHistory.notes.substr(0, 25) + '...'}</Text>
+                <Text style={styles.repeatApplicationDate}>{medicalHistory.notes.length > 25 ? medicalHistory.notes.substr(0, 25) + '...' : medicalHistory.notes}</Text>
               </TouchableOpacity>
             ))
           )
