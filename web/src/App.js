@@ -4,9 +4,13 @@ import Routes from './routes';
 
 import './styles/global.css';
 
+import {AuthContextProvider} from './context/AuthContext'
+
 function App() {
-  return (    
-    <Routes />
+  return (
+    <AuthContextProvider>
+      <Routes />
+    </AuthContextProvider>
   );
 }
 

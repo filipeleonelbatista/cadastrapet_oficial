@@ -50,7 +50,7 @@ export function Login(){
         <Button text="Entrar" onPress={ SignInUser } />
         <Button text="Cadastrar" transparent onPress={ () => navigate('Register') } />
       </View>
-      <Text style={styles.subtitle}>ALPHA FECHADO Ver. 110122.123</Text>
+      <Text style={styles.subtitle}>Ver. 24012022.2</Text>
     </KeyboardAvoidingView>
   );
 }
