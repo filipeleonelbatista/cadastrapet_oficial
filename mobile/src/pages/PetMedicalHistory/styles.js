@@ -35,6 +35,16 @@ export const styles = StyleSheet.create({
     marginVertical: 8,
     marginLeft:8,
   },
+  petData:{
+    flexDirection: 'column',
+  },
+  petAge:{
+    fontWeight: 'normal',
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 16,
+    color: '#566DEA',
+    marginRight: 16,
+  },
   headerTitle:{
     fontWeight: 'normal',
     fontFamily: 'Poppins_400Regular',

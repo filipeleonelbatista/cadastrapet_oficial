@@ -6,7 +6,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { ButtonNav, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { useAuth } from '../../hooks/useAuth';
-import { dateToString } from "../../utils/string";
+import { dateToString, yearNow } from "../../utils/string";
 import { styles } from "./styles";
 
 export function PetHistoryView() {
@@ -14,7 +14,7 @@ export function PetHistoryView() {
   const { selectedPet, selectedMedicalHistory } = useAuth()
 
   const [navigationSelected, setNavigationSelected] = useState("anotacoes");
-  
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -33,7 +33,10 @@ export function PetHistoryView() {
             source={{ uri: selectedPet.avatar }}
             style={styles.petImage}
           />
-          <Text style={styles.title}>{selectedPet.name}</Text>
+          <View style={styles.petData}>
+            <Text style={styles.title}>{selectedPet.name}</Text>
+            <Text style={styles.petAge}>{yearNow(selectedPet.birth_date) == 1 ? yearNow(selectedPet.birth_date) + ' Ano' : yearNow(selectedPet.birth_date) + ' Anos'}</Text>
+          </View>
         </View>
         <View style={styles.inputGroup}>
           <Input
@@ -52,7 +55,7 @@ export function PetHistoryView() {
           <ButtonNav text="Documentos" selected={navigationSelected === 'documentos'} onPress={() => setNavigationSelected('documentos')} />
         </View>
         {navigationSelected === 'anotacoes' && (
-          <View style={ { paddingHorizontal: 24, paddingTop: 8 }}>
+          <View style={{ paddingHorizontal: 24, paddingTop: 8 }}>
             <Text>{selectedMedicalHistory.notes}</Text>
           </View>
         )}
@@ -60,12 +63,12 @@ export function PetHistoryView() {
           <View
             style={{ width: '100%', height: 'auto', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}
           >
-              <ImageBackground
-                source={{
-                  uri: selectedMedicalHistory.attachment,
-                }}
-                style={{ width: Dimensions.get('window').width - 24, height: Dimensions.get('window').width - 24 }}
-              />
+            <ImageBackground
+              source={{
+                uri: selectedMedicalHistory.attachment,
+              }}
+              style={{ width: Dimensions.get('window').width - 24, height: Dimensions.get('window').width - 24 }}
+            />
           </View>
         )}
       </ScrollView>

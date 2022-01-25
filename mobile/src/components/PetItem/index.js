@@ -1,12 +1,12 @@
-import { FontAwesome5 } from '@expo/vector-icons';
-import React, {useState, useEffect} from "react";
 import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from "react";
 import { Image, Text, View } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useAuth } from '../../hooks/useAuth';
+import { yearNow } from '../../utils/string';
 import { styles } from "./styles";
-import {useAuth} from '../../hooks/useAuth'
 
-export function PetItem({id}) {
+export function PetItem({ id }) {
   const { navigate } = useNavigation();
   const [CurrentPet, setCurrentPet] = useState()
   const { getPetByID, setSelectedPet } = useAuth()
@@ -18,46 +18,25 @@ export function PetItem({id}) {
 
   useEffect(() => {
     const handleGetPet = async () => {
-      const pet = await getPetByID(id)      
+      const pet = await getPetByID(id)
       setCurrentPet(pet)
     }
     handleGetPet()
   }, [])
 
-  if(!CurrentPet) return null
+  if (!CurrentPet) return null
 
   return (
-    <TouchableOpacity style={styles.petItem} 
-    onPress={handleSelectPet} >
+    <TouchableOpacity style={styles.petItem}
+      onPress={handleSelectPet} >
       <Image
-        source={{uri: CurrentPet.avatar}}
+        source={{ uri: CurrentPet.avatar }}
         style={styles.petImage}
       />
-      <Text style={styles.petName}>{CurrentPet.name}</Text>
-    </TouchableOpacity>
-  );
-
-  return (
-    <View style={styles.petItem}>
-      <Image
-        source={{uri: CurrentPet.avatar}}
-        style={styles.petImage}
-      />
-      <Text style={styles.petName}>{CurrentPet.name}</Text>
-      <View style={styles.petActions}>
-        <TouchableOpacity
-          onPress={handleSelectPet}
-          style={styles.buttonRoundedWhite}
-        >
-          <FontAwesome5 name="eye" size={16} color="#566DEA" />
-        </TouchableOpacity>
-        {/* <TouchableOpacity
-          onPress={() => Alert.alert("Voce deseja excluir?")}
-          style={styles.buttonRoundedRed}
-        >
-          <FontAwesome5 name="trash" size={16} color="#FFF" />
-        </TouchableOpacity> */}
+      <View style={styles.petData}>
+        <Text style={styles.petName}>{CurrentPet.name}</Text>
+        <Text style={styles.petAge}>{yearNow(CurrentPet.birth_date) == 1 ? yearNow(CurrentPet.birth_date) + ' Ano' : yearNow(CurrentPet.birth_date) + ' Anos'}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

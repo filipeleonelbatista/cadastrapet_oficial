@@ -10,6 +10,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { ButtonRounded } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { useAuth } from '../../hooks/useAuth';
+import { dateToString } from '../../utils/string';
 import { styles } from './styles';
 
 export function ViewVaccine() {
@@ -41,8 +42,8 @@ export function ViewVaccine() {
               />
           </View>
           <View style={styles.content}>
-            <Input label="Tipo vacina" value={selectedVaccine.vaccine} />
-            <Input label="Data" value={selectedVaccine.vaccine_application_date} />
+            <Input disabled label="Tipo vacina" value={selectedVaccine.vaccine} />
+            <Input disabled label="Data" value={dateToString(selectedVaccine.vaccine_application_date)} />
           </View>
         </View>
       </ScrollView>

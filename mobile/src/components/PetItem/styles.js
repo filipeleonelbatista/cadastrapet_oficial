@@ -16,12 +16,21 @@ export const styles = StyleSheet.create({
     resizeMode: 'cover',
     marginRight: 8,
   },
+  petData:{
+    flexDirection: 'column',
+  },
+  petAge:{
+    fontWeight: 'normal',
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 16,
+    color: '#566DEA',
+    marginRight: 16,
+  },
   petName:{
     fontWeight: 'bold',
     fontFamily: 'Poppins_700Bold',
     fontSize: 20,
     color: '#566DEA',
-    marginVertical: 28,
     marginRight: 16,
   },
   petActions:{

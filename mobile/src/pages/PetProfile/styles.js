@@ -27,6 +27,16 @@ export const styles = StyleSheet.create({
     color: '#566DEA',
     marginVertical: 8,
   },
+  petData:{
+    flexDirection: 'column',
+  },
+  petAge:{
+    fontWeight: 'normal',
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 16,
+    color: '#566DEA',
+    marginRight: 16,
+  },
   petItem:{
     borderRadius: 8,
     backgroundColor:"#FFF",

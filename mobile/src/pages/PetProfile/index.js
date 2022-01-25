@@ -6,6 +6,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { ButtonRounded } from '../../components/Button';
 import { useAuth } from '../../hooks/useAuth';
 import { styles } from './styles';
+import {yearNow} from '../../utils/string'
 
 export function PetProfile(){
   const { navigate } = useNavigation();
@@ -26,7 +27,11 @@ export function PetProfile(){
     </ButtonRounded>     
     <View style={styles.content}>
       <Image source={{uri: pet.avatar}} style={styles.petImage} />
-      <Text style={styles.title}>{pet.name}</Text>  
+      <View style={styles.petData}>
+        <Text style={styles.title}>{pet.name}</Text> 
+        <Text style={styles.petAge}>{yearNow(pet.birth_date) == 1 ? yearNow(pet.birth_date) + ' Ano' : yearNow(pet.birth_date) + ' Anos'}</Text>
+      </View>
+       
     </View>
       <ScrollView style={styles.scrollView}>
         <TouchableOpacity onPress={() => navigate('PetGeneralData')} style={styles.petItem}>

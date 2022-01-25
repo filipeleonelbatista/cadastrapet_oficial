@@ -9,7 +9,7 @@ import { Input } from "../../components/Input";
 import { Textarea } from "../../components/Textarea";
 import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from '../../hooks/useAuth';
-import { isStringEmpty, stringToDate } from "../../utils/string";
+import { isStringEmpty, stringToDate, yearNow } from "../../utils/string";
 import { styles } from "./styles";
 
 export function PetHistory() {
@@ -105,7 +105,11 @@ export function PetHistory() {
             source={{ uri: selectedPet.avatar }}
             style={styles.petImage}
           />
-          <Text style={styles.title}>{selectedPet.name}</Text>
+          
+          <View style={styles.petData}>
+            <Text style={styles.title}>{selectedPet.name}</Text>
+            <Text style={styles.petAge}>{yearNow(selectedPet.birth_date) == 1 ? yearNow(selectedPet.birth_date) + ' Ano' : yearNow(selectedPet.birth_date) + ' Anos'}</Text>
+          </View>
         </View>
         <View style={styles.inputGroup}>
           <Input

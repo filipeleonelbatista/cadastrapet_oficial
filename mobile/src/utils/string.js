@@ -24,3 +24,9 @@ export const dateToString = (date) => {
   const dateString = `${ pad(newDate.getDate())}/${pad(newDate.getMonth() + 1)}/${newDate.getFullYear()}`
   return dateString
 }
+
+export const yearNow = (date) => {
+  const newDate = new Date(date).getFullYear()
+  const currentDate = new Date(Date.now()).getFullYear()
+  return currentDate - newDate
+}

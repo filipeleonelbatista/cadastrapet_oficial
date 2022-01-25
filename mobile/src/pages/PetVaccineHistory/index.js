@@ -5,6 +5,7 @@ import { Image, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { ButtonRounded } from '../../components/Button';
 import { useAuth } from '../../hooks/useAuth';
+import { dateToString, yearNow } from '../../utils/string';
 import { styles } from './styles';
 
 export function PetVaccineHistory() {
@@ -23,7 +24,10 @@ export function PetVaccineHistory() {
       </ButtonRounded>
       <View style={styles.content}>
         <Image source={{ uri: selectedPet.avatar }} style={styles.petImage} />
-        <Text style={styles.title}>{selectedPet.name}</Text>
+        <View style={styles.petData}>
+          <Text style={styles.title}>{selectedPet.name}</Text>
+          <Text style={styles.petAge}>{yearNow(selectedPet.birth_date) == 1 ? yearNow(selectedPet.birth_date) + ' Ano' : yearNow(selectedPet.birth_date) + ' Anos'}</Text>
+        </View>
       </View>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Vacinas</Text>
@@ -32,13 +36,12 @@ export function PetVaccineHistory() {
         {
           (vaccineList.length > 0) && (
             vaccineList.map(vaccine => (
-              <TouchableOpacity onPress={() => handleSelectVaccine(vaccine)} style={styles.petItem}>
+              <TouchableOpacity key={vaccine.uid} onPress={() => handleSelectVaccine(vaccine)} style={styles.petItem}>
                 <View style={styles.itemRow}>
                   <Text style={styles.vaccine}>{vaccine.vaccine}</Text>
                   <View style={styles.line}></View>
-                  <Text style={styles.applicationDate}>{vaccine.vaccine_application_date}</Text>
+                  <Text style={styles.applicationDate}>{dateToString(vaccine.vaccine_application_date)}</Text>
                 </View>
-                {/* <Text style={styles.repeatApplicationDate}>Próx. dose: 11/01/2022</Text> */}
               </TouchableOpacity>
             ))
           )

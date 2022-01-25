@@ -13,7 +13,7 @@ import { Button, ButtonRounded } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { uploadImageAsync } from '../../firebase/functions';
 import { useAuth } from '../../hooks/useAuth';
-import { isStringEmpty } from '../../utils/string';
+import { isStringEmpty, stringToDate } from '../../utils/string';
 import { styles } from './styles';
 
 export function AddVaccine() {
@@ -47,6 +47,13 @@ export function AddVaccine() {
       return true;
     }
     if (isStringEmpty(date)) {
+      if (date.length < 10) {
+        Alert.alert(
+          "Erro na data",
+          "O campo data de aplicação não está completo"
+        );
+        return true;
+      }
       Alert.alert(
         "Campo vazio",
         "O campo data de aplicação não foi preenchido"
@@ -69,7 +76,7 @@ export function AddVaccine() {
       uid: vaccineID,
       vaccine: name,
       vaccine_receipt: uploadURLImage,
-      vaccine_application_date: date,
+      vaccine_application_date: stringToDate(date).getTime(),
       created_at: Date.now(),
       updated_at: Date.now()
     };

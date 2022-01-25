@@ -5,14 +5,14 @@ import { Image, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { ButtonRounded } from '../../components/Button';
 import { useAuth } from '../../hooks/useAuth';
-import { dateToString } from '../../utils/string';
+import { dateToString, yearNow } from '../../utils/string';
 import { styles } from './styles';
 
 
 export function PetMedicalHistory() {
   const { navigate } = useNavigation();
   const { selectedPet, medicalHistoryList, setSelectedMedicalHistory } = useAuth()
-  
+
   const handleSelectMedicalHistory = (selectedMedicalHistory) => {
     setSelectedMedicalHistory(selectedMedicalHistory)
     navigate("PetHistoryView")
@@ -25,7 +25,10 @@ export function PetMedicalHistory() {
       </ButtonRounded>
       <View style={styles.content}>
         <Image source={{ uri: selectedPet.avatar }} style={styles.petImage} />
-        <Text style={styles.title}>{selectedPet.name}</Text>
+        <View style={styles.petData}>
+          <Text style={styles.title}>{selectedPet.name}</Text>
+          <Text style={styles.petAge}>{yearNow(selectedPet.birth_date) == 1 ? yearNow(selectedPet.birth_date) + ' Ano' : yearNow(selectedPet.birth_date) + ' Anos'}</Text>
+        </View>
       </View>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Histórico médico</Text>
