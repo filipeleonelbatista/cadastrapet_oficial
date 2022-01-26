@@ -17,7 +17,7 @@ export function Input({dateInputType=false, passwordInputType=false, label, erro
 
   const [date] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
 
   const handleToggleShowPassword = () => {
     setShowPassword(!showPassword)

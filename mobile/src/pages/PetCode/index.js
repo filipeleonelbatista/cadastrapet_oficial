@@ -13,15 +13,14 @@ export function PetCode() {
 
   const { navigate } = useNavigation();
   const [pet, setPet] = useState();
-  const { selectedPet, updateUserByID } = useAuth();
+  const { selectedPet } = useAuth();
   const [navigationSelected, setNavigationSelected] = useState("veterinario");
 
   async function handleShare() {
     try {
       const messageVet = `Ajude a manter os registros do meu pet atualizados.\n\n Acesse o link ${SITE_URL}veterinario?id=${pet.uid} \n\n Complete o cadastro e adicione as informações dessa consulta`
-      const messageTutor = `Ajude a manter os registros do meu pet atualizados.\n\n Esse é o codigo do meu pet ${pet.uid}`
       await Share.share({
-        message: navigationSelected === 'veterinario' ? messageVet : messageTutor,
+        message: messageVet,
       });
 
     } catch (error) {
@@ -54,9 +53,9 @@ export function PetCode() {
           </TouchableOpacity>
         )}
         {navigationSelected === 'tutor' && (
-          <TouchableOpacity onPress={handleShare} style={styles.petItem}>
+          <View style={styles.petItem}>
             <QRCode content={`${pet.uid}`} />
-          </TouchableOpacity>
+          </View>
         )}
       </View>
     </View>

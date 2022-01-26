@@ -22,10 +22,16 @@ export const styles = StyleSheet.create({
     marginVertical: 14,
     marginBottom: 48,
   },
+  subsubtitle:{
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 12,
+    color: '#6CA6FD',
+    marginVertical: 16,
+    marginBottom: 48,
+  },
   buttonGroup:{
     width: Dimensions.get('window').width,
-    paddingHorizontal: 14,
+    paddingHorizontal: 24,
     bottom: 0,
-    marginBottom: 58,
   }
 });

@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { doc, setDoc, addDoc, collection, getDoc } from "firebase/firestore";
 import React, { useState, createContext, useEffect } from "react";
 import { authentication, db } from "../firebase/firebase-config";
@@ -6,6 +6,7 @@ import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
 import { Alert } from "react-native";
 import { Loading } from "../components/Loading"
+import { isStringEmpty } from "../utils/string";
 
 export const AuthContext = createContext({});
 
@@ -52,6 +53,25 @@ export function AuthContextProvider(props) {
     const updateVaccine = async () => await updateVaccineList()
     updateVaccine()
   }, [selectedPet])
+
+  function handleForgotUser(email) {
+    if (isStringEmpty(email)) {
+      Alert.alert("Campo vazio", "O campo email não foi preenchido");
+      return true;
+    }
+
+    sendPasswordResetEmail(authentication, email)
+    .then(() => {      
+      Alert.alert("Recuperação de senha", "Foi enviado um email com as instruções de recuperação.");
+    })
+    .catch((err) => {
+      console.log(err)
+      Alert.alert(
+        "Email não encontrado",
+        AuthErrorHandler[[err.code]]
+      );
+    });
+  } 
 
   function logout() {
     signOut(authentication).then(() => {
@@ -390,7 +410,8 @@ export function AuthContextProvider(props) {
         selectedVaccine, 
         setSelectedVaccine,
         vaccineList, 
-        setVaccineList
+        setVaccineList,
+        handleForgotUser
       }}
     >
       {isLoaded ? <Loading /> : <>{props.children}</>}

@@ -5,9 +5,9 @@ import { styles } from './styles';
 
 export function Button({ children, text, transparent = false, onPress, ...rest }) {
   return (
-    <TouchableOpacity onPress={onPress} style={transparent ? styles.buttonTransparent : styles.button}
+    <TouchableOpacity onPress={onPress} style={children ? styles.buttonChildren : transparent ? styles.buttonTransparent : styles.button}
       {...rest}>
-      <Text style={transparent ? styles.textButtonTransparent : styles.textButton} >{text}</Text>
+        { children ? children : <Text style={transparent ? styles.textButtonTransparent : styles.textButton} >{text}</Text>}
     </TouchableOpacity>
   );
 }

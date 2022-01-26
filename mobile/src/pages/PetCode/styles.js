@@ -24,9 +24,10 @@ export const styles = StyleSheet.create({
   },
   buttonNavGroup:{
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    justifyContent: 'center',
     width: '100%',
     paddingHorizontal:14,
+    marginVertical:8,
   },
   subtitle:{
     textAlign: 'center',

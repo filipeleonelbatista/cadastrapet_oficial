@@ -39,9 +39,10 @@ export const styles = StyleSheet.create({
   },
   buttonNavGroup:{
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
     paddingHorizontal:14,
+    marginVertical:8,
   },
   petGroup:{
     width: Dimensions.get('window').width,

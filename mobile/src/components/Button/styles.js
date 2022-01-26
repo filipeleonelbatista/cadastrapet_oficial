@@ -22,10 +22,16 @@ export const styles = StyleSheet.create({
     borderColor: '#566DEA',
     borderWidth: 2,
   },
-  
+  buttonChildren:{
+    ...buttonBase,
+    backgroundColor: '#566DEA',
+    borderColor: '#566DEA',
+    borderWidth: 2,
+    flexDirection: 'row',
+  },
   buttonTransparent:{    
     ...buttonBase,
-    backgroundColor: '#FFF',
+    backgroundColor: 'transparent',
     borderColor: '#566DEA',
     borderWidth: 2,
    },
