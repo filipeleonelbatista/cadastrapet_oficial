@@ -3105,15 +3105,7 @@ expo-asset@~8.4.3:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
-expo-barcode-scanner@^11.2.0:
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/expo-barcode-scanner/-/expo-barcode-scanner-11.2.0.tgz#9d316a36962f74f117f19f7c722de1334a4fd8d2"
-  integrity sha512-Dmp6KTzkMa9E561gR7kRP8ZXfVdAn9SLUwQ5DdeEGTC7D1NIqEO8WmyfVtWSLUUSArF6QxL+oYOZyzJ+LVjkHA==
-  dependencies:
-    "@expo/config-plugins" "^4.0.2"
-    expo-image-loader "~3.1.0"
-
-expo-camera@^12.1.0:
+expo-camera@^12.0.3:
   version "12.1.0"
   resolved "https://registry.yarnpkg.com/expo-camera/-/expo-camera-12.1.0.tgz#d968b282d2155956655e217b35bade66ed361ad7"
   integrity sha512-FWzgexrsd1v2XYmtXpeZsXMJf2G6ctX7wmU3xi2KEL7vYMdrCCZi+aX5vj7WQz5DDEu/TH1fkHnqU/hek8ZGMA==
@@ -3161,11 +3153,6 @@ expo-google-app-auth@~9.0.0:
   integrity sha512-UzL1N8dd2Cm84FkgWCbkkYJv79ptFLescGaOpoJRXlnXVEkmz/iQ7zETmwOsIcq5ISAPXvgrSMb1LniqjgmnGQ==
   dependencies:
     expo-app-auth "~11.0.3"
-
-expo-image-loader@~3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/expo-image-loader/-/expo-image-loader-3.1.0.tgz#d60d57d6d36d1ea9b07ed2e8bed87574edd2ad1e"
-  integrity sha512-86oT25SDTO018hWO61HGnoB4l+DEgT9sOoW24rvXX99VBe/MPheGo+DDNKtLNf6k06n/OFL3LgtR0m9YpOCT8Q==
 
 expo-image-picker@~11.0.3:
   version "11.0.3"
@@ -5300,6 +5287,15 @@ prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
+prop-types@^15.5.10:
+  version "15.8.1"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
+  integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
+  dependencies:
+    loose-envify "^1.4.0"
+    object-assign "^4.1.1"
+    react-is "^16.13.1"
+
 prop-types@^15.6.0, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
@@ -5378,7 +5374,7 @@ react-dom@17.0.1:
     object-assign "^4.1.1"
     scheduler "^0.20.1"
 
-react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1:
+react-is@^16.13.0, react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -5414,6 +5410,19 @@ react-native-gesture-handler@^1.10.3:
     hoist-non-react-statics "^3.3.0"
     invariant "^2.2.4"
     prop-types "^15.7.2"
+
+react-native-root-siblings@^4.0.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-root-siblings/-/react-native-root-siblings-4.1.1.tgz#b7742db7634a87f507eb99a5fd699c4f10c46ab0"
+  integrity sha512-sdmLElNs5PDWqmZmj4/aNH4anyxreaPm61c4ZkRiR8SO/GzLg6KjAbb0e17RmMdnBdD0AIQbS38h/l55YKN4ZA==
+
+react-native-root-toast@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-root-toast/-/react-native-root-toast-3.3.0.tgz#526aaf0ac48f584fb851d5e82855edfe585930ce"
+  integrity sha512-C4Pqu+Ae7kXsYJwTvz8NshyJ9SL5YJd+/vCkvgDAxxR8AYlPFggEcTCMNARIWXuRwthLbuwcakh4z9k6qg95dg==
+  dependencies:
+    prop-types "^15.5.10"
+    react-native-root-siblings "^4.0.0"
 
 react-native-safe-area-context@3.3.2:
   version "3.3.2"

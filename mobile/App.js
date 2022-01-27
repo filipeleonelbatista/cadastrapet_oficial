@@ -4,6 +4,8 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import Routes from './src/routes';
 import { LogBox } from 'react-native';
+import { RootSiblingParent } from 'react-native-root-siblings';
+
 
 export default function App() { 
   LogBox.ignoreAllLogs()
@@ -18,10 +20,10 @@ export default function App() {
     return <AppLoading />
 
   return (
-    <>
+    <RootSiblingParent>
       <StatusBar style={{height: 24}} backgroundColor='#566DEA' style="light" />
       <Routes />
-    </>
+    </RootSiblingParent>
   );
 
 }  

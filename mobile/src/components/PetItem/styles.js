@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   petItem:{
@@ -8,6 +8,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 8,
     marginVertical: 8,
+    marginHorizontal: 10,
+    elevation:4,
   },
   petImage:{ 
     width: 64,

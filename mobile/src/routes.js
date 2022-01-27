@@ -15,7 +15,6 @@ import {
   PetVaccineHistory,
   TutorProfile,
   EditPet,
-  PetGeneralData,
   PetMedicalHistory,
   ViewVaccine
 } from "./pages";
@@ -41,7 +40,6 @@ function Routes() {
             <Screen name="PetHistoryView" component={PetHistoryView} />
             <Screen name="PetVaccineHistory" component={PetVaccineHistory} />
             <Screen name="PetMedicalHistory" component={PetMedicalHistory} />
-            <Screen name="PetGeneralData" component={PetGeneralData} />
             <Screen name="ViewVaccine" component={ViewVaccine} />
           </Navigator>
       </AuthContextProvider>

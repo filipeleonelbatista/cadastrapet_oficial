@@ -26,19 +26,19 @@ export const styles = StyleSheet.create({
   scrollView: {
     marginVertical: 4,
     width: Dimensions.get('window').width,
-    paddingHorizontal:24,
+    paddingHorizontal:14,
   },
   addPetButton:{
-    width: '100%',
     borderRadius: 8,
     backgroundColor:"transparent",
     flexDirection: 'row',      
     alignItems:'center',
     justifyContent: 'center',
-    padding: 32,
-    marginVertical: 16,
+    marginVertical: 32,
+    padding: 16,
   },
   addPetButtonText:{
+    textAlign:'center',
     fontWeight: 'normal',
     fontSize: 18,
     color: '#566DEA',

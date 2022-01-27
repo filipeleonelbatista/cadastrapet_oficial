@@ -6,6 +6,7 @@ import { ImageBackground, KeyboardAvoidingView, Platform, Text, View } from "rea
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Button, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
+import { Loading } from "../../components/Loading";
 import { uploadImageAsync } from '../../firebase/functions';
 import { useAuth } from "../../hooks/useAuth";
 import { dateToString, isStringEmpty, stringToDate } from "../../utils/string";
@@ -13,7 +14,8 @@ import { styles } from "./styles";
 
 export function EditPet() {
   const { navigate } = useNavigation();
-  const { selectedPet, updatePetByID, user } = useAuth()
+  const { selectedPet, updatePetByID, user, setIsLoaded, isLoaded, setSelectedPet } = useAuth()
+  const [isDisabled, setIsDisabled] = useState(true)
 
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
@@ -93,85 +95,104 @@ export function EditPet() {
       created_at: selectedPet.created_at,
       updated_at: Date.now()
     };
+    if(await updatePetByID(selectedPet.uid, data, user)) return navigate("PetProfile")
+  }
 
-    if (await updatePetByID(selectedPet.uid, data, user)) return navigate("PetProfile")
+  const handleEditPage = () => {
+    setIsDisabled(false)
+  }
 
+  const handleCancelEditPage = () => {
+    setIsDisabled(false)
+    navigate("PetProfile")
   }
 
   useEffect(() => {
+    setIsLoaded(true)
     setAdoptionDate(dateToString(selectedPet.adoption_date))
     setSelectedImage({ uri: selectedPet.avatar, cancelled: false })
     setBirthDate(dateToString(selectedPet.birth_date))
     setName(selectedPet.name)
+    setIsLoaded(false)
   }, [])
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
-      <ButtonRounded
-        onPress={() => navigate("PetList")}
-        transparent
-      >
-        <FontAwesome5 name="arrow-left" size={24} color="#566DEA" />
-      </ButtonRounded>
-      <View style={styles.content}>
-        <Text style={styles.title}>Editar Pet</Text>
-      </View>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.content}>
-          <TouchableOpacity
-            onPress={pickImage}
-            style={styles.buttonRoundedWhite}
+    <>
+      {isLoaded ? <Loading /> : (
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.container}
+        >
+          <ButtonRounded
+            onPress={() => navigate("PetProfile")}
+            transparent
           >
-            {!selectedImage ? (
-              <FontAwesome5 name="camera" size={48} color="#566DEA" />
-            ) : (
-              <ImageBackground
-                source={{
-                  uri: selectedImage.uri,
-                }}
-                style={{ width: 96, height: 96 }}
-                imageStyle={{ borderRadius: 96 }}
-              />
-            )}
-          </TouchableOpacity>
+            <FontAwesome5 name="arrow-left" size={24} color="#566DEA" />
+          </ButtonRounded>
           <View style={styles.content}>
-            <Input
-              label="Nome"
-              value={name}
-              onChangeText={(text) => setName(text)}
-            />
-            <Input
-              maxLength={10}
-              dateInputType
-              label="Data de nascimento"
-              placeholder="DD/MM/AAAA"
-              keyboardType="decimal-pad"
-              value={birth_date}
-              onChangeText={(text) => setBirthDate(text)}
-            />
-            <Input
-              maxLength={10}
-              dateInputType
-              label="Data Adoção"
-              placeholder="DD/MM/AAAA"
-              keyboardType="decimal-pad"
-              value={adoption_date}
-              onChangeText={(text) => setAdoptionDate(text)}
-            />
+            <Text style={styles.title}>{isDisabled ? 'Dados Gerais' : 'Editar Pet'}</Text>
           </View>
-          <View style={styles.actions}>
-            <Button onPress={handleEditPet} text="Salvar" />
-            <Button
-              onPress={() => navigate("PetProfile")}
-              text="Cancelar"
-              transparent
-            />
-          </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.content}>
+              <TouchableOpacity
+                onPress={isDisabled ? () => { } : pickImage}
+                style={styles.buttonRoundedWhite}
+              >
+                {!selectedImage ? (
+                  <FontAwesome5 name="camera" size={48} color="#566DEA" />
+                ) : (
+                  <ImageBackground
+                    source={{
+                      uri: selectedImage.uri,
+                    }}
+                    style={{ width: 96, height: 96 }}
+                    imageStyle={{ borderRadius: 96 }}
+                  />
+                )}
+              </TouchableOpacity>
+              <View style={styles.content}>
+                <Input
+                  disabled={isDisabled}
+                  label="Nome"
+                  value={name}
+                  onChangeText={(text) => setName(text)}
+                />
+                <Input
+                  disabled={isDisabled}
+                  maxLength={10}
+                  dateInputType
+                  label="Data de nascimento"
+                  placeholder="DD/MM/AAAA"
+                  keyboardType="decimal-pad"
+                  value={birth_date}
+                  onChangeText={(text) => setBirthDate(text)}
+                />
+                <Input
+                  disabled={isDisabled}
+                  maxLength={10}
+                  dateInputType
+                  label="Data Adoção"
+                  placeholder="DD/MM/AAAA"
+                  keyboardType="decimal-pad"
+                  value={adoption_date}
+                  onChangeText={(text) => setAdoptionDate(text)}
+                />
+              </View>
+              <View style={styles.actions}>
+                {isDisabled ? <Button onPress={handleEditPage} text="Editar" /> : (
+                  <>
+                    <Button onPress={handleEditPet} text="Salvar" />
+                    <Button
+                      onPress={handleCancelEditPage}
+                      text="Cancelar"
+                      transparent
+                    /></>
+                )}
+              </View>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      )}
+    </>
   );
 }

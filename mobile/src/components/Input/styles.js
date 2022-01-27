@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
     fontFamily: 'Poppins_400Regular',
+    borderRightWidth:0,
   },
   inputDisabledDate:{  
     flex: 1,
@@ -33,6 +34,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#0000004D',
     fontFamily: 'Poppins_400Regular',
+    borderRightWidth:0,
   },
   ButtonDate:{        
     paddingHorizontal: 14,
@@ -48,8 +50,8 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
   },
   ButtonDisabledDate:{
-    paddingHorizontal: 28,
-    paddingVertical: 14,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',  
     borderTopLeftRadius: 0,

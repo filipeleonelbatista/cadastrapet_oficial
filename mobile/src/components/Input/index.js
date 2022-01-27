@@ -7,13 +7,13 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import {FontAwesome5} from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { styles } from './styles';
-import {date as convertToHumanDate} from '../../utils/masks'
+import { date as convertToHumanDate } from '../../utils/masks'
 import { dateToString, pad } from '../../utils/string';
 
-export function Input({dateInputType=false, passwordInputType=false, label, error, onChangeText, placeholder, disabled=false, ...rest}){
+export function Input({ dateInputType = false, passwordInputType = false, label, error, onChangeText, placeholder, disabled = false, ...rest }) {
 
   const [date] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -32,8 +32,8 @@ export function Input({dateInputType=false, passwordInputType=false, label, erro
     setShowDatePicker(false)
   }
 
-  if(dateInputType){
-    return(
+  if (dateInputType) {
+    return (
       <View style={styles.container}>
         {label && <Text style={styles.label}>{label}</Text>}
         <View style={styles.inputGroup}>
@@ -42,30 +42,30 @@ export function Input({dateInputType=false, passwordInputType=false, label, erro
             selectTextOnFocus={!disabled}
             style={disabled ? styles.inputDisabledDate : styles.inputDate}
             onChangeText={text => onChangeText(convertToHumanDate(text))}
-            placeholder={placeholder} 
+            placeholder={placeholder}
             {...rest}
-            />
-          <TouchableOpacity 
-            style={disabled ? styles.ButtonDisabledDate : styles.ButtonDate} 
-            onPress={disabled ? () => {} : handleOpenDatePicker}>
-            <FontAwesome5 name="calendar-alt" size={24} color="#fff"/>
+          />
+          <TouchableOpacity
+            style={disabled ? styles.ButtonDisabledDate : styles.ButtonDate}
+            onPress={disabled ? () => { } : handleOpenDatePicker}>
+            <FontAwesome5 name="calendar-alt" size={24} color="#fff" />
           </TouchableOpacity>
         </View>
         {error && <Text style={styles.error}>{error}</Text>}
         {showDatePicker && (
-        <DateTimePicker
-          value={date}
-          mode='date'
-          display="default"
-          onChange={(selectedDate) => datePickerChangeDate(selectedDate)}
-        />
-      )}
+          <DateTimePicker
+            value={date}
+            mode='date'
+            display="default"
+            onChange={(selectedDate) => datePickerChangeDate(selectedDate)}
+          />
+        )}
       </View>
     )
   }
 
-  if(passwordInputType){
-    return(
+  if (passwordInputType) {
+    return (
       <View style={styles.container}>
         {label && <Text style={styles.label}>{label}</Text>}
         <View style={styles.inputGroup}>
@@ -74,18 +74,18 @@ export function Input({dateInputType=false, passwordInputType=false, label, erro
             selectTextOnFocus={!disabled}
             style={disabled ? styles.inputDisabledDate : styles.inputDate}
             onChangeText={text => onChangeText(text)}
-            placeholder={placeholder} 
+            placeholder={placeholder}
             secureTextEntry={showPassword}
             {...rest}
-            />
-          <TouchableOpacity 
-            style={disabled ? styles.ButtonDisabledDate : styles.ButtonDate} 
-            onPress={disabled ? () => {} : handleToggleShowPassword}>
-              {
-              showPassword 
-                ? <FontAwesome5 name="eye" size={24} color="#fff"/> 
-                : <FontAwesome5 name="eye-slash" size={24} color="#fff"/>
-              }
+          />
+          <TouchableOpacity
+            style={disabled ? styles.ButtonDisabledDate : styles.ButtonDate}
+            onPress={disabled ? () => { } : handleToggleShowPassword}>
+            {
+              showPassword
+                ? <FontAwesome5 name="eye" size={24} color="#fff" />
+                : <FontAwesome5 name="eye-slash" size={24} color="#fff" />
+            }
           </TouchableOpacity>
         </View>
         {error && <Text style={styles.error}>{error}</Text>}
@@ -101,9 +101,9 @@ export function Input({dateInputType=false, passwordInputType=false, label, erro
         selectTextOnFocus={!disabled}
         style={disabled ? styles.inputDisabled : styles.input}
         onChangeText={text => onChangeText(text)}
-        placeholder={placeholder} 
+        placeholder={placeholder}
         {...rest}
-        />
+      />
       {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );

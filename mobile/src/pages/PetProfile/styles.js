@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   scrollView: {
     marginVertical: 4,
     width: Dimensions.get('window').width,
-    paddingHorizontal:24,
+    paddingHorizontal:14,
   },
   content:{
     flexDirection: 'row',
@@ -44,6 +44,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     marginVertical: 8,
+    marginHorizontal: 10,
+    elevation:4,
   },
   petImage:{ 
     width: 64,

@@ -6,10 +6,10 @@ import { useAuth } from '../../hooks/useAuth';
 import { yearNow } from '../../utils/string';
 import { styles } from "./styles";
 
-export function PetItem({ id }) {
+export function PetItem({ pet }) {
   const { navigate } = useNavigation();
   const [CurrentPet, setCurrentPet] = useState()
-  const { getPetByID, setSelectedPet } = useAuth()
+  const { setSelectedPet } = useAuth()
 
   const handleSelectPet = () => {
     setSelectedPet(CurrentPet)
@@ -17,11 +17,7 @@ export function PetItem({ id }) {
   }
 
   useEffect(() => {
-    const handleGetPet = async () => {
-      const pet = await getPetByID(id)
-      setCurrentPet(pet)
-    }
-    handleGetPet()
+    setCurrentPet(pet)
   }, [])
 
   if (!CurrentPet) return null
