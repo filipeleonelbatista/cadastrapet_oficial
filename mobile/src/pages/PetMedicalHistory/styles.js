@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   scrollView: {
     marginVertical: 4,
     width: Dimensions.get('window').width,
-    paddingHorizontal:24,
+    paddingHorizontal:14,
   },
   content:{
     flexDirection: 'row',
@@ -25,15 +25,14 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingHorizontal:24,
-    marginVertical: 8,
+    marginVertical: 4,
   },
   title:{
     fontWeight: 'bold',
     fontFamily: 'Poppins_700Bold',
     fontSize: 24,
     color: '#566DEA',
-    marginVertical: 8,
-    marginLeft:8,
+    marginVertical: 2
   },
   petData:{
     flexDirection: 'column',
@@ -50,7 +49,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     fontSize: 24,
     color: '#566DEA',
-    marginVertical: 8,
   },
   petItem:{
     borderRadius: 8,
@@ -58,7 +56,9 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingVertical: 8,
     paddingHorizontal: 14,
-    marginVertical: 4,
+    marginVertical: 8,
+    marginHorizontal: 8,
+    elevation:4,
   },
   itemRow:{
     flexDirection: 'row',

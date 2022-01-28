@@ -30,8 +30,8 @@ export function PetItem({ pet }) {
         style={styles.petImage}
       />
       <View style={styles.petData}>
-        <Text style={styles.petName}>{CurrentPet.name}</Text>
-        <Text style={styles.petAge}>{yearNow(CurrentPet.birth_date) == 1 ? yearNow(CurrentPet.birth_date) + ' Ano' : yearNow(CurrentPet.birth_date) + ' Anos'}</Text>
+        <Text style={styles.petName}>{CurrentPet.name}</Text>        
+        <Text style={styles.petAge}>{yearNow(CurrentPet.birth_date) >= 1 ? yearNow(CurrentPet.birth_date) + ' Anos' : yearNow(CurrentPet.birth_date) + ' Ano'}</Text>
       </View>
     </TouchableOpacity>
   );

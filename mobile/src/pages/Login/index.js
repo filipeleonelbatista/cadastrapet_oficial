@@ -57,7 +57,7 @@ export function Login() {
             </View>
             <Button text="Esqueci a senha" transparent onPress={() => handleForgotUser(email)} />
           </View>
-          <Text style={styles.subsubtitle}>Ver. 26012022.4</Text>
+          <Text style={styles.subsubtitle}>Ver. 27012022.7</Text>
         </KeyboardAvoidingView>
       )}
     </>

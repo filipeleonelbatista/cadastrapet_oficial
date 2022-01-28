@@ -2,7 +2,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
-import { Alert, Image, ImageBackground, KeyboardAvoidingView, Text, View } from "react-native";
+import { Alert, Image, ImageBackground, KeyboardAvoidingView, RefreshControl, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Button, ButtonNav, ButtonRounded } from "../../components/Button";
 import { Input } from "../../components/Input";
@@ -105,10 +105,9 @@ export function PetHistory() {
             source={{ uri: selectedPet.avatar }}
             style={styles.petImage}
           />
-          
           <View style={styles.petData}>
             <Text style={styles.title}>{selectedPet.name}</Text>
-            <Text style={styles.petAge}>{yearNow(selectedPet.birth_date) == 1 ? yearNow(selectedPet.birth_date) + ' Ano' : yearNow(selectedPet.birth_date) + ' Anos'}</Text>
+            <Text style={styles.petAge}>{yearNow(selectedPet.birth_date) >= 1 ? yearNow(selectedPet.birth_date) + ' Anos' : yearNow(selectedPet.birth_date) + ' Ano'}</Text>
           </View>
         </View>
         <View style={styles.inputGroup}>

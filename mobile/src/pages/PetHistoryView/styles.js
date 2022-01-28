@@ -29,10 +29,10 @@ export const styles = StyleSheet.create({
   },
   title:{
     fontWeight: 'bold',
+    fontFamily: 'Poppins_700Bold',
     fontSize: 24,
     color: '#566DEA',
-    marginVertical: 8,
-    fontFamily: 'Poppins_700Bold',
+    marginVertical: 2,
   },
   petData:{
     flexDirection: 'column',

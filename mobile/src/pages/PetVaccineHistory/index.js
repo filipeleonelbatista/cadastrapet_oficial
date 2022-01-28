@@ -26,7 +26,7 @@ export function PetVaccineHistory() {
         <Image source={{ uri: selectedPet.avatar }} style={styles.petImage} />
         <View style={styles.petData}>
           <Text style={styles.title}>{selectedPet.name}</Text>
-          <Text style={styles.petAge}>{yearNow(selectedPet.birth_date) == 1 ? yearNow(selectedPet.birth_date) + ' Ano' : yearNow(selectedPet.birth_date) + ' Anos'}</Text>
+            <Text style={styles.petAge}>{yearNow(selectedPet.birth_date) >= 1 ? yearNow(selectedPet.birth_date) + ' Anos' : yearNow(selectedPet.birth_date) + ' Ano'}</Text>
         </View>
       </View>
       <View style={styles.header}>

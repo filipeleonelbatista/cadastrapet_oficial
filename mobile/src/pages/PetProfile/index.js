@@ -9,7 +9,7 @@ import { yearNow } from '../../utils/string';
 import { styles } from './styles';
 import Toast from 'react-native-root-toast';
 
-export function PetProfile(props) {
+export function PetProfile() {
   const [refreshing, setRefreshing] = useState(false)
   const { navigate } = useNavigation();
   const [pet, setPet] = useState();
@@ -18,7 +18,7 @@ export function PetProfile(props) {
 
   const handleRefresh = async () => {
     setRefreshing(true)
-    
+
     const handleUpdateData = async () => {
       const updatedPet = await getPetByID(selectedPet.uid)
       setSelectedPet(updatedPet)
@@ -52,7 +52,7 @@ export function PetProfile(props) {
         <Image source={{ uri: pet.avatar }} style={styles.petImage} />
         <View style={styles.petData}>
           <Text style={styles.title}>{pet.name}</Text>
-          <Text style={styles.petAge}>{yearNow(pet.birth_date) == 1 ? yearNow(pet.birth_date) + ' Ano' : yearNow(pet.birth_date) + ' Anos'}</Text>
+          <Text style={styles.petAge}>{yearNow(pet.birth_date) >= 1 ? yearNow(pet.birth_date) + ' Anos' : yearNow(pet.birth_date) + ' Ano'}</Text>
         </View>
       </View>
       <ScrollView style={styles.scrollView}

@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Poppins_700Bold',
     fontSize: 24,
     color: '#566DEA',
-    marginVertical: 8,
+    marginVertical: 2,
   },
   petData:{
     flexDirection: 'column',

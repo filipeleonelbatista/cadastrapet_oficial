@@ -55,12 +55,12 @@ export function AuthContextProvider(props) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const updateMedicalHistory = async () => await updateMedicalHistoryList()
-  //   updateMedicalHistory()
-  //   const updateVaccine = async () => await updateVaccineList()
-  //   updateVaccine()
-  // }, [selectedPet])
+  useEffect(() => {
+    const updateMedicalHistory = async () => await updateMedicalHistoryList()
+    updateMedicalHistory()
+    const updateVaccine = async () => await updateVaccineList()
+    updateVaccine()
+  }, [selectedPet])
 
   function handleForgotUser(email) {
     if (isStringEmpty(email)) {
@@ -189,9 +189,6 @@ export function AuthContextProvider(props) {
     setPetList(currentPetList);
   }
 
-
-
-
   async function getNewVaccineID() {
     const vaccineRef = collection(db, "vaccine");
     const newVaccine = await addDoc(vaccineRef, {});
@@ -201,10 +198,12 @@ export function AuthContextProvider(props) {
   async function updateVaccineList() {
     let currentVaccineList = []
 
-    selectedPet.vaccines.map(async (id) => {
+    for (const id of selectedPet.vaccines) {
       const loadedVaccine = await getVaccineByID(id);
-      if (loadedVaccine) currentVaccineList.push(loadedVaccine);
-    })
+      if (loadedVaccine) {
+        currentVaccineList.push(loadedVaccine)
+      }
+    }
 
     setVaccineList(currentVaccineList)
   }
@@ -272,10 +271,12 @@ export function AuthContextProvider(props) {
   async function updateMedicalHistoryList() {
     let currentMedicalHistoryList = []
 
-    selectedPet.events.map(async (id) => {
+    for (const id of selectedPet.events) {
       const loadedMedicalHistory = await getMedicalHistoryID(id);
-      if (loadedMedicalHistory) currentMedicalHistoryList.push(loadedMedicalHistory);
-    })
+      if (loadedMedicalHistory) {
+        currentMedicalHistoryList.push(loadedMedicalHistory)
+      }
+    }
 
     setMedicalHistoryList(currentMedicalHistoryList)
   }
@@ -287,14 +288,18 @@ export function AuthContextProvider(props) {
   }
 
   async function getMedicalHistoryID(id) {
+    setIsLoaded(true)
     const medicalHistoryRef = doc(db, "medical-history", id);
     const medicalHistorySnap = await getDoc(medicalHistoryRef);
     const medicalHistory = medicalHistorySnap.data();
+    setIsLoaded(false)
     return medicalHistory;
   }
 
   async function updatePetMedicalHistoryByID(id, data) {
     const petData = await getPetByID(id);
+
+    setIsLoaded(true)
     const updatedPet = {
       ...petData,
       ...data,
@@ -302,6 +307,8 @@ export function AuthContextProvider(props) {
     try {
       await setDoc(doc(db, "pets", id), updatedPet);
       setSelectedPet(updatedPet);
+
+      setIsLoaded(false)
       return true;
     } catch (err) {
       sendDiscordNotification(
@@ -312,12 +319,16 @@ export function AuthContextProvider(props) {
         "Erro",
         `Houve um erro ao atualizar dados do pet. Tente novamente mais tarde`
       );
+
+      setIsLoaded(false)
       return false;
     }
   }
 
   async function updateMedicalHistoryByID(id, data, pet) {
     const medicalHistoryData = await getMedicalHistoryID(id);
+
+    setIsLoaded(true)
     const updatedMedicalHistory = {
       ...medicalHistoryData,
       ...data,
@@ -329,6 +340,8 @@ export function AuthContextProvider(props) {
       const updatePetMedicalHistoryArray = pet.events.includes(id)
         ? [...pet.events]
         : [...pet.events, id];
+
+      setIsLoaded(false)
       if (!(await updatePetMedicalHistoryByID(pet.uid, { events: [...updatePetMedicalHistoryArray] })))
         return false;
       updateMedicalHistoryList()
@@ -342,6 +355,7 @@ export function AuthContextProvider(props) {
         "Erro",
         `Houve um erro ao adicionar histórico medico. Tente novamente mais tarde`
       );
+      setIsLoaded(false)
       return false;
     }
   }
@@ -416,7 +430,7 @@ export function AuthContextProvider(props) {
 
   async function updateUserByID(id, data) {
     const userData = await getUserByID(id);
-    
+
     setIsLoaded(true)
     const userUpdated = {
       ...userData,
@@ -426,7 +440,7 @@ export function AuthContextProvider(props) {
       await setDoc(doc(db, "users", id), userUpdated);
       setUser(userUpdated);
       setUserId(userUpdated.uid)
-      
+
       setIsLoaded(false)
       return true;
     } catch (err) {
