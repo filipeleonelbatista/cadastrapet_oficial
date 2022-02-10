@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
 import {
-  FaHandHoldingHeart,
+  FaDiscord, FaFacebook, FaFacebookMessenger, FaHandHoldingHeart,
   FaInstagram, FaMobile,
   FaShareAlt,
-  FaWhatsapp,
-  FaFacebook,
-  FaDiscord,
-  FaFacebookMessenger
+  FaWhatsapp
 } from "react-icons/fa";
 import ScrollContainer from "react-indiana-drag-scroll";
 import { Link } from 'react-router-dom';
 import Floating from '../components/Floating';
-import Input from '../components/Input';
 import api from "../services/api";
 import { sendDiscordNotification } from "../services/discord-notify";
 import styles from "../styles/pages/Home.module.css";
 
-function Home(){
+function Home() {
   const [isShow, setIsShow] = useState(false);
   const [isShowStatusMessage, setIsShowStatusMessage] = useState(false);
   const [statusmessage, setstatusmessage] = useState(false);
@@ -26,12 +22,12 @@ function Home(){
   const [quant, setquant] = useState("");
   const [myIp, setMyIp] = useState("");
 
-  async function getCurrentIP(){
+  async function getCurrentIP() {
     await fetch("https://api.ipify.org/?format=json")
       .then(results => results.json())
       .then(data => {
         setMyIp(data.ip)
-      })    
+      })
   }
 
   function handleToggleModal() {
@@ -41,55 +37,6 @@ function Home(){
   function handleToggleModalStatusMessage() {
     setIsShowStatusMessage(!isShowStatusMessage);
   }
-  async function handleBetaAccess(){
-    if (!name || !telefone || !email) {
-      alert("Por favor preencha todos os campos");
-      return;
-    }
-    
-      const data = {
-        ip: myIp,
-        tipoContato: "CTA Beta Contato",
-        celular: telefone,
-        email,
-        nome: name,
-        mensagem: `Eu quero acesso antecipado ao app`,
-        feitoContato: false,
-        convertido: false
-      }
-      const whatsMessage = 
-      `Olá
-      Recebemos seu interesse em participar da beta do nosso app
-      Logo mandaremos mais detalhes sobre como voce poderá ter acesso ao nosso app
-
-      Att,  Equipe Cadastra Pet
-      `
-      const discordMessage = `
-      Contato feito pelo form da BETA
-      
-**Nome:** ${data.nome}
-**IP:** ${data.ip}
-**Celular:** ${data.celular}
-**Email:** ${data.email}
-
-https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessage)}
-`
-
-      sendDiscordNotification(discordMessage,'doguinho')
-
-    alert('Recebemos seu contato. Aguarde no seu email o convite para a beta!')
-    const result = await api.post("contatos", data);
-    if (result.status === 201) {
-      setname('')
-      settelefone('')
-      setemail('')
-      setquant('')
-      console.log('Contato feito!')
-      return
-    }else{      
-      alert('Houve um problema ao registrar seu contato. Por favor tente novamente mais tarde!')
-    }
-  }
 
   async function handleForm() {
     if (!name || !telefone || !email || !quant) {
@@ -97,25 +44,25 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
       return;
     }
 
-      const data = {
-        ip: myIp,
-        tipoContato: "Modal landing tutor",
-        celular: telefone,
-        email,
-        nome: name,
-        mensagem: `Quantidade de pets: ${quant}`,
-        feitoContato: false,
-        convertido: false
-      }
-      
-      const whatsMessage = 
+    const data = {
+      ip: myIp,
+      tipoContato: "Modal landing tutor",
+      celular: telefone,
+      email,
+      nome: name,
+      mensagem: `Quantidade de pets: ${quant}`,
+      feitoContato: false,
+      convertido: false
+    }
+
+    const whatsMessage =
       `Olá
       Recebemos seu interesse em acessar o nosso app
       Logo mandaremos mais detalhes sobre como voce poderá ter acesso ao nosso app
 
       Att,  Equipe Cadastra Pet
       `
-      const discordMessage = `
+    const discordMessage = `
       Contato feito pelo form da Modal landing tutor
       
 **Nome:** ${data.nome}
@@ -126,7 +73,7 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
 https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessage)}
 `
 
-      sendDiscordNotification(discordMessage,'doguinho')
+    sendDiscordNotification(discordMessage, 'doguinho')
 
     const result = await api.post("contatos", data);
     if (result.status === 201) {
@@ -138,7 +85,7 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
       setstatusmessage(true)
       setIsShowStatusMessage(true);
       return
-    }else{
+    } else {
       handleToggleModal();
       setstatusmessage(false)
       setIsShowStatusMessage(true);
@@ -157,24 +104,24 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
     return value;
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getCurrentIP();
-  },[])
-  
+  }, [])
+
   return (
     <div id="landing-page" className={styles.container}>
       {isShowStatusMessage && (
         <div id="modal-status" className={styles.modalStatus}>
-            <div className={styles.statusContainer} style={statusmessage ?  {color: 'green'} : {color: 'red'}}>
-              <button
-                onClick={handleToggleModalStatusMessage}
-                type="button"
-                className={styles.closeButton}
-              >
-                X
-              </button>
-              <p>{statusmessage ? "Sua mensagem foi enviada com sucesso!" : "Houve um problema ao enviar seu cadastro, tente novamente mais tarde!"}</p>
-            </div>
+          <div className={styles.statusContainer} style={statusmessage ? { color: 'green' } : { color: 'red' }}>
+            <button
+              onClick={handleToggleModalStatusMessage}
+              type="button"
+              className={styles.closeButton}
+            >
+              X
+            </button>
+            <p>{statusmessage ? "Sua mensagem foi enviada com sucesso!" : "Houve um problema ao enviar seu cadastro, tente novamente mais tarde!"}</p>
+          </div>
         </div>
       )}
       {isShow && (
@@ -253,41 +200,7 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
           </div>
         </nav>
       </header>
-      <main>                
-      <section id="ctaBeta" className={styles.ctaBeta}>
-          <div className={styles.contentBeta}>
-            <h2>Participe da beta do app</h2>
-            <p>
-              Cadastre seu pet, sugira melhorias e tenha acesso especial ao nosso o app.
-              <br /><sub>Vagas limitadas.</sub>
-            </p>
-            <div className={styles.formGroup}>
-              <Input 
-                id="name" 
-                label="Nome" 
-                onChange={(e) => setname(e.target.value)} 
-                value={name} 
-                />
-              <Input 
-                id="email" 
-                label="Email" 
-                onChange={(e) => setemail(e.target.value)} 
-                value={email} 
-                />
-              <Input 
-                id="telefone" 
-                label="Celular/Whatsapp" 
-                onChange={(e) => settelefone(handleMaskPhoneNumber(e.target.value))} 
-                value={telefone} 
-                maxLength={15}
-                />
-              
-              <button onClick={handleBetaAccess}>
-                Receber meu acesso à beta
-              </button>
-            </div>
-          </div>
-        </section>
+      <main>
         {/* CTA */}
         <section id="cta" className={styles.cta}>
           <div className={styles.content}>
@@ -300,6 +213,14 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
             <button onClick={handleToggleModal}>
               Quero ter um cadastro digital do meu pet
             </button>
+            <div style={{ display:'flex', flexDirection: 'row', gap: '0.8rem', margin: '2.4rem'}}>
+              <a href="/">
+                <img src="./images/googleplay.png" alt="android" style={{ width: '150px', height: 'auto', borderRadius: '8px', opacity: 0.6 }} />
+              </a>
+              <a href="/">
+                <img src="./images/applestore.png" alt="apple" style={{ width: '150px', height: 'auto', borderRadius: '8px', opacity: 0.6 }} />
+              </a>
+            </div>
           </div>
           <img className={styles.hideImg} src="./images/landing/mockup-cta.png" alt="" />
         </section>

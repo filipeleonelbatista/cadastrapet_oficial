@@ -1,0 +1,108 @@
+#contatos-page{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000;
+
+}
+
+#contatos-page .container{
+    max-width: 900px;
+    width: 90%;
+    height: 70%;
+    background-color: #FFF;
+    border-radius: 0.8rem;
+    margin: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.4rem;
+
+}
+
+#contatos-page .container img{
+    width: auto;
+    height: 20rem;
+    margin: 2.4rem;
+}
+
+#contatos-page table{
+    width: 80%;
+    margin: 2.4rem 0;
+    border-spacing: 0 0.8rem;
+}
+
+#contatos-page table thead.table-head th{
+    padding: 0.8rem 0.8rem;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid #000;
+}
+
+#contatos-page table tbody tr.table-row{
+    background-color: #FFF;
+    border: none;
+    margin: 0 0.8rem;
+    transition: 0.3s;
+}
+/* #contatos-page table tbody tr.table-row:hover{
+    background-color: #EEE;
+} */
+
+#contatos-page table tbody tr.table-row td{
+    padding: 0.8rem 1.4rem;
+    color: #000;
+}
+#contatos-page table tbody tr.table-row td .row-data{
+    display: flex;
+    flex-direction: row;
+    font-weight: 300;
+    color: #666;
+    font-size: small;
+}
+#contatos-page table tbody tr.table-row td .row-data p{
+    margin: 0.4rem 0.2rem;
+}
+#contatos-page table tbody tr.table-row td.actions button{
+    background-color: #FFF;
+    border: none;
+    outline: none;
+
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+
+    transition: 0.3s;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#contatos-page table tbody tr.table-row td.actions button:hover{    
+    background-color: #DDD;
+}
+#contatos-page table tbody tr.table-row td:first-child{
+    border-top-left-radius: 0.8rem;
+    border-bottom-left-radius: 0.8rem;
+}
+
+#contatos-page table tbody tr.table-row td:last-child{
+    border-top-right-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+}
+
+.boolean-data-true{
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #0c961e;
+}
+.boolean-data-false{
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #ff4141;
+}
