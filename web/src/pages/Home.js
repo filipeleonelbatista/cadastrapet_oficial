@@ -197,6 +197,7 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
           </div>
           <div className={styles.menuItems}>
             <Link to="/veterinario">Sou Veterinário</Link>
+            <Link to="/tutor">Sou Tutor</Link>
           </div>
         </nav>
       </header>

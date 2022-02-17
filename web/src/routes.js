@@ -6,6 +6,7 @@ import PetHistoryFormPage from './pages/PetHistoryFormPage';
 import NotFound from './pages/NotFound';
 import LoginAdmin from './pages/admin/LoginAdmin';
 import ListContatos from './pages/admin/ListContatos';
+import LoginTutor from './pages/tutor/LoginTutor';
 
 function Routes() {
     return (
@@ -15,6 +16,7 @@ function Routes() {
                 <Route path="/admin" exact element={<LoginAdmin />} />
                 <Route path="/admin/contatos" exact element={<ListContatos />} />
                 <Route path="/veterinario" exact element={<LoginPage />} />
+                <Route path="/tutor" exact element={<LoginTutor />} />
                 <Route path="/historico-pet" exact element={<PetHistoryFormPage />} />
                 <Route path="*" element={<NotFound />} />
             </Switch>
