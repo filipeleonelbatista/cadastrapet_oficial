@@ -45,18 +45,18 @@ function LoginPage() {
   }
 
   const handleCheckFirstForm = () => {
-    if(ValidateFields()) return
+    if (ValidateFields()) return
 
     setIsDisabled(false)
   }
 
-  const handleSearchPet = async () => {    
-    if(isDisabled) return
+  const handleSearchPet = async () => {
+    if (isDisabled) return
     if (isStringEmpty(petID)) {
       alert("O campo Código do pet não foi preenchido");
       return
-    }    
-    if(!ValidateFields()) return
+    }
+    if (!ValidateFields()) return
 
     //Pesquisar registro do veterinário
 
@@ -69,7 +69,7 @@ function LoginPage() {
     // Se não localizar, retornar o aviso que o codigo do pet é invalido ou não existe
 
     // Se localizar salvar em contexto
-  
+
     // Enviar para tela dashboard do pet.
 
 
@@ -78,13 +78,15 @@ function LoginPage() {
   useEffect(() => {
     const urlPetId = searchParams.get('id')
     if (urlPetId) setPetID(urlPetId)
-  }, [searchParams])  
+  }, [searchParams])
 
-  useEffect(() => {}, [isDisabled])
+  useEffect(() => { }, [isDisabled])
 
   return (
     <div className={styles.container}>
-      <img src={Logo} alt="Cadastra Pet" className={styles.imgHeader} />
+      <a href="/">
+        <img src={Logo} alt="Cadastra Pet" className={styles.imgHeader} />
+      </a>
       <div className={styles.content}>
         <div>
           <h3>Olá, tudo bem?</h3>
@@ -93,11 +95,11 @@ function LoginPage() {
             mais completo, precisamos de algumas
             informações suas:
           </p>
-          <Input id="nome" placeholder="Nome/Nome fantasia" onChange={(e) => { setName(e.target.value)}} value={name} />
+          <Input id="nome" placeholder="Nome/Nome fantasia" onChange={(e) => { setName(e.target.value) }} value={name} />
           <Input id="nome" placeholder="CPF/CNPJ" onChange={(e) => { setVetDocId(masks.cpf(e.target.value)) }} value={vetDocId} />
           <Input id="nome" placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} value={email} />
           <Input id="nome" placeholder="Telefone" onChange={(e) => { setPhone(masks.phone(e.target.value)) }} value={phone} />
-          <Input id="nome" placeholder="CRMV" onChange={(e) => { setCRMV(e.target.value)}} value={CRMV} />
+          <Input id="nome" placeholder="CRMV" onChange={(e) => { setCRMV(e.target.value) }} value={CRMV} />
           <Button id="nome" transparent onClick={handleCheckFirstForm}>
             Seguinte <FaArrowRight size="18" />
           </Button>

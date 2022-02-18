@@ -5,9 +5,9 @@ import {
   FaShareAlt,
   FaWhatsapp
 } from "react-icons/fa";
-import ScrollContainer from "react-indiana-drag-scroll";
-import { Link } from 'react-router-dom';
+// import ScrollContainer from "react-indiana-drag-scroll";
 import Floating from '../components/Floating';
+import HomeNavigation from "../components/HomeNavigation";
 import api from "../services/api";
 import { sendDiscordNotification } from "../services/discord-notify";
 import styles from "../styles/pages/Home.module.css";
@@ -195,10 +195,7 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
               alt="CadastraPet | Cadastrando e prolongando vidas"
             />
           </div>
-          <div className={styles.menuItems}>
-            <Link to="/veterinario">Sou Veterinário</Link>
-            <Link to="/tutor">Sou Tutor</Link>
-          </div>
+          <HomeNavigation />
         </nav>
       </header>
       <main>
@@ -214,16 +211,17 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
             <button onClick={handleToggleModal}>
               Quero ter um cadastro digital do meu pet
             </button>
-            <div style={{ display:'flex', flexDirection: 'row', gap: '0.8rem', margin: '2.4rem'}}>
+
+            <div className={styles.mobile}>
               <a href="/">
-                <img src="./images/googleplay.png" alt="android" style={{ width: '150px', height: 'auto', borderRadius: '8px', opacity: 0.6 }} />
+                <img src="./images/googleplay.png" alt="android" className={styles.mobileBanner} />
               </a>
               <a href="/">
-                <img src="./images/applestore.png" alt="apple" style={{ width: '150px', height: 'auto', borderRadius: '8px', opacity: 0.6 }} />
+                <img src="./images/applestore.png" alt="apple" className={styles.mobileBanner} />
               </a>
             </div>
           </div>
-          <img className={styles.hideImg} src="./images/landing/mockup-cta.png" alt="" />
+          <img className={[styles.hideImg, styles.ctaImg]} src="./images/landing/mockup-cta.png" alt="" />
         </section>
         {/* CTA */}
         {/* About */}
@@ -281,33 +279,23 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
         </section>
         {/* how */}
         {/* catalog */}
-        <section id="catalog" className={styles.catalog}>
+        {/* <section id="catalog" className={styles.catalog}>
           <h2>Veja como é fácil cadastrar os dados do seu Pet:</h2>
-          {/* <div onMouseDown={handleMouseDown} className={styles.carrossel}> */}
           <ScrollContainer className={styles.carrossel}>
             <div className={styles.cardItem}>
-              {/* <h2>1</h2>
-              <p>Através de uma rede social, ele abre o link do seu catálogo</p> */}
               <img src="./images/landing/slider-1.png" alt="" />
             </div>
             <div className={styles.cardItem}>
-              {/* <h2>2</h2>
-              <p>Seleciona a categoria</p> */}
               <img src="./images/landing/slider-2.png" alt="" />
             </div>
             <div className={styles.cardItem}>
-              {/* <h2>3</h2>
-              <p>Escolhe o produto</p> */}
               <img src="./images/landing/slider-3.png" alt="" />
             </div>
             <div className={styles.cardItem}>
-              {/* <h2>4</h2>
-              <p>Vê as informações do anúncio e adiciona a sacola</p> */}
               <img src="./images/landing/slider-4.png" alt="" />
             </div>
           </ScrollContainer>
-          {/* </div> */}
-        </section>
+        </section> */}
         {/* catalog */}
         {/* cta2 */}
         <section id="cta2" className={styles.cta2}>

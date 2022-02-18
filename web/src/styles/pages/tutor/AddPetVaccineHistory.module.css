@@ -1,0 +1,166 @@
+@media (min-width: 360px) {   
+  .container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 2.4rem;
+    background-color: #F3F5FF;
+    overflow: auto;
+    background-image: url(../../../assets/background-brand.png);
+    background-repeat: no-repeat;
+    background-position: -25rem 40rem;
+    background-size: auto 45rem;
+  }
+
+  .header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }.petInfo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #566dea;
+  }
+
+  .headerImage{
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    margin: 0 2.4rem 0 0;
+  }
+
+  .petName{
+    font-weight: 600;
+    font-size: 2.4rem;
+  }
+
+  .headerTitle{
+    color: #566dea;
+    font-weight: 400;
+    font-size: 2.4rem;
+    margin: 2.4rem;
+
+  }
+
+  .petAge{
+    font-weight: 400;
+    font-size: 1.6rem;
+  }
+    
+  .content{
+    padding: 2.4rem 0;
+    max-width: 32rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2.4rem;
+    justify-content: center;
+  }
+
+  .wContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 1.8rem;
+    border-radius: 0.8rem;
+    background-color: #FFF;
+    border: none;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.75);
+    transition: 0.2s;
+  }
+  
+  .wContainer svg{
+    fill: #566dea;
+  }
+
+  .uploadButton{
+    margin: 2.4rem;
+    width: 12.8rem;
+    height: 12.8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+    background-color: #FFF;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.75);
+
+  }
+  .uploadButton:hover{    
+    filter: brightness(0.9);
+  }
+  
+  .uploadButton:active{    
+    box-shadow: inset 0px 0px 6px 0px rgba(0,0,0,0.75);
+  }
+
+ }
+
+@media (min-width: 720px) {     
+  .container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 4.4rem;
+    background-color: #F3F5FF;
+    background-image: url(../../../assets/background-brand.png);
+    background-repeat: no-repeat;
+    background-position: -25rem 60rem;
+  }
+
+  .content{
+    max-width: 70rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4rem;
+    justify-content: center;
+  }
+ }
+
+@media (min-width: 1200px) {  
+  .container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8rem 8.4rem;
+    background-color: #F3F5FF;
+    background-image: url(../../../assets/background-brand.png);
+    background-repeat: no-repeat;
+    background-position: -25rem 60rem;
+  }
+
+  .content{
+    max-width: 90rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4rem;
+    justify-content: center;
+  }
+ }
+
+.content h3{
+  color: #566dea;
+  font-weight: 600;
+  margin: 0.8rem 0;
+}
+
+.content p{
+  color: #6CA6FD;
+  font-weight: 300;
+  margin: 0 0 1.4rem 0;
+}

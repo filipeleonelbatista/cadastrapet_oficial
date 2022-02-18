@@ -72,6 +72,22 @@
   margin: 0 0 2.4rem 0;
 }
 
+.mobile{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  margin: 2.4rem 0
+}
+
+.mobile a > img{
+  width: 15rem;
+  height: auto;
+  border-radius: 0.8rem;
+  opacity: 0.6;
+  margin: 0;
+}
+
 .cta img {
   width: auto;
   height: calc(100vh - 8.6rem);
@@ -703,9 +719,9 @@
   background-color: #263481;
 }
 
-@media (max-width: 720px)
-{
+@media (max-width: 720px){
   
+
 .ctaBeta {
   width: 100vw;
   height: 100vh;
@@ -840,6 +856,23 @@
     height: 40vh;
     width: auto;
    }
+   
+
+.cta .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.mobile{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  margin: 1.4rem 0
+}
    
 .about {
   width: 100vw;

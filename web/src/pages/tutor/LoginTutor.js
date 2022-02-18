@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../../assets/admin/logo.png';
-import api from "../../services/api";
+// import api from "../../services/api";
 import '../../styles/pages/tutor/login-page.css';
 
 
@@ -10,10 +10,11 @@ function LoginTutor() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [remember, setRemember] = useState(false);
-    const [error, setError] = useState("");
+    const [error] = useState("");
 
     async function handleOnSubmit(event) {
         event.preventDefault();
+        navigate("/tutor/petlist");
         // if ((email === "") || (password === "")) {
         //     setError("Opa, faltou alguma informação!");
         //     return;
@@ -65,7 +66,9 @@ function LoginTutor() {
 
             </div>
             <div className="login-form">
-                <img src={logo} alt="Cadastra Pet Admin" width="270" />
+                <a href="/">
+                    <img src={logo} alt="Cadastra Pet - Tutor" width="270" />
+                </a>
                 <h1>Bem vindo novamente</h1>
                 <p>Entre para continuar usando o sistema</p>
                 <form onSubmit={(e) => {

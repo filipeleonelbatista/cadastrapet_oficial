@@ -19,7 +19,7 @@ function LoginAdmin() {
             return;
         }
         let result;
-        
+
         try {
             result = await api.get("login", {
                 params: {
@@ -65,10 +65,12 @@ function LoginAdmin() {
 
             </div>
             <div className="login-form">
-                <img src={logo} alt="Cadastra Pet Admin" width="270" />
+                <a href="/">
+                    <img src={logo} alt="Cadastra Pet Admin" width="270" />
+                </a>
                 <h1>Bem vindo novamente</h1>
                 <p>Entre para continuar usando o sistema</p>
-                <form onSubmit={(e)=>{
+                <form onSubmit={(e) => {
                     handleOnSubmit(e)
                 }}>
                     <div className="error">
@@ -76,18 +78,18 @@ function LoginAdmin() {
                     </div>
                     <div className="input-container">
                         <input id="email" type="text"
-                            value={email} onChange={(e) => {setEmail(e.target.value)}} />
+                            value={email} onChange={(e) => { setEmail(e.target.value) }} />
                         <label htmlFor="email">Email</label>
                     </div>
                     <div className="input-container">
-                        <input id="password" type="password" 
-                            value={password} onChange={(e) => {setPassword(e.target.value)}} />
+                        <input id="password" type="password"
+                            value={password} onChange={(e) => { setPassword(e.target.value) }} />
                         <label htmlFor="password">Senha</label>
                     </div>
                     <div className="input-group">
                         <div className="remember">
                             <input id="check" type="checkbox"
-                                value={remember} onChange={(e) => {setRemember(e.target.value)}} />
+                                value={remember} onChange={(e) => { setRemember(e.target.value) }} />
                             <label htmlFor="check">Manter conectado</label>
                         </div>
                         <Link to="/admin/login">Esqueceu sua senha?</Link>
