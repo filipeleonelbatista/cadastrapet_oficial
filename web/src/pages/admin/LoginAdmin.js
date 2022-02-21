@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../../assets/admin/logo.png';
-import api from "../../services/api";
+import { AuthContextProvider } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import '../../styles/pages/admin/login-page.css';
 
 
-function LoginAdmin() {
+function LoginAdminComponent() {
     const navigate = useNavigate();
+    const { signInUser, isLoggedIn } = useAuth()
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [remember, setRemember] = useState(false);
@@ -18,52 +21,16 @@ function LoginAdmin() {
             setError("Opa, faltou alguma informação!");
             return;
         }
-        let result;
-
-        try {
-            result = await api.get("login", {
-                params: {
-                    email,
-                    password
-                }
-            });
-        } catch (error) {
-            setError("Houve um problema ao comunicar com o servidor, tente mais tarde!");
-            return;
-        }
-
-        if (result.data.success) {
-            if (remember) {
-                const data = JSON.stringify({
-                    email,
-                    password: result.data.usuario[0].password,
-                    validade: 7,
-                    loginDate: Date.now()
-                })
-                localStorage.setItem("@CadastraPet:login", data);
-            } else {
-                const data = JSON.stringify({
-                    email,
-                    password: result.data.usuario[0].password,
-                    validade: 1,
-                    loginDate: Date.now()
-                })
-                localStorage.setItem("@CadastraPet:login", data);
-
-            }
-            navigate("/admin/contatos");
-        } else {
-            setError("Usuario ou senha inválidos!");
-            return;
-        }
-
-
+        if (await signInUser(email, password)) navigate("/admin/contatos")
     }
+
+    useEffect(() => {
+        if(isLoggedIn) navigate("/admin/contatos")
+    }, [isLoggedIn, navigate])
+
     return (
         <div id="login-page">
-            <div className="image-container">
-
-            </div>
+            <div className="image-container"></div>
             <div className="login-form">
                 <a href="/">
                     <img src={logo} alt="Cadastra Pet Admin" width="270" />
@@ -101,4 +68,12 @@ function LoginAdmin() {
     );
 }
 
+
+function LoginAdmin() {
+    return (
+        <AuthContextProvider>
+            <LoginAdminComponent />
+        </AuthContextProvider>
+    )
+}
 export default LoginAdmin;

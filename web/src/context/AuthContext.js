@@ -1,9 +1,10 @@
-import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import { collection, doc, getDoc, query, setDoc, where } from "firebase/firestore";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import { authentication, db } from "../firebase/firebase-config";
 import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
+import { isStringEmpty } from "../utils/string";
 
 export const AuthContext = createContext({});
 
@@ -22,7 +23,7 @@ export function AuthContextProvider(props) {
     const unsubscribe = authentication.onAuthStateChanged(async (user) => {
       if (user) {
         setIsLoggedIn(true);
-        const loggedUser = await getVetByID(user.uid);
+        const loggedUser = await getUserByID(user.uid);
         setUserId(loggedUser.uid)
         setUser(loggedUser);
       } else {
@@ -34,6 +35,26 @@ export function AuthContextProvider(props) {
       unsubscribe();
     };
   }, []);
+
+  function getNumberOfUsers() {
+    const usersRef = collection(db, "users");
+    const result = getDocs(usersRef)
+      .then((snap) => {
+        let cont = 0
+        snap.docs.forEach((doc) => {
+          if (!doc.data().is_admin) {
+            cont = cont + 1;
+          }
+        })
+        return cont
+      })
+      .catch(err => {
+        console.log(err)
+        return []
+      })
+
+    return result
+  }
 
   function logout() {
     signOut(authentication).then(() => {
@@ -72,6 +93,34 @@ export function AuthContextProvider(props) {
     return vetResult.data();
   }
 
+  async function getUserByID(id) {
+    const usersRef = doc(db, "users", id);
+    const userSnap = await getDoc(usersRef);
+    const user = userSnap.data();
+
+    return user;
+  }
+
+  function signInUser(email, password) {
+    if (isStringEmpty(email)) {
+      alert("O campo email não foi preenchido");
+      return false;
+    }
+    if (isStringEmpty(password)) {
+      alert("O campo senha não foi preenchido");
+      return false;
+    }
+
+    signInWithEmailAndPassword(authentication, email, password)
+      .then(() => {
+        return true
+      })
+      .catch(err => {
+        console.log("Erro", AuthErrorHandler[err.code]);
+        return false
+      })
+  }
+
   async function RegisterUser({ email, password, user }) {
     return createUserWithEmailAndPassword(authentication, email, password)
       .then(async (re) => {
@@ -101,30 +150,32 @@ export function AuthContextProvider(props) {
       })
       .catch((err) => {
         alert(AuthErrorHandler[err.code]);
-    return false;
-  });
-}
+        return false;
+      });
+  }
 
-return (
-  <AuthContext.Provider
-    value={{
-      user, setUser,
-      user_id, setUserId,
-      selectedPet, setSelectedPet,
-      medicalHistoryList, setMedicalHistoryList,
-      vaccineList, setVaccineList,
-      selectedMedicalHistory, setSelectedMedicalHistory,
-      selectedVaccine, setSelectedVaccine,
-      isLoggedIn, setIsLoggedIn,
-      isLoaded, setIsLoaded,
-      RegisterUser,
-      getVetByEmail,
-      getVetByID,
-      getPetByID,
-      logout
-    }}
-  >
-    {props.children}
-  </AuthContext.Provider>
-);
+  return (
+    <AuthContext.Provider
+      value={{
+        user, setUser,
+        user_id, setUserId,
+        selectedPet, setSelectedPet,
+        medicalHistoryList, setMedicalHistoryList,
+        vaccineList, setVaccineList,
+        selectedMedicalHistory, setSelectedMedicalHistory,
+        selectedVaccine, setSelectedVaccine,
+        isLoggedIn, setIsLoggedIn,
+        isLoaded, setIsLoaded,
+        RegisterUser,
+        getVetByEmail,
+        getVetByID,
+        getPetByID,
+        logout,
+        signInUser,
+        getNumberOfUsers
+      }}
+    >
+      {props.children}
+    </AuthContext.Provider>
+  );
 }
