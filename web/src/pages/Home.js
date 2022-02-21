@@ -8,14 +8,15 @@ import {
 // import ScrollContainer from "react-indiana-drag-scroll";
 import Floating from '../components/Floating';
 import HomeNavigation from "../components/HomeNavigation";
-import api from "../services/api";
-import { sendDiscordNotification } from "../services/discord-notify";
+import { ConversionContextProvider } from "../context/ConversionContext";
+import { useConversion } from "../hooks/useConversion";
 import styles from "../styles/pages/Home.module.css";
+import { isStringEmpty } from "../utils/string";
 
-function Home() {
+function HomeComponent() {
+  const { conversion } = useConversion()
   const [isShow, setIsShow] = useState(false);
-  const [isShowStatusMessage, setIsShowStatusMessage] = useState(false);
-  const [statusmessage, setstatusmessage] = useState(false);
+  const [isSendedMessage, setIsSendedMessage] = useState(false);
   const [name, setname] = useState("");
   const [telefone, settelefone] = useState("");
   const [email, setemail] = useState("");
@@ -31,64 +32,10 @@ function Home() {
   }
 
   function handleToggleModal() {
-    setIsShow(!isShow);
-  }
-
-  function handleToggleModalStatusMessage() {
-    setIsShowStatusMessage(!isShowStatusMessage);
-  }
-
-  async function handleForm() {
-    if (!name || !telefone || !email || !quant) {
-      alert("Por favor preencha todos os campos");
-      return;
-    }
-
-    const data = {
-      ip: myIp,
-      tipoContato: "Modal landing tutor",
-      celular: telefone,
-      email,
-      nome: name,
-      mensagem: `Quantidade de pets: ${quant}`,
-      feitoContato: false,
-      convertido: false
-    }
-
-    const whatsMessage =
-      `Olá
-      Recebemos seu interesse em acessar o nosso app
-      Logo mandaremos mais detalhes sobre como voce poderá ter acesso ao nosso app
-
-      Att,  Equipe Cadastra Pet
-      `
-    const discordMessage = `
-      Contato feito pelo form da Modal landing tutor
-      
-**Nome:** ${data.nome}
-**IP:** ${data.ip}
-**Celular:** ${data.celular}
-**Email:** ${data.email}
-
-https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessage)}
-`
-
-    sendDiscordNotification(discordMessage, 'doguinho')
-
-    const result = await api.post("contatos", data);
-    if (result.status === 201) {
-      setname('')
-      settelefone('')
-      setemail('')
-      setquant('')
-      handleToggleModal();
-      setstatusmessage(true)
-      setIsShowStatusMessage(true);
-      return
+    if (isSendedMessage) {
+      alert("Seu cadastro já foi realizado, aguarde nosso email de contato. Obrigado!")
     } else {
-      handleToggleModal();
-      setstatusmessage(false)
-      setIsShowStatusMessage(true);
+      setIsShow(!isShow);
     }
   }
 
@@ -104,26 +51,54 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
     return value;
   }
 
+  const ValidateFields = () => {
+    if (isStringEmpty(name)) {
+      alert("O campo nome não foi preenchido");
+      return true;
+    }    
+    if (telefone.length < 15) {
+      if (isStringEmpty(telefone)) {
+        alert("O campo Telefone não foi preenchido");
+        return true;
+      }else{
+        alert("O campo Telefone não está completo");
+        return true;
+      }
+    }   
+    if (isStringEmpty(email)) {
+      alert("O campo Email não foi preenchido");
+      return true;
+    }
+    if (isStringEmpty(quant)) {
+      alert("O campo Quantidade de pets não foi preenchido");
+      return true;
+    }
+  }
+
+  async function handleForm() {
+    if (ValidateFields()) return;
+
+    const isConversionSaved = await conversion(name, email, "Modal landing tutor", telefone, myIp, window.location.href, `Quantidade de pets: ${quant}`)
+
+    if (isConversionSaved) {
+      setname('')
+      settelefone('')
+      setemail('')
+      setquant('')
+      setIsSendedMessage(true)
+      handleToggleModal()
+      return
+    } else {
+      handleToggleModal();
+    }
+  }
+
   useEffect(() => {
     getCurrentIP();
   }, [])
 
   return (
     <div id="landing-page" className={styles.container}>
-      {isShowStatusMessage && (
-        <div id="modal-status" className={styles.modalStatus}>
-          <div className={styles.statusContainer} style={statusmessage ? { color: 'green' } : { color: 'red' }}>
-            <button
-              onClick={handleToggleModalStatusMessage}
-              type="button"
-              className={styles.closeButton}
-            >
-              X
-            </button>
-            <p>{statusmessage ? "Sua mensagem foi enviada com sucesso!" : "Houve um problema ao enviar seu cadastro, tente novamente mais tarde!"}</p>
-          </div>
-        </div>
-      )}
       {isShow && (
         <div id="modal-cta" className={styles.modalCta}>
           <div className={styles.cardContainer}>
@@ -337,6 +312,14 @@ https://wa.me/+55${data.celular.replace(/\D/g, "")}?text=${encodeURI(whatsMessag
       <Floating />
     </div>
   );
+}
+
+function Home() {
+  return (
+    <ConversionContextProvider>
+      <HomeComponent />
+    </ConversionContextProvider>
+  )
 }
 
 export default Home;
