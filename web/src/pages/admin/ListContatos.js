@@ -77,6 +77,9 @@ function ListContatosComponent() {
                                                         <p>{contato.phone}</p>
                                                     </div>
                                                     <div className="row-data">
+                                                        <p>{contato.url}</p>
+                                                    </div>
+                                                    <div className="row-data">
                                                         <p>{contato.message}</p>
                                                     </div>
                                                 </td>
