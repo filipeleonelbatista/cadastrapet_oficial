@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import { authentication, db } from "../firebase/firebase-config";
@@ -82,6 +82,24 @@ export function AuthContextProvider(props) {
       );
     });
 
+  }
+
+  function handleForgotUser(email) {
+    if (isStringEmpty(email)) {
+      alert("O campo email não foi preenchido");
+      return true;
+    }
+
+    setIsLoaded(true);
+    sendPasswordResetEmail(authentication, email)
+      .then(() => {
+        alert("Foi enviado um email com as instruções de recuperação.");
+        setIsLoaded(false);
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(AuthErrorHandler[[err.code]]);
+      });
   }
 
   async function getPetByID(id) {
@@ -218,7 +236,8 @@ export function AuthContextProvider(props) {
         logout,
         signInUser,
         getNumberOfUsers,
-        updateContextData
+        updateContextData,
+        handleForgotUser
       }}
     >
       {props.children}

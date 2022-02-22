@@ -63,6 +63,7 @@ export function Register() {
       email,
       password,
       user: {
+        is_admin: false,
         name,
         avatar: "",
         cpf,
