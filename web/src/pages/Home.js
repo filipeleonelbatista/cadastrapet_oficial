@@ -307,7 +307,7 @@ function HomeComponent() {
           </div>
         </div>
         <div className={styles.footerLinks}>
-          <a href="/">Políticas e privacidade</a>
+          <a href="/politicas-de-privacidade">Políticas e privacidade</a>
           <a href="/termos-e-condicoes">Termos de uso</a>
         </div>
       </footer>

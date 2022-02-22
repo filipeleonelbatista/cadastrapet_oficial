@@ -5,7 +5,7 @@ import Floating from '../components/Floating';
 import HomeNavigation from "../components/HomeNavigation";
 import styles from "../styles/pages/Home.module.css";
 
-function TermosECondicoes() {
+function PoliticasDePrivacidade() {
 
   return (
     <div id="landing-page" className={styles.container}>
@@ -26,9 +26,9 @@ function TermosECondicoes() {
       <main>
         {/* how */}
         <section id="how" className={styles.how}>
-          <h2>Termos e condições</h2>
+          <h2>Politicas de Privacidade</h2>
           <p>
-            Esta será a página dos termos de uso e condições
+            Esta será a página das politicas de privacidade
           </p>
         </section>
         {/* how */}
@@ -73,4 +73,4 @@ function TermosECondicoes() {
   );
 }
 
-export default TermosECondicoes;
+export default PoliticasDePrivacidade;

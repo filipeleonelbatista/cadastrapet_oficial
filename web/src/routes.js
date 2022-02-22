@@ -17,6 +17,7 @@ import AddPetHistory from './pages/tutor/AddPetHistory';
 import AddPetVaccineHistory from './pages/tutor/AddPetVaccineHistory';
 import CreatePet from './pages/tutor/CreatePet';
 import TermosECondicoes from './pages/TermosECondicoes';
+import PoliticasDePrivacidade from './pages/PoliticasDePrivacidade';
 
 function Routes() {
     return (
@@ -24,6 +25,7 @@ function Routes() {
             <Switch>
                 <Route path="/" exact element={<Home />} />
                 <Route path="/termos-e-condicoes" exact element={<TermosECondicoes />} />
+                <Route path="/politicas-de-privacidade" exact element={<PoliticasDePrivacidade />} />
                 <Route path="/admin" exact element={<LoginAdmin />} />
                 <Route path="/admin/contatos" exact element={<ListContatos />} />
                 <Route path="/veterinario" exact element={<LoginPage />} />
