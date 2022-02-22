@@ -14,6 +14,7 @@ export function AuthContextProvider(props) {
   const [selectedPet, setSelectedPet] = useState();
   const [medicalHistoryList, setMedicalHistoryList] = useState([]);
   const [vaccineList, setVaccineList] = useState([]);
+  const [petList, setPetList] = useState([]);
   const [selectedMedicalHistory, setSelectedMedicalHistory] = useState();
   const [selectedVaccine, setSelectedVaccine] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,8 +25,18 @@ export function AuthContextProvider(props) {
       if (user) {
         setIsLoggedIn(true);
         const loggedUser = await getUserByID(user.uid);
-        setUserId(loggedUser.uid)
+        let currentPetList = [];
+
+        for (const id of loggedUser.pets) {
+          const loadedPet = await getPetByID(id);
+          if (loadedPet) {
+            currentPetList.push(loadedPet)
+          }
+        }
+
         setUser(loggedUser);
+        setUserId(loggedUser.uid)
+        setPetList(currentPetList);
       } else {
         setIsLoggedIn(false);
       }
@@ -103,21 +114,36 @@ export function AuthContextProvider(props) {
 
   function signInUser(email, password) {
     if (isStringEmpty(email)) {
-      alert("O campo email não foi preenchido");
-      return false;
+      const status = {
+        status: false,
+        message: "O campo email não foi preenchido"
+      }
+      return status;
     }
     if (isStringEmpty(password)) {
-      alert("O campo senha não foi preenchido");
-      return false;
+      const status = {
+        status: false,
+        message: "O campo senha não foi preenchido"
+      }
+      return status;
     }
 
-    signInWithEmailAndPassword(authentication, email, password)
+    return signInWithEmailAndPassword(authentication, email, password)
       .then(() => {
-        return true
+        setIsLoggedIn(true)
+        const status = {
+          status: true,
+        }
+        return status;
       })
       .catch(err => {
         console.log("Erro", AuthErrorHandler[err.code]);
-        return false
+
+        const status = {
+          status: false,
+          message: AuthErrorHandler[err.code]
+        }
+        return status;
       })
   }
 
@@ -154,11 +180,30 @@ export function AuthContextProvider(props) {
       });
   }
 
+  // ta ruim essa bagaça
+  async function updateContextData() {
+    const loggedUser = await getUserByID(user_id);
+
+    let currentPetList = [];
+
+    for (const id of loggedUser.pets) {
+      const loadedPet = await getPetByID(id);
+      if (loadedPet) {
+        currentPetList.push(loadedPet)
+      }
+    }
+
+    setUser(loggedUser);
+    setUserId(loggedUser.uid)
+    setPetList(currentPetList);
+  }
+
   return (
     <AuthContext.Provider
       value={{
         user, setUser,
         user_id, setUserId,
+        petList, setPetList,
         selectedPet, setSelectedPet,
         medicalHistoryList, setMedicalHistoryList,
         vaccineList, setVaccineList,
@@ -172,7 +217,8 @@ export function AuthContextProvider(props) {
         getPetByID,
         logout,
         signInUser,
-        getNumberOfUsers
+        getNumberOfUsers,
+        updateContextData
       }}
     >
       {props.children}

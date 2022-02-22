@@ -1,31 +1,47 @@
+
 import React from "react";
-import styles from '../../styles/pages/tutor/PetList.module.css';
-import Logo from '../../assets/logo.png';
-import DogImage from '../../assets/images/pet.jpg';
-import {
-    FaPlus
-  } from "react-icons/fa";
+import { FaPlus, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Logo from '../../assets/logo.png';
+import Button from "../../components/Button";
+import { AuthContextProvider } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
+import styles from '../../styles/pages/tutor/PetList.module.css';
 
-function PetList() {
-    
+function PetListComponent() {
     const navigate = useNavigate();
-    
 
-    const handleSelectedPet = () => {
+    const { isLoggedIn, logout, petList, getPetByID, setSelectedPet } = useAuth();
+
+    const handleSelectedPet = async (id) => {
+        const selectedPet = await getPetByID(id);
+        setSelectedPet(selectedPet);
         navigate('/tutor/petprofile')
     }
+
+    const handleLogout = () => {
+        logout()
+        navigate('/tutor')
+    }
+    
+    if(!isLoggedIn) return null;
 
     return (
         <div className={styles.container}>
             <img src={Logo} alt="Cadastra Pet" className={styles.imgHeader} />
             <div className={styles.content}>
-                <div className={styles.petItem}>
-                    <button onClick={handleSelectedPet} className={styles.petButton}>
-                        <img src={DogImage} alt="Doguinho" className={styles.petImage} />
-                    </button>
-                    <h4 className={styles.petName}>Doguinho</h4>
-                </div>
+                {petList &&
+                    petList.map(pet => {
+                        return (
+                            <div key={pet.uid} className={styles.petItem}>
+                                <button onClick={() => handleSelectedPet(pet.uid)} className={styles.petButton}>
+                                    <img src={pet.avatar} alt={pet.name} className={styles.petImage} />
+                                </button>
+                                <h4 className={styles.petName}>{pet.name}</h4>
+                            </div>
+                        )
+                    })
+                }
                 <div className={styles.petItem}>
                     <button onClick={() => navigate('/tutor/createpet')} className={styles.petButton}>
                         <FaPlus />
@@ -33,8 +49,20 @@ function PetList() {
                     <h4 className={styles.petName}>Adicionar Pet</h4>
                 </div>
             </div>
+            <Button transparent onClick={handleLogout}>
+                <FaSignOutAlt /> Sair
+            </Button>
         </div>
     )
 }
 
+
+
+function PetList() {
+    return (
+        <AuthContextProvider>
+            <PetListComponent />
+        </AuthContextProvider>
+    )
+}
 export default PetList;
