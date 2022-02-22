@@ -55,16 +55,16 @@ function HomeComponent() {
     if (isStringEmpty(name)) {
       alert("O campo nome não foi preenchido");
       return true;
-    }    
+    }
     if (telefone.length < 15) {
       if (isStringEmpty(telefone)) {
         alert("O campo Telefone não foi preenchido");
         return true;
-      }else{
+      } else {
         alert("O campo Telefone não está completo");
         return true;
       }
-    }   
+    }
     if (isStringEmpty(email)) {
       alert("O campo Email não foi preenchido");
       return true;
@@ -164,11 +164,13 @@ function HomeComponent() {
       <header>
         <nav>
           <div className={styles.brand}>
-            <img
-              className={styles.imgBrand}
-              src="./images/logo.png"
-              alt="CadastraPet | Cadastrando e prolongando vidas"
-            />
+            <a href="/">
+              <img
+                className={styles.imgBrand}
+                src="./images/logo.png"
+                alt="CadastraPet | Cadastrando e prolongando vidas"
+              />
+            </a>
           </div>
           <HomeNavigation />
         </nav>
@@ -306,7 +308,7 @@ function HomeComponent() {
         </div>
         <div className={styles.footerLinks}>
           <a href="/">Políticas e privacidade</a>
-          <a href="/">Termos de uso</a>
+          <a href="/termos-e-condicoes">Termos de uso</a>
         </div>
       </footer>
       <Floating />

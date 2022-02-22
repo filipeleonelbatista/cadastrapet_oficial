@@ -16,12 +16,14 @@ import PetCode from './pages/tutor/PetCode';
 import AddPetHistory from './pages/tutor/AddPetHistory';
 import AddPetVaccineHistory from './pages/tutor/AddPetVaccineHistory';
 import CreatePet from './pages/tutor/CreatePet';
+import TermosECondicoes from './pages/TermosECondicoes';
 
 function Routes() {
     return (
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact element={<Home />} />
+                <Route path="/termos-e-condicoes" exact element={<TermosECondicoes />} />
                 <Route path="/admin" exact element={<LoginAdmin />} />
                 <Route path="/admin/contatos" exact element={<ListContatos />} />
                 <Route path="/veterinario" exact element={<LoginPage />} />
