@@ -1,35 +1,37 @@
 export const bots = {
-  doguinho: 'https://discord.com/api/webhooks/921380877802549258/GtbblZ4HVU69G3pA0-AAZWJNXknvTdmiPq6JSq4_JKaoESoLtY_qP2AgmGA4vhVvZqJ3',
-  gatinho: 'https://discord.com/api/webhooks/921382352272363520/6398OUqtmao6BHH759h56c77lzlfLrOtCbMjP3qkrqSzNmKZFV7_FLdBEyKW1pBO0VQq',
-}
+  doguinho:
+    "https://discord.com/api/webhooks/950804714289786920/HJAbJfkT1CsntchiCiZtdULTPOddUxLrVm_DRPas_V3nA1i_M7A2KOCmzWRNz1udSYTf",
+  gatinho:
+    "https://discord.com/api/webhooks/950805011955347457/twj7N-bhj4H0xCsG0CrbeedEQsvkK9J8aCD77PA6g5GpnzfHwqTZrhh4ZQtPsfEj_uvI",
+};
 
 // obter o id do usuário caso queira marcar alguem em um futuro próximo
 export const colaboradores = {
-  filipe: ''
-}
+  filipe: "",
+};
 
 export const sendDiscordNotification = async (message, bot) => {
   const requestPayload = {
     content: message,
     allowed_mentions: {
-      parse: ['users'],
+      parse: ["users"],
     },
-  }
+  };
 
   const requestOptions = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(requestPayload),
-  }
-  const endpoint = bots[bot]
+  };
+  const endpoint = bots[bot];
 
   return new Promise((resolve, reject) => {
     fetch(endpoint, requestOptions)
       .then((resp) => {
-        resolve(resp.status)
+        resolve(resp.status);
       })
-      .catch(reject)
-  })
-}
+      .catch(reject);
+  });
+};
