@@ -7,3 +7,15 @@ export const yearNow = (date) => {
   const currentDate = new Date(Date.now()).getFullYear();
   return currentDate - newDate;
 };
+
+export const pad = (num) => {
+  return num < 10 ? "0" + num : num;
+};
+
+export const dateToString = (date) => {
+  const newDate = new Date(date);
+  const dateString = `${pad(newDate.getDate())}/${pad(
+    newDate.getMonth() + 1
+  )}/${newDate.getFullYear()}`;
+  return dateString;
+};

@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/admin/logo.png";
 import Button from "../../components/Button";
-import { AuthContextProvider } from "../../context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
 import "../../styles/pages/tutor/login-page.css";
 
-function LoginTutorComponent() {
+function LoginTutor() {
   const navigate = useNavigate();
   const { props, functions } = useAuth();
   const { isLoggedIn } = props;
@@ -103,14 +102,6 @@ function LoginTutorComponent() {
         </form>
       </div>
     </div>
-  );
-}
-
-function LoginTutor() {
-  return (
-    <AuthContextProvider>
-      <LoginTutorComponent />
-    </AuthContextProvider>
   );
 }
 

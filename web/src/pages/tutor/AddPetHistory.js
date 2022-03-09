@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
+import DogImage from "../../assets/images/pet.jpg";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Textarea from "../../components/Textarea";
-import DogImage from "../../assets/images/pet.jpg";
 import styles from "../../styles/pages/tutor/AddPetHistory.module.css";
-import { useState } from "react";
 
 function AddPetHistory() {
+  const location = useLocation();
+  const [isView, setIsView] = useState(false);
+
+  useEffect(() => {
+    setIsView(location.pathname === "/tutor/pethistory/view");
+  }, [location.pathname]);
+
+  console.log(location);
   const [selectedNav, setSelectedNav] = useState("anotacoes");
   return (
     <div className={styles.container}>
@@ -24,8 +32,14 @@ function AddPetHistory() {
       </div>
       <div className={styles.content}>
         <div className={styles.inputForm}>
-          <Input id="consulta" placeholder="Consulta" value="Teste" />
           <Input
+            disabled={isView}
+            id="consulta"
+            placeholder="Consulta"
+            value="Teste"
+          />
+          <Input
+            disabled={isView}
             id="dt_nascimento"
             placeholder="Data da consulta"
             value="11/01/2020"
@@ -54,6 +68,7 @@ function AddPetHistory() {
           </div>
           {selectedNav === "anotacoes" && (
             <Textarea
+              disabled={isView}
               id="dt_nascimento"
               placeholder="Digite aqui suas anotações..."
               value="11/01/2020"
@@ -66,7 +81,11 @@ function AddPetHistory() {
           )}
         </div>
       </div>
-      <Button onClick={() => {}}>Salvar</Button>
+      {isView ? (
+        <Button onClick={() => {}}>Editar</Button>
+      ) : (
+        <Button onClick={() => {}}>Salvar</Button>
+      )}
     </div>
   );
 }

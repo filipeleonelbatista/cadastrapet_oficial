@@ -12,6 +12,7 @@ import {
   query,
   setDoc,
   where,
+  addDoc,
 } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import { authentication, db } from "../firebase/firebase-config";
@@ -59,6 +60,59 @@ export function AuthContextProvider(props) {
       unsubscribe();
     };
   }, []);
+
+  async function getMedicalHistoryID(id) {
+    const medicalHistoryRef = doc(db, "medical-history", id);
+    const medicalHistorySnap = await getDoc(medicalHistoryRef);
+    const medicalHistory = medicalHistorySnap.data();
+    return medicalHistory;
+  }
+
+  async function getNewMedicalHistoryID() {
+    const medicalHistoryRef = collection(db, "medical-history");
+    const newMedicalHistory = await addDoc(medicalHistoryRef, {});
+    return newMedicalHistory.id;
+  }
+
+  async function updatePetMedicalHistoryByID(id, data) {
+    const petData = await getPetByID(id);
+
+    const updatedPet = {
+      ...petData,
+      ...data,
+    };
+    try {
+      await setDoc(doc(db, "pets", id), updatedPet);
+      setSelectedPet(updatedPet);
+
+      return true;
+    } catch (err) {
+      sendDiscordNotification(
+        `Houve um erro ao atualizar dados do pet \n\n\`json \n${JSON.stringify(
+          data
+        )}\`\n\nlog do erro:\n\n\`${err}\``,
+        "doguinho"
+      );
+      alert(
+        `Houve um erro ao atualizar dados do pet. Tente novamente mais tarde`
+      );
+
+      return false;
+    }
+  }
+
+  async function updateMedicalHistoryList() {
+    let currentMedicalHistoryList = [];
+
+    for (const id of selectedPet.events) {
+      const loadedMedicalHistory = await getMedicalHistoryID(id);
+      if (loadedMedicalHistory) {
+        currentMedicalHistoryList.push(loadedMedicalHistory);
+      }
+    }
+
+    setMedicalHistoryList(currentMedicalHistoryList);
+  }
 
   function getNumberOfUsers() {
     const usersRef = collection(db, "users");
@@ -223,6 +277,16 @@ export function AuthContextProvider(props) {
     setPetList(currentPetList);
   }
 
+  useEffect(() => {
+    if (selectedPet) {
+      const executeAsync = async () => {
+        await updateMedicalHistoryList();
+      };
+      executeAsync();
+    }
+    // eslint-disable-next-line
+  }, [selectedPet]);
+
   return (
     <AuthContext.Provider
       value={{
@@ -261,6 +325,10 @@ export function AuthContextProvider(props) {
           getVetByEmail,
           getNumberOfUsers,
           updateContextData,
+          getMedicalHistoryID,
+          getNewMedicalHistoryID,
+          updatePetMedicalHistoryByID,
+          updateMedicalHistoryList,
         },
       }}
     >

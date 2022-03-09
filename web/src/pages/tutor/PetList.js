@@ -3,11 +3,10 @@ import { FaPlus, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import Button from "../../components/Button";
-import { AuthContextProvider } from "../../context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetList.module.css";
 
-function PetListComponent() {
+function PetList() {
   const navigate = useNavigate();
 
   const { props, functions, setFunctions } = useAuth();
@@ -74,11 +73,4 @@ function PetListComponent() {
   );
 }
 
-function PetList() {
-  return (
-    <AuthContextProvider>
-      <PetListComponent />
-    </AuthContextProvider>
-  );
-}
 export default PetList;
