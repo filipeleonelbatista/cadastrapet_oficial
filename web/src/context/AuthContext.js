@@ -1,5 +1,18 @@
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import { authentication, db } from "../firebase/firebase-config";
 import { sendDiscordNotification } from "../services/discord-notify";
@@ -30,12 +43,12 @@ export function AuthContextProvider(props) {
         for (const id of loggedUser.pets) {
           const loadedPet = await getPetByID(id);
           if (loadedPet) {
-            currentPetList.push(loadedPet)
+            currentPetList.push(loadedPet);
           }
         }
 
         setUser(loggedUser);
-        setUserId(loggedUser.uid)
+        setUserId(loggedUser.uid);
         setPetList(currentPetList);
       } else {
         setIsLoggedIn(false);
@@ -51,37 +64,31 @@ export function AuthContextProvider(props) {
     const usersRef = collection(db, "users");
     const result = getDocs(usersRef)
       .then((snap) => {
-        let cont = 0
+        let cont = 0;
         snap.docs.forEach((doc) => {
           if (!doc.data().is_admin) {
             cont = cont + 1;
           }
-        })
-        return cont
+        });
+        return cont;
       })
-      .catch(err => {
-        console.log(err)
-        return []
-      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
 
-    return result
+    return result;
   }
 
   function logout() {
-    signOut(authentication).then(() => {
-      setUser(null)
-      setUserId(null)
-      setMedicalHistoryList([])
-      setSelectedMedicalHistory(null)
-      setSelectedPet(null)
-      setIsLoaded(false)
-      setIsLoggedIn(false)
-    }).catch((error) => {
-      alert(
-        `Houve um erro ao tentar sair. Tente novamente mais tarde`
-      );
-    });
-
+    signOut(authentication)
+      .then(() => {
+        setUser(null);
+        setUserId(null);
+      })
+      .catch((error) => {
+        alert(`Houve um erro ao tentar sair. Tente novamente mais tarde`);
+      });
   }
 
   function handleForgotUser(email) {
@@ -97,7 +104,7 @@ export function AuthContextProvider(props) {
         setIsLoaded(false);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         alert(AuthErrorHandler[[err.code]]);
       });
   }
@@ -134,35 +141,35 @@ export function AuthContextProvider(props) {
     if (isStringEmpty(email)) {
       const status = {
         status: false,
-        message: "O campo email não foi preenchido"
-      }
+        message: "O campo email não foi preenchido",
+      };
       return status;
     }
     if (isStringEmpty(password)) {
       const status = {
         status: false,
-        message: "O campo senha não foi preenchido"
-      }
+        message: "O campo senha não foi preenchido",
+      };
       return status;
     }
 
     return signInWithEmailAndPassword(authentication, email, password)
       .then(() => {
-        setIsLoggedIn(true)
+        setIsLoggedIn(true);
         const status = {
           status: true,
-        }
+        };
         return status;
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Erro", AuthErrorHandler[err.code]);
 
         const status = {
           status: false,
-          message: AuthErrorHandler[err.code]
-        }
+          message: AuthErrorHandler[err.code],
+        };
         return status;
-      })
+      });
   }
 
   async function RegisterUser({ email, password, user }) {
@@ -179,7 +186,7 @@ export function AuthContextProvider(props) {
             "doguinho"
           );
           setUser(newUser);
-          setUserId(newUser.uid)
+          setUserId(newUser.uid);
           return true;
         } catch (err) {
           sendDiscordNotification(
@@ -207,37 +214,54 @@ export function AuthContextProvider(props) {
     for (const id of loggedUser.pets) {
       const loadedPet = await getPetByID(id);
       if (loadedPet) {
-        currentPetList.push(loadedPet)
+        currentPetList.push(loadedPet);
       }
     }
 
     setUser(loggedUser);
-    setUserId(loggedUser.uid)
+    setUserId(loggedUser.uid);
     setPetList(currentPetList);
   }
 
   return (
     <AuthContext.Provider
       value={{
-        user, setUser,
-        user_id, setUserId,
-        petList, setPetList,
-        selectedPet, setSelectedPet,
-        medicalHistoryList, setMedicalHistoryList,
-        vaccineList, setVaccineList,
-        selectedMedicalHistory, setSelectedMedicalHistory,
-        selectedVaccine, setSelectedVaccine,
-        isLoggedIn, setIsLoggedIn,
-        isLoaded, setIsLoaded,
-        RegisterUser,
-        getVetByEmail,
-        getVetByID,
-        getPetByID,
-        logout,
-        signInUser,
-        getNumberOfUsers,
-        updateContextData,
-        handleForgotUser
+        props: {
+          user,
+          user_id,
+          selectedPet,
+          medicalHistoryList,
+          vaccineList,
+          petList,
+          selectedMedicalHistory,
+          selectedVaccine,
+          isLoggedIn,
+          isLoaded,
+        },
+        setFunctions: {
+          setUser,
+          setUserId,
+          setSelectedPet,
+          setMedicalHistoryList,
+          setVaccineList,
+          setPetList,
+          setSelectedMedicalHistory,
+          setSelectedVaccine,
+          setIsLoggedIn,
+          setIsLoaded,
+        },
+        functions: {
+          RegisterUser,
+          logout,
+          handleForgotUser,
+          signInUser,
+          getUserByID,
+          getPetByID,
+          getVetByID,
+          getVetByEmail,
+          getNumberOfUsers,
+          updateContextData,
+        },
       }}
     >
       {props.children}

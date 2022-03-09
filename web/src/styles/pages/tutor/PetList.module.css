@@ -1,132 +1,204 @@
-.imgHeader{
-    margin:  0 0 6rem 0;
+.imgHeader {
+  margin: 0 0 6rem 0;
+}
+
+/* PC */
+@media (min-width: 720px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f5ff;
+    background-image: url(../../../assets/background-brand.png);
+    background-repeat: no-repeat;
+    background-position: -25rem 40rem;
   }
-  
-  @media (min-width: 360px) {   
-    .container{
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #F3F5FF;
-      overflow: auto;
-      background-image: url(../../../assets/background-brand.png);
-      background-repeat: no-repeat;
-      background-position: -25rem 40rem;
-      background-size: auto 45rem;
-    }
-      
-    .content{
-      max-width: 32rem;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 2.4rem;
-      justify-content: center;
-    }
 
-    .petItem{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2.4rem;
-    }
-    
-    .petButton{
-      background-color: #6CA6FD;
-      border-radius: 50%;
-      width: 6.4rem;
-      height: 6.4rem;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #FFF;
-      border: none;
-
-      overflow: hidden;
-
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-
-      transition: 0.2s;
-    }
-
-    .petImage{
-      width: auto;
-      height: 100%;
-    }
-
-    .petButton:hover{
-      background-color: #566dea;
-    }
-
-    .petName{
-      font-weight: 400;
-      font-size: 2rem;
-    }
-   }
-  
-  @media (min-width: 720px) {     
-    .container{
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #F3F5FF;
-      background-image: url(../../../assets/background-brand.png);
-      background-repeat: no-repeat;
-      background-position: -25rem 60rem;
-    }
-  
-    .content{
-      max-width: 70rem;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 4.4rem;
-      justify-content: center;
-    }
-   }
-  
-  @media (min-width: 1200px) {  
-    .container{
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #F3F5FF;
-      background-image: url(../../../assets/background-brand.png);
-      background-repeat: no-repeat;
-      background-position: -25rem 60rem;
-    }
-  
-    .content{
-      max-width: 90rem;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 8.4rem;
-      justify-content: center;
-    }
-   }
-  
-  .content h3{
-    color: #566dea;
-    font-weight: 600;
-    margin: 0.8rem 0;
+  .content {
+    max-width: 90rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8.4rem;
+    justify-content: center;
   }
-  
-  .content p{
-    color: #6CA6FD;
-    font-weight: 300;
-    margin: 0 0 1.4rem 0;
+
+  .petItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
   }
+
+  .petButton {
+    background-color: #6ca6fd;
+    border-radius: 50%;
+    width: 6.4rem;
+    height: 6.4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border: none;
+
+    overflow: hidden;
+    transition: 0.2s;
+  }
+
+  .petImage {
+    width: auto;
+    height: 100%;
+  }
+
+  .petButton:hover {
+    background-color: #566dea;
+  }
+
+  .petName {
+    font-weight: 400;
+    font-size: 2rem;
+  }
+}
+/* Tablet */
+@media (min-width: 320px) and (max-width: 720px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f5ff;
+    background-image: url(../../../assets/background-brand.png);
+    background-repeat: no-repeat;
+    background-position: -25rem 80rem;
+  }
+
+  .content {
+    max-width: 70rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4.4rem;
+    justify-content: center;
+  }
+  .petItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+  }
+
+  .petButton {
+    background-color: #6ca6fd;
+    border-radius: 50%;
+    width: 6.4rem;
+    height: 6.4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border: none;
+
+    overflow: hidden;
+    transition: 0.2s;
+  }
+
+  .petImage {
+    width: auto;
+    height: 100%;
+  }
+
+  .petButton:hover {
+    background-color: #566dea;
+  }
+
+  .petName {
+    font-weight: 400;
+    font-size: 2rem;
+  }
+}
+
+/* Celular */
+@media (max-width: 320px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f5ff;
+    overflow: auto;
+    background-image: url(../../../assets/background-brand.png);
+    background-repeat: no-repeat;
+    background-position: -25rem 80rem;
+    background-size: auto 45rem;
+  }
+
+  .content {
+    max-width: 32rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2.4rem;
+    justify-content: center;
+  }
+
+  .petItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+  }
+
+  .petButton {
+    background-color: #6ca6fd;
+    border-radius: 50%;
+    width: 6.4rem;
+    height: 6.4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border: none;
+
+    overflow: hidden;
+    transition: 0.2s;
+  }
+
+  .petImage {
+    width: auto;
+    height: 100%;
+  }
+
+  .petButton:hover {
+    background-color: #566dea;
+  }
+
+  .petName {
+    font-weight: 400;
+    font-size: 2rem;
+  }
+}
+
+.content h3 {
+  color: #566dea;
+  font-weight: 600;
+  margin: 0.8rem 0;
+}
+
+.content p {
+  color: #6ca6fd;
+  font-weight: 300;
+  margin: 0 0 1.4rem 0;
+}
