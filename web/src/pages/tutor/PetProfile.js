@@ -13,6 +13,8 @@ function PetProfile() {
   const { props } = useAuth();
   const { selectedPet } = props;
 
+  // if (!selectedPet) return navigate("/tutor/petlist");
+
   return (
     <div className={styles.container}>
       <BackButton path="/tutor/petlist" />
@@ -41,7 +43,7 @@ function PetProfile() {
       </div>
       <div className={styles.content}>
         <button
-          onClick={() => navigate("/tutor/petinfo")}
+          onClick={() => navigate("/tutor/petinfo/view")}
           className={styles.wContainer}
         >
           <FaBookOpen size={64} />

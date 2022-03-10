@@ -5,6 +5,7 @@ import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetHistory.module.css";
+import noDataImg from "../../assets/images/no_data.svg";
 import { dateToString, yearNow } from "../../utils/string";
 
 function PetHistory() {
@@ -12,10 +13,12 @@ function PetHistory() {
   const { props, setFunctions } = useAuth();
   const { selectedPet, medicalHistoryList } = props;
   const { setSelectedMedicalHistory } = setFunctions;
+
   function handleSelectMedicalHistory(history) {
     setSelectedMedicalHistory(history);
     navigate("/tutor/pethistory/view");
   }
+
   return (
     <div className={styles.container}>
       <BackButton path="/tutor/petprofile" />
@@ -44,24 +47,41 @@ function PetHistory() {
       </div>
       <h4 className={styles.headerTitle}>Historico Médico</h4>
       <div className={styles.content}>
-        {medicalHistoryList &&
-          medicalHistoryList.map((history) => (
-            <div
-              key={history.uid}
-              onClick={() => handleSelectMedicalHistory(history)}
-              className={styles.wContainer}
-            >
-              <div className={styles.itemRow}>
-                <p className={styles.itemTitle}>{history.title}</p>
-                <div className={styles.divider}></div>
-                <p className={styles.itemDate}>
-                  {dateToString(history.event_date)}
-                </p>
+        {medicalHistoryList && medicalHistoryList.length > 0 ? (
+          <>
+            {medicalHistoryList.map((history) => (
+              <div
+                key={history.uid}
+                onClick={() => handleSelectMedicalHistory(history)}
+                className={styles.wContainer}
+              >
+                <div className={styles.itemRow}>
+                  <p className={styles.itemTitle}>{history.title}</p>
+                  <div className={styles.divider}></div>
+                  <p className={styles.itemDate}>
+                    {dateToString(history.event_date)}
+                  </p>
+                </div>
+                <p className={styles.itemNotation}>{history.notes}</p>
               </div>
-              <p className={styles.itemNotation}>{history.notes}</p>
-            </div>
-          ))}
-        <Button transparent onClick={() => navigate("/tutor/pethistory/add")}>
+            ))}
+          </>
+        ) : (
+          <div className={styles.noData}>
+            <h2 className={styles.noDataTitle}>
+              Não há registros médicos disponíveis.
+            </h2>
+            <img
+              className={styles.noDataImg}
+              src={noDataImg}
+              alt="Sem registros"
+            />
+          </div>
+        )}
+        <Button
+          transparent={medicalHistoryList.length > 0}
+          onClick={() => navigate("/tutor/pethistory/add")}
+        >
           <FaPlus />
           Adicionar histórico
         </Button>

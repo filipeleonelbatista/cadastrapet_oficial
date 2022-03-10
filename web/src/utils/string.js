@@ -19,3 +19,19 @@ export const dateToString = (date) => {
   )}/${newDate.getFullYear()}`;
   return dateString;
 };
+
+export const stringToDate = (str) => {
+  const date_regex = /^\d{2}\/\d{2}\/\d{4}$/;
+
+  const isMatch = date_regex.test(str);
+
+  if (isMatch) {
+    const currentStrDate = str.split("/");
+    return new Date(
+      currentStrDate[2],
+      Number(currentStrDate[1]) - 1,
+      currentStrDate[0]
+    );
+  }
+  return "NAD";
+};

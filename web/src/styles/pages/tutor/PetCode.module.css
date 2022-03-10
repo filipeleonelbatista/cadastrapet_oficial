@@ -1,133 +1,225 @@
-@media (min-width: 360px) {   
-  .container{
+/* PC */
+@media (min-width: 720px) {
+  .container {
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 2.4rem;
-    background-color: #F3F5FF;
-    overflow: auto;
+    background-color: #f3f5ff;
     background-image: url(../../../assets/background-brand.png);
     background-repeat: no-repeat;
     background-position: -25rem 40rem;
-    background-size: auto 45rem;
   }
 
-  .header{
+  .content {
+    max-width: 90rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    align-items: center;
+  }
+
+  .header {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
 
-  .petInfo{
+  .petInfo {
     display: flex;
     flex-direction: row;
     align-items: center;
     color: #566dea;
   }
 
-  .headerImage{
+  .headerImage {
     width: 6rem;
     height: 6rem;
     border-radius: 50%;
     margin: 0 2.4rem 0 0;
   }
 
-  .petName{
+  .petName {
     font-weight: 600;
     font-size: 2.4rem;
   }
 
-  .petAge{
+  .petAge {
     font-weight: 400;
     font-size: 1.6rem;
   }
 
-  .headerTitle{
+  .headerTitle {
     color: #566dea;
     font-weight: 400;
     font-size: 1.4rem;
     margin: 2.4rem;
     text-align: center;
   }
-    
-  .content{
-    padding: 2.4rem 0;
-    max-width: 32rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2.4rem;
-    justify-content: center;
-  }
 
-  .wContainer{
+  .wContainer {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: fit-content;
     padding: 1.8rem;
     border-radius: 0.8rem;
-    background-color: #FFF;
+    background-color: #fff;
     border: none;
-    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
     transition: 0.2s;
   }
-
-  .wContainer:hover{    
-    filter: brightness(0.9);
-  }
-  
-  .wContainer:active{    
-    box-shadow: inset 0px 0px 6px 0px rgba(0,0,0,0.75);
-  }
-  
- }
-
-@media (min-width: 720px) {     
-  .container{
+}
+/* Tablet */
+@media (min-width: 320px) and (max-width: 720px) {
+  .container {
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem 4.4rem;
-    background-color: #F3F5FF;
+    background-color: #f3f5ff;
     background-image: url(../../../assets/background-brand.png);
     background-repeat: no-repeat;
-    background-position: -25rem 60rem;
+    background-position: -25rem 80rem;
   }
 
-  .content{
+  .content {
     max-width: 70rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    align-items: center;
+  }
+
+  .header {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 4rem;
-    justify-content: center;
+    align-items: center;
   }
- }
 
-@media (min-width: 1200px) {  
-  .container{
+  .petInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #566dea;
+  }
+
+  .headerImage {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    margin: 0 2.4rem 0 0;
+  }
+
+  .petName {
+    font-weight: 600;
+    font-size: 2.4rem;
+  }
+
+  .petAge {
+    font-weight: 400;
+    font-size: 1.6rem;
+  }
+
+  .headerTitle {
+    color: #566dea;
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin: 2.4rem;
+    text-align: center;
+  }
+
+  .wContainer {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 1.8rem;
+    border-radius: 0.8rem;
+    background-color: #fff;
+    border: none;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+    transition: 0.2s;
+  }
+}
+
+/* Celular */
+@media (max-width: 320px) {
+  .container {
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 8rem 8.4rem;
-    background-color: #F3F5FF;
+    background-color: #f3f5ff;
+    overflow: auto;
     background-image: url(../../../assets/background-brand.png);
     background-repeat: no-repeat;
-    background-position: -25rem 60rem;
+    background-position: -25rem 80rem;
+    background-size: auto 45rem;
   }
 
-  .content{
-    max-width: 90rem;
+  .content {
+    max-width: 32rem;
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 4rem;
+    gap: 0.4rem;
     justify-content: center;
   }
- }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .petInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #566dea;
+  }
+
+  .headerImage {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    margin: 0 2.4rem 0 0;
+  }
+
+  .petName {
+    font-weight: 600;
+    font-size: 2.4rem;
+  }
+
+  .petAge {
+    font-weight: 400;
+    font-size: 1.6rem;
+  }
+
+  .headerTitle {
+    color: #566dea;
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin: 2.4rem;
+    text-align: center;
+  }
+
+  .wContainer {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 1.8rem;
+    border-radius: 0.8rem;
+    background-color: #fff;
+    border: none;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+    transition: 0.2s;
+  }
+}

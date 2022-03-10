@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaPlus, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
@@ -11,7 +11,7 @@ function PetList() {
 
   const { props, functions, setFunctions } = useAuth();
   const { isLoggedIn, petList } = props;
-  const { logout, getPetByID } = functions;
+  const { logout, getPetByID, updateContextData } = functions;
   const { setSelectedPet } = setFunctions;
 
   const handleSelectedPet = async (id) => {
@@ -23,9 +23,17 @@ function PetList() {
   const handleLogout = () => {
     if (window.confirm("Deseja realmente sair?")) {
       logout();
-      navigate("/tutor");
+      navigate("/");
     }
   };
+
+  useEffect(() => {
+    const executeAsync = async () => {
+      await updateContextData();
+    };
+    executeAsync();
+    // eslint-disable-next-line
+  }, []);
 
   if (!isLoggedIn) return null;
 

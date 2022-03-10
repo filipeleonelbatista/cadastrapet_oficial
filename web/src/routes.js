@@ -31,7 +31,8 @@ function Routes() {
           <Route path="/tutor/createpet" exact element={<CreatePet />} />
           <Route path="/tutor/petlist" exact element={<PetList />} />
           <Route path="/tutor/petprofile" exact element={<PetProfile />} />
-          <Route path="/tutor/petinfo" exact element={<PetInfo />} />
+          <Route path="/tutor/petinfo/view" exact element={<PetInfo />} />
+          <Route path="/tutor/petinfo/edit" exact element={<PetInfo />} />
           <Route path="/tutor/pethistory" exact element={<PetHistory />} />
           <Route
             path="/tutor/petvaccinehistory"
@@ -50,31 +51,33 @@ function Routes() {
             element={<AddPetHistory />}
           />
           <Route
-            path="/tutor/addpetvaccinehistory"
+            path="/tutor/petvaccinehistory/add"
             exact
             element={<AddPetVaccineHistory />}
           />
+          <Route
+            path="/tutor/petvaccinehistory/view"
+            exact
+            element={<AddPetVaccineHistory />}
+          />
+          <Route path="/" exact element={<Home />} />
+          <Route
+            path="/termos-e-condicoes"
+            exact
+            element={<TermosECondicoes />}
+          />
+          <Route
+            path="/politicas-de-privacidade"
+            exact
+            element={<PoliticasDePrivacidade />}
+          />
+          <Route path="/admin" exact element={<LoginAdmin />} />
+          <Route path="/admin/contatos" exact element={<ListContatos />} />
+          <Route path="/veterinario" exact element={<LoginPage />} />
+          <Route path="/historico-pet" exact element={<PetHistoryFormPage />} />
+          <Route path="*" element={<NotFound />} />
         </Switch>
       </AuthContextProvider>
-      <Switch>
-        <Route path="/" exact element={<Home />} />
-        <Route
-          path="/termos-e-condicoes"
-          exact
-          element={<TermosECondicoes />}
-        />
-        <Route
-          path="/politicas-de-privacidade"
-          exact
-          element={<PoliticasDePrivacidade />}
-        />
-        <Route path="/admin" exact element={<LoginAdmin />} />
-        <Route path="/admin/contatos" exact element={<ListContatos />} />
-        <Route path="/veterinario" exact element={<LoginPage />} />
-        <Route path="/historico-pet" exact element={<PetHistoryFormPage />} />
-
-        <Route path="*" element={<NotFound />} />
-      </Switch>
     </BrowserRouter>
   );
 }

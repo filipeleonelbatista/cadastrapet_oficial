@@ -56,7 +56,11 @@
     fill: #566dea;
   }
   
-  
+  .uploadInput{
+    visibility: hidden;
+    position: absolute;
+    top:0;
+  }
 
   .uploadButton svg{
     width: 5rem;
@@ -148,6 +152,12 @@
 
   .wContainer svg {
     fill: #566dea;
+  }
+
+  .uploadInput{
+    visibility: hidden;
+    position: absolute;
+    top:0;
   }
 
   .uploadButton svg{
@@ -242,6 +252,12 @@
 
   .wContainer svg {
     fill: #566dea;
+  }
+  
+  .uploadInput{
+    visibility: hidden;
+    position: absolute;
+    top:0;
   }
 
   .uploadButton svg{
