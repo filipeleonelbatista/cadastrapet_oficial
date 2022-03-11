@@ -5,6 +5,7 @@ import { AuthContextProvider } from "../../context/AuthContext";
 import { useAuth } from "../../hooks/useAuth";
 import "../../styles/pages/tutor/register-page.css";
 import { isStringEmpty } from "../../utils/string";
+import { cpf as cpfMask } from "../../utils/masks";
 
 function RegisterComponent() {
   const navigate = useNavigate();
@@ -106,9 +107,10 @@ function RegisterComponent() {
             <input
               id="cpf"
               type="text"
+              maxLength={14}
               value={cpf}
               onChange={(e) => {
-                setCpf(e.target.value);
+                setCpf(cpfMask(e.target.value));
               }}
             />
             <label htmlFor="cpf">CPF</label>
