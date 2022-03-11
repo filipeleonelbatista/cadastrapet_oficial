@@ -691,7 +691,6 @@
 }
 .formGroup label{  
   color: #566DEA;
-  opacity: 1 !important;
   font-weight: 600;
   margin: 0.8rem 0;
 }
@@ -765,7 +764,6 @@
 }
 .formGroup label{  
   color: #566DEA;
-  opacity: 1 !important;
   font-weight: 600;
   margin: 0.8rem 0;
 }
