@@ -20,8 +20,8 @@ function AddPetVaccineHistory() {
   const navigate = useNavigate();
 
   const { props, functions } = useAuth();
-  const { selectedPet, selectedVaccine } = props;
-  const { updateVaccineByID, getNewVaccineID } = functions;
+  const { selectedPet, selectedVaccine, isLoggedIn } = props;
+  const { updateVaccineByID, getNewVaccineID, updateContextData } = functions;
 
   const [isView, setIsView] = useState(false);
 
@@ -88,16 +88,36 @@ function AddPetVaccineHistory() {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (isView) {
-      setVacina(selectedVaccine.vaccine);
-      setDtAplicacao(dateToString(selectedVaccine.vaccine_application_date));
-      setSelectedImage(selectedVaccine.vaccine_receipt);
-    } else {
-      setVacina(null);
-      setDtAplicacao(null);
-      setSelectedImage(null);
+    if (selectedVaccine) {
+      if (isView) {
+        setVacina(selectedVaccine.vaccine);
+        setDtAplicacao(dateToString(selectedVaccine.vaccine_application_date));
+        setSelectedImage(selectedVaccine.vaccine_receipt);
+      } else {
+        setVacina(null);
+        setDtAplicacao(null);
+        setSelectedImage(null);
+      }
     }
   }, [isView, selectedVaccine]);
+
+  useEffect(() => {
+    const executeAsync = async () => {
+      if (await updateContextData()) return navigate("/tutor");
+    };
+    executeAsync();
+    // eslint-disable-next-line
+  }, []);
+
+  if (!isLoggedIn) {
+    navigate("/tutor");
+    return null;
+  }
+
+  if (!selectedPet) {
+    navigate("/tutor/petlist");
+    return null;
+  }
 
   return (
     <div className={styles.container}>

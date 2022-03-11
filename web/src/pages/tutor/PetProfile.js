@@ -11,9 +11,17 @@ import { yearNow } from "../../utils/string";
 function PetProfile() {
   const navigate = useNavigate();
   const { props } = useAuth();
-  const { selectedPet } = props;
+  const { selectedPet, isLoggedIn } = props;
 
-  // if (!selectedPet) return navigate("/tutor/petlist");
+  if (!isLoggedIn) {
+    navigate("/tutor");
+    return null;
+  }
+
+  if (!selectedPet) {
+    navigate("/tutor/petlist");
+    return null;
+  }
 
   return (
     <div className={styles.container}>

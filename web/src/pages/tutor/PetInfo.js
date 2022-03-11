@@ -15,8 +15,8 @@ function PetInfo() {
   const location = useLocation();
 
   const { functions, props } = useAuth();
-  const { updatePetByID } = functions;
-  const { selectedPet, user } = props;
+  const { updatePetByID, updateContextData } = functions;
+  const { selectedPet, isLoggedIn, user } = props;
 
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
@@ -30,16 +30,18 @@ function PetInfo() {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (isView) {
-      setName(selectedPet.name);
-      setBirthDate(dateToString(selectedPet.birth_date));
-      setAdoptionDate(dateToString(selectedPet.adoption_date));
-      setSelectedImage(selectedPet.avatar);
-    } else {
-      setName(null);
-      setBirthDate(dateToString(null));
-      setAdoptionDate(dateToString(null));
-      setSelectedImage(null);
+    if (selectedPet) {
+      if (isView) {
+        setName(selectedPet.name);
+        setBirthDate(dateToString(selectedPet.birth_date));
+        setAdoptionDate(dateToString(selectedPet.adoption_date));
+        setSelectedImage(selectedPet.avatar);
+      } else {
+        setName(null);
+        setBirthDate(dateToString(null));
+        setAdoptionDate(dateToString(null));
+        setSelectedImage(null);
+      }
     }
   }, [selectedPet, isView]);
 
@@ -107,6 +109,26 @@ function PetInfo() {
     if (await updatePetByID(selectedPet.uid, data, user)) {
       return navigate("/tutor/petprofile");
     }
+  }
+
+  useEffect(() => {
+    const executeAsync = async () => {
+      console.log("ENTREI");
+      if (await updateContextData()) return navigate("/tutor");
+      console.log("EXECUTEI");
+    };
+    executeAsync();
+    // eslint-disable-next-line
+  }, []);
+
+  if (!isLoggedIn) {
+    navigate("/tutor");
+    return null;
+  }
+
+  if (!selectedPet) {
+    navigate("/tutor/petlist");
+    return null;
   }
 
   return (

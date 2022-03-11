@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaCamera } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
@@ -14,14 +14,27 @@ function CreatePet() {
   const navigate = useNavigate();
 
   const { functions, props } = useAuth();
-  const { getNewPetID, updatePetByID } = functions;
-  const { user } = props;
+  const { getNewPetID, updatePetByID, updateContextData } = functions;
+  const { user, isLoggedIn } = props;
 
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
   const [adoption_date, setAdoptionDate] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [file, setFile] = useState(null);
+
+  useEffect(() => {
+    const executeAsync = async () => {
+      if (await updateContextData()) return navigate("/tutor");
+    };
+    executeAsync();
+    // eslint-disable-next-line
+  }, []);
+
+  if (!isLoggedIn) {
+    navigate("/tutor");
+    return null;
+  }
 
   const ValidateFields = () => {
     if (isStringEmpty(name)) {

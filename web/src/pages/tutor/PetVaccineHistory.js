@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
@@ -11,13 +11,32 @@ import { dateToString, yearNow } from "../../utils/string";
 function PetVaccineHistory() {
   const navigate = useNavigate();
 
-  const { props, setFunctions } = useAuth();
-  const { selectedPet, vaccineList } = props;
-  const { setSelectedVaccine } = setFunctions;
+  const { props, setFunctions, functions } = useAuth();
+  const { selectedPet, vaccineList, isLoggedIn } = props;
+  const { handleSetSelectedVaccine } = setFunctions;
+  const { updateContextData } = functions;
 
   function handleSelectVaccine(vaccine) {
-    setSelectedVaccine(vaccine);
+    handleSetSelectedVaccine(vaccine);
     navigate("/tutor/petvaccinehistory/view");
+  }
+
+  useEffect(() => {
+    const executeAsync = async () => {
+      if (await updateContextData()) return navigate("/tutor");
+    };
+    executeAsync();
+    // eslint-disable-next-line
+  }, []);
+
+  if (!isLoggedIn) {
+    navigate("/tutor");
+    return null;
+  }
+
+  if (!selectedPet) {
+    navigate("/tutor/petlist");
+    return null;
   }
 
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
@@ -10,12 +10,33 @@ import { dateToString, yearNow } from "../../utils/string";
 
 function PetHistory() {
   const navigate = useNavigate();
-  const { props, setFunctions } = useAuth();
-  const { selectedPet, medicalHistoryList } = props;
-  const { setSelectedMedicalHistory } = setFunctions;
+  const { props, setFunctions, functions } = useAuth();
+  const { selectedPet, medicalHistoryList, isLoggedIn } = props;
+  const { handleSetSelectedMedicalHistory } = setFunctions;
+  const { updateContextData } = functions;
+
+  useEffect(() => {
+    const executeAsync = async () => {
+      console.log("ENTREI");
+      if (await updateContextData()) return navigate("/tutor");
+      console.log("EXECUTEI");
+    };
+    executeAsync();
+    // eslint-disable-next-line
+  }, []);
+
+  if (!isLoggedIn) {
+    navigate("/tutor");
+    return null;
+  }
+
+  if (!selectedPet) {
+    navigate("/tutor/petlist");
+    return null;
+  }
 
   function handleSelectMedicalHistory(history) {
-    setSelectedMedicalHistory(history);
+    handleSetSelectedMedicalHistory(history);
     navigate("/tutor/pethistory/view");
   }
 

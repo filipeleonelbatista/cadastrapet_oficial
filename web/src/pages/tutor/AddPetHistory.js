@@ -21,8 +21,12 @@ function AddPetHistory() {
   const navigate = useNavigate();
 
   const { props, functions } = useAuth();
-  const { selectedPet, selectedMedicalHistory } = props;
-  const { updateMedicalHistoryByID, getNewMedicalHistoryID } = functions;
+  const { selectedPet, selectedMedicalHistory, isLoggedIn } = props;
+  const {
+    updateMedicalHistoryByID,
+    getNewMedicalHistoryID,
+    updateContextData,
+  } = functions;
 
   const [isView, setIsView] = useState(false);
   const [selectedNav, setSelectedNav] = useState("anotacoes");
@@ -93,18 +97,38 @@ function AddPetHistory() {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (isView) {
-      setConsulta(selectedMedicalHistory.title);
-      setDtConsulta(dateToString(selectedMedicalHistory.event_date));
-      setSelectedImage(selectedMedicalHistory.attachment);
-      setAnotacoes(selectedMedicalHistory.notes);
-    } else {
-      setConsulta(null);
-      setDtConsulta(null);
-      setSelectedImage(null);
-      setAnotacoes(null);
+    if (selectedMedicalHistory) {
+      if (isView) {
+        setConsulta(selectedMedicalHistory.title);
+        setDtConsulta(dateToString(selectedMedicalHistory.event_date));
+        setSelectedImage(selectedMedicalHistory.attachment);
+        setAnotacoes(selectedMedicalHistory.notes);
+      } else {
+        setConsulta(null);
+        setDtConsulta(null);
+        setSelectedImage(null);
+        setAnotacoes(null);
+      }
     }
   }, [isView, selectedMedicalHistory]);
+
+  useEffect(() => {
+    const executeAsync = async () => {
+      if (await updateContextData()) return navigate("/tutor");
+    };
+    executeAsync();
+    // eslint-disable-next-line
+  }, []);
+
+  if (!isLoggedIn) {
+    navigate("/tutor");
+    return null;
+  }
+
+  if (!selectedPet) {
+    navigate("/tutor/petlist");
+    return null;
+  }
 
   return (
     <div className={styles.container}>

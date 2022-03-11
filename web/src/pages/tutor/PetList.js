@@ -12,11 +12,11 @@ function PetList() {
   const { props, functions, setFunctions } = useAuth();
   const { isLoggedIn, petList } = props;
   const { logout, getPetByID, updateContextData } = functions;
-  const { setSelectedPet } = setFunctions;
+  const { handleSetSelectedPet } = setFunctions;
 
   const handleSelectedPet = async (id) => {
     const sp = await getPetByID(id);
-    setSelectedPet(sp);
+    handleSetSelectedPet(sp);
     navigate("/tutor/petprofile");
   };
 
@@ -29,13 +29,16 @@ function PetList() {
 
   useEffect(() => {
     const executeAsync = async () => {
-      await updateContextData();
+      if (await updateContextData()) return navigate("/tutor");
     };
     executeAsync();
     // eslint-disable-next-line
   }, []);
 
-  if (!isLoggedIn) return null;
+  if (!isLoggedIn) {
+    navigate("/tutor");
+    return null;
+  }
 
   return (
     <div className={styles.container}>

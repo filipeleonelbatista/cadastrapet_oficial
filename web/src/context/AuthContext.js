@@ -34,23 +34,19 @@ export function AuthContextProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  function getUserIDLocalStorage() {
-    return localStorage.getItem("data") === null
+  function getKeyLocalStorage(key) {
+    return localStorage.getItem(key) === null
       ? false
-      : localStorage.getItem("data");
+      : localStorage.getItem(key);
   }
-  function setUserIDLocalStorage(data) {
-    const hasLocalStorageData = !(localStorage.getItem("data") === null);
-
-    if (!hasLocalStorageData) {
-      localStorage.setItem("data", data);
-    }
+  function setKeyLocalStorage(key, value) {
+    return localStorage.setItem(key, value);
   }
-  function removeUserIDLocalStorage() {
-    const hasLocalStorageData = !(localStorage.getItem("data") === null);
+  function removeKeyLocalStorage(key) {
+    const hasLocalStorageData = !(localStorage.getItem(key) === null);
 
     if (hasLocalStorageData) {
-      localStorage.removeItem("data");
+      localStorage.removeItem(key);
     }
   }
 
@@ -58,6 +54,7 @@ export function AuthContextProvider(props) {
     const unsubscribe = authentication.onAuthStateChanged(async (user) => {
       if (user) {
         setIsLoggedIn(true);
+        setKeyLocalStorage("UID", user.uid);
         const loggedUser = await getUserByID(user.uid);
         let currentPetList = [];
 
@@ -104,7 +101,8 @@ export function AuthContextProvider(props) {
     try {
       await setDoc(doc(db, "pets", id), updatedPet);
       setSelectedPet(updatedPet);
-
+      removeKeyLocalStorage("SPUID");
+      setKeyLocalStorage("SPUID", id);
       const updateUserPetsArray = user.pets.includes(id)
         ? [...user.pets]
         : [...user.pets, id];
@@ -224,7 +222,10 @@ export function AuthContextProvider(props) {
       .then(() => {
         setUser(null);
         setUserId(null);
-        removeUserIDLocalStorage();
+        removeKeyLocalStorage("UID");
+        removeKeyLocalStorage("SPUID");
+        removeKeyLocalStorage("SMHUID");
+        removeKeyLocalStorage("SVUID");
       })
       .catch((error) => {
         alert(`Houve um erro ao tentar sair. Tente novamente mais tarde`);
@@ -338,7 +339,7 @@ export function AuthContextProvider(props) {
 
     return signInWithEmailAndPassword(authentication, email, password)
       .then((re) => {
-        setUserIDLocalStorage(re.user.uid);
+        setKeyLocalStorage("UID", re.user.uid);
 
         setIsLoggedIn(true);
         const status = {
@@ -367,7 +368,7 @@ export function AuthContextProvider(props) {
         try {
           await setDoc(doc(db, "users", re.user.uid), newUser);
 
-          setUserIDLocalStorage(re.user.uid);
+          setKeyLocalStorage("UID", re.user.uid);
 
           sendDiscordNotification(
             `Novo cadastro realizado pelo app\n\n**Email:** ${email}`,
@@ -391,22 +392,6 @@ export function AuthContextProvider(props) {
         alert(AuthErrorHandler[err.code]);
         return false;
       });
-  }
-
-  // ta ruim essa bagaça
-  async function updateContextData() {
-    const localUserId = getUserIDLocalStorage();
-    const loggedUser = await getUserByID(localUserId);
-    let currentPetList = [];
-    for (const id of loggedUser.pets) {
-      const loadedPet = await getPetByID(id);
-      if (loadedPet) {
-        currentPetList.push(loadedPet);
-      }
-    }
-    setUser(loggedUser);
-    setUserId(loggedUser.uid);
-    setPetList(currentPetList);
   }
 
   async function updateVaccineList() {
@@ -495,6 +480,71 @@ export function AuthContextProvider(props) {
     }
   }
 
+  async function handleSetSelectedPet(pet) {
+    setSelectedPet(pet);
+    setKeyLocalStorage("SPUID", pet.uid);
+  }
+
+  async function handleSetSelectedMedicalHistory(history) {
+    setSelectedMedicalHistory(history);
+    setKeyLocalStorage("SMHUID", history.uid);
+  }
+
+  async function handleSetSelectedVaccine(vaccine) {
+    setSelectedVaccine(vaccine);
+    setKeyLocalStorage("SVUID", vaccine.uid);
+  }
+
+  async function updateContextData() {
+    const uid = getKeyLocalStorage("UID");
+    const localUserId = uid ? uid : user_id;
+
+    if (localUserId) {
+      const loggedUser = await getUserByID(localUserId);
+      let currentPetList = [];
+      for (const id of loggedUser.pets) {
+        const loadedPet = await getPetByID(id);
+        if (loadedPet) {
+          currentPetList.push(loadedPet);
+        }
+      }
+
+      setUser(loggedUser);
+      setUserId(loggedUser.uid);
+      setPetList(currentPetList);
+      setIsLoggedIn(true);
+
+      const spuid = getKeyLocalStorage("SPUID");
+      if (spuid) {
+        const sp = await getPetByID(spuid);
+        setSelectedPet(sp);
+      }
+
+      const smhuid = getKeyLocalStorage("SMHUID");
+      if (smhuid) {
+        const smh = await getMedicalHistoryID(smhuid);
+        setSelectedMedicalHistory(smh);
+      }
+
+      const svuid = getKeyLocalStorage("SVUID");
+      if (svuid) {
+        const sv = await getMedicalHistoryID(svuid);
+        setSelectedMedicalHistory(sv);
+      }
+    }
+    return false;
+  }
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const executeAsync = async () => {
+        await updateContextData();
+      };
+      executeAsync();
+    }
+    // eslint-disable-next-line
+  }, []);
+
   useEffect(() => {
     if (selectedPet) {
       const executeAsync = async () => {
@@ -532,6 +582,9 @@ export function AuthContextProvider(props) {
           setSelectedVaccine,
           setIsLoggedIn,
           setIsLoaded,
+          handleSetSelectedPet,
+          handleSetSelectedMedicalHistory,
+          handleSetSelectedVaccine,
         },
         functions: {
           RegisterUser,

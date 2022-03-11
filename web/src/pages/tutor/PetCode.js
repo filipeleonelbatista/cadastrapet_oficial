@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import QRCode from "react-qr-code";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetCode.module.css";
 import { yearNow } from "../../utils/string";
 
 function PetCode() {
-  const { props } = useAuth();
-  const { selectedPet } = props;
+  const navigate = useNavigate();
+  const { props, functions } = useAuth();
+  const { selectedPet, isLoggedIn } = props;
+  const { updateContextData } = functions;
+
+  useEffect(() => {
+    const executeAsync = async () => {
+      if (await updateContextData()) return navigate("/tutor");
+    };
+    executeAsync();
+    // eslint-disable-next-line
+  }, []);
+
+  if (!isLoggedIn) {
+    navigate("/tutor");
+    return null;
+  }
+
+  if (!selectedPet) {
+    navigate("/tutor/petlist");
+    return null;
+  }
   return (
     <div className={styles.container}>
       <BackButton path="/tutor/petprofile" />
