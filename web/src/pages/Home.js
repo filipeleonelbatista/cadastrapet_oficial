@@ -9,6 +9,7 @@ import {
   FaShareAlt,
   FaWhatsapp,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 // import ScrollContainer from "react-indiana-drag-scroll";
 import Floating from "../components/Floating";
 import HomeNavigation from "../components/HomeNavigation";
@@ -18,6 +19,7 @@ import styles from "../styles/pages/Home.module.css";
 import { isStringEmpty } from "../utils/string";
 
 function HomeComponent() {
+  const navigate = useNavigate();
   const { conversion } = useConversion();
   const [isShow, setIsShow] = useState(false);
   const [isSendedMessage, setIsSendedMessage] = useState(false);
@@ -202,7 +204,11 @@ function HomeComponent() {
             </button>
 
             <div className={styles.mobile}>
-              <a href="/">
+              <a
+                href="https://play.google.com/store/apps/details?id=com.cadastrapet.co"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
                   src="./images/googleplay.png"
                   alt="android"
@@ -214,6 +220,9 @@ function HomeComponent() {
                   src="./images/applestore.png"
                   alt="apple"
                   className={styles.mobileBanner}
+                  style={{
+                    opacity: "0.6",
+                  }}
                 />
               </a>
             </div>
@@ -309,7 +318,9 @@ function HomeComponent() {
             clinicos atualizados e tem essas informaçõe disponíveis para seu
             veterinário!
           </h2>
-          <button onClick={handleToggleModal}>Cadastre meu pet agora</button>
+          <button onClick={() => navigate("/tutor/cadastrar")}>
+            Cadastre meu pet agora
+          </button>
         </section>
         {/* cta2 */}
       </main>
@@ -317,7 +328,7 @@ function HomeComponent() {
         <div className={styles.footerContent}>
           <img src="./images/logo.png" alt="CadastraPet" />
           <div className="social-networks">
-            <a href="https://wa.me/+5551986445578">
+            <a href="https://wa.me/+5551986320477">
               <FaWhatsapp />
             </a>
             <a href="https://instagram.com/cadastra.pet">

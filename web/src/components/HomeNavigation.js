@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaBars, FaSignInAlt } from "react-icons/fa";
+import { FaBars, FaSignInAlt, FaUserMd, FaDog } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styles from "../styles/components/HomeNavigation.module.css";
 export default function HomeNavigation() {
@@ -18,17 +18,27 @@ export default function HomeNavigation() {
         <Link to="/tutor" className={styles.navItem}>
           Sou tutor
         </Link>
-        <Link to="/" className={styles.navItemDestaque}>
+        <a
+          href="https://play.google.com/store/apps/details?id=com.cadastrapet.co"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.navItemDestaque}
+        >
           <FaSignInAlt />
           Baixar o app
-        </Link>
+        </a>
       </div>
 
       <div className={styles.navItemsTablet}>
-        <Link to="/entrar" className={styles.menuItemTablet}>
+        <a
+          href="https://play.google.com/store/apps/details?id=com.cadastrapet.co"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.menuItemTablet}
+        >
           <FaSignInAlt />
           Baixar o app
-        </Link>
+        </a>
       </div>
 
       <button className={styles.roundedButton} onClick={handleIsShowMenu}>
@@ -42,10 +52,15 @@ export default function HomeNavigation() {
           <Link to="/tutor" className={styles.menuItem}>
             <FaDog /> Sou tutor
           </Link>
-          <Link to="/" className={styles.menuItemCelular}>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.cadastrapet.co"
+            target="_blank"
+            rel="noreferrer"
+            className={styles.menuItemCelular}
+          >
             <FaSignInAlt />
             Baixar o app
-          </Link>
+          </a>
         </div>
       )}
     </div>
