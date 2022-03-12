@@ -222,6 +222,11 @@ export function AuthContextProvider(props) {
       .then(() => {
         setUser(null);
         setUserId(null);
+        setIsLoggedIn(false);
+        setPetList([]);
+        setMedicalHistoryList([]);
+        setSelectedMedicalHistory(null);
+        setSelectedPet(null);
         removeKeyLocalStorage("UID");
         removeKeyLocalStorage("SPUID");
         removeKeyLocalStorage("SMHUID");
