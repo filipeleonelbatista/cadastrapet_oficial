@@ -37,10 +37,10 @@ export default function HomeNavigation() {
       {isShow && (
         <div className={styles.menuItems}>
           <Link to="/veterinario" className={styles.menuItem}>
-            Sou Veterinário
+            <FaUserMd /> Sou Veterinário
           </Link>
           <Link to="/tutor" className={styles.menuItem}>
-            Sou tutor
+            <FaDog /> Sou tutor
           </Link>
           <Link to="/" className={styles.menuItemCelular}>
             <FaSignInAlt />
