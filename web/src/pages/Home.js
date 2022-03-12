@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import {
-  FaDiscord, FaFacebook, FaFacebookMessenger, FaHandHoldingHeart,
-  FaInstagram, FaMobile,
+  FaDiscord,
+  FaFacebook,
+  FaFacebookMessenger,
+  FaHandHoldingHeart,
+  FaInstagram,
+  FaMobile,
   FaShareAlt,
-  FaWhatsapp
+  FaWhatsapp,
 } from "react-icons/fa";
 // import ScrollContainer from "react-indiana-drag-scroll";
-import Floating from '../components/Floating';
+import Floating from "../components/Floating";
 import HomeNavigation from "../components/HomeNavigation";
 import { ConversionContextProvider } from "../context/ConversionContext";
 import { useConversion } from "../hooks/useConversion";
@@ -14,7 +18,7 @@ import styles from "../styles/pages/Home.module.css";
 import { isStringEmpty } from "../utils/string";
 
 function HomeComponent() {
-  const { conversion } = useConversion()
+  const { conversion } = useConversion();
   const [isShow, setIsShow] = useState(false);
   const [isSendedMessage, setIsSendedMessage] = useState(false);
   const [name, setname] = useState("");
@@ -25,15 +29,17 @@ function HomeComponent() {
 
   async function getCurrentIP() {
     await fetch("https://api.ipify.org/?format=json")
-      .then(results => results.json())
-      .then(data => {
-        setMyIp(data.ip)
-      })
+      .then((results) => results.json())
+      .then((data) => {
+        setMyIp(data.ip);
+      });
   }
 
   function handleToggleModal() {
     if (isSendedMessage) {
-      alert("Seu cadastro já foi realizado, aguarde nosso email de contato. Obrigado!")
+      alert(
+        "Seu cadastro já foi realizado, aguarde nosso email de contato. Obrigado!"
+      );
     } else {
       setIsShow(!isShow);
     }
@@ -73,21 +79,29 @@ function HomeComponent() {
       alert("O campo Quantidade de pets não foi preenchido");
       return true;
     }
-  }
+  };
 
   async function handleForm() {
     if (ValidateFields()) return;
 
-    const isConversionSaved = await conversion(name, email, "Modal landing tutor", telefone, myIp, window.location.href, `Quantidade de pets: ${quant}`)
+    const isConversionSaved = await conversion(
+      name,
+      email,
+      "Modal landing tutor",
+      telefone,
+      myIp,
+      window.location.href,
+      `Quantidade de pets: ${quant}`
+    );
 
     if (isConversionSaved) {
-      setname('')
-      settelefone('')
-      setemail('')
-      setquant('')
-      setIsSendedMessage(true)
-      handleToggleModal()
-      return
+      setname("");
+      settelefone("");
+      setemail("");
+      setquant("");
+      setIsSendedMessage(true);
+      handleToggleModal();
+      return;
     } else {
       handleToggleModal();
     }
@@ -95,7 +109,7 @@ function HomeComponent() {
 
   useEffect(() => {
     getCurrentIP();
-  }, [])
+  }, []);
 
   return (
     <div id="landing-page" className={styles.container}>
@@ -137,7 +151,9 @@ function HomeComponent() {
                   type="text"
                   maxLength={15}
                   value={telefone}
-                  onChange={(e) => settelefone(handleMaskPhoneNumber(e.target.value))}
+                  onChange={(e) =>
+                    settelefone(handleMaskPhoneNumber(e.target.value))
+                  }
                 />
               </div>
               <div>
@@ -161,19 +177,15 @@ function HomeComponent() {
           </div>
         </div>
       )}
-      <header>
-        <nav>
-          <div className={styles.brand}>
-            <a href="/">
-              <img
-                className={styles.imgBrand}
-                src="./images/logo.png"
-                alt="CadastraPet | Cadastrando e prolongando vidas"
-              />
-            </a>
-          </div>
-          <HomeNavigation />
-        </nav>
+      <header className={styles.header}>
+        <a href="/">
+          <img
+            className={styles.navImage}
+            src="./images/logo.png"
+            alt="CadastraPet | Cadastrando e prolongando vidas"
+          />
+        </a>
+        <HomeNavigation />
       </header>
       <main>
         {/* CTA */}
@@ -191,19 +203,35 @@ function HomeComponent() {
 
             <div className={styles.mobile}>
               <a href="/">
-                <img src="./images/googleplay.png" alt="android" className={styles.mobileBanner} />
+                <img
+                  src="./images/googleplay.png"
+                  alt="android"
+                  className={styles.mobileBanner}
+                />
               </a>
               <a href="/">
-                <img src="./images/applestore.png" alt="apple" className={styles.mobileBanner} />
+                <img
+                  src="./images/applestore.png"
+                  alt="apple"
+                  className={styles.mobileBanner}
+                />
               </a>
             </div>
           </div>
-          <img className={[styles.hideImg, styles.ctaImg]} src="./images/landing/mockup-cta.png" alt="" />
+          <img
+            className={[styles.hideImg, styles.ctaImg]}
+            src="./images/landing/mockup-cta.png"
+            alt=""
+          />
         </section>
         {/* CTA */}
         {/* About */}
         <section id="about" className={styles.about}>
-          <img className={styles.hideImg} src="./images/landing/landing-about.png" alt="" />
+          <img
+            className={styles.hideImg}
+            src="./images/landing/landing-about.png"
+            alt=""
+          />
           <div className={styles.contentAbout}>
             <h2>Acesse a carteira digital de vacinação do seu pet!</h2>
             <u></u>
@@ -321,7 +349,7 @@ function Home() {
     <ConversionContextProvider>
       <HomeComponent />
     </ConversionContextProvider>
-  )
+  );
 }
 
 export default Home;
