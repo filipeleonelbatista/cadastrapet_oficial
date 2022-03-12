@@ -1,127 +1,126 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 24,
     flex: 1,
-    backgroundColor: '#F3F5FF',
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    backgroundColor: "#F3F5FF",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
   scrollView: {
     marginVertical: 4,
-    width: Dimensions.get('window').width,
-    paddingHorizontal:14,
+    width: Dimensions.get("window").width,
+    paddingHorizontal: 14,
   },
-  content:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-    paddingHorizontal:24,
+  content: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    paddingHorizontal: 24,
     marginVertical: 8,
   },
-  header:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-    paddingHorizontal:24,
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    paddingHorizontal: 24,
     marginVertical: 8,
   },
-  petData:{
-    flexDirection: 'column',
+  petData: {
+    flexDirection: "column",
   },
-  petAge:{
-    fontWeight: 'normal',
-    fontFamily: 'Poppins_400Regular',
+  petAge: {
+    fontWeight: "normal",
+    fontFamily: "Poppins_400Regular",
     fontSize: 16,
-    color: '#566DEA',
+    color: "#566DEA",
     marginRight: 16,
   },
-  title:{
-    fontWeight: 'bold',
-    fontFamily: 'Poppins_700Bold',
+  title: {
+    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
     fontSize: 24,
-    color: '#566DEA',
+    color: "#566DEA",
     marginVertical: 2,
   },
-  headerTitle:{
-    fontWeight: 'normal',
-    fontFamily: 'Poppins_400Regular',
+  headerTitle: {
+    fontWeight: "normal",
+    fontFamily: "Poppins_400Regular",
     fontSize: 24,
-    color: '#566DEA',
+    color: "#566DEA",
   },
-  petItem:{
+  petItem: {
     borderRadius: 8,
-    backgroundColor:"#FFF",
-    alignItems: 'flex-end',
+    backgroundColor: "#FFF",
+    alignItems: "flex-end",
     paddingVertical: 8,
     paddingHorizontal: 14,
     marginVertical: 8,
     marginHorizontal: 8,
-    elevation:4,
+    elevation: 4,
   },
-  itemRow:{
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between'
+  itemRow: {
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  vaccine:{
-    fontWeight: 'normal',
-    fontFamily: 'Poppins_400Regular',
+  vaccine: {
+    fontWeight: "normal",
+    fontFamily: "Poppins_400Regular",
     fontSize: 18,
-    color: '#566DEA',
+    color: "#566DEA",
     marginVertical: 4,
   },
-  applicationDate:{
-    fontWeight: 'normal',
-    fontFamily: 'Poppins_400Regular',
+  applicationDate: {
+    fontWeight: "normal",
+    fontFamily: "Poppins_400Regular",
     fontSize: 18,
-    color: '#0000004d',
+    color: "#0000004d",
     marginVertical: 4,
   },
-  repeatApplicationDate:{
-    fontWeight: 'normal',
-    fontFamily: 'Poppins_400Regular',
+  repeatApplicationDate: {
+    fontWeight: "normal",
+    fontFamily: "Poppins_400Regular",
     fontSize: 18,
-    color: '#000',
+    color: "#000",
     marginVertical: 4,
   },
-  line:{
+  line: {
     width: 30,
     height: 2,
-    backgroundColor: '#566DEA',
+    backgroundColor: "#566DEA",
   },
-  buttonRounded:{
+  buttonRounded: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: "transparent",   
-    alignItems:'center',
-    justifyContent: 'center',
+    backgroundColor: "transparent",
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: 8,
   },
-  addPetButton:{
-    width: '100%',
+  addPetButton: {
+    width: "100%",
     borderRadius: 8,
-    backgroundColor:"transparent",
-    flexDirection: 'row',      
-    alignItems:'center',
-    justifyContent: 'center',
+    backgroundColor: "transparent",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     padding: 32,
     marginVertical: 4,
   },
-  addPetButtonText:{
-    fontWeight: 'normal',
+  addPetButtonText: {
+    fontWeight: "normal",
     fontSize: 18,
-    color: '#566DEA',
-    fontFamily: 'Poppins_400Regular',
+    color: "#566DEA",
+    fontFamily: "Poppins_400Regular",
   },
-  petImage:{ 
+  petImage: {
     width: 64,
     height: 64,
     borderRadius: 32,
-    resizeMode: 'cover',
+    resizeMode: "cover",
     marginRight: 8,
   },
 });

@@ -1,47 +1,46 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 24,
     flex: 1,
-    backgroundColor: '#F3F5FF',
-    alignItems: 'center',
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-    position: 'relative',
+    backgroundColor: "#F3F5FF",
+    alignItems: "center",
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    position: "relative",
   },
-  image:{
+  image: {
     marginVertical: 32,
     width: 180,
-    height: 30, 
-    resizeMode: 'contain'
+    height: 30,
+    resizeMode: "contain",
   },
-  title:{
-    fontWeight: 'bold',
-    fontFamily: 'Poppins_700Bold',
+  title: {
+    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
     fontSize: 24,
-    color: '#566DEA',
+    color: "#566DEA",
     marginVertical: 28,
   },
   scrollView: {
     marginVertical: 4,
-    width: Dimensions.get('window').width,
-    paddingHorizontal:14,
+    width: Dimensions.get("window").width,
+    paddingHorizontal: 14,
   },
-  addPetButton:{
+  addPetButton: {
     borderRadius: 8,
-    backgroundColor:"transparent",
-    flexDirection: 'row',      
-    alignItems:'center',
-    justifyContent: 'center',
+    backgroundColor: "transparent",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: 32,
     padding: 16,
   },
-  addPetButtonText:{
-    textAlign:'center',
-    fontWeight: 'normal',
+  addPetButtonText: {
+    textAlign: "center",
+    fontWeight: "normal",
     fontSize: 18,
-    color: '#566DEA',
-    fontFamily: 'Poppins_400Regular',
+    color: "#566DEA",
+    fontFamily: "Poppins_400Regular",
   },
 });
