@@ -20,6 +20,7 @@ import TermosECondicoes from "./pages/TermosECondicoes";
 import PoliticasDePrivacidade from "./pages/PoliticasDePrivacidade";
 import Register from "./pages/tutor/Register";
 import { AuthContextProvider } from "./context/AuthContext";
+import TutorProfile from "./pages/tutor/TutorProfile";
 
 function Routes() {
   return (
@@ -31,6 +32,16 @@ function Routes() {
           <Route path="/tutor/createpet" exact element={<CreatePet />} />
           <Route path="/tutor/petlist" exact element={<PetList />} />
           <Route path="/tutor/petprofile" exact element={<PetProfile />} />
+          <Route
+            path="/tutor/tutorprofile/edit"
+            exact
+            element={<TutorProfile />}
+          />
+          <Route
+            path="/tutor/tutorprofile/view"
+            exact
+            element={<TutorProfile />}
+          />
           <Route path="/tutor/petinfo/view" exact element={<PetInfo />} />
           <Route path="/tutor/petinfo/edit" exact element={<PetInfo />} />
           <Route path="/tutor/pethistory" exact element={<PetHistory />} />

@@ -2,7 +2,9 @@ import React from "react";
 import { FaBookMedical, FaBookOpen, FaTh } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import CodigoPetImage from "../../assets/codigopet.png";
+import LocalizaPetImage from "../../assets/localizapet.png";
 import QrImage from "../../assets/qr.png";
+import MarkerImage from "../../assets/marker.png";
 import BackButton from "../../components/BackButton";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetProfile.module.css";
@@ -70,6 +72,17 @@ function PetProfile() {
         >
           <FaTh size={64} />
           <h4 className={styles.title}>Carteira de Vacinação</h4>
+        </button>
+        <button
+          onClick={() => navigate("/tutor/petprofile")}
+          className={styles.wContainer}
+        >
+          <img src={MarkerImage} alt="Marker" className={styles.qrCode} />
+          <img
+            src={LocalizaPetImage}
+            alt="LocalizaPet"
+            className={styles.codigoPet}
+          />
         </button>
         <button
           onClick={() => navigate("/tutor/petcode")}

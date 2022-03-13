@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { FaPlus, FaSignOutAlt } from "react-icons/fa";
+import { FaPlus, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import Button from "../../components/Button";
@@ -42,7 +42,27 @@ function PetList() {
 
   return (
     <div className={styles.container}>
-      <img src={Logo} alt="Cadastra Pet" className={styles.imgHeader} />
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "0 0 6rem",
+          gap: "0.8rem",
+        }}
+      >
+        <Button
+          transparent
+          onClick={() => navigate("/tutor/tutorprofile/view")}
+        >
+          <FaUser /> Perfil
+        </Button>
+        <img src={Logo} alt="Cadastra Pet" className={styles.imgHeader} />
+        <Button transparent onClick={handleLogout}>
+          <FaSignOutAlt /> Sair
+        </Button>
+      </div>
       <div className={styles.content}>
         {petList &&
           petList.map((pet) => {
@@ -77,9 +97,6 @@ function PetList() {
           <h4 className={styles.petName}>Adicionar Pet</h4>
         </div>
       </div>
-      <Button transparent onClick={handleLogout}>
-        <FaSignOutAlt /> Sair
-      </Button>
     </div>
   );
 }
