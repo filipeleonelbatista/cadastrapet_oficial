@@ -74,7 +74,7 @@ function PetProfile() {
           <h4 className={styles.title}>Carteira de Vacinação</h4>
         </button>
         <button
-          onClick={() => navigate("/tutor/petprofile")}
+          onClick={() => navigate("/tutor/localizapet")}
           className={styles.wContainer}
         >
           <img src={MarkerImage} alt="Marker" className={styles.qrCode} />

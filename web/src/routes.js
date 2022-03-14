@@ -21,12 +21,20 @@ import PoliticasDePrivacidade from "./pages/PoliticasDePrivacidade";
 import Register from "./pages/tutor/Register";
 import { AuthContextProvider } from "./context/AuthContext";
 import TutorProfile from "./pages/tutor/TutorProfile";
+import LocalizaPet from "./pages/LocalizaPet";
+import TutorLocalizaPet from "./pages/tutor/TutorLocalizaPet";
 
 function Routes() {
   return (
     <BrowserRouter>
       <AuthContextProvider>
         <Switch>
+          <Route path="/localizapet/:id" exact element={<LocalizaPet />} />
+          <Route
+            path="/tutor/localizapet"
+            exact
+            element={<TutorLocalizaPet />}
+          />
           <Route path="/tutor" exact element={<LoginTutor />} />
           <Route path="/tutor/cadastrar" exact element={<Register />} />
           <Route path="/tutor/createpet" exact element={<CreatePet />} />

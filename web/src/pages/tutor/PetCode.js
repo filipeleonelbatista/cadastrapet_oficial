@@ -61,6 +61,10 @@ function PetCode() {
           <QRCode value={selectedPet.uid} />
         </div>
       </div>
+      <h4 className={styles.headerTitle}>
+        Codigo do pet: <br />
+        <strong>{selectedPet.uid}</strong>
+      </h4>
     </div>
   );
 }

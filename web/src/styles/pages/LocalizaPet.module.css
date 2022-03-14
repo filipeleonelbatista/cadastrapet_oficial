@@ -1,0 +1,219 @@
+/* PC */
+@media (min-width: 720px) {
+  .container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .header {
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 2.4rem;
+    padding: 2.8rem 4.8rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .navImage {
+    width: 15rem;
+    height: auto;
+  }
+
+  /* Map overlay */
+  .mapContainerOverlay {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+
+    width: 40rem;
+    height: 35vh;
+
+    display: flex;
+    flex-direction: column;
+    padding: 0 2.4rem 4.8rem;
+
+    background-color: #566dea;
+    border-radius: 2.4rem 2.4rem 0 0;
+  }
+
+  .mapOverlayMarkerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.4rem 0 0 0;
+    width: 100%;
+  }
+  .mapOverlayMarker {
+    height: 0.8rem;
+    width: 5rem;
+    border-radius: 0.8rem;
+    background-color: #fff;
+  }
+  .mapContainerOverlay {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .mapOverlayMarkerContainer h2 {
+    margin: 0.8rem 0;
+    color: #fff;
+  }
+  .mapContainerOverlay p {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: small;
+    justify-content: center;
+  }
+  .mapContainerOverlay p svg {
+    margin-right: 0.8rem;
+  }
+  .mapOverlayInputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mapOverlayInputGroup label {
+    color: #fff;
+  }
+  .mapOverlayInputGroup h2 {
+    color: #fff;
+  }
+
+  .switchOverlay {
+    position: relative;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    margin: 1.4rem;
+    width: 80%;
+    height: 6rem;
+  }
+  .switchOverlay input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    border-radius: 0.8rem;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    border: 2px solid #333;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+  .slider:before {
+    position: absolute;
+    border-radius: 0.8rem;
+    content: "Não";
+    height: 4.8rem;
+    width: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: #fff;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #566dea;
+  }
+  .switchOverlay input:checked + .slider {
+    background-color: #333;
+  }
+  .switchOverlay input:focus + .slider {
+    box-shadow: 0 0 1px #333;
+  }
+  .switchOverlay input:checked + .slider:before {
+    content: "Sim";
+    -webkit-transform: translateX(95%);
+    -ms-transform: translateX(95%);
+    transform: translateX(95%);
+  }
+  .tutorContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .tutorContainer h3 {
+    color: #fff;
+  }
+  .tutorList {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    overflow: auto;
+    padding: 0 0 0.4rem 0;
+  }
+  .wContainer {
+    display: flex;
+    min-width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 0.8rem;
+    border-radius: 0.8rem;
+  }
+  .userData h3 {
+    font-size: small;
+    color: #000;
+  }
+  .userData span {
+    font-size: small;
+    color: #000;
+  }
+  .userData p {
+    font-size: small;
+    color: #000;
+  }
+  .contactRoundedButton {
+    width: 5.4rem;
+    height: 5.4rem;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid #566dea;
+    background-color: #fff;
+    transition: 0.2s;
+  }
+  .contactRoundedButton svg {
+    fill: #566dea;
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+}
+/* Tablet */
+@media (min-width: 320px) and (max-width: 720px) {
+}
+/* Celular */
+@media (max-width: 320px) {
+}

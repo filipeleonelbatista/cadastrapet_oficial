@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import React, { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,8 +6,8 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from "../../hooks/useAuth";
-import styles from "../../styles/pages/tutor/PetInfo.module.css";
-import { cpf as cpfMask, date } from "../../utils/masks";
+import styles from "../../styles/pages/tutor/TutorProfile.module.css";
+import { cpf as cpfMask, date, phone as phoneMask } from "../../utils/masks";
 import { dateToString, isStringEmpty, stringToDate } from "../../utils/string";
 
 function TutorProfile() {
@@ -23,6 +22,7 @@ function TutorProfile() {
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
   const [birth_date, setBirthDate] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
@@ -48,6 +48,7 @@ function TutorProfile() {
     setName(user.name);
     setEmail(user.email);
     setCpf(user.cpf);
+    setPhone(user.phone);
     setBirthDate(dateToString(user.birth_date));
     setLogradouro(user.endereco.logradouro);
     setNumero(user.endereco.numero);
@@ -115,7 +116,7 @@ function TutorProfile() {
 
   return (
     <div className={styles.container}>
-      <BackButton path="/tutor/petprofile" />
+      <BackButton path="/tutor/petlist" />
       <div className={styles.header}>
         <div className={styles.petInfo}>
           <div
@@ -167,6 +168,15 @@ function TutorProfile() {
                 label="Nome"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+              <Input
+                disabled={isView}
+                required
+                id="phone"
+                label="Celular/Whats"
+                value={phone}
+                maxLength={15}
+                onChange={(e) => setPhone(phoneMask(e.target.value))}
               />
               <Input
                 disabled={isView}
@@ -301,7 +311,7 @@ function TutorProfile() {
         <Button
           id="nome"
           onClick={() => {
-            //navigate("/tutor/tutorprofile/edit")
+            //navigate("/tutor/tutorprofile/edit");
           }}
         >
           Editar
