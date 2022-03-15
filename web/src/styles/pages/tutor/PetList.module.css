@@ -30,6 +30,23 @@
     gap: 1.4rem;
   }
 
+  .avatarButton {
+    background-color: #6ca6fd;
+    border-radius: 50%;
+    width: 4.4rem;
+    height: 4.4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border: none;
+
+    overflow: hidden;
+    transition: 0.2s;
+  }
+
   .petButton {
     background-color: #6ca6fd;
     border-radius: 50%;
@@ -90,6 +107,23 @@
     flex-direction: column;
     align-items: center;
     gap: 1.4rem;
+  }
+
+  .avatarButton {
+    background-color: #6ca6fd;
+    border-radius: 50%;
+    width: 4.4rem;
+    height: 4.4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border: none;
+
+    overflow: hidden;
+    transition: 0.2s;
   }
 
   .petButton {
@@ -156,6 +190,23 @@
     flex-direction: column;
     align-items: center;
     gap: 1.4rem;
+  }
+
+  .avatarButton {
+    background-color: #6ca6fd;
+    border-radius: 50%;
+    width: 4.4rem;
+    height: 4.4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border: none;
+
+    overflow: hidden;
+    transition: 0.2s;
   }
 
   .petButton {

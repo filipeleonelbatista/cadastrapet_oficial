@@ -26,7 +26,10 @@ function AddPetVaccineHistory() {
   const [isView, setIsView] = useState(false);
 
   const [vacina, setVacina] = useState();
+  const [laboratorio, setLaboratorio] = useState();
+  const [crmv, setCrmv] = useState();
   const [dt_aplicacao, setDtAplicacao] = useState();
+  const [dt_proxima_aplicacao, setDtProximaAplicacao] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [file, setFile] = useState(null);
 
@@ -44,10 +47,6 @@ function AddPetVaccineHistory() {
   const ValidateFields = () => {
     if (isStringEmpty(vacina)) {
       alert("O campo vacina não foi preenchido");
-      return true;
-    }
-    if (!file) {
-      alert("Imagem não selecionada");
       return true;
     }
     if (isStringEmpty(dt_aplicacao)) {
@@ -73,8 +72,14 @@ function AddPetVaccineHistory() {
     const data = {
       uid: vaccineID,
       vaccine: vacina,
+      vaccineLab: laboratorio,
+      doctorId: crmv,
       vaccine_receipt: uploadURLImage,
       vaccine_application_date: stringToDate(dt_aplicacao).getTime(),
+      vaccine_next_application_date:
+        dt_proxima_aplicacao !== ""
+          ? stringToDate(dt_proxima_aplicacao).getTime()
+          : "",
       created_at: Date.now(),
       updated_at: Date.now(),
     };
@@ -91,12 +96,22 @@ function AddPetVaccineHistory() {
     if (selectedVaccine) {
       if (isView) {
         setVacina(selectedVaccine.vaccine);
+        setLaboratorio(selectedVaccine.vaccineLab);
+        setCrmv(selectedVaccine.doctorId);
         setDtAplicacao(dateToString(selectedVaccine.vaccine_application_date));
+        setDtProximaAplicacao(
+          selectedVaccine.vaccine_next_application_date === ""
+            ? ""
+            : dateToString(selectedVaccine.vaccine_next_application_date)
+        );
         setSelectedImage(selectedVaccine.vaccine_receipt);
       } else {
         setVacina(null);
         setDtAplicacao(null);
         setSelectedImage(null);
+        setLaboratorio(null);
+        setCrmv(null);
+        setDtProximaAplicacao(null);
       }
     }
   }, [isView, selectedVaccine]);
@@ -146,6 +161,61 @@ function AddPetVaccineHistory() {
         </div>
       </div>
       <div className={styles.content}>
+        <div className={styles.inputForm}>
+          <Input
+            disabled={isView}
+            required
+            id="vacina"
+            placeholder="Ex:. Vacina Antirrábica"
+            label="Vacina"
+            value={vacina}
+            onChange={(e) => setVacina(e.target.value)}
+          />
+          <Input
+            disabled={isView}
+            required
+            id="rotulo"
+            placeholder="Ex:. Pfizer"
+            label="Laboratório da vacina"
+            value={laboratorio}
+            onChange={(e) => setLaboratorio(e.target.value)}
+          />
+          <Input
+            disabled={isView}
+            required
+            id="crmv"
+            placeholder="Ex:. 123456"
+            label="CRMV do aplicador"
+            value={crmv}
+            onChange={(e) => setCrmv(e.target.value)}
+          />
+          <Input
+            disabled={isView}
+            required
+            maxLength={10}
+            id="dt_aplicacao"
+            placeholder="DD/MM/AAAA"
+            label="Data da aplicação"
+            value={dt_aplicacao}
+            onChange={(e) => setDtAplicacao(date(e.target.value))}
+          />
+          <Input
+            disabled={isView}
+            required
+            maxLength={10}
+            id="dt_proxima_aplicacao"
+            placeholder="DD/MM/AAAA"
+            label="Data da próxima aplicação"
+            value={dt_proxima_aplicacao}
+            onChange={(e) => setDtProximaAplicacao(date(e.target.value))}
+          />
+        </div>
+
+        <h4 className={styles.petName}>
+          {isView
+            ? "Comprovante de vacinação"
+            : "Envie o comprovante de vacinação"}
+        </h4>
         <label className={styles.uploadButton}>
           <input
             disabled={isView}
@@ -156,7 +226,8 @@ function AddPetVaccineHistory() {
             onChange={(e) => handleFilePreview(e)}
           ></input>
           {selectedImage ? (
-            <div
+            <a
+              download={selectedImage}
               alt="Imagem Selecionada"
               style={{
                 background: `url(${selectedImage}) no-repeat center center`,
@@ -165,30 +236,11 @@ function AddPetVaccineHistory() {
                 height: "100%",
                 backgroundSize: "cover",
               }}
-            ></div>
+            ></a>
           ) : (
             <FaCamera />
           )}
         </label>
-        <div className={styles.inputForm}>
-          <Input
-            disabled={isView}
-            required
-            id="vacina"
-            placeholder="Vacina"
-            value={vacina}
-            onChange={(e) => setVacina(e.target.value)}
-          />
-          <Input
-            disabled={isView}
-            required
-            maxLength={10}
-            id="dt_aplicacao"
-            placeholder="Data da aplicação"
-            value={dt_aplicacao}
-            onChange={(e) => setDtAplicacao(date(e.target.value))}
-          />
-        </div>
       </div>
       {!isView && <Button onClick={handleCreateVaccine}>Salvar</Button>}
     </div>

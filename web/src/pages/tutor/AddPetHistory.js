@@ -53,10 +53,6 @@ function AddPetHistory() {
       alert("O campo titulo da consulta não foi preenchido");
       return true;
     }
-    if (!file) {
-      alert("Imagem não selecionada");
-      return true;
-    }
     if (isStringEmpty(dt_consulta)) {
       if (dt_consulta.length < 10) {
         alert("O campo Data da consulta não está completo");

@@ -31,26 +31,19 @@ function PetInfo() {
 
   useEffect(() => {
     if (selectedPet) {
-      if (isView) {
-        setName(selectedPet.name);
-        setBirthDate(dateToString(selectedPet.birth_date));
-        setAdoptionDate(dateToString(selectedPet.adoption_date));
-        setSelectedImage(selectedPet.avatar);
-      } else {
-        setName(null);
-        setBirthDate(dateToString(null));
-        setAdoptionDate(dateToString(null));
-        setSelectedImage(null);
-      }
+      setName(selectedPet.name);
+      setBirthDate(dateToString(selectedPet.birth_date));
+      setAdoptionDate(dateToString(selectedPet.adoption_date));
+      setSelectedImage(selectedPet.avatar);
     }
-  }, [selectedPet, isView]);
+  }, [selectedPet]);
 
   const ValidateFields = () => {
     if (isStringEmpty(name)) {
       alert("O campo nome não foi preenchido");
       return true;
     }
-    if (!selectedImage && !file) {
+    if (!selectedImage) {
       alert("Imagem não selecionada");
       return true;
     }

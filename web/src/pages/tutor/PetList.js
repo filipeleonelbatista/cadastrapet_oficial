@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { FaPlus, FaUser, FaSignOutAlt } from "react-icons/fa";
+import { FaPlus, FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
-import Button from "../../components/Button";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetList.module.css";
 
@@ -10,21 +9,14 @@ function PetList() {
   const navigate = useNavigate();
 
   const { props, functions, setFunctions } = useAuth();
-  const { isLoggedIn, petList } = props;
-  const { logout, getPetByID, updateContextData } = functions;
+  const { isLoggedIn, petList, user } = props;
+  const { getPetByID, updateContextData } = functions;
   const { handleSetSelectedPet } = setFunctions;
 
   const handleSelectedPet = async (id) => {
     const sp = await getPetByID(id);
     handleSetSelectedPet(sp);
     navigate("/tutor/petprofile");
-  };
-
-  const handleLogout = () => {
-    if (window.confirm("Deseja realmente sair?")) {
-      logout();
-      navigate("/");
-    }
   };
 
   useEffect(() => {
@@ -34,6 +26,11 @@ function PetList() {
     executeAsync();
     // eslint-disable-next-line
   }, []);
+
+  if (!user) {
+    navigate("/tutor");
+    return null;
+  }
 
   if (!isLoggedIn) {
     navigate("/tutor");
@@ -52,16 +49,27 @@ function PetList() {
           gap: "0.8rem",
         }}
       >
-        <Button
-          transparent
+        <button
           onClick={() => navigate("/tutor/tutorprofile/view")}
+          className={styles.avatarButton}
         >
-          <FaUser /> Perfil
-        </Button>
+          {user?.avatar === "" ? (
+            <FaUser />
+          ) : (
+            <div
+              title={user.name}
+              style={{
+                background: `url(${user.avatar}) no-repeat center center`,
+                borderRadius: "50%",
+                width: "4.4rem",
+                height: "4.4rem",
+                backgroundSize: "cover",
+              }}
+            ></div>
+          )}
+        </button>
         <img src={Logo} alt="Cadastra Pet" className={styles.imgHeader} />
-        <Button transparent onClick={handleLogout}>
-          <FaSignOutAlt /> Sair
-        </Button>
+        <div></div>
       </div>
       <div className={styles.content}>
         {petList &&

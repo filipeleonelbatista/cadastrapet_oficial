@@ -6,7 +6,7 @@ import Button from "../../components/Button";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetVaccineHistory.module.css";
 import noDataImg from "../../assets/images/no_data.svg";
-import { dateToString, yearNow } from "../../utils/string";
+import { dateToString, isStringEmpty, yearNow } from "../../utils/string";
 
 function PetVaccineHistory() {
   const navigate = useNavigate();
@@ -82,7 +82,24 @@ function PetVaccineHistory() {
                     {dateToString(vaccine.vaccine_application_date)}
                   </p>
                 </div>
-                {/* <p className={styles.itemNotation}>{history.notes}</p> */}
+                {!isStringEmpty(vaccine.doctorId) && (
+                  <p className={styles.itemNotation}>
+                    <strong>CRMV</strong>
+                    {vaccine.doctorId}
+                  </p>
+                )}
+                {!isStringEmpty(vaccine.vaccineLab) && (
+                  <p className={styles.itemNotation}>
+                    <strong>Laboratorio</strong>
+                    {vaccine.vaccineLab}
+                  </p>
+                )}
+                {!isStringEmpty(vaccine.vaccine_next_application_date) && (
+                  <p className={styles.itemNotation}>
+                    <strong>Prox. Aplicação</strong>
+                    {dateToString(vaccine.vaccine_next_application_date)}
+                  </p>
+                )}
               </div>
             ))}
           </>

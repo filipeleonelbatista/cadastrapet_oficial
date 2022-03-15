@@ -57,11 +57,14 @@ export function Login() {
           <View style={styles.buttonGroup}>
             <Input
               label="Email"
+              autoCapitalize="none"
+              keyboardType="email-address"
               value={email}
               onChangeText={(text) => setEmail(text)}
             />
             <Input
               label="Senha"
+              autoCapitalize="none"
               value={password}
               onChangeText={(text) => setPassword(text)}
               passwordInputType

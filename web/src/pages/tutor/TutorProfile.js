@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { FaCamera } from "react-icons/fa";
+import { FaCamera, FaSignOutAlt } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/TutorProfile.module.css";
 import { cpf as cpfMask, date, phone as phoneMask } from "../../utils/masks";
-import { dateToString, isStringEmpty, stringToDate } from "../../utils/string";
+import { dateToString, isStringEmpty } from "../../utils/string";
 
 function TutorProfile() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const { functions, props } = useAuth();
-  const {} = functions;
+  const { logout } = functions;
   const { isLoggedIn, user } = props;
 
   const [name, setName] = useState("");
@@ -109,6 +108,13 @@ function TutorProfile() {
     //   }
   }
 
+  const handleLogout = () => {
+    if (window.confirm("Deseja realmente sair?")) {
+      logout();
+      navigate("/");
+    }
+  };
+
   if (!isLoggedIn) {
     navigate("/tutor");
     return null;
@@ -119,24 +125,49 @@ function TutorProfile() {
       <BackButton path="/tutor/petlist" />
       <div className={styles.header}>
         <div className={styles.petInfo}>
-          <div
-            alt={user.name}
-            style={{
-              background: `url(${user.avatar}) no-repeat center center`,
-              borderRadius: "50%",
-              width: "6.4rem",
-              height: "6.4rem",
-              margin: "0 0.8rem",
-              backgroundSize: "cover",
-            }}
-          ></div>
           <div>
-            <h4 className={styles.petName}>{user.name}</h4>
-            <h4 className={styles.petAge}>{user.email}</h4>
+            <h4 className={styles.petName}>Dados do Tutor</h4>
           </div>
         </div>
       </div>
       <div className={styles.content}>
+        {isView ? (
+          <div className={styles.uploadButton}>
+            <div
+              style={{
+                background: `url(${user.avatar}) no-repeat center center`,
+                borderRadius: "50%",
+                width: "100%",
+                height: "100%",
+                backgroundSize: "cover",
+              }}
+            ></div>
+          </div>
+        ) : (
+          <label className={styles.uploadButton}>
+            <input
+              required
+              className={styles.uploadInput}
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={(e) => handleFilePreview(e)}
+            ></input>
+            {selectedImage ? (
+              <div
+                alt="Imagem Selecionada"
+                style={{
+                  background: `url(${selectedImage}) no-repeat center center`,
+                  borderRadius: "50%",
+                  width: "100%",
+                  height: "100%",
+                  backgroundSize: "cover",
+                }}
+              ></div>
+            ) : (
+              <FaCamera />
+            )}
+          </label>
+        )}
         <div
           style={{
             width: "100%",
@@ -159,89 +190,50 @@ function TutorProfile() {
           </Button>
         </div>
         {selectedNav === "informacoes" && (
-          <>
-            <div className={styles.inputForm}>
-              <Input
-                disabled={isView}
-                required
-                id="nome"
-                label="Nome"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <Input
-                disabled={isView}
-                required
-                id="phone"
-                label="Celular/Whats"
-                value={phone}
-                maxLength={15}
-                onChange={(e) => setPhone(phoneMask(e.target.value))}
-              />
-              <Input
-                disabled={isView}
-                required
-                id="cpf"
-                label="CPF"
-                value={cpf}
-                maxLength={14}
-                onChange={(e) => setCpf(cpfMask(e.target.value))}
-              />
-              <Input
-                disabled={isView}
-                required
-                id="dt_nascimento"
-                label="Data de Nascimento"
-                value={birth_date}
-                onChange={(e) => setBirthDate(date(e.target.value))}
-              />
-              <Input
-                disabled={isView}
-                required
-                id="email"
-                label="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            {isView ? (
-              <div className={styles.uploadButton}>
-                <div
-                  style={{
-                    background: `url(${user.avatar}) no-repeat center center`,
-                    borderRadius: "50%",
-                    width: "100%",
-                    height: "100%",
-                    backgroundSize: "cover",
-                  }}
-                ></div>
-              </div>
-            ) : (
-              <label className={styles.uploadButton}>
-                <input
-                  required
-                  className={styles.uploadInput}
-                  type="file"
-                  accept="image/png, image/jpeg"
-                  onChange={(e) => handleFilePreview(e)}
-                ></input>
-                {selectedImage ? (
-                  <div
-                    alt="Imagem Selecionada"
-                    style={{
-                      background: `url(${selectedImage}) no-repeat center center`,
-                      borderRadius: "50%",
-                      width: "100%",
-                      height: "100%",
-                      backgroundSize: "cover",
-                    }}
-                  ></div>
-                ) : (
-                  <FaCamera />
-                )}
-              </label>
-            )}
-          </>
+          <div className={styles.inputForm}>
+            <Input
+              disabled={isView}
+              required
+              id="nome"
+              label="Nome"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Input
+              disabled={isView}
+              required
+              id="phone"
+              label="Celular/Whats"
+              value={phone}
+              maxLength={15}
+              onChange={(e) => setPhone(phoneMask(e.target.value))}
+            />
+            <Input
+              disabled={isView}
+              required
+              id="cpf"
+              label="CPF"
+              value={cpf}
+              maxLength={14}
+              onChange={(e) => setCpf(cpfMask(e.target.value))}
+            />
+            <Input
+              disabled={isView}
+              required
+              id="dt_nascimento"
+              label="Data de Nascimento"
+              value={birth_date}
+              onChange={(e) => setBirthDate(date(e.target.value))}
+            />
+            <Input
+              disabled={isView}
+              required
+              id="email"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
         )}
         {selectedNav === "endereco" && (
           <>
@@ -321,6 +313,9 @@ function TutorProfile() {
           Salvar
         </Button>
       )}
+      <Button transparent onClick={handleLogout}>
+        <FaSignOutAlt /> Sair
+      </Button>
     </div>
   );
 }
