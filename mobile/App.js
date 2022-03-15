@@ -12,7 +12,14 @@ import { LogBox } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
 import { View } from "react-native";
 
-export default function App() {
+import * as Sentry from "@sentry/react-native";
+
+Sentry.init({
+  dsn: "https://6c979f380277460f94755524f8490abd@o1168229.ingest.sentry.io/6259989",
+  enableNative: false,
+});
+
+function App() {
   LogBox.ignoreAllLogs();
 
   let [fontsLoaded] = useFonts({
@@ -32,3 +39,5 @@ export default function App() {
     </RootSiblingParent>
   );
 }
+
+export default Sentry.wrap(App);
