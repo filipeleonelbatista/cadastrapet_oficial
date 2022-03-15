@@ -9,11 +9,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Loading } from "../../components/Loading";
 import { useAuth } from "../../hooks/useAuth";
 import { styles } from "./styles";
+import * as Linking from "expo-linking";
 
 export function Login() {
   const { navigate } = useNavigation();
@@ -131,43 +131,55 @@ export function Login() {
               {"Não possui cadastro?\nEntão cadastre-se agora mesmo!"}
             </Text>
           </TouchableOpacity>
-          <Text style={styles.subsubtitle}>Ver. 12032022.8</Text>
+          <Text style={styles.subsubtitle}>Ver. 15032022.9</Text>
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                padding: 8,
+                marginHorizontal: 4,
+              }}
+              onPress={() => Linking.openURL("https://wa.me/+5551986320477")}
+            >
+              <FontAwesome5 name="whatsapp" size={32} color="#566dea" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                padding: 8,
+                marginHorizontal: 4,
+              }}
+              onPress={() =>
+                Linking.openURL("https://instagram.com/cadastra.pet")
+              }
+            >
+              <FontAwesome5 name="instagram" size={32} color="#566dea" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                padding: 8,
+                marginHorizontal: 4,
+              }}
+              onPress={() =>
+                Linking.openURL("https://www.facebook.com/cadastra.pet")
+              }
+            >
+              <FontAwesome5 name="facebook" size={32} color="#566dea" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                padding: 8,
+                marginHorizontal: 4,
+              }}
+              onPress={() => Linking.openURL("https://discord.gg/tSTqcBceaA")}
+            >
+              <FontAwesome5 name="discord" size={32} color="#566dea" />
+            </TouchableOpacity>
+          </View>
         </KeyboardAvoidingView>
       )}
     </>
   );
 }
-
-// return (
-//   <>
-//     {isLoaded ? <Loading /> : (
-//       <KeyboardAvoidingView
-//         behavior={Platform.OS === "ios" ? "padding" : "height"}
-//         style={styles.container}>
-//         <Image source={require('../../assets/logo.png')} style={styles.image} />
-//         <Text style={styles.subtitle}>Bem vindo novamente</Text>
-//         <Text style={styles.subtitle}>Entre para continuar usando o aplicativo</Text>
-//         <View style={styles.buttonGroup}>
-//           <Input label="Email" value={email} onChangeText={text => setEmail(text)} />
-//           <Input label="Senha" value={password} onChangeText={text => setPassword(text)} passwordInputType />
-//           <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', marginVertical: 18 }}>
-//             <Button onPress={handleSignIn} >
-//               <FontAwesome5 name="sign-in-alt" size={14} color="#FFF" />
-//               <Text style={{ marginLeft: 8, fontWeight: 'bold', fontSize: 14, fontFamily: 'Poppins_700Bold', color: "#FFF" }}>
-//                 Entrar
-//               </Text>
-//             </Button>
-//             <Button onPress={() => navigate('Register')} >
-//               <FontAwesome5 name="user-plus" size={14} color="#FFF" />
-//               <Text style={{ marginLeft: 8, fontWeight: 'bold', fontSize: 14, fontFamily: 'Poppins_700Bold', color: "#FFF" }}>
-//                 Cadastrar
-//               </Text>
-//             </Button>
-//           </View>
-//           <Button text="Esqueci a senha" transparent onPress={() => handleForgotUser(email)} />
-//         </View>
-//         <Text style={styles.subsubtitle}>Ver. 27012022.7</Text>
-//       </KeyboardAvoidingView>
-//     )}
-//   </>
-// );
