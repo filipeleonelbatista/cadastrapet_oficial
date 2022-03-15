@@ -134,7 +134,6 @@ export function Login() {
               {"Não possui cadastro?\nEntão cadastre-se agora mesmo!"}
             </Text>
           </TouchableOpacity>
-          <Text style={styles.subsubtitle}>Ver. 15032022.9</Text>
           <View
             style={{
               flexDirection: "row",
@@ -181,6 +180,10 @@ export function Login() {
               <FontAwesome5 name="discord" size={32} color="#566dea" />
             </TouchableOpacity>
           </View>
+
+          <Text style={{ ...styles.subsubtitle, fontSize: 12, marginTop: 22 }}>
+            Ver. 15032022.9
+          </Text>
         </KeyboardAvoidingView>
       )}
     </>

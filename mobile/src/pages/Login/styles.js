@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   subtitle: {
     textAlign: "center",
     fontWeight: "bold",
-    fontFamily: "Poppins_600Bold",
+    fontFamily: "Poppins_700Bold",
     fontSize: 24,
     color: "#566dea",
     marginVertical: 8,

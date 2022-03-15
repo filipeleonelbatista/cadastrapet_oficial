@@ -9,6 +9,15 @@ export const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
     position: "relative",
   },
+  petImage: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#566DEA",
+    resizeMode: "cover",
+  },
   image: {
     marginVertical: 32,
     width: 180,
@@ -20,7 +29,8 @@ export const styles = StyleSheet.create({
     fontFamily: "Poppins_700Bold",
     fontSize: 24,
     color: "#566DEA",
-    marginVertical: 28,
+    textAlign: "center",
+    marginBottom: 22,
   },
   scrollView: {
     marginVertical: 4,
