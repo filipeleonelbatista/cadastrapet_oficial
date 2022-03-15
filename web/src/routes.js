@@ -23,6 +23,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import TutorProfile from "./pages/tutor/TutorProfile";
 import LocalizaPet from "./pages/LocalizaPet";
 import TutorLocalizaPet from "./pages/tutor/TutorLocalizaPet";
+import ListaMensagens from "./pages/admin/ListaMensagens";
 
 function Routes() {
   return (
@@ -92,6 +93,7 @@ function Routes() {
           />
           <Route path="/admin" exact element={<LoginAdmin />} />
           <Route path="/admin/contatos" exact element={<ListContatos />} />
+          <Route path="/admin/listamsg" exact element={<ListaMensagens />} />
           <Route path="/veterinario" exact element={<LoginPage />} />
           <Route path="/historico-pet" exact element={<PetHistoryFormPage />} />
           <Route path="*" element={<NotFound />} />
