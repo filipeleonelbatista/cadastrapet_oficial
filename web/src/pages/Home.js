@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   FaDiscord,
   FaFacebook,
@@ -10,175 +9,20 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-// import ScrollContainer from "react-indiana-drag-scroll";
 import Floating from "../components/Floating";
 import HomeNavigation from "../components/HomeNavigation";
 import { ConversionContextProvider } from "../context/ConversionContext";
-import { useConversion } from "../hooks/useConversion";
 import styles from "../styles/pages/Home.module.css";
-import { isStringEmpty } from "../utils/string";
 
 function HomeComponent() {
   const navigate = useNavigate();
-  const { conversion } = useConversion();
-  const [isShow, setIsShow] = useState(false);
-  const [isSendedMessage, setIsSendedMessage] = useState(false);
-  const [name, setname] = useState("");
-  const [telefone, settelefone] = useState("");
-  const [email, setemail] = useState("");
-  const [quant, setquant] = useState("");
-  const [myIp, setMyIp] = useState("");
-
-  async function getCurrentIP() {
-    await fetch("https://api.ipify.org/?format=json")
-      .then((results) => results.json())
-      .then((data) => {
-        setMyIp(data.ip);
-      });
-  }
 
   function handleToggleModal() {
-    if (isSendedMessage) {
-      alert(
-        "Seu cadastro já foi realizado, aguarde nosso email de contato. Obrigado!"
-      );
-    } else {
-      setIsShow(!isShow);
-    }
+    return navigate("/tutor/cadastrar");
   }
-
-  function handleNumberOnly(value) {
-    value = value.replace(/\D/g, "");
-    return value;
-  }
-
-  function handleMaskPhoneNumber(value) {
-    value = value.replace(/\D/g, "");
-    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
-    value = value.replace(/(\d)(\d{4})$/, "$1-$2");
-    return value;
-  }
-
-  const ValidateFields = () => {
-    if (isStringEmpty(name)) {
-      alert("O campo nome não foi preenchido");
-      return true;
-    }
-    if (telefone.length < 15) {
-      if (isStringEmpty(telefone)) {
-        alert("O campo Telefone não foi preenchido");
-        return true;
-      } else {
-        alert("O campo Telefone não está completo");
-        return true;
-      }
-    }
-    if (isStringEmpty(email)) {
-      alert("O campo Email não foi preenchido");
-      return true;
-    }
-    if (isStringEmpty(quant)) {
-      alert("O campo Quantidade de pets não foi preenchido");
-      return true;
-    }
-  };
-
-  async function handleForm() {
-    if (ValidateFields()) return;
-
-    const isConversionSaved = await conversion(
-      name,
-      email,
-      "Modal landing tutor",
-      telefone,
-      myIp,
-      window.location.href,
-      `Quantidade de pets: ${quant}`
-    );
-
-    if (isConversionSaved) {
-      setname("");
-      settelefone("");
-      setemail("");
-      setquant("");
-      setIsSendedMessage(true);
-      handleToggleModal();
-      return;
-    } else {
-      handleToggleModal();
-    }
-  }
-
-  useEffect(() => {
-    getCurrentIP();
-  }, []);
 
   return (
     <div id="landing-page" className={styles.container}>
-      {isShow && (
-        <div id="modal-cta" className={styles.modalCta}>
-          <div className={styles.cardContainer}>
-            <button
-              onClick={handleToggleModal}
-              type="button"
-              className={styles.closeButton}
-            >
-              X
-            </button>
-            <div className={styles.imageContainer}></div>
-            <div className={styles.formContainer}>
-              <h4>
-                Quer ser notificado quando o app lançar e ganhar acesso ao
-                conteúdo premium por 2 meses?
-              </h4>
-              <u></u>
-              <ul>
-                <li>Cadastre mais de um bixinho</li>
-                <li>Acesso a carteira digital de vacinação</li>
-                <li>Histórico detalhado de consultas</li>
-                <li>E mais...</li>
-              </ul>
-
-              <div>
-                <label htmlFor="nome">Nome completo</label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setname(e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="telefone">Telefone</label>
-                <input
-                  type="text"
-                  maxLength={15}
-                  value={telefone}
-                  onChange={(e) =>
-                    settelefone(handleMaskPhoneNumber(e.target.value))
-                  }
-                />
-              </div>
-              <div>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setemail(e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="quant">Quantos pets você tem hoje?</label>
-                <input
-                  type="text"
-                  value={quant}
-                  onChange={(e) => setquant(handleNumberOnly(e.target.value))}
-                />
-              </div>
-              <button onClick={handleForm}>Enviar</button>
-            </div>
-          </div>
-        </div>
-      )}
       <header className={styles.header}>
         <a href="/">
           <img
@@ -292,25 +136,6 @@ function HomeComponent() {
           <img src="./images/landing/how.png" alt="" />
         </section>
         {/* how */}
-        {/* catalog */}
-        {/* <section id="catalog" className={styles.catalog}>
-          <h2>Veja como é fácil cadastrar os dados do seu Pet:</h2>
-          <ScrollContainer className={styles.carrossel}>
-            <div className={styles.cardItem}>
-              <img src="./images/landing/slider-1.png" alt="" />
-            </div>
-            <div className={styles.cardItem}>
-              <img src="./images/landing/slider-2.png" alt="" />
-            </div>
-            <div className={styles.cardItem}>
-              <img src="./images/landing/slider-3.png" alt="" />
-            </div>
-            <div className={styles.cardItem}>
-              <img src="./images/landing/slider-4.png" alt="" />
-            </div>
-          </ScrollContainer>
-        </section> */}
-        {/* catalog */}
         {/* cta2 */}
         <section id="cta2" className={styles.cta2}>
           <h2>
