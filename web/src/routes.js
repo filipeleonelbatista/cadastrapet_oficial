@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
 import Home from "./pages/Home";
-import LoginPage from "./pages/LoginPage";
-import PetHistoryFormPage from "./pages/PetHistoryFormPage";
+import LoginPage from "./pages/vet/LoginPage";
+import PetHistoryFormPage from "./pages/vet/PetHistoryFormPage";
 import NotFound from "./pages/NotFound";
 import LoginAdmin from "./pages/admin/LoginAdmin";
 import ListContatos from "./pages/admin/ListContatos";
@@ -24,6 +24,10 @@ import TutorProfile from "./pages/tutor/TutorProfile";
 import LocalizaPet from "./pages/LocalizaPet";
 import TutorLocalizaPet from "./pages/tutor/TutorLocalizaPet";
 import ListaMensagens from "./pages/admin/ListaMensagens";
+import VetProfile from "./pages/vet/VetProfile";
+import VetMedicalHistory from "./pages/vet/VetMedicalHistory";
+import VetMedicationHistory from "./pages/vet/VetMedicationHistory";
+import VetVaccineHistory from "./pages/vet/VetVaccineHistory";
 
 function Routes() {
   return (
@@ -94,8 +98,38 @@ function Routes() {
           <Route path="/admin" exact element={<LoginAdmin />} />
           <Route path="/admin/contatos" exact element={<ListContatos />} />
           <Route path="/admin/listamsg" exact element={<ListaMensagens />} />
+
           <Route path="/veterinario" exact element={<LoginPage />} />
-          <Route path="/historico-pet" exact element={<PetHistoryFormPage />} />
+          <Route
+            path="/veterinario/vetprofile"
+            exact
+            element={<VetProfile />}
+          />
+          <Route
+            path="/veterinario/vetmedicalhistory"
+            exact
+            element={<VetMedicalHistory />}
+          />
+          <Route
+            path="/veterinario/vetmedicationhistory"
+            exact
+            element={<VetMedicationHistory />}
+          />
+          <Route
+            path="/veterinario/vetvaccinehistory"
+            exact
+            element={<VetVaccineHistory />}
+          />
+          <Route
+            path="/veterinario/pethistory/view"
+            exact
+            element={<PetHistoryFormPage />}
+          />
+          <Route
+            path="/veterinario/pethistory/add"
+            exact
+            element={<PetHistoryFormPage />}
+          />
           <Route path="*" element={<NotFound />} />
         </Switch>
       </AuthContextProvider>
