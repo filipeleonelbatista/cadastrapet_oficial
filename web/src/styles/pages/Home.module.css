@@ -24,6 +24,122 @@
   width: 15rem;
   height: auto;
 }
+
+.modalCta {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.85);
+  position: fixed;
+  overflow: hidden;
+  z-index: 150;
+}
+
+.closeButton {
+  position: absolute;
+  background-color: #cccccc26;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: none;
+  top: 1.4rem;
+  left: 1.4rem;
+}
+
+.cardContainer {
+  width: 70vw;
+  height: 70vh;
+  background-color: #fff;
+  border-radius: 1.4rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+}
+
+.imageContainer {
+  width: 50%;
+  height: 100%;
+  background-image: url("../../assets/images/pet.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.formContainer {
+  width: 50%;
+  height: 100%;
+  padding: 1.4rem;
+  overflow: auto;
+}
+
+.formContainer h2 {
+  max-width: 450px;
+  font-weight: 600;
+  color: #566dea;
+}
+
+.formContainer u {
+  margin: 0.4rem 0;
+  width: 4.8rem;
+  border-bottom: 4px solid #566dea;
+}
+
+.formContainer ul {
+  list-style: none;
+  margin: 0.8rem 0.4rem;
+  font-size: 1.2rem;
+}
+
+.formContainer div {
+  display: flex;
+  flex-direction: column;
+  margin: 0.8rem 0;
+}
+
+.formContainer div label {
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  width: fit-content;
+}
+
+.formContainer div input {
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  font-weight: bold;
+  font-size: 1.4rem;
+  border: 1px solid #000;
+}
+
+.formContainer button {
+  cursor: pointer;
+  width: fit-content;
+  padding: 0.8rem;
+  border-radius: 2.8rem;
+
+  font-weight: bold;
+  text-transform: uppercase;
+  
+  font-size: 1.4rem;
+  color: #fff;
+
+  border: none;
+  background-color: #566dea;
+  transition: filter 0.2s;
+}
+
+.formContainer button:hover {
+  filter: brightness(1.2);
+}
+
+
 main{
   display: flex;
   flex-direction: column;
@@ -328,6 +444,43 @@ main{
 }
 
 @media (max-width: 720px) {
+  
+.formGroup{
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  align-items: center;
+  justify-content: center;
+}
+.formGroup label{  
+  color: #566DEA;
+  opacity: 1 !important;
+  font-weight: 600;
+  margin: 0.8rem 0;
+}
+.formGroup input{
+  border: 1px solid #6ca6fd;
+}
+
+.formGroup button {
+  outline: none;
+  border: none;
+  display: block;
+  text-align: center;
+  background-color: #566dea;
+  color: #fff !important;
+  padding: 1.4rem 0.8rem;
+  text-decoration: none !important;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 3px 3px 4px #b5b5b5;
+  transition: all 0.3s ease;
+}
+
+.formGroup button:hover {
+  background-color: #263481;
+}
+
   .cta {
     width: 100vw;
     display: flex;
