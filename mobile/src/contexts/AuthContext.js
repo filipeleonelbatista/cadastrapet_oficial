@@ -147,7 +147,11 @@ export function AuthContextProvider(props) {
           setKeyLocalStorage("UID", re.user.uid);
 
           sendDiscordNotification(
-            `Novo cadastro realizado pelo app\n\n**Email:** ${email}`,
+            `Novo cadastro realizado pelo appNovo cadastro realizado pelo web app
+            **ID:** ${newUser.uid}
+            **Nome:** ${newUser.name}
+            **Email:** ${newUser.email}
+            **Telefone:** ${newUser.phone}`,
             "doguinho"
           );
           setUser(newUser);
@@ -473,9 +477,11 @@ export function AuthContextProvider(props) {
 
       if (message)
         sendDiscordNotification(
-          `Novo Pet Adicionado pelo tutor: ${
-            user.name
-          } no app\n\n**Pet:** ${JSON.stringify(data)}`,
+          `Novo Pet Adicionado pelo tutor: ${user.name} no app\n**Pet:** 
+          Codigo pet: \`${data.uid}\`
+          Nome do pet: ${data.name}
+          ${data.avatar}       
+          \`${JSON.stringify(data)}\``,
           "doguinho"
         );
       setIsLoaded(false);
