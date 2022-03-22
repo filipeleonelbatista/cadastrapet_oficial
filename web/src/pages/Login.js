@@ -1,33 +1,43 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/admin/logo.png";
-import Button from "../../components/Button";
-import { useAuth } from "../../hooks/useAuth";
-import "../../styles/pages/tutor/login-page.css";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import logo from "../assets/admin/logo.png";
+import Button from "../components/Button";
+import { useAuth } from "../hooks/useAuth";
+import "../styles/pages/login-page.css";
 
-function LoginTutor() {
+function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { props, functions } = useAuth();
-  const { isLoggedIn } = props;
+  const { isLoggedIn, user } = props;
   const { signInUser, handleForgotUser } = functions;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  async function handleOnSubmit(event) {
-    event.preventDefault();
+  async function handleOnSubmit() {
     const isLogged = await signInUser(email, password);
     if (isLogged.status) {
-      navigate("/tutor/petlist");
+      if (isLogged.user.user_role === "tutor") navigate("/tutor/petlist");
+      if (isLogged.user.user_role === "veterinario")
+        navigate("/veterinario/vetprofile");
     } else {
       setError(isLogged.message);
     }
   }
 
   useEffect(() => {
-    if (isLoggedIn) navigate("/tutor/petlist");
-  }, [isLoggedIn, navigate]);
+    if (isLoggedIn) {
+      if (user) {
+        if (user.user_role === "tutor") navigate("/tutor/petlist");
+        if (user.user_role === "veterinario")
+          navigate("/veterinario/vetprofile");
+      }
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div id="login-page">
@@ -38,11 +48,7 @@ function LoginTutor() {
         </a>
         <h1>Bem vindo novamente</h1>
         <p>Entre para continuar usando o sistema</p>
-        <form
-          onSubmit={(e) => {
-            handleOnSubmit(e);
-          }}
-        >
+        <form>
           <div className="error">{error}</div>
           <div className="input-container">
             <input
@@ -67,11 +73,6 @@ function LoginTutor() {
             <label htmlFor="password">Senha</label>
           </div>
           <div className="input-group">
-            {/* <div className="remember">
-                            <input id="check" type="checkbox"
-                                value={remember} onChange={(e) => { setRemember(e.target.value) }} />
-                            <label htmlFor="check">Manter conectado</label>
-                        </div> */}
             <Button
               type="button"
               transparent
@@ -80,12 +81,12 @@ function LoginTutor() {
               Esqueceu sua senha?
             </Button>
           </div>
-          <button className="login-btn" type="submit">
+          <button className="login-btn" type="button" onClick={handleOnSubmit}>
             Login
           </button>
 
           <Link
-            to="/tutor/cadastrar"
+            to={`${location.pathname}/cadastrar`}
             style={{
               display: "flex",
               justifyContent: "center",
@@ -104,4 +105,4 @@ function LoginTutor() {
   );
 }
 
-export default LoginTutor;
+export default Login;

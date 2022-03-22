@@ -1,12 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
 import Home from "./pages/Home";
-import LoginPage from "./pages/vet/LoginPage";
 import PetHistoryFormPage from "./pages/vet/PetHistoryFormPage";
 import NotFound from "./pages/NotFound";
 import LoginAdmin from "./pages/admin/LoginAdmin";
 import ListContatos from "./pages/admin/ListContatos";
-import LoginTutor from "./pages/tutor/LoginTutor";
+import Login from "./pages/Login";
 import PetList from "./pages/tutor/PetList";
 import PetProfile from "./pages/tutor/PetProfile";
 import PetInfo from "./pages/tutor/PetInfo";
@@ -18,7 +17,7 @@ import AddPetVaccineHistory from "./pages/tutor/AddPetVaccineHistory";
 import CreatePet from "./pages/tutor/CreatePet";
 import TermosECondicoes from "./pages/TermosECondicoes";
 import PoliticasDePrivacidade from "./pages/PoliticasDePrivacidade";
-import Register from "./pages/tutor/Register";
+import Register from "./pages/Register";
 import { AuthContextProvider } from "./context/AuthContext";
 import TutorProfile from "./pages/tutor/TutorProfile";
 import LocalizaPet from "./pages/LocalizaPet";
@@ -40,7 +39,7 @@ function Routes() {
             exact
             element={<TutorLocalizaPet />}
           />
-          <Route path="/tutor" exact element={<LoginTutor />} />
+          <Route path="/tutor" exact element={<Login />} />
           <Route path="/tutor/cadastrar" exact element={<Register />} />
           <Route path="/tutor/createpet" exact element={<CreatePet />} />
           <Route path="/tutor/petlist" exact element={<PetList />} />
@@ -99,7 +98,8 @@ function Routes() {
           <Route path="/admin/contatos" exact element={<ListContatos />} />
           <Route path="/admin/listamsg" exact element={<ListaMensagens />} />
 
-          <Route path="/veterinario" exact element={<LoginPage />} />
+          <Route path="/veterinario" exact element={<Login />} />
+          <Route path="/veterinario/cadastrar" exact element={<Register />} />
           <Route
             path="/veterinario/vetprofile"
             exact

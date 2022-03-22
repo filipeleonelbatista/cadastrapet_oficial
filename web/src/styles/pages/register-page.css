@@ -1,32 +1,31 @@
-#login-page {
+#register-page {
     width: 100vw;
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-#login-page .image-container {
+#register-page .image-container {
     overflow: hidden;
     background-size: cover;
     background-position: center;
-    background-image: url('../../../assets/admin/pet_alt.jpg');
+    background-image: url('../../assets/admin/pet_alt.jpg');
 }
 
-#login-page .login-form {
+#register-page .register-form {
     width: 100%;
-    height: 100vh;
     background-color: #FFF;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    overflow: auto;
 }
 
-#login-page .login-form img {
+#register-page .register-form img {
     margin: 1.4rem 0;
 }
 
-#login-page .login-form h1 {
+#register-page .register-form h1 {
     color: #566dea;
     font-size: xx-large;
     font-weight: 800;
@@ -34,32 +33,32 @@
     text-align: center;
 }
 
-#login-page .login-form p {
+#register-page .register-form p {
     color: #666;
     font-size: medium;
     font-weight: 600;
     margin-bottom: 0.4rem;
 }
 
-#login-page .login-form form {
+#register-page .register-form form {
     margin: 2rem 0;
     max-width: 420px;
     width: 100%;
 }
-#login-page .login-form form .error{
+#register-page .register-form form .error{
  color: red;
  text-align: center;
  font-weight: normal;
  margin: 0.8rem 0;
 }
 
-#login-page .login-form form .input-container {
+#register-page .register-form form .input-container {
     display: flex;
     flex-direction: column-reverse;
     margin-bottom: 0.8rem;
 }
 
-#login-page .login-form form .input-container label {
+#register-page .register-form form .input-container label {
     color: #666;
     font-size: medium;
     font-weight: 600;
@@ -67,7 +66,7 @@
     transition: 0.3s;
 }
 
-#login-page .login-form form .input-container input {
+#register-page .register-form form .input-container input {
     outline: none;
     border: none;
     padding: 0.4rem;
@@ -75,16 +74,16 @@
     transition: 0.3s;
 }
 
-#login-page .login-form form .input-container input:focus {
+#register-page .register-form form .input-container input:focus {
     border-bottom: 3px solid #566dea;
 }
 
-#login-page .login-form form .input-container input:focus+label {
+#register-page .register-form form .input-container input:focus+label {
     color: #566dea;
     font-weight: 800;
 }
 
-#login-page .login-form form .input-group {
+#register-page .register-form form .input-group {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -92,43 +91,43 @@
     margin-bottom: 0.8rem;
 }
 
-#login-page .login-form form .input-group .remember {
+#register-page .register-form form .input-group .remember {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#login-page .login-form form .input-group .remember input[type="checkbox"] {
+#register-page .register-form form .input-group .remember input[type="checkbox"] {
     width: 1rem;
     height: 1rem;
     border-radius: 0.8rem;
     transition: 0.3rem;
 }
 
-#login-page .login-form form .input-group .remember label {
+#register-page .register-form form .input-group .remember label {
     margin-left: 0.8rem;
     color: #666;
     font-size: medium;
     font-weight: 600;
 }
 
-#login-page .login-form form .input-group .remember input[type="checkbox"]:checked+label {
+#register-page .register-form form .input-group .remember input[type="checkbox"]:checked+label {
     color: #566dea;
     font-weight: 800;
 }
 
-#login-page .login-form form .input-group a {
+#register-page .register-form form .input-group a {
     text-decoration: none;
     color: #566dea;
     font-weight: 800;
     transition: 0.3s;
 }
 
-#login-page .login-form form .input-group a:hover {
+#register-page .register-form form .input-group a:hover {
     filter: brightness(1.1)
 }
 
-#login-page .login-form form .login-btn {
+#register-page .register-form form .register-btn {
     width: 100%;
     padding: 0.8rem;
     color: #FFF;
@@ -143,43 +142,43 @@
     margin: 1.4rem 0;
 }
 
-#login-page .login-form form .login-btn:hover {
+#register-page .register-form form .register-btn:hover {
     filter: brightness(1.1)
 }
 
-#login-page .login-form form .login-btn:active {
+#register-page .register-form form .register-btn:active {
     filter: brightness(0.9)
 }
 
 @media only screen and (max-width: 900px) {
-    #login-page {
+    #register-page {
         grid-template-columns: 1fr;
     }
-    #login-page .image-container {
+    #register-page .image-container {
         display: none;
     }
 }
 
 @media only screen and (max-width: 470px) {
-    #login-page {
+    #register-page {
         grid-template-columns: 1fr;
     }
-    #login-page .image-container {
+    #register-page .image-container {
         display: none;
     }
-    #login-page .login-form form {
+    #register-page .register-form form {
         max-width: 300px;
     }
 }
 
 @media only screen and (max-width: 320px) {
-    #login-page {
+    #register-page {
         grid-template-columns: 1fr;
     }
-    #login-page .image-container {
+    #register-page .image-container {
         display: none;
     }
-    #login-page .login-form form {
+    #register-page .register-form form {
         max-width: 270px;
     }
 }

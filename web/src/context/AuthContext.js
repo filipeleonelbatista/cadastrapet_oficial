@@ -343,11 +343,12 @@ export function AuthContextProvider(props) {
     }
 
     return signInWithEmailAndPassword(authentication, email, password)
-      .then((re) => {
+      .then(async (re) => {
         setKeyLocalStorage("UID", re.user.uid);
-
+        const currentUser = await getUserByID(re.user.uid);
         setIsLoggedIn(true);
         const status = {
+          user: currentUser,
           status: true,
         };
         return status;

@@ -1,23 +1,34 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/admin/logo.png";
-import { AuthContextProvider } from "../../context/AuthContext";
-import { useAuth } from "../../hooks/useAuth";
-import "../../styles/pages/tutor/register-page.css";
-import { isStringEmpty } from "../../utils/string";
-import { cpf as cpfMask } from "../../utils/masks";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import logo from "../assets/admin/logo.png";
+import { AuthContextProvider } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
+import "../styles/pages/register-page.css";
+import {
+  cpf as cpfMask,
+  phone as telefoneMask,
+  cnpj as cnpjMask,
+} from "../utils/masks";
+import { isStringEmpty } from "../utils/string";
 
 function RegisterComponent() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { functions } = useAuth();
   const { RegisterUser } = functions;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [cpf, setCpf] = useState("");
+  const [nomeFantasia, setNomeFantasia] = useState("");
+  const [cnpj, setCnpj] = useState("");
+  const [crmv, setCrmv] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   const ValidateFields = () => {
     if (isStringEmpty(name)) {
@@ -31,6 +42,15 @@ function RegisterComponent() {
     if (isStringEmpty(email)) {
       setError("O campo Email não foi preenchido");
       return true;
+    }
+    if (phone.length < 15) {
+      if (isStringEmpty(phone)) {
+        alert("O campo Telefone não foi preenchido");
+        return true;
+      } else {
+        alert("O campo Telefone não está completo");
+        return true;
+      }
     }
     if (isStringEmpty(password)) {
       setError("O campo senha não foi preenchido");
@@ -46,6 +66,25 @@ function RegisterComponent() {
       );
       return true;
     }
+    if (location.pathname.includes("veterinario")) {
+      if (isStringEmpty(nomeFantasia)) {
+        setError("O campo Nome Fantasia não foi preenchido");
+        return true;
+      }
+      if (isStringEmpty(crmv)) {
+        setError("O campo CRMV não foi preenchido");
+        return true;
+      }
+      if (cnpj.length < 18) {
+        if (isStringEmpty(cnpj)) {
+          alert("O campo CNPJ não foi preenchido");
+          return true;
+        } else {
+          alert("O campo CNPJ não está completo");
+          return true;
+        }
+      }
+    }
   };
 
   async function handleOnSubmit(event) {
@@ -56,11 +95,16 @@ function RegisterComponent() {
       password,
       user: {
         is_admin: false,
+        user_role: userRole,
         name,
         avatar: "",
         cpf,
         email,
+        phone,
         birth_date: "",
+        cnpj,
+        crmv,
+        nome_fantasia: nomeFantasia,
         endereco: {
           logradouro: "",
           numero: "",
@@ -74,18 +118,28 @@ function RegisterComponent() {
       },
     };
 
-    if (RegisterUser(data)) navigate("/tutor/petlist");
+    if (RegisterUser(data))
+      navigate(`${location.pathname.replace("/cadastrar", "")}/petlist`);
   }
 
+  useEffect(() => {
+    setUserRole(location.pathname.replace("/cadastrar", "").replace("/", ""));
+  }, []);
+
   return (
-    <div id="login-page">
+    <div id="register-page">
       <div className="image-container"></div>
-      <div className="login-form">
+      <div className="register-form">
         <a href="/">
           <img src={logo} alt="Cadastra Pet - Tutor" width="270" />
         </a>
         <h1>Bem vindo!</h1>
-        <p>Complete o cadastro para continuar cuidando do seu pet</p>
+        {location.pathname.includes("veterinario") && (
+          <p>Complete o cadastro para atender os pets por aqui</p>
+        )}
+        {location.pathname.includes("tutor") && (
+          <p>Complete o cadastro para continuar cuidando do seu pet</p>
+        )}
         <form
           onSubmit={(e) => {
             handleOnSubmit(e);
@@ -128,6 +182,18 @@ function RegisterComponent() {
           </div>
           <div className="input-container">
             <input
+              id="phone"
+              type="text"
+              maxLength={15}
+              value={phone}
+              onChange={(e) => {
+                setPhone(telefoneMask(e.target.value));
+              }}
+            />
+            <label htmlFor="phone">Telefone</label>
+          </div>
+          <div className="input-container">
+            <input
               id="password"
               type="password"
               value={password}
@@ -148,12 +214,52 @@ function RegisterComponent() {
             />
             <label htmlFor="passwordConfirm">Confirmar Senha</label>
           </div>
-          <button className="login-btn" type="submit">
+
+          {location.pathname.includes("veterinario") && (
+            <>
+              <div className="input-container">
+                <input
+                  id="nomeFantasia"
+                  type="text"
+                  value={nomeFantasia}
+                  onChange={(e) => {
+                    setNomeFantasia(e.target.value);
+                  }}
+                />
+                <label htmlFor="nomeFantasia">Nome Fantasia</label>
+              </div>
+              <div className="input-container">
+                <input
+                  id="cnpj"
+                  type="text"
+                  maxLength={18}
+                  value={cnpj}
+                  onChange={(e) => {
+                    setCnpj(cnpjMask(e.target.value));
+                  }}
+                />
+                <label htmlFor="cnpj">Cnpj</label>
+              </div>
+              <div className="input-container">
+                <input
+                  id="crmv"
+                  type="text"
+                  value={crmv}
+                  onChange={(e) => {
+                    setCrmv(e.target.value);
+                  }}
+                />
+                <label htmlFor="crmv">CRMV</label>
+              </div>
+            </>
+          )}
+
+          <button className="register-btn" type="submit">
             Cadastrar
           </button>
 
           <Link
-            to="/tutor"
+            to={location.pathname.replace("/cadastrar", "")}
             style={{
               display: "flex",
               justifyContent: "center",

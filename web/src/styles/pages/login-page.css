@@ -9,7 +9,7 @@
     overflow: hidden;
     background-size: cover;
     background-position: center;
-    background-image: url('../../../assets/admin/pet_alt.jpg');
+    background-image: url('../../assets/admin/pet_alt.jpg');
 }
 
 #login-page .login-form {
@@ -20,7 +20,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow: auto;
 }
 
 #login-page .login-form img {
