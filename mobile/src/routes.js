@@ -16,9 +16,10 @@ import {
   TutorProfile,
   EditPet,
   PetMedicalHistory,
-  ViewVaccine
+  ViewVaccine,
 } from "./pages";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import WebViewPage from "./pages/WebViewPage";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -26,8 +27,9 @@ function Routes() {
   return (
     <NavigationContainer>
       <AuthContextProvider>
-          <Navigator screenOptions={{ headerShown: false }}>
-            <Screen name="Login" component={Login} />
+        <Navigator screenOptions={{ headerShown: false }}>
+          <Screen name="WebViewPage" component={WebViewPage} />
+          {/* <Screen name="Login" component={Login} />
             <Screen name="Register" component={Register} />
             <Screen name="TutorProfile" component={TutorProfile} />
             <Screen name="PetList" component={PetList} />
@@ -40,8 +42,8 @@ function Routes() {
             <Screen name="PetHistoryView" component={PetHistoryView} />
             <Screen name="PetVaccineHistory" component={PetVaccineHistory} />
             <Screen name="PetMedicalHistory" component={PetMedicalHistory} />
-            <Screen name="ViewVaccine" component={ViewVaccine} />
-          </Navigator>
+            <Screen name="ViewVaccine" component={ViewVaccine} /> */}
+        </Navigator>
       </AuthContextProvider>
     </NavigationContainer>
   );
