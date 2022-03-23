@@ -23,6 +23,8 @@ function ListMensagensComponent() {
         <thead className="table-head">
           <th>Nome</th>
           <th>Telefone</th>
+          <th>Email</th>
+          <th>Canal</th>
         </thead>
         <tbody>
           {contatos.length > 0 &&
@@ -34,6 +36,14 @@ function ListMensagensComponent() {
                     {contato.phone.replace(/\D/g, "").length > 11
                       ? contato.phone.replace(/\D/g, "").substr(2)
                       : contato.phone.replace(/\D/g, "")}
+                  </td>
+                  <td>{contato.email === "" ? "-" : contato.email}</td>
+                  <td>
+                    {contato.url.includes("?gclid")
+                      ? "Google Ads"
+                      : contato.url.includes("?fbclid")
+                      ? "Facebook Ads"
+                      : "Site"}
                   </td>
                 </tr>
               );
