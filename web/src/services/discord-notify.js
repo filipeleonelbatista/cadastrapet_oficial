@@ -11,27 +11,32 @@ export const colaboradores = {
 };
 
 export const sendDiscordNotification = async (message, bot) => {
-  const requestPayload = {
-    content: message,
-    allowed_mentions: {
-      parse: ["users"],
-    },
-  };
+  if (process.env.NODE_ENV === "development") {
+    console.log("Mensagem enviada: ", message, bot);
+    return;
+  } else {
+    const requestPayload = {
+      content: message,
+      allowed_mentions: {
+        parse: ["users"],
+      },
+    };
 
-  const requestOptions = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify(requestPayload),
-  };
-  const endpoint = bots[bot];
+    const requestOptions = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(requestPayload),
+    };
+    const endpoint = bots[bot];
 
-  return new Promise((resolve, reject) => {
-    fetch(endpoint, requestOptions)
-      .then((resp) => {
-        resolve(resp.status);
-      })
-      .catch(reject);
-  });
+    return new Promise((resolve, reject) => {
+      fetch(endpoint, requestOptions)
+        .then((resp) => {
+          resolve(resp.status);
+        })
+        .catch(reject);
+    });
+  }
 };

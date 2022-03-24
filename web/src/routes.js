@@ -1,31 +1,33 @@
 import React from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
-import Home from "./pages/Home";
-import PetHistoryFormPage from "./pages/vet/PetHistoryFormPage";
-import NotFound from "./pages/NotFound";
-import LoginAdmin from "./pages/admin/LoginAdmin";
+import { AuthContextProvider } from "./context/AuthContext";
+import ListaMensagens from "./pages/admin/ListaMensagens";
 import ListContatos from "./pages/admin/ListContatos";
+import LoginAdmin from "./pages/admin/LoginAdmin";
+import Home from "./pages/Home";
+import LocalizaPet from "./pages/LocalizaPet";
 import Login from "./pages/Login";
-import PetList from "./pages/tutor/PetList";
-import PetProfile from "./pages/tutor/PetProfile";
-import PetInfo from "./pages/tutor/PetInfo";
-import PetHistory from "./pages/tutor/PetHistory";
-import PetVaccineHistory from "./pages/tutor/PetVaccineHistory";
-import PetCode from "./pages/tutor/PetCode";
+import NotFound from "./pages/NotFound";
+import PoliticasDePrivacidade from "./pages/PoliticasDePrivacidade";
+import Register from "./pages/Register";
+import TermosECondicoes from "./pages/TermosECondicoes";
 import AddPetHistory from "./pages/tutor/AddPetHistory";
 import AddPetVaccineHistory from "./pages/tutor/AddPetVaccineHistory";
 import CreatePet from "./pages/tutor/CreatePet";
-import TermosECondicoes from "./pages/TermosECondicoes";
-import PoliticasDePrivacidade from "./pages/PoliticasDePrivacidade";
-import Register from "./pages/Register";
-import { AuthContextProvider } from "./context/AuthContext";
-import TutorProfile from "./pages/tutor/TutorProfile";
-import LocalizaPet from "./pages/LocalizaPet";
+import PetCode from "./pages/tutor/PetCode";
+import PetHistory from "./pages/tutor/PetHistory";
+import PetInfo from "./pages/tutor/PetInfo";
+import PetList from "./pages/tutor/PetList";
+import PetProfile from "./pages/tutor/PetProfile";
+import PetVaccineHistory from "./pages/tutor/PetVaccineHistory";
 import TutorLocalizaPet from "./pages/tutor/TutorLocalizaPet";
-import ListaMensagens from "./pages/admin/ListaMensagens";
-import VetProfile from "./pages/vet/VetProfile";
+import TutorProfile from "./pages/tutor/TutorProfile";
+import MedicalAppointmenmt from "./pages/vet/MedicalAppointment";
+import MedicationHistory from "./pages/vet/MedicationHistory";
+import VaccineHistory from "./pages/vet/VaccineHistory";
 import VetMedicalHistory from "./pages/vet/VetMedicalHistory";
 import VetMedicationHistory from "./pages/vet/VetMedicationHistory";
+import VetProfile from "./pages/vet/VetProfile";
 import VetVaccineHistory from "./pages/vet/VetVaccineHistory";
 
 function Routes() {
@@ -111,9 +113,24 @@ function Routes() {
             element={<VetMedicalHistory />}
           />
           <Route
-            path="/veterinario/vetmedicationhistory"
+            path="/veterinario/medicalappointment/add"
             exact
-            element={<VetMedicationHistory />}
+            element={<MedicalAppointmenmt />}
+          />
+          <Route
+            path="/veterinario/medicalappointment/view"
+            exact
+            element={<MedicalAppointmenmt />}
+          />
+          <Route
+            path="/veterinario/vaccinehistory/view"
+            exact
+            element={<VaccineHistory />}
+          />
+          <Route
+            path="/veterinario/vaccinehistory/add"
+            exact
+            element={<VaccineHistory />}
           />
           <Route
             path="/veterinario/vetvaccinehistory"
@@ -121,14 +138,19 @@ function Routes() {
             element={<VetVaccineHistory />}
           />
           <Route
-            path="/veterinario/pethistory/view"
+            path="/veterinario/vetmedicationhistory"
             exact
-            element={<PetHistoryFormPage />}
+            element={<VetMedicationHistory />}
           />
           <Route
-            path="/veterinario/pethistory/add"
+            path="/veterinario/medicationhistory/add"
             exact
-            element={<PetHistoryFormPage />}
+            element={<MedicationHistory />}
+          />
+          <Route
+            path="/veterinario/medicationhistory/view"
+            exact
+            element={<MedicationHistory />}
           />
           <Route path="*" element={<NotFound />} />
         </Switch>

@@ -1,11 +1,13 @@
 import React from "react";
 import { RiSyringeLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import doguinhoimg from "../../assets/doginho.png";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import styles from "../../styles/pages/vet/VetVaccineHistory.module.css";
-import doguinhoimg from "../../assets/doginho.png";
 
 function VetVaccineHistory() {
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <BackButton path="/veterinario/vetprofile" />
@@ -14,7 +16,9 @@ function VetVaccineHistory() {
           <RiSyringeLine size={22} />
           <h4 className={styles.title}>Vacinas</h4>
         </div>
-        <Button>Adicionar vacina</Button>
+        <Button onClick={() => navigate("/veterinario/vaccinehistory/add")}>
+          Adicionar vacina
+        </Button>
       </div>
       <div className={styles.content}>
         <button onClick={() => {}} className={styles.wContainer}>

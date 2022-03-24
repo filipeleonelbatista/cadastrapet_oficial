@@ -1,11 +1,13 @@
 import React from "react";
 import { CgPill } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 import doguinhoimg from "../../assets/doginho.png";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import styles from "../../styles/pages/vet/VetMedicationHistory.module.css";
 
 function VetMedicationHistory() {
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <BackButton path="/veterinario/vetprofile" />
@@ -14,7 +16,9 @@ function VetMedicationHistory() {
           <CgPill size={22} />
           <h4 className={styles.title}>Medicações</h4>
         </div>
-        <Button>Adicionar medicação</Button>
+        <Button onClick={() => navigate("/veterinario/medicationhistory/add")}>
+          Adicionar medicação
+        </Button>
       </div>
       <div className={styles.content}>
         <button onClick={() => {}} className={styles.wContainer}>
