@@ -62,7 +62,7 @@ export default function Floating({ location = "" }) {
     const isConversionSaved = await conversion(
       whatsNome,
       "",
-      "Modal Whatsapp Button",
+      `Modal Whatsapp Button - ${location}`,
       whatsFone,
       myIp,
       window.location.href,

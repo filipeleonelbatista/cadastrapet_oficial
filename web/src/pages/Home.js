@@ -342,7 +342,7 @@ function HomeComponent() {
           <a href="/termos-e-condicoes">Termos de uso</a>
         </div>
       </footer>
-      <Floating />
+      <Floating location="tutor" />
     </div>
   );
 }

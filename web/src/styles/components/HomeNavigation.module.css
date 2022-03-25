@@ -34,11 +34,22 @@
     color: #566dea;
     font-size: small;
   }
+  
+
+  .navItemActive {
+    padding: 0.4rem 1.6rem;
+    border-radius: 1.6rem;
+    background-color: #fff;
+    color: #566dea;
+    font-size: small;
+    font-weight: bold;
+  }
 
   .navItemDestaque:hover {
     filter: brightness(1.3);
   }
-  .navItem:hover {
+  .navItem:hover, 
+  .navItemActive:hover{
     filter: brightness(0.8);
   }
 }

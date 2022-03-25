@@ -29,6 +29,7 @@ import VetMedicalHistory from "./pages/vet/VetMedicalHistory";
 import VetMedicationHistory from "./pages/vet/VetMedicationHistory";
 import VetProfile from "./pages/vet/VetProfile";
 import VetVaccineHistory from "./pages/vet/VetVaccineHistory";
+import Veterinario from "./pages/Veterinario";
 
 function Routes() {
   return (
@@ -41,7 +42,7 @@ function Routes() {
             exact
             element={<TutorLocalizaPet />}
           />
-          <Route path="/tutor" exact element={<Login />} />
+          <Route path="/entrar" exact element={<Login />} />
           <Route path="/tutor/cadastrar" exact element={<Register />} />
           <Route path="/tutor/createpet" exact element={<CreatePet />} />
           <Route path="/tutor/petlist" exact element={<PetList />} />
@@ -86,6 +87,7 @@ function Routes() {
             element={<AddPetVaccineHistory />}
           />
           <Route path="/" exact element={<Home />} />
+          <Route path="/veterinario" exact element={<Veterinario />} />
           <Route
             path="/termos-e-condicoes"
             exact
@@ -100,7 +102,6 @@ function Routes() {
           <Route path="/admin/contatos" exact element={<ListContatos />} />
           <Route path="/admin/listamsg" exact element={<ListaMensagens />} />
 
-          <Route path="/veterinario" exact element={<Login />} />
           <Route path="/veterinario/cadastrar" exact element={<Register />} />
           <Route
             path="/veterinario/vetprofile"
