@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import {
+  FaMobileAlt,
+  FaArrowRight,
   FaDiscord,
   FaFacebook,
   FaFacebookMessenger,
   FaHandHoldingHeart,
   FaInstagram,
-  FaMobile,
-  FaShareAlt,
+  FaQrcode,
   FaWhatsapp,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -203,17 +204,21 @@ function VeterinarioComponent() {
       <main>
         {/* CTA */}
         <section id="cta" className={styles.cta}>
+          <img
+            className={[styles.hideImg, styles.ctaImg]}
+            src="./images/landing/mockup-cta-vet.png"
+            alt=""
+          />
           <div className={styles.content}>
-            <h2>
-              Atenda seus clientes e tenha os dados mais completos dos pets
-            </h2>
+            <h2>Ajude a salvar e prolongar mais vidas de Pet</h2>
             <u></u>
             <p>
-              Tenha informações de histórico médico e de vacinação para dar a
-              melhor avaliação ao tutor e cuidado ao pet.
+              A cadastrapet nasceu com o intuito de acabar com a falta de
+              informação entre Veterinários e pais de pet, assim salvando mais
+              vidas.
             </p>
             <button onClick={handleCadastrar}>
-              Quero ter acesso a aplicação
+              Acessar o histórico de um Pet
             </button>
 
             <div className={styles.mobile}>
@@ -240,73 +245,54 @@ function VeterinarioComponent() {
               </a>
             </div>
           </div>
-          <img
-            className={[styles.hideImg, styles.ctaImg]}
-            src="./images/landing/mockup-cta-vet.png"
-            alt=""
-          />
         </section>
         {/* CTA */}
         {/* About */}
         <section id="about" className={styles.about}>
+          <div className={styles.contentAbout}>
+            <h2>Registre consultas e vacinas de forma segura</h2>
+            <u></u>
+            <p>
+              Com o nosso sistema é possível fazer registros seguros, usando seu
+              número de cmrv
+            </p>
+          </div>
           <img
             className={styles.hideImg}
             src="./images/landing/landing-about-vet.png"
             alt=""
           />
-          <div className={styles.contentAbout}>
-            <h2>Acesse a carteira digital de vacinação do seu pet!</h2>
-            <u></u>
-            <p>
-              Voce poderá ter acesso a todas as vacinas, históricos de vacinação
-              e controle sobre renovações.
-            </p>
-            <button onClick={handleCadastrar}>
-              Quero ter acesso aos dados dos pets
-            </button>
-          </div>
         </section>
         {/* About */}
         {/* features */}
         <section id="features" className={styles.features}>
-          <h2>Confira os benefícios de ter seu pet cadastrado:</h2>
-          <div className={styles.cardList}>
-            <div className={styles.card}>
-              <FaHandHoldingHeart size={28} color="#566dea" />
-              <h2>Informações na palma da mão</h2>
-              <p>
-                Tenha históricos médicos, de vacinação e de medicação completo
-                do seu pet em qualquer lugar.
-              </p>
+          <div className={styles.featuresContainer}>
+            <h2>
+              Sem mais confusão em falta de informação na hora da consulta
+            </h2>
+            <div className={styles.cardList}>
+              <div className={styles.card}>
+                <FaQrcode size={42} color="#566dea" />
+                <h2>Conexão fácil via QR code</h2>
+              </div>
+              <div className={styles.card}>
+                <FaHandHoldingHeart size={42} color="#566dea" />
+                <h2>Controle completo do histórico médico </h2>
+              </div>
+              <div className={styles.card}>
+                <FaMobileAlt size={42} color="#566dea" />
+                <h2>Funciona em computadores e celulares</h2>
+              </div>
             </div>
-            <div className={styles.card}>
-              <FaMobile size={28} color="#566dea" />
-              <h2>Facilidade de uso</h2>
-              <p>
-                Acesso fácil tanto para o dono quanto para o médico que irá
-                consultar o seu animal.
-              </p>
+            <div className={styles.featuresButtonContainer}>
+              <button className={styles.featuresButton}>
+                Acessar o histórico de um Pet <FaArrowRight size={12} />
+              </button>
             </div>
-            <div className={styles.card}>
-              <FaShareAlt size={28} color="#566dea" />
-              <h2>Compartilhamento de informações</h2>
-              <p>
-                Mantenha a informação compartilhada entre os doutores do seu pet
-              </p>
-            </div>
+            <img src="./images/landing/how_vet.png" alt="" />
           </div>
         </section>
         {/* features */}
-        {/* how */}
-        <section id="how" className={styles.how}>
-          <h2>Veja como você veterinário pode adicionar dados para os pet</h2>
-          <p>
-            Voce informa o codigo do seu pet e ele irá abrir uma tela como a
-            tela a baixo para adicionar as informações da consulta.
-          </p>
-          <img src="./images/landing/how.png" alt="" />
-        </section>
-        {/* how */}
         {/* cta2 */}
         <section id="cta2" className={styles.cta2}>
           <h2>

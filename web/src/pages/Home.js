@@ -12,6 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import Floating from "../components/Floating";
 import HomeNavigation from "../components/HomeNavigation";
+import InstaFeed from "../components/InstaFeed";
 import { ConversionContextProvider } from "../context/ConversionContext";
 import { useConversion } from "../hooks/useConversion";
 import styles from "../styles/pages/Home.module.css";
@@ -293,6 +294,8 @@ function HomeComponent() {
           </div>
         </section>
         {/* features */}
+
+        <InstaFeed />
         {/* how */}
         <section id="how" className={styles.how}>
           <h2>Veja como seu veterinário irá adicionar dados no seu pet</h2>
