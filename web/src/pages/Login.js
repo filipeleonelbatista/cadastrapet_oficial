@@ -86,7 +86,7 @@ function Login() {
           </button>
 
           <Link
-            to={`${location.pathname}/cadastrar`}
+            to={`/tutor/cadastrar`}
             style={{
               display: "flex",
               justifyContent: "center",
@@ -96,9 +96,24 @@ function Login() {
               fontWeight: 800,
             }}
           >
-            Não possui cadastro? <br />
+            É tutor e não possui cadastro? <br />
             então cadastre-se agora mesmo!
           </Link>
+          <hr />
+          {/* <Link
+            to={`/veterinario/cadastrar`}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+              textDecoration: "none",
+              color: "#566dea",
+              fontWeight: 800,
+            }}
+          >
+            É Veterinário e não possui cadastro? <br />
+            então cadastre-se agora mesmo!
+          </Link> */}
         </form>
       </div>
     </div>
