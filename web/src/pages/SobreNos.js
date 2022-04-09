@@ -8,9 +8,9 @@ import {
 } from "react-icons/fa";
 import Floating from "../components/Floating";
 import HomeNavigation from "../components/HomeNavigation";
-import styles from "../styles/pages/Home.module.css";
+import styles from "../styles/pages/SobreNos.module.css";
 
-function PoliticasDePrivacidade() {
+function SobreNos() {
   return (
     <div id="landing-page" className={styles.container}>
       <header>
@@ -30,7 +30,7 @@ function PoliticasDePrivacidade() {
       <main>
         {/* how */}
         <section id="how" className={styles.how}>
-          <h2>Politicas de Privacidade</h2>
+          <h2>Sobre nós</h2>
           <p>Esta será a página das politicas de privacidade</p>
         </section>
         {/* how */}
@@ -78,4 +78,4 @@ function PoliticasDePrivacidade() {
   );
 }
 
-export default PoliticasDePrivacidade;
+export default SobreNos;

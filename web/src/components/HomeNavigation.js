@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaBars, FaDog, FaSignInAlt, FaUserMd } from "react-icons/fa";
+import { FaBars, FaDog, FaSignInAlt, FaUserMd, FaHome } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import styles from "../styles/components/HomeNavigation.module.css";
 
@@ -32,6 +32,16 @@ export default function HomeNavigation() {
         >
           Sou Veterinário
         </Link>
+        <Link
+          to="/sobre-nos"
+          className={
+            location.pathname.includes("sobre-nos")
+              ? styles.navItemActive
+              : styles.navItem
+          }
+        >
+          Sobre nós
+        </Link>
         <Link to="/entrar" className={styles.navItemDestaque}>
           <FaSignInAlt />
           Entrar
@@ -55,6 +65,9 @@ export default function HomeNavigation() {
           </Link>
           <Link to="/veterinario" className={styles.menuItem}>
             <FaUserMd /> Sou Veterinário
+          </Link>
+          <Link to="/sobre-nos" className={styles.menuItem}>
+            <FaHome /> Sobre nós
           </Link>
           <Link to="/entrar" className={styles.menuItemCelular}>
             <FaSignInAlt />

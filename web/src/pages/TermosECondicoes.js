@@ -1,12 +1,16 @@
 import {
-  FaDiscord, FaFacebook, FaFacebookMessenger, FaInstagram, FaWhatsapp
+  FaDiscord,
+  FaFacebook,
+  FaFacebookMessenger,
+  FaInstagram,
+  FaWhatsapp,
+  FaLinkedin,
 } from "react-icons/fa";
-import Floating from '../components/Floating';
+import Floating from "../components/Floating";
 import HomeNavigation from "../components/HomeNavigation";
 import styles from "../styles/pages/Home.module.css";
 
 function TermosECondicoes() {
-
   return (
     <div id="landing-page" className={styles.container}>
       <header>
@@ -27,9 +31,7 @@ function TermosECondicoes() {
         {/* how */}
         <section id="how" className={styles.how}>
           <h2>Termos e condições</h2>
-          <p>
-            Esta será a página dos termos de uso e condições
-          </p>
+          <p>Esta será a página dos termos de uso e condições</p>
         </section>
         {/* how */}
         {/* cta2 */}
@@ -60,6 +62,9 @@ function TermosECondicoes() {
             </a>
             <a href="https://discord.gg/tSTqcBceaA">
               <FaDiscord />
+            </a>
+            <a href="https://www.linkedin.com/company/cadastrapet/">
+              <FaLinkedin />
             </a>
           </div>
         </div>

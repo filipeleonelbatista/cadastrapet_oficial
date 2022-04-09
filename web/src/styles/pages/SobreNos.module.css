@@ -1,0 +1,592 @@
+.container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: auto;
+  background-color: #fff;
+  color: #000;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 2.4rem;
+  padding: 2.8rem 4.8rem;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1.4rem;
+}
+
+.navImage {
+  width: 15rem;
+  height: auto;
+}
+
+.modalCta {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.85);
+  position: fixed;
+  overflow: hidden;
+  z-index: 150;
+}
+
+.closeButton {
+  position: absolute;
+  background-color: #cccccc26;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: none;
+  top: 1.4rem;
+  left: 1.4rem;
+}
+
+.cardContainer {
+  width: 70vw;
+  height: 70vh;
+  background-color: #fff;
+  border-radius: 1.4rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+}
+
+.imageContainer {
+  width: 50%;
+  height: 100%;
+  background-image: url("../../assets/images/pet.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.formContainer {
+  width: 50%;
+  height: 100%;
+  padding: 1.4rem;
+  overflow: auto;
+}
+
+.formContainer h2 {
+  max-width: 450px;
+  font-weight: 600;
+  color: #566dea;
+}
+
+.formContainer u {
+  margin: 0.4rem 0;
+  width: 4.8rem;
+  border-bottom: 4px solid #566dea;
+}
+
+.formContainer ul {
+  list-style: none;
+  margin: 0.8rem 0.4rem;
+  font-size: 1.2rem;
+}
+
+.formContainer div {
+  display: flex;
+  flex-direction: column;
+  margin: 0.8rem 0;
+}
+
+.formContainer div label {
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  width: fit-content;
+}
+
+.formContainer div input {
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  font-weight: bold;
+  font-size: 1.4rem;
+  border: 1px solid #000;
+}
+
+.formContainer button {
+  cursor: pointer;
+  width: fit-content;
+  padding: 0.8rem;
+  border-radius: 2.8rem;
+
+  font-weight: bold;
+  text-transform: uppercase;
+  
+  font-size: 1.4rem;
+  color: #fff;
+
+  border: none;
+  background-color: #566dea;
+  transition: filter 0.2s;
+}
+
+.formContainer button:hover {
+  filter: brightness(1.2);
+}
+
+
+main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta {
+  width: 100vw;
+  height: calc(100vh - 12.5rem);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  margin: 0 0 2.4rem 0;
+}
+
+.mobile {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  margin: 2.4rem 0;
+}
+
+.mobile a > img {
+  width: 15rem;
+  height: auto;
+  border-radius: 0.8rem;
+  margin: 0;
+}
+
+.cta img {
+  width: auto;
+  height: calc(50vh + 18.6rem);
+  margin: 0 2.8rem;
+}
+
+.cta .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cta .content h2 {
+  max-width: 450px;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #566dea;
+}
+.cta .content u {
+  margin: 0.4rem 0;
+  width: 4.8rem;
+  border-bottom: 4px solid #6ca6fd;
+}
+
+.cta .content p {
+  max-width: 450px;
+  margin: 1.4rem 0 2.8rem 0;
+  color: #6c757d;
+}
+.cta .content button {
+  outline: none;
+  border: none;
+  display: block;
+  text-align: center;
+  background-color: #566dea;
+  color: #fff !important;
+  padding: 1.4rem 0.8rem;
+  text-decoration: none !important;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 3px 3px 4px #b5b5b5;
+  transition: all 0.3s ease;
+}
+
+.cta .content button:hover {
+  background-color: #263481;
+}
+
+/* About */
+
+.about {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  margin: 0 0 2.4rem 0;
+}
+
+.about img {
+  width: auto;
+  height: calc(100vh - 8.6rem);
+  margin: 0 2.8rem;
+}
+
+.about .contentAbout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about .contentAbout h2 {
+  max-width: 500px;
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: rgba(0, 0, 0, 0.85);
+}
+.about .contentAbout u {
+  margin: 0.4rem 0;
+  width: 4.8rem;
+  border-bottom: 4px solid #566dea;
+}
+
+.about .contentAbout p {
+  max-width: 500px;
+  margin: 1.4rem 0 2.8rem 0;
+  color: #6c757d;
+}
+.about .contentAbout button {
+  outline: none;
+  border: none;
+  display: block;
+  text-align: center;
+  background-color: #566dea;
+  color: #fff !important;
+  padding: 1.4rem 0.8rem;
+  text-decoration: none !important;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 3px 3px 4px #b5b5b5;
+  transition: all 0.3s ease;
+}
+
+.about .contentAbout button:hover {
+  background-color: #263481;
+}
+
+.features {
+  width: 100vw;
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  margin: 2.4rem 0;
+}
+
+.features h2 {
+  margin-bottom: 2.4rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.cardList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+}
+
+.card {
+  cursor: pointer;
+  padding: 1.4rem;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 0.8rem;
+  transition: 0.2s;
+  width: 100%;
+  height: 100%;
+}
+
+.card:hover {
+  box-shadow: 0 15px 18px 0 rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+  margin: 1.4rem 0;
+  font-weight: 400;
+  font-size: x-large;
+}
+
+.card p {
+  margin: 1.4rem 0;
+}
+
+.how {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  margin: 2.4rem 0 0 0;
+}
+.how img {
+  width: 70vw;
+  height: auto;
+}
+
+.how h2 {
+  text-align: center;
+  margin-bottom: 2.4rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.how p {
+  max-width: 800px;
+  text-align: center;
+  margin-bottom: 2.4rem;
+}
+
+.cta2 {
+  background-color: #232323;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem 4.8rem;
+}
+
+.cta2 h2 {
+  margin: 1.4rem 0;
+  font-weight: 400;
+  font-size: 1.8rem;
+  text-align: center;
+  color: #fff;
+}
+
+.cta2 button {
+  outline: none;
+  background-color: #232323;
+  padding: 0.8rem 4.8rem;
+  text-align: center;
+  border: 3px solid #566dea;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  margin: 2.8rem;
+}
+
+.cta2 button:hover {
+  border: 3px solid #263481;
+}
+
+.container footer {
+  background-color: #232323;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4.8rem 4.8rem 4.8rem;
+}
+
+.footerContent {
+  max-width: 300px;
+  padding: 1.4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+.footerContent > img {
+  width: 15rem;
+  height: auto;
+  margin: 0 0 1.4rem 0;
+}
+
+.footerLinks {
+  max-width: 300px;
+  padding: 1.4rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+.footerLinks a {
+  margin: 0arem 0;
+}
+.footerContent svg {
+  width: 28px;
+  height: 28px;
+  margin: 0 0.4rem;
+}
+
+@media (max-width: 720px) {
+  
+.formGroup{
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  align-items: center;
+  justify-content: center;
+}
+.formGroup label{  
+  color: #566DEA;
+  opacity: 1 !important;
+  font-weight: 600;
+  margin: 0.8rem 0;
+}
+.formGroup input{
+  border: 1px solid #6ca6fd;
+}
+
+.formGroup button {
+  outline: none;
+  border: none;
+  display: block;
+  text-align: center;
+  background-color: #566dea;
+  color: #fff !important;
+  padding: 1.4rem 0.8rem;
+  text-decoration: none !important;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 3px 3px 4px #b5b5b5;
+  transition: all 0.3s ease;
+}
+
+.formGroup button:hover {
+  background-color: #263481;
+}
+
+  .cta {
+    width: 100vw;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    margin: 0 0 2.4rem 0;
+  }
+  .cta img {
+    height: 40vh;
+    width: auto;
+  }
+
+  .cta .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .mobile {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin: 1.4rem 0;
+  }
+
+  .about {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    margin: 0 0 2.4rem 0;
+  }
+
+  .about img {
+    width: auto;
+    height: 50vh;
+    margin: 0 2.8rem;
+  }
+
+  .cardList {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0.8rem;
+    align-items: center;
+    justify-content: center;
+    gap: 2.4rem;
+  }
+
+  .how img {
+    width: 100vw;
+    height: auto;
+  }
+
+  .catalog {
+    position: relative;
+    background-color: #232323;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4.8rem 2.4rem 4.8rem;
+    margin: -3rem 0 0 0;
+  }
+
+  .container footer {
+    background-color: #232323;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4.8rem 2.8rem 4.8rem;
+  }
+
+  .footerContent {
+    width: 100%;
+    margin-bottom: 4.5rem;
+  }
+  .footerContent > img {
+    width: 20rem;
+    height: auto;
+    margin: 0 0 0.8rem 0;
+  }
+  .footerContent > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin: 0.4rem 0;
+  }
+  .footerContent > div > a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .footerLinks {
+    display: none;
+  }
+}

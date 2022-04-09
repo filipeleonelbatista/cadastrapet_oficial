@@ -8,6 +8,7 @@ import {
   FaMobile,
   FaShareAlt,
   FaWhatsapp,
+  FaLinkedin,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Floating from "../components/Floating";
@@ -337,6 +338,9 @@ function HomeComponent() {
             </a>
             <a href="https://discord.gg/tSTqcBceaA">
               <FaDiscord />
+            </a>
+            <a href="https://www.linkedin.com/company/cadastrapet/">
+              <FaLinkedin />
             </a>
           </div>
         </div>

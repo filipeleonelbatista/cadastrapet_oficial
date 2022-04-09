@@ -5,11 +5,13 @@ import ListaMensagens from "./pages/admin/ListaMensagens";
 import ListContatos from "./pages/admin/ListContatos";
 import LoginAdmin from "./pages/admin/LoginAdmin";
 import Home from "./pages/Home";
+import Links from "./pages/Links";
 import LocalizaPet from "./pages/LocalizaPet";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import PoliticasDePrivacidade from "./pages/PoliticasDePrivacidade";
 import Register from "./pages/Register";
+import SobreNos from "./pages/SobreNos";
 import TermosECondicoes from "./pages/TermosECondicoes";
 import AddPetHistory from "./pages/tutor/AddPetHistory";
 import AddPetVaccineHistory from "./pages/tutor/AddPetVaccineHistory";
@@ -87,6 +89,8 @@ function Routes() {
             element={<AddPetVaccineHistory />}
           />
           <Route path="/" exact element={<Home />} />
+          <Route path="/links" exact element={<Links />} />
+          <Route path="/sobre-nos" exact element={<SobreNos />} />
           <Route path="/veterinario" exact element={<Veterinario />} />
           <Route
             path="/termos-e-condicoes"
