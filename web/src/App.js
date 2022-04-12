@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import Routes from './routes';
+import Routes from "./routes";
 
-import './styles/global.css';
+import "./styles/global.css";
 
-import {AuthContextProvider} from './context/AuthContext'
+import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
   return (

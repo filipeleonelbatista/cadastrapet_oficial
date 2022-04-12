@@ -46,6 +46,28 @@ a{
   overflow: hidden;
 }
 
+/* PC */
+@media (min-width: 720px) {
+  .statusbar{
+    display: none;
+    margin: 0;
+  }
+}
+/* Tablet */
+@media (min-width: 320px) and (max-width: 720px) {
+  .statusbar{
+    display: flex;
+    margin: 1.4rem 0 0 0;
+  }
+}
+/* Celular */
+@media (max-width: 320px) {
+  .statusbar{
+    display: flex;
+    margin: 1.4rem 0 0 0;
+  }
+}
+
 .whats-btn{
   position: fixed;
 

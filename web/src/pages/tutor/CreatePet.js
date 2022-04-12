@@ -9,13 +9,14 @@ import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/CreatePet.module.css";
 import { date } from "../../utils/masks";
-import { isStringEmpty, stringToDate } from "../../utils/string";
+import { dateToString, isStringEmpty, stringToDate } from "../../utils/string";
 
 function CreatePet() {
   const navigate = useNavigate();
 
   const { functions, props } = useAuth();
-  const { getNewPetID, updatePetByID, updateContextData } = functions;
+  const { getNewPetID, updatePetByID, updateContextData, getPetByID } =
+    functions;
   const { user, isLoggedIn } = props;
 
   const [name, setName] = useState("");
@@ -23,13 +24,17 @@ function CreatePet() {
   const [birth_date, setBirthDate] = useState("");
   const [adoption_date, setAdoptionDate] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+  const [sharedPet, setSharedPet] = useState();
   const [file, setFile] = useState(null);
 
   const [qrscan, setQrscan] = useState("No result");
-  const handleScan = (data) => {
+  const handleScan = async (data) => {
     if (data) {
-      console.log(data);
+      console.error(data);
       setQrscan(data.text);
+      const scannedPet = await getPetByID(data.text);
+      setSharedPet(scannedPet);
+      console.log(scannedPet);
     }
   };
   const handleError = (err) => {
@@ -113,6 +118,7 @@ function CreatePet() {
 
   return (
     <div className={styles.container}>
+      <div className="statusbar"></div>
       <BackButton path="/tutor/petlist" />
       <div className={styles.header}>
         <div className={styles.petInfo}>
@@ -143,13 +149,59 @@ function CreatePet() {
       </div>
       {selectedNav === "add_existent" && (
         <div className={styles.content}>
-          <QrReader
-            delay={300}
-            facingMode="rear"
-            onError={handleError}
-            onScan={handleScan}
-            style={{ height: 240, width: 320 }}
-          />
+          {sharedPet ? (
+            <>
+              <div className={styles.content}>
+                <label className={styles.uploadButton}>
+                  <div
+                    alt="Imagem Selecionada"
+                    style={{
+                      background: `url(${sharedPet.avatar}) no-repeat center center`,
+                      borderRadius: "50%",
+                      width: "100%",
+                      height: "100%",
+                      backgroundSize: "cover",
+                    }}
+                  ></div>
+                </label>
+
+                <div className={styles.inputForm}>
+                  <Input
+                    disabled
+                    id="nome"
+                    label="Nome"
+                    value={sharedPet.name}
+                  />
+                  <Input
+                    disabled
+                    maxLength={10}
+                    id="dt_nascimento"
+                    label="Data de Nascimento"
+                    value={dateToString(sharedPet.birth_date)}
+                  />
+                  <Input
+                    disabled
+                    id="dt_adocao"
+                    maxLength={10}
+                    label="Data de Adoção"
+                    value={dateToString(sharedPet.adoption_date)}
+                  />
+                </div>
+              </div>
+              <p>Deseja adicionar o pet compartilhado com você?</p>
+              <Button id="nome" onClick={handleCreatePet}>
+                Adicionar Pet
+              </Button>
+            </>
+          ) : (
+            <QrReader
+              delay={300}
+              facingMode="rear"
+              onError={handleError}
+              onScan={handleScan}
+              style={{ height: 240, width: 320 }}
+            />
+          )}
         </div>
       )}
       {selectedNav === "add_new" && (

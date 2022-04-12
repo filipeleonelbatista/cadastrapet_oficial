@@ -128,6 +128,7 @@ function AddPetHistory() {
 
   return (
     <div className={styles.container}>
+      <div className="statusbar"></div>
       <BackButton path="/tutor/pethistory" />
       <div className={styles.header}>
         <div className={styles.petInfo}>

@@ -39,6 +39,7 @@ function PetList() {
 
   return (
     <div className={styles.container}>
+      <div className="statusbar"></div>
       <div
         style={{
           width: "100%",
