@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -9,9 +9,12 @@ import styles from "../../styles/pages/vet/MedicalAppointment.module.css";
 import { date } from "../../utils/masks";
 import { isStringEmpty } from "../../utils/string";
 
-function MedicalAppointmenmt() {
+function MedicalAppointmenmt(props) {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [petUid, setPetUid] = useState();
 
   const [isView, setIsView] = useState(false);
   const [selectedNav, setSelectedNav] = useState("anotacoes");
@@ -72,6 +75,12 @@ function MedicalAppointmenmt() {
       setAnotacoes(null);
     }
   }, [isView]);
+
+  useEffect(() => {
+    if (searchParams.get("petUid")) {
+      setPetUid(searchParams.get("petUid"));
+    }
+  }, []);
 
   return (
     <div className={styles.container}>

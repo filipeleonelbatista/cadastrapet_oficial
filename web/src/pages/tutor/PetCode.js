@@ -58,7 +58,9 @@ function PetCode() {
       <h4 className={styles.headerTitle}>Use a camera para ler o Código QR</h4>
       <div className={styles.content}>
         <div className={styles.wContainer}>
-          <QRCode value={selectedPet.uid} />
+          <QRCode
+            value={`https://cadastrapet.com.br/veterinario/medicalappointment/add?petUid=${selectedPet.uid}`}
+          />
         </div>
       </div>
       <h4 className={styles.headerTitle}>

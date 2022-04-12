@@ -18,10 +18,8 @@ export const authentication = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
-console.log("ESTOU AQUI", process.env);
-
-if (process.env.NODE_ENV === "development") {
-  connectAuthEmulator(authentication, "http://localhost:9099");
-  connectFirestoreEmulator(db, "localhost", 8080);
-  connectStorageEmulator(storage, "localhost", 9199);
-}
+// if (process.env.NODE_ENV === "development") {
+//   connectAuthEmulator(authentication, "http://localhost:9099");
+//   connectFirestoreEmulator(db, "localhost", 8080);
+//   connectStorageEmulator(storage, "localhost", 9199);
+// }

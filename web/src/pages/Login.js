@@ -85,6 +85,10 @@ function Login() {
             Login
           </button>
 
+          <p style={{ textAlign: "center", margin: "0.8rem" }}>
+            {" "}
+            Não é cadastrado? Faça seu cadastro selecionando a opção a baixo!
+          </p>
           <Link
             to={`/tutor/cadastrar`}
             style={{
@@ -94,13 +98,12 @@ function Login() {
               textDecoration: "none",
               color: "#566dea",
               fontWeight: 800,
+              margin: "0.8rem",
             }}
           >
-            É tutor e não possui cadastro? <br />
-            então cadastre-se agora mesmo!
+            Sou tutor.
           </Link>
-          <hr />
-          {/* <Link
+          <Link
             to={`/veterinario/cadastrar`}
             style={{
               display: "flex",
@@ -109,11 +112,11 @@ function Login() {
               textDecoration: "none",
               color: "#566dea",
               fontWeight: 800,
+              margin: "0.8rem",
             }}
           >
-            É Veterinário e não possui cadastro? <br />
-            então cadastre-se agora mesmo!
-          </Link> */}
+            Sou veterinário
+          </Link>
         </form>
       </div>
     </div>
