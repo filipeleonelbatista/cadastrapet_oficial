@@ -117,7 +117,7 @@ function AddPetHistory() {
   }, []);
 
   if (!isLoggedIn) {
-    navigate("/tutor");
+    navigate("/tutor/petlist");
     return null;
   }
 

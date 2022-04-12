@@ -5,13 +5,18 @@ import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Textarea from "../../components/Textarea";
+import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/vet/MedicalAppointment.module.css";
 import { date } from "../../utils/masks";
 import { isStringEmpty } from "../../utils/string";
 
-function MedicalAppointmenmt(props) {
+function MedicalAppointmenmt() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { props, functions } = useAuth();
+  const { isLoggedIn } = props;
+  const { getPetByID } = functions;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [petUid, setPetUid] = useState();
@@ -58,6 +63,20 @@ function MedicalAppointmenmt(props) {
     if (ValidateFields()) return;
   }
 
+  async function handleLoadScannedPet() {
+    if (searchParams.get("petUid")) {
+      setPetUid(searchParams.get("petUid"));
+      sessionStorage.setItem("petUid", searchParams.get("petUid"));
+    } else {
+      const scannedPetId = sessionStorage.getItem("petUid");
+      if (scannedPetId !== null) {
+        const scannedPetData = await getPetByID(scannedPetId);
+        setCodigoPet(scannedPetData.uid);
+        setNomePet(scannedPetData.name);
+      }
+    }
+  }
+
   useEffect(() => {
     setIsView(location.pathname === "/veterinario/medicalappointment/view");
   }, [location.pathname]);
@@ -77,10 +96,13 @@ function MedicalAppointmenmt(props) {
   }, [isView]);
 
   useEffect(() => {
-    if (searchParams.get("petUid")) {
-      setPetUid(searchParams.get("petUid"));
-    }
+    handleLoadScannedPet();
   }, []);
+
+  if (!isLoggedIn) {
+    navigate("/entrar");
+    return null;
+  }
 
   return (
     <div className={styles.container}>

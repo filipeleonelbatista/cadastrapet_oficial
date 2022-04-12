@@ -22,7 +22,11 @@ function Login() {
     if (isLogged.status) {
       if (isLogged.user.user_role === "tutor") navigate("/tutor/petlist");
       if (isLogged.user.user_role === "veterinario")
-        navigate("/veterinario/vetprofile");
+        if (sessionStorage.getItem("petUid") !== null) {
+          navigate("/veterinario/medicalappointment/add");
+        } else {
+          navigate("/veterinario/vetprofile");
+        }
     } else {
       setError(isLogged.message);
     }
