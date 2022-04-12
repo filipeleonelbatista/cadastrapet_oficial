@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
+import Button from "../../components/Button";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetCode.module.css";
 import { yearNow } from "../../utils/string";
 
 function PetCode() {
   const navigate = useNavigate();
+  const [selectedNav, setSelectedNav] = useState("veterinario");
   const { props, functions } = useAuth();
   const { selectedPet, isLoggedIn } = props;
   const { updateContextData } = functions;
@@ -57,9 +59,48 @@ function PetCode() {
       </div>
       <h4 className={styles.headerTitle}>Use a camera para ler o Código QR</h4>
       <div className={styles.content}>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            margin: "0.8rem 0",
+            gap: "0.8rem",
+          }}
+        >
+          <Button
+            transparent={!(selectedNav === "veterinario")}
+            onClick={() => setSelectedNav("veterinario")}
+          >
+            Veterinário
+          </Button>
+          <Button
+            transparent={!(selectedNav === "tutor")}
+            onClick={() => setSelectedNav("tutor")}
+          >
+            Tutor
+          </Button>
+        </div>
+        <p className={styles.headerTitle}>
+          {selectedNav === "veterinario" ? (
+            <>
+              Leia o <strong>Qr Code</strong> para adicionar informações medicas
+              ao pet
+            </>
+          ) : (
+            <>
+              Leia o <strong>Qr Code</strong> para compartilhar os dados do pet
+              com outro tutor
+            </>
+          )}
+        </p>
         <div className={styles.wContainer}>
           <QRCode
-            value={`https://cadastrapet.com.br/veterinario/medicalappointment/add?petUid=${selectedPet.uid}`}
+            value={
+              selectedNav === "veterinario"
+                ? `https://cadastrapet.com.br/veterinario/medicalappointment/add?petUid=${selectedPet.uid}`
+                : `${selectedPet.uid}`
+            }
           />
         </div>
       </div>

@@ -39,6 +39,7 @@ function PetVaccineHistory() {
     return null;
   }
 
+  console.log("Opa", vaccineList);
   return (
     <div className={styles.container}>
       <BackButton path="/tutor/petprofile" />
@@ -82,24 +83,30 @@ function PetVaccineHistory() {
                     {dateToString(vaccine.vaccine_application_date)}
                   </p>
                 </div>
-                {!isStringEmpty(vaccine.doctorId) && (
-                  <p className={styles.itemNotation}>
-                    <strong>CRMV</strong>
-                    {vaccine.doctorId}
-                  </p>
-                )}
-                {!isStringEmpty(vaccine.vaccineLab) && (
-                  <p className={styles.itemNotation}>
-                    <strong>Laboratorio</strong>
-                    {vaccine.vaccineLab}
-                  </p>
-                )}
-                {!isStringEmpty(vaccine.vaccine_next_application_date) && (
-                  <p className={styles.itemNotation}>
-                    <strong>Prox. Aplicação</strong>
-                    {dateToString(vaccine.vaccine_next_application_date)}
-                  </p>
-                )}
+                <div className={styles.itemRow}>
+                  {!isStringEmpty(vaccine.doctorId) && (
+                    <p className={styles.itemNotation}>
+                      <strong style={{ marginRight: "0.4rem" }}>CRMV</strong>
+                      {vaccine.doctorId}
+                    </p>
+                  )}
+                  {!isStringEmpty(vaccine.vaccineLab) && (
+                    <p className={styles.itemNotation}>
+                      <strong style={{ marginRight: "0.4rem" }}>
+                        Laboratorio
+                      </strong>
+                      {vaccine.vaccineLab}
+                    </p>
+                  )}
+                  {!isStringEmpty(vaccine.vaccine_next_application_date) && (
+                    <p className={styles.itemNotation}>
+                      <strong style={{ marginRight: "0.4rem" }}>
+                        Prox. Aplicação
+                      </strong>
+                      {dateToString(vaccine.vaccine_next_application_date)}
+                    </p>
+                  )}
+                </div>
               </div>
             ))}
           </>

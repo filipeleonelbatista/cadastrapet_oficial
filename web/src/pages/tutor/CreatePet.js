@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
+import QrReader from "react-qr-scanner";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
@@ -18,10 +19,22 @@ function CreatePet() {
   const { user, isLoggedIn } = props;
 
   const [name, setName] = useState("");
+  const [selectedNav, setSelectedNav] = useState("add_new");
   const [birth_date, setBirthDate] = useState("");
   const [adoption_date, setAdoptionDate] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [file, setFile] = useState(null);
+
+  const [qrscan, setQrscan] = useState("No result");
+  const handleScan = (data) => {
+    if (data) {
+      console.log(data);
+      setQrscan(data.text);
+    }
+  };
+  const handleError = (err) => {
+    console.error(err);
+  };
 
   useEffect(() => {
     const executeAsync = async () => {
@@ -106,61 +119,98 @@ function CreatePet() {
           <h4 className={styles.petName}>Adicionar Pet</h4>
         </div>
       </div>
-      <div className={styles.content}>
-        <label className={styles.uploadButton}>
-          <input
-            required
-            className={styles.uploadInput}
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={(e) => handleFilePreview(e)}
-          ></input>
-          {selectedImage ? (
-            <div
-              alt="Imagem Selecionada"
-              style={{
-                background: `url(${selectedImage}) no-repeat center center`,
-                borderRadius: "50%",
-                width: "100%",
-                height: "100%",
-                backgroundSize: "cover",
-              }}
-            ></div>
-          ) : (
-            <FaCamera />
-          )}
-        </label>
-
-        <div className={styles.inputForm}>
-          <Input
-            required
-            id="nome"
-            label="Nome"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Input
-            required
-            maxLength={10}
-            id="dt_nascimento"
-            label="Data de Nascimento"
-            value={birth_date}
-            onChange={(e) => setBirthDate(date(e.target.value))}
-          />
-          <Input
-            required
-            id="dt_adocao"
-            maxLength={10}
-            label="Data de Adoção"
-            value={adoption_date}
-            onChange={(e) => setAdoptionDate(date(e.target.value))}
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          margin: "0.8rem 0",
+          gap: "0.8rem",
+        }}
+      >
+        <Button
+          transparent={!(selectedNav === "add_new")}
+          onClick={() => setSelectedNav("add_new")}
+        >
+          Novo Pet
+        </Button>
+        <Button
+          transparent={!(selectedNav === "add_existent")}
+          onClick={() => setSelectedNav("add_existent")}
+        >
+          Ler Qr Code
+        </Button>
+      </div>
+      {selectedNav === "add_existent" && (
+        <div className={styles.content}>
+          <QrReader
+            delay={300}
+            facingMode="rear"
+            onError={handleError}
+            onScan={handleScan}
+            style={{ height: 240, width: 320 }}
           />
         </div>
-      </div>
+      )}
+      {selectedNav === "add_new" && (
+        <>
+          <div className={styles.content}>
+            <label className={styles.uploadButton}>
+              <input
+                required
+                className={styles.uploadInput}
+                type="file"
+                accept="image/png, image/jpeg"
+                onChange={(e) => handleFilePreview(e)}
+              ></input>
+              {selectedImage ? (
+                <div
+                  alt="Imagem Selecionada"
+                  style={{
+                    background: `url(${selectedImage}) no-repeat center center`,
+                    borderRadius: "50%",
+                    width: "100%",
+                    height: "100%",
+                    backgroundSize: "cover",
+                  }}
+                ></div>
+              ) : (
+                <FaCamera />
+              )}
+            </label>
 
-      <Button id="nome" onClick={handleCreatePet}>
-        Adicionar Pet
-      </Button>
+            <div className={styles.inputForm}>
+              <Input
+                required
+                id="nome"
+                label="Nome"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <Input
+                required
+                maxLength={10}
+                id="dt_nascimento"
+                label="Data de Nascimento"
+                value={birth_date}
+                onChange={(e) => setBirthDate(date(e.target.value))}
+              />
+              <Input
+                required
+                id="dt_adocao"
+                maxLength={10}
+                label="Data de Adoção"
+                value={adoption_date}
+                onChange={(e) => setAdoptionDate(date(e.target.value))}
+              />
+            </div>
+          </div>
+
+          <Button id="nome" onClick={handleCreatePet}>
+            Adicionar Pet
+          </Button>
+        </>
+      )}
     </div>
   );
 }
