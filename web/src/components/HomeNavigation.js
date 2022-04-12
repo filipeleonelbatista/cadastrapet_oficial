@@ -60,7 +60,7 @@ export default function HomeNavigation() {
       </button>
       {isShow && (
         <div className={styles.menuItems}>
-          <Link to="/tutor" className={styles.menuItem}>
+          <Link to="/" className={styles.menuItem}>
             <FaDog /> Sou tutor
           </Link>
           <Link to="/veterinario" className={styles.menuItem}>
