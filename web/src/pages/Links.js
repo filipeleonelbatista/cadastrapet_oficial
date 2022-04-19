@@ -134,7 +134,7 @@ export default function Links() {
             <a
               href="https://www.linkedin.com/company/cadastrapet/"
               target="_blank"
-              rel="noopener noreferer"
+              rel="noopener noreferrer"
               className={styles.actionsLink}
             >
               <FaLinkedin size={48} /> <p className={styles.label}>Linkedin</p>
@@ -142,7 +142,7 @@ export default function Links() {
             <a
               href="https://instagram.com/cadastra.pet"
               target="_blank"
-              rel="noopener noreferer"
+              rel="noopener noreferrer"
               className={styles.actionsLink}
             >
               <FaInstagram size={48} />{" "}
@@ -151,7 +151,7 @@ export default function Links() {
             <a
               href="mailto:contato@cadastrapet.com"
               target="_blank"
-              rel="noopener noreferer"
+              rel="noopener noreferrer"
               className={styles.actionsLink}
             >
               <FiMail size={48} /> <p className={styles.label}>E-mail</p>
@@ -178,7 +178,7 @@ export default function Links() {
             <a
               href="https://cadastrapet.com.br/tutor/cadastrar"
               target="_blank"
-              rel="noopener noreferer"
+              rel="noopener noreferrer"
               className={styles.link}
             >
               <FaDog /> Cadastre seu pet agora
@@ -186,7 +186,7 @@ export default function Links() {
             <a
               href="https://cadastrapet.com.br/veterinario/cadastrar"
               target="_blank"
-              rel="noopener noreferer"
+              rel="noopener noreferrer"
               className={styles.link}
             >
               <FaUserMd /> Veterinário, atenda seus pets por aqui!
@@ -194,7 +194,7 @@ export default function Links() {
             <a
               href="https://cadastrapet.com.br"
               target="_blank"
-              rel="noopener noreferer"
+              rel="noopener noreferrer"
               className={styles.link}
             >
               <FaDog /> Acesse nosso site
@@ -202,7 +202,7 @@ export default function Links() {
             <a
               href="https://play.google.com/store/apps/details?id=com.cadastrapet.co"
               target="_blank"
-              rel="noopener noreferer"
+              rel="noopener noreferrer"
               className={styles.link}
             >
               <FaMobile /> Baixar o app

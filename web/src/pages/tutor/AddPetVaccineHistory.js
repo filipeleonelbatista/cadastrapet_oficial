@@ -227,8 +227,9 @@ function AddPetVaccineHistory() {
             onChange={(e) => handleFilePreview(e)}
           ></input>
           {selectedImage ? (
-            <a
+            <img
               download={selectedImage}
+              src={selectedImage}
               alt="Imagem Selecionada"
               style={{
                 background: `url(${selectedImage}) no-repeat center center`,
@@ -237,7 +238,7 @@ function AddPetVaccineHistory() {
                 height: "100%",
                 backgroundSize: "cover",
               }}
-            ></a>
+            />
           ) : (
             <FaCamera />
           )}

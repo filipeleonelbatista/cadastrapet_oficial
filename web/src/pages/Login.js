@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/admin/logo.png";
 import Button from "../components/Button";
 import { useAuth } from "../hooks/useAuth";
@@ -7,7 +7,6 @@ import "../styles/pages/login-page.css";
 
 function Login() {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const { props, functions } = useAuth();
   const { isLoggedIn, user } = props;

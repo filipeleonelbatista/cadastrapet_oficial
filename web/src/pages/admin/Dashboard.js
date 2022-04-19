@@ -8,7 +8,7 @@ import { useConversion } from "../../hooks/useConversion";
 import styles from "../../styles/pages/admin/Dashboard.module.css";
 import { dateToString } from "../../utils/string";
 
-function ListContatosComponent() {
+function DashboardComponent() {
   const { props } = useAuth();
   const { user, isLoggedIn } = props;
 
@@ -76,26 +76,7 @@ function ListContatosComponent() {
           </div>
         </header>
         <main className={styles.mainContent}>
-          <div className={styles.carBrand}>
-            {/* <div className={styles.carBrandContainer}>
-              <button type="button" className={styles.carBrandButtonActive}>
-                Gatos
-              </button>
-              <button type="button" className={styles.carBrandButton}>
-                Cachorros
-              </button>
-              <button type="button" className={styles.carBrandButton}>
-                Coelhos
-              </button>
-              <button type="button" className={styles.carBrandButton}>
-                Aves
-              </button>
-            </div>
-
-            <button type="button" className={styles.carBrandButtonSeeAll}>
-              Ver tudo
-            </button> */}
-          </div>
+          <div className={styles.carBrand}></div>
           <div className={styles.carList}>
             {pets.slice(0, 4).map((pet) => {
               return (
@@ -104,14 +85,18 @@ function ListContatosComponent() {
                   type="button"
                   className={styles.carListContainer}
                 >
-                  <div
+                  <img
+                    src={pet.avatar}
+                    alt={pet.name}
                     style={{
-                      background: `url(${pet.avatar}) no-repeat center center`,
+                      backgroundImage: `url(${pet.avatar})`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
                       width: "100%",
-                      height: "40rem",
+                      height: "100%",
                       objectFit: "cover",
                     }}
-                  ></div>
+                  />
 
                   <div className={styles.carListOverlayInfo}>
                     <div className={styles.promotionalInfo}>
@@ -243,14 +228,14 @@ function ListContatosComponent() {
   );
 }
 
-function ListContatos() {
+function Dashboard() {
   return (
     <AuthContextProvider>
       <ConversionContextProvider>
-        <ListContatosComponent />
+        <DashboardComponent />
       </ConversionContextProvider>
     </AuthContextProvider>
   );
 }
 
-export default ListContatos;
+export default Dashboard;

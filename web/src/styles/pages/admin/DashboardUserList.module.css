@@ -1,0 +1,430 @@
+/* PC */
+@media (min-width: 720px) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+  }
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 2.4rem 4.8rem;
+    width: 100%;
+    height: auto;
+    background-color: #f6f6f6;
+    overflow: auto;
+  }
+  .mainHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mainHeader h2 {
+    color: #566dea;
+    font-size: xx-large;
+  }
+
+  .inputGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .inputGroup input {
+    width: auto;
+    height: 4.8rem;
+    border-radius: 0.8rem;
+    border: hidden;
+    padding: 0 1.4rem;
+    font-size: 1.4rem;
+  }
+
+  .inputGroup button {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 0.4rem;
+    border: none;
+    background-color: #566dea;
+    color: #fff;
+    transition: 0.3s;
+  }
+
+  .inputGroup button:hover {
+    background-color: #4252b0;
+  }
+
+  .mapContainerDiv {
+    width: 60rem;
+    height: 100vh;
+    background-color: #fff;
+    position: relative;
+  }
+  .mapElements {
+    width: 100%;
+    height: 100vh;
+  }
+  .mapContent {
+    width: 100%;
+    height: 73vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .locationButton {
+    position: absolute;
+    z-index: 10;
+    bottom: 30rem;
+    left: 1.4rem;
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 0.4rem;
+    border: none;
+    background-color: #566dea;
+    color: #fff;
+    transition: 0.3s;
+  }
+
+  .locationButton:hover {
+    background-color: #4252b0;
+  }
+
+  .mapContainerOverlay {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    height: 30vh;
+
+    display: flex;
+    flex-direction: column;
+    padding: 0 2.4rem 4.8rem;
+
+    background-color: #566dea;
+    border-radius: 2.4rem 2.4rem 0 0;
+  }
+  .mapOverlayMarkerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.4rem 0;
+    width: 100%;
+  }
+  .mapOverlayMarker {
+    height: 0.8rem;
+    width: 5rem;
+    border-radius: 0.8rem;
+    background-color: #fff;
+  }
+  .mapContainerOverlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .mapOverlayMarkerContainer h2 {
+    margin: 1.4rem 0;
+    color: #fff;
+  }
+  .mapContainerOverlay p {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: small;
+    justify-content: center;
+  }
+  .mapContainerOverlay p svg {
+    margin-right: 0.8rem;
+  }
+  .mapOverlayInputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mapOverlayInputGroup label {
+    color: #fff;
+  }
+  .mapOverlayInputGroup h2 {
+    color: #fff;
+  }
+
+  .switchOverlay {
+    position: relative;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    margin: 1.4rem;
+    width: 80%;
+    height: 6rem;
+  }
+  .switchOverlay input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    border-radius: 0.8rem;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    border: 2px solid #4252b0;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+  .slider:before {
+    position: absolute;
+    border-radius: 0.8rem;
+    content: "Não";
+    height: 4.8rem;
+    width: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: #fff;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #566dea;
+  }
+  .switchOverlay input:checked + .slider {
+    background-color: #4252b0;
+  }
+  .switchOverlay input:focus + .slider {
+    box-shadow: 0 0 1px #4252b0;
+  }
+  .switchOverlay input:checked + .slider:before {
+    content: "Sim";
+    -webkit-transform: translateX(95%);
+    -ms-transform: translateX(95%);
+    transform: translateX(95%);
+  }
+
+  .mainContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+  .carBrand {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 3.6rem 0;
+  }
+
+  .carBrandContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 1.4rem;
+  }
+  .carBrandButtonActive {
+    border: none;
+    border-radius: 0.4rem;
+    height: 5.2rem;
+    width: fit-content;
+    padding: 0 2.8rem;
+    background-color: #dfe4ef;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+  .carBrandButton {
+    border: none;
+    border-radius: 0.4rem;
+    height: 5.2rem;
+    width: fit-content;
+    padding: 0 2.8rem;
+    background-color: #fff;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+  .carBrandButtonSeeAll {
+    border: none;
+    border-radius: 0.4rem;
+    height: 5.2rem;
+    width: fit-content;
+    padding: 0 2.8rem;
+    background-color: transparent;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+  .carBrandButtonSeeAll:hover,
+  .carBrandButton:hover {
+    background-color: #dfe4ef;
+  }
+  .carBrandButtonActive:hover {
+    background-color: #fff;
+  }
+  .veicleContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .veicleContainer h3 {
+    margin: 2.4rem 0;
+    color: #566dea;
+  }
+  .counter {
+    display: flex;
+    flex-direction: row;
+    padding: 0.4rem 0.8rem;
+    margin: 0 0.4rem;
+    font-size: x-small;
+    border-radius: 1rem;
+
+    background-color: #566dea;
+    color: #fff;
+    width: fit-content;
+  }
+  .veicleList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .veicleItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    height: 6.3rem;
+    background-color: #fff;
+    margin: 0.8rem 0;
+    padding: 0 1.4rem;
+    transition: 0.3s;
+  }
+
+  .veicleItem:hover {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    height: 6.3rem;
+    background-color: #fff;
+    border-left: 4px solid #566dea;
+    margin: 0.8rem 0;
+    padding: 0 1.4rem;
+    transition: 0.3s;
+  }
+
+  .carList {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 0.8rem;
+  }
+
+  .carListContainer {
+    width: 100%;
+    height: 40rem;
+    position: relative;
+    border-radius: 0.8rem;
+    border: none;
+    overflow: hidden;
+    transition: 0.2s;
+  }
+  .carListContainer:hover {
+    filter: brightness(0.8);
+  }
+
+  .carListContainerSeeMore {
+    width: 100%;
+    height: 40rem;
+    position: relative;
+    border-radius: 0.8rem;
+    border: none;
+    overflow: hidden;
+    margin: 0 1.4rem;
+    background-color: #fff;
+    font-weight: 600;
+    font-size: x-large;
+    transition: 0.2s;
+  }
+  .carListContainerSeeMore:hover {
+    background-color: #ddd;
+  }
+
+  .carListOverlayInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 40rem;
+    overflow: hidden;
+    top: 0;
+  }
+  .promotionalInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 2.4rem 1.4rem;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    color: #fff;
+  }
+  .promotionalInfo svg {
+    margin-right: 0.8rem;
+  }
+  .carDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.4rem 1.4rem;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+  .carDetails h2 {
+    color: #fff;
+    margin: 1.4rem 0;
+  }
+  .carDetailsList {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+  }
+  .carDetailsList p {
+    justify-content: center;
+    color: #fff;
+    font-size: small;
+  }
+  .carDetailsList p svg {
+    margin-right: 0.8rem;
+  }
+}
+/* Tablet */
+@media (min-width: 320px) and (max-width: 720px) {
+}
+/* Celular */
+@media (max-width: 320px) {
+}

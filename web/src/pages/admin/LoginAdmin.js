@@ -22,11 +22,11 @@ function LoginAdminComponent() {
       setError("Opa, faltou alguma informação!");
       return;
     }
-    if (await signInUser(email, password)) navigate("/admin/contatos");
+    if (await signInUser(email, password)) navigate("/admin/principal");
   }
 
   useEffect(() => {
-    if (isLoggedIn) navigate("/admin/contatos");
+    if (isLoggedIn) navigate("/admin/principal");
   }, [isLoggedIn, navigate]);
 
   return (

@@ -1,4 +1,4 @@
-import { FaBell, FaTachometerAlt } from "react-icons/fa";
+import { FaBell, FaTachometerAlt, FaUserAlt, FaDog } from "react-icons/fa";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/icon.png";
 import { AuthContextProvider } from "../../context/AuthContext";
@@ -28,15 +28,37 @@ function SidebarHOC() {
       </Link>
       <div className={styles.menu}>
         <NavLink
-          to="/admin/contatos"
+          to="/admin/principal"
           exact
           className={
-            location.pathname === "/admin/contatos"
+            location.pathname === "/admin/principal"
               ? styles.activedDiv
               : styles.link
           }
         >
           <FaTachometerAlt size={22} />
+        </NavLink>
+        <NavLink
+          to="/admin/usuarios"
+          exact
+          className={
+            location.pathname === "/admin/usuarios"
+              ? styles.activedDiv
+              : styles.link
+          }
+        >
+          <FaUserAlt size={22} />
+        </NavLink>
+        <NavLink
+          to="/admin/pets"
+          exact
+          className={
+            location.pathname === "/admin/pets"
+              ? styles.activedDiv
+              : styles.link
+          }
+        >
+          <FaDog size={22} />
         </NavLink>
       </div>
       <div className={styles.menu}>

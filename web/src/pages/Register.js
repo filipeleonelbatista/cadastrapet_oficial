@@ -129,6 +129,7 @@ function RegisterComponent() {
 
   useEffect(() => {
     setUserRole(location.pathname.replace("/cadastrar", "").replace("/", ""));
+    // eslint-disable-next-line
   }, []);
 
   return (

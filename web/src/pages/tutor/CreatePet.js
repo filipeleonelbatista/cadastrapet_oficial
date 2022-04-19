@@ -27,7 +27,7 @@ function CreatePet() {
   const [sharedPet, setSharedPet] = useState();
   const [file, setFile] = useState(null);
 
-  const [qrscan, setQrscan] = useState("No result");
+  const [setQrscan] = useState("No result");
   const handleScan = async (data) => {
     if (data) {
       console.error(data);

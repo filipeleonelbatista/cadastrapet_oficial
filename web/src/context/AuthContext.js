@@ -5,6 +5,7 @@ import {
   signOut,
 } from "firebase/auth";
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
@@ -12,8 +13,6 @@ import {
   query,
   setDoc,
   where,
-  addDoc,
-  deleteDoc,
 } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import { authentication, db } from "../firebase/firebase-config";
@@ -824,6 +823,9 @@ export function AuthContextProvider(props) {
           updateVaccineList,
           getAllPets,
           getAllTutors,
+        },
+        databaseFunctions: {
+          downloadDatabase,
         },
       }}
     >

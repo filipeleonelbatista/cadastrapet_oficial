@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import Textarea from "../../components/Textarea";
 import styles from "../../styles/pages/vet/VaccineHistory.module.css";
 import { date } from "../../utils/masks";
 import { isStringEmpty } from "../../utils/string";
 
 function VaccineHistory() {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const [isView, setIsView] = useState(false);
 
@@ -23,7 +21,7 @@ function VaccineHistory() {
   const [dt_aplicacao, setDtAplicacao] = useState();
   const [dt_proxima_aplicacao, setDtProximaAplicacao] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [file, setFile] = useState(null);
+  const [setFile] = useState(null);
 
   const handleFilePreview = (e) => {
     const file = e.target.files[0];
@@ -165,8 +163,9 @@ function VaccineHistory() {
           onChange={(e) => handleFilePreview(e)}
         ></input>
         {selectedImage ? (
-          <a
+          <img
             download={selectedImage}
+            src={selectedImage}
             alt="Imagem Selecionada"
             style={{
               background: `url(${selectedImage}) no-repeat center center`,
@@ -175,7 +174,7 @@ function VaccineHistory() {
               height: "100%",
               backgroundSize: "cover",
             }}
-          ></a>
+          />
         ) : (
           <FaCamera />
         )}

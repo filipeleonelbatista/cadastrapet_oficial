@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import ListaMensagens from "./pages/admin/ListaMensagens";
-import ListContatos from "./pages/admin/ListContatos";
+import Dashboard from "./pages/admin/Dashboard";
 import LoginAdmin from "./pages/admin/LoginAdmin";
 import Home from "./pages/Home";
 import Links from "./pages/Links";
@@ -32,6 +32,8 @@ import VetMedicationHistory from "./pages/vet/VetMedicationHistory";
 import VetProfile from "./pages/vet/VetProfile";
 import VetVaccineHistory from "./pages/vet/VetVaccineHistory";
 import Veterinario from "./pages/Veterinario";
+import DashboardUserList from "./pages/admin/DashboardUsersList";
+import DashboardPetList from "./pages/admin/DashboardPetList";
 
 function Routes() {
   return (
@@ -103,7 +105,9 @@ function Routes() {
             element={<PoliticasDePrivacidade />}
           />
           <Route path="/admin" exact element={<LoginAdmin />} />
-          <Route path="/admin/contatos" exact element={<ListContatos />} />
+          <Route path="/admin/principal" exact element={<Dashboard />} />
+          <Route path="/admin/usuarios" exact element={<DashboardUserList />} />
+          <Route path="/admin/pets" exact element={<DashboardPetList />} />
           <Route path="/admin/listamsg" exact element={<ListaMensagens />} />
 
           <Route path="/veterinario/cadastrar" exact element={<Register />} />
