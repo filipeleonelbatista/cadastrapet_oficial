@@ -13,12 +13,78 @@ import {
   setDoc,
   where,
   addDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import { authentication, db } from "../firebase/firebase-config";
 import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
 import { isStringEmpty } from "../utils/string";
+
+const userObject = {
+  is_admin: false,
+  user_role: "tutor",
+  name: "",
+  avatar: "",
+  cpf: "",
+  email: "",
+  phone: "",
+  birth_date: "",
+  cnpj: "",
+  crmv: "",
+  nome_fantasia: "",
+  endereco: {
+    logradouro: "",
+    numero: "",
+    bairro: "",
+    cep: "",
+    cidade: "",
+    uf: "",
+    pais: "",
+  },
+  pets: [],
+  medical_appointments: {
+    medical_history: [],
+    vaccine_history: [],
+    medication_history: [],
+  },
+};
+
+const petObject = {
+  uid: "",
+  name: "",
+  avatar: "",
+  tutor: [],
+  adoption_date: 0,
+  birth_date: 0,
+  events: [],
+  vaccines: [],
+  created_at: 0,
+  updated_at: 0,
+};
+
+const medicalHistoryObject = {
+  uid: "",
+  pet_uid: "",
+  attachment: "",
+  title: "",
+  notes: "",
+  event_date: "",
+  created_at: "",
+  updated_at: "",
+};
+
+const vaccineObject = {
+  uid: "",
+  vaccine: "",
+  vaccineLab: "",
+  doctorId: "",
+  vaccine_receipt: "",
+  vaccine_application_date: "",
+  vaccine_next_application_date: "",
+  created_at: "",
+  updated_at: "",
+};
 
 export const AuthContext = createContext({});
 
@@ -77,6 +143,88 @@ export function AuthContextProvider(props) {
       unsubscribe();
     };
   }, []);
+
+  async function getAllPets() {
+    const petsRef = collection(db, "pets");
+    const result = getDocs(petsRef)
+      .then((snap) => {
+        const petsArray = [];
+        snap.docs.forEach((doc) => {
+          petsArray.push(doc.data());
+        });
+        return petsArray;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    return result;
+  }
+  async function getAllTutors() {
+    const usersRef = collection(db, "users");
+    const result = getDocs(usersRef)
+      .then((snap) => {
+        const usersArray = [];
+        snap.docs.forEach((doc) => {
+          usersArray.push(doc.data());
+        });
+        return usersArray;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    return result;
+  }
+  async function getAllvaccines() {
+    const vaccinesRef = collection(db, "vaccine");
+    const result = getDocs(vaccinesRef)
+      .then((snap) => {
+        const vaccineArray = [];
+        snap.docs.forEach((doc) => {
+          vaccineArray.push(doc.data());
+        });
+        return vaccineArray;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    return result;
+  }
+  async function getAllmedicalHistory() {
+    const medicalHistoryRef = collection(db, "medical-history");
+    const result = getDocs(medicalHistoryRef)
+      .then((snap) => {
+        const medicalHistoryArray = [];
+        snap.docs.forEach((doc) => {
+          medicalHistoryArray.push(doc.data());
+        });
+        return medicalHistoryArray;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    return result;
+  }
+
+  async function getAllContacts() {
+    const medicalHistoryRef = collection(db, "conversion-notification");
+    const result = getDocs(medicalHistoryRef)
+      .then((snap) => {
+        const medicalHistoryArray = [];
+        snap.docs.forEach((doc) => {
+          medicalHistoryArray.push(doc.data());
+        });
+        return medicalHistoryArray;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    return result;
+  }
 
   async function getMedicalHistoryID(id) {
     const medicalHistoryRef = doc(db, "medical-history", id);
@@ -566,6 +714,60 @@ export function AuthContextProvider(props) {
     // eslint-disable-next-line
   }, [selectedPet]);
 
+  function normalizeArray(toNormalizeArray, referenceObject) {
+    let normalizedArray = [];
+
+    for (const item of toNormalizeArray) {
+      const userNormalized = {
+        ...referenceObject,
+        ...item,
+      };
+      normalizedArray.push(userNormalized);
+    }
+
+    return normalizedArray;
+  }
+
+  async function downloadDatabase() {
+    const users = await getAllTutors();
+    const usersNormalized = normalizeArray(users, userObject);
+    const pets = await getAllPets();
+    const petsNormalized = normalizeArray(pets, petObject);
+    const vaccines = await getAllvaccines();
+    const vaccinesNormalized = normalizeArray(vaccines, vaccineObject);
+    const medicalHistory = await getAllmedicalHistory();
+    const medicalHistoryNormalized = normalizeArray(
+      medicalHistory,
+      medicalHistoryObject
+    );
+    const contacts = await getAllContacts();
+
+    const database = {
+      users: {
+        title: "users",
+        content: usersNormalized,
+      },
+      pets: {
+        title: "pets",
+        content: petsNormalized,
+      },
+      vaccine: {
+        title: "vaccine",
+        content: vaccinesNormalized,
+      },
+      medicalHistory: {
+        title: "medical-history",
+        content: medicalHistoryNormalized,
+      },
+      conversionNotification: {
+        title: "conversion-notification",
+        content: contacts,
+      },
+    };
+
+    return database;
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -620,6 +822,8 @@ export function AuthContextProvider(props) {
           getVaccineByID,
           updatePetVaccineByID,
           updateVaccineList,
+          getAllPets,
+          getAllTutors,
         },
       }}
     >
