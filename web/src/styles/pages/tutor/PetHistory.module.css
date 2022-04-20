@@ -278,8 +278,7 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem 2.4rem;
-    background-color: #f3f5ff;
-    overflow: auto;
+    background-color: #f3f5ff; 
     background-image: url(../../../assets/background-brand.png);
     background-repeat: no-repeat;
     background-position: -25rem 40rem;

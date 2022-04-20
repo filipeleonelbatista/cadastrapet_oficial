@@ -10,8 +10,8 @@
     background-image: url(../../../assets/background-brand.png);
     background-repeat: no-repeat;
     background-position: -25rem 40rem;
-    overflow: auto;
     padding-bottom: 2.4rem;
+    overflow: auto;
   }
 
   .content {
@@ -110,8 +110,8 @@
     background-image: url(../../../assets/background-brand.png);
     background-repeat: no-repeat;
     background-position: -25rem 80rem;
-    overflow: auto;
     padding-bottom: 1.4rem;
+    overflow: auto;
   }
 
   .content {
@@ -212,8 +212,8 @@
     background-repeat: no-repeat;
     background-position: -25rem 80rem;
     background-size: auto 45rem;
-    overflow: auto;
     padding-bottom: 0.8rem;
+    overflow: auto;
   }
 
   .content {

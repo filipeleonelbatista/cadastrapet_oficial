@@ -10,6 +10,7 @@
     background-image: url(../../../assets/background-brand.png);
     background-repeat: no-repeat;
     background-position: -25rem 40rem;
+    overflow: auto;
   }
 
   .content {
@@ -108,6 +109,7 @@
     background-image: url(../../../assets/background-brand.png);
     background-repeat: no-repeat;
     background-position: -25rem 80rem;
+    overflow: auto;
   }
 
   .content {
@@ -201,12 +203,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f3f5ff;
-    overflow: auto;
+    background-color: #f3f5ff; 
     background-image: url(../../../assets/background-brand.png);
     background-repeat: no-repeat;
     background-position: -25rem 80rem;
     background-size: auto 45rem;
+    overflow: auto;
   }
 
   .content {
