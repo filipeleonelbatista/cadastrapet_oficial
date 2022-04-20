@@ -44,6 +44,19 @@ function Login() {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (user) {
+        if (user.user_role === "tutor") navigate("/tutor/petlist");
+        if (user.user_role === "veterinario")
+          navigate("/veterinario/vetprofile");
+      }
+    } else {
+      navigate("/entrar");
+    }
+    // eslint-disable-next-line
+  }, [isLoggedIn]);
+
   return (
     <div id="login-page">
       <div className="image-container"></div>
