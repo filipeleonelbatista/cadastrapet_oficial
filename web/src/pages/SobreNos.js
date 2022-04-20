@@ -29,7 +29,7 @@ function SobreNos() {
             <p>
               A cadastrapet nasceu para os tutores terem uma forma de armazenar
               os registros médicos, vacinação e outros registros de forma online
-              e e segura para você ter sempre na mão os registros do seu pet.
+              e segura para você ter sempre na mão os registros do seu pet.
               <br />
               <br />
               Com uma equipe empenhada a encontrar soluções que agregam aos
