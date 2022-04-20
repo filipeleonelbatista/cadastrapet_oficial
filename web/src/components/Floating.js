@@ -69,19 +69,24 @@ export default function Floating({ location = "" }) {
       ""
     );
 
-    if (!isConversionSaved)
+    if (!isConversionSaved) {
       alert(
         `Houve um problema ao enviar seu contato. 
          Estaremos encaminhando voce para o nosso whatsapp`
       );
 
-    let whatsPhone = `+5551986320477`;
-    let whatsMsg = `Olá, me chamo *${whatsNome}* vi seu app e gostaria de conversar mais com você.`;
-    let url = `https://api.whatsapp.com/send?phone=${whatsPhone}&text=${encodeURI(
-      whatsMsg
-    )}`;
+      let whatsPhone = `+5551986320477`;
+      let whatsMsg = `Olá, me chamo *${whatsNome}* vi seu app e gostaria de conversar mais com você.`;
+      let url = `https://api.whatsapp.com/send?phone=${whatsPhone}&text=${encodeURI(
+        whatsMsg
+      )}`;
 
-    window.open(url, "_blank");
+      window.open(url, "_blank");
+    } else {
+      alert(
+        `Salvamos seu contato. Em breve estaremos entrando em contato com você`
+      );
+    }
 
     setErrorMsg("");
     setWhatsFone("");

@@ -3,10 +3,9 @@ import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-import { FaWhatsapp, FaMapMarker } from "react-icons/fa";
+import { FaMapMarker, FaWhatsapp } from "react-icons/fa";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { useNavigate, useParams } from "react-router-dom";
-import LogoImg from "../assets/logo.png";
 import HomeNavigation from "../components/HomeNavigation";
 import { useAuth } from "../hooks/useAuth";
 import styles from "../styles/pages/LocalizaPet.module.css";
@@ -67,16 +66,7 @@ function LocalizaPet() {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <a href="/">
-          <img
-            className={styles.navImage}
-            src={LogoImg}
-            alt="CadastraPet | Cadastrando e prolongando vidas"
-          />
-        </a>
-        <HomeNavigation />
-      </header>
+      <HomeNavigation />
       <div className={styles.content}>
         <MapContainer
           center={position}

@@ -1,17 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-  FaDiscord,
-  FaFacebook,
-  FaFacebookMessenger,
-  FaHandHoldingHeart,
-  FaInstagram,
-  FaMobile,
-  FaShareAlt,
-  FaWhatsapp,
-  FaLinkedin,
-} from "react-icons/fa";
+import { FaHandHoldingHeart, FaMobile, FaShareAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Floating from "../components/Floating";
+import Footer from "../components/Footer";
 import HomeNavigation from "../components/HomeNavigation";
 import InstaFeed from "../components/InstaFeed";
 import { ConversionContextProvider } from "../context/ConversionContext";
@@ -192,16 +183,7 @@ function HomeComponent() {
           </div>
         </div>
       )}
-      <header className={styles.header}>
-        <a href="/">
-          <img
-            className={styles.navImage}
-            src="./images/logo.png"
-            alt="CadastraPet | Cadastrando e prolongando vidas"
-          />
-        </a>
-        <HomeNavigation />
-      </header>
+      <HomeNavigation />
       <main>
         {/* CTA */}
         <section id="cta" className={styles.cta}>
@@ -320,35 +302,7 @@ function HomeComponent() {
         </section>
         {/* cta2 */}
       </main>
-      <footer>
-        <div className={styles.footerContent}>
-          <img src="./images/logo.png" alt="CadastraPet" />
-          <div className="social-networks">
-            <a href="https://wa.me/+5551986320477">
-              <FaWhatsapp />
-            </a>
-            <a href="https://instagram.com/cadastra.pet">
-              <FaInstagram />
-            </a>
-            <a href="https://fb.me/cadastra.pet">
-              <FaFacebook />
-            </a>
-            <a href="https://m.me/cadastra.pet">
-              <FaFacebookMessenger />
-            </a>
-            <a href="https://discord.gg/tSTqcBceaA">
-              <FaDiscord />
-            </a>
-            <a href="https://www.linkedin.com/company/cadastrapet/">
-              <FaLinkedin />
-            </a>
-          </div>
-        </div>
-        <div className={styles.footerLinks}>
-          <a href="/politicas-de-privacidade">Políticas e privacidade</a>
-          <a href="/termos-e-condicoes">Termos de uso</a>
-        </div>
-      </footer>
+      <Footer />
       <Floating location="tutor" />
     </div>
   );

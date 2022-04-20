@@ -192,16 +192,7 @@ function VeterinarioComponent() {
           </div>
         </div>
       )}
-      <header className={styles.header}>
-        <a href="/">
-          <img
-            className={styles.navImage}
-            src="./images/logo.png"
-            alt="CadastraPet | Cadastrando e prolongando vidas"
-          />
-        </a>
-        <HomeNavigation />
-      </header>
+      <HomeNavigation />
       <main>
         {/* CTA */}
         <section id="cta" className={styles.cta}>

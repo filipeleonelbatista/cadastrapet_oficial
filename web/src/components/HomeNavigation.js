@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaBars, FaDog, FaSignInAlt, FaUserMd, FaHome } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import styles from "../styles/components/HomeNavigation.module.css";
+import logoImg from "../assets/logo_x.png";
 
 export default function HomeNavigation() {
   const location = useLocation();
@@ -12,69 +13,78 @@ export default function HomeNavigation() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.navItems}>
-        <Link
-          to="/"
-          className={
-            location.pathname === "/" ? styles.navItemActive : styles.navItem
-          }
-        >
-          Sou tutor
-        </Link>
-        <Link
-          to="/veterinario"
-          className={
-            location.pathname.includes("veterinario")
-              ? styles.navItemActive
-              : styles.navItem
-          }
-        >
-          Sou Veterinário
-        </Link>
-        <Link
-          to="/sobre-nos"
-          className={
-            location.pathname.includes("sobre-nos")
-              ? styles.navItemActive
-              : styles.navItem
-          }
-        >
-          Sobre nós
-        </Link>
-        <Link to="/entrar" className={styles.navItemDestaque}>
-          <FaSignInAlt />
-          Entrar
-        </Link>
-      </div>
-
-      <div className={styles.navItemsTablet}>
-        <Link to="/entrar" className={styles.menuItemTablet}>
-          <FaSignInAlt />
-          Entrar
-        </Link>
-      </div>
-
-      <button className={styles.roundedButton} onClick={handleIsShowMenu}>
-        <FaBars size={18} />
-      </button>
-      {isShow && (
-        <div className={styles.menuItems}>
-          <Link to="/" className={styles.menuItem}>
-            <FaDog /> Sou tutor
+    <header className={styles.header}>
+      <a href="/">
+        <img
+          className={styles.navImage}
+          src={logoImg}
+          alt="CadastraPet | Cadastrando e prolongando vidas"
+        />
+      </a>
+      <div className={styles.container}>
+        <div className={styles.navItems}>
+          <Link
+            to="/"
+            className={
+              location.pathname === "/" ? styles.navItemActive : styles.navItem
+            }
+          >
+            Sou tutor
           </Link>
-          <Link to="/veterinario" className={styles.menuItem}>
-            <FaUserMd /> Sou Veterinário
+          <Link
+            to="/veterinario"
+            className={
+              location.pathname.includes("veterinario")
+                ? styles.navItemActive
+                : styles.navItem
+            }
+          >
+            Sou Veterinário
           </Link>
-          <Link to="/sobre-nos" className={styles.menuItem}>
-            <FaHome /> Sobre nós
+          <Link
+            to="/sobre-nos"
+            className={
+              location.pathname.includes("sobre-nos")
+                ? styles.navItemActive
+                : styles.navItem
+            }
+          >
+            Sobre nós
           </Link>
-          <Link to="/entrar" className={styles.menuItemCelular}>
+          <Link to="/entrar" className={styles.navItemDestaque}>
             <FaSignInAlt />
             Entrar
           </Link>
         </div>
-      )}
-    </div>
+
+        <div className={styles.navItemsTablet}>
+          <Link to="/entrar" className={styles.menuItemTablet}>
+            <FaSignInAlt />
+            Entrar
+          </Link>
+        </div>
+
+        <button className={styles.roundedButton} onClick={handleIsShowMenu}>
+          <FaBars size={18} />
+        </button>
+        {isShow && (
+          <div className={styles.menuItems}>
+            <Link to="/" className={styles.menuItem}>
+              <FaDog /> Sou tutor
+            </Link>
+            <Link to="/veterinario" className={styles.menuItem}>
+              <FaUserMd /> Sou Veterinário
+            </Link>
+            <Link to="/sobre-nos" className={styles.menuItem}>
+              <FaHome /> Sobre nós
+            </Link>
+            <Link to="/entrar" className={styles.menuItemCelular}>
+              <FaSignInAlt />
+              Entrar
+            </Link>
+          </div>
+        )}
+      </div>
+    </header>
   );
 }
