@@ -11,6 +11,7 @@
     background-repeat: no-repeat;
     background-position: -25rem 40rem;
     overflow: auto;
+    padding: 0 2.4rem;
   }
 
   .content {
@@ -150,6 +151,7 @@
     background-repeat: no-repeat;
     background-position: -25rem 60rem;
     overflow: auto;
+    padding: 0 2.4rem;
   }
 
   .content {
@@ -289,6 +291,7 @@
     background-position: -25rem 40rem;
     background-size: auto 45rem;
     overflow: auto;
+    padding: 0 2.4rem;
   }
 
   .content {

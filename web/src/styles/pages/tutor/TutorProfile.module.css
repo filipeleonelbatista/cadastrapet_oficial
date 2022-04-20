@@ -12,6 +12,7 @@
     background-position: -25rem 40rem;
     padding-bottom: 2.4rem;
     overflow: auto;
+    padding: 0 2.4rem;
   }
 
   .content {
@@ -112,6 +113,7 @@
     background-position: -25rem 80rem;
     padding-bottom: 1.4rem;
     overflow: auto;
+    padding: 0 2.4rem;
   }
 
   .content {
@@ -214,6 +216,7 @@
     background-size: auto 45rem;
     padding-bottom: 0.8rem;
     overflow: auto;
+    padding: 0 2.4rem;
   }
 
   .content {
