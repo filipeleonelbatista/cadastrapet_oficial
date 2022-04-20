@@ -82,14 +82,19 @@ function PetCode() {
             Tutor
           </Button>
         </div>
-        <p className={styles.headerTitle}>
+        <p className={styles.aboutQr}>
           {selectedNav === "veterinario" ? (
             <>
               Leia o <strong>Qr Code</strong> para adicionar informações medicas
-              ao pet
+              ao pet.
             </>
           ) : (
             <>
+              Entre no app em <b>Adicionar pet {">"} Ler Qr Code</b> para
+              <br />
+              compartilhar os dados do pet com outro tutor
+              <br />
+              <br />
               Leia o <strong>Qr Code</strong> para compartilhar os dados do pet
               com outro tutor
             </>
