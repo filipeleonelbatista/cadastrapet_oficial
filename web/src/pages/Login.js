@@ -38,6 +38,8 @@ function Login() {
         if (user.user_role === "veterinario")
           navigate("/veterinario/vetprofile");
       }
+    } else {
+      navigate("/entrar");
     }
     // eslint-disable-next-line
   }, []);
