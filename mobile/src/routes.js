@@ -29,7 +29,8 @@ function Routes() {
       <AuthContextProvider>
         <Navigator screenOptions={{ headerShown: false }}>
           <Screen name="WebViewPage" component={WebViewPage} />
-          {/* <Screen name="Login" component={Login} />
+          {/* 
+            <Screen name="Login" component={Login} />
             <Screen name="Register" component={Register} />
             <Screen name="TutorProfile" component={TutorProfile} />
             <Screen name="PetList" component={PetList} />
@@ -42,7 +43,8 @@ function Routes() {
             <Screen name="PetHistoryView" component={PetHistoryView} />
             <Screen name="PetVaccineHistory" component={PetVaccineHistory} />
             <Screen name="PetMedicalHistory" component={PetMedicalHistory} />
-            <Screen name="ViewVaccine" component={ViewVaccine} /> */}
+            <Screen name="ViewVaccine" component={ViewVaccine} /> 
+          */}
         </Navigator>
       </AuthContextProvider>
     </NavigationContainer>
