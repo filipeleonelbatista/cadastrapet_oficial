@@ -141,10 +141,14 @@ function RegisterComponent() {
         </a>
         <h1>Bem vindo!</h1>
         {location.pathname.includes("veterinario") && (
-          <p>Complete o cadastro para atender os pets por aqui</p>
+          <p style={{ textAlign: "center" }}>
+            Complete o cadastro para atender os pets por aqui
+          </p>
         )}
         {location.pathname.includes("tutor") && (
-          <p>Complete o cadastro para continuar cuidando do seu pet</p>
+          <p style={{ textAlign: "center" }}>
+            Complete o cadastro para continuar cuidando do seu pet
+          </p>
         )}
         <form
           onSubmit={(e) => {
@@ -265,7 +269,7 @@ function RegisterComponent() {
           </button>
 
           <Link
-            to={location.pathname.replace("/cadastrar", "")}
+            to={location.pathname.replace("/entrar", "")}
             style={{
               display: "flex",
               justifyContent: "center",

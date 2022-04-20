@@ -21,9 +21,9 @@ import styles from "../styles/pages/Links.module.css";
 export default function Links() {
   const [showPix, setShowPix] = useState(false);
   const sharableContent = {
-    title: "Desennvolvedor de aplicativos",
-    text: "Vi este Este contato no site https://desenvolvedordeaplicativos.vercel.app",
-    url: "https://desenvolvedordeaplicativos.vercel.app",
+    title: "CadastraPet",
+    text: "Vi este Este contato no site https://cadastrapet.com.br",
+    url: "https://cadastrapet.com.br",
   };
 
   const pixKey =
@@ -117,7 +117,7 @@ export default function Links() {
                 <IoQrCodeOutline size={18} />
                 <p className={styles.actionTransparentLabel}>Pix</p>
               </button>
-              <a href="/filipevcard.vcf" download className={styles.action}>
+              <a href="/vcard.vcf" download className={styles.action}>
                 Salvar na agenda
               </a>
               <button
