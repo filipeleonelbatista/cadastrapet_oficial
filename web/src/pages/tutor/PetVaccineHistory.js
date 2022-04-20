@@ -23,14 +23,14 @@ function PetVaccineHistory() {
 
   useEffect(() => {
     const executeAsync = async () => {
-      if (await updateContextData()) return navigate("/tutor");
+      if (await updateContextData()) return navigate("/entrar");
     };
     executeAsync();
     // eslint-disable-next-line
   }, []);
 
   if (!isLoggedIn) {
-    navigate("/tutor");
+    navigate("/entrar");
     return null;
   }
 
@@ -39,7 +39,6 @@ function PetVaccineHistory() {
     return null;
   }
 
-  console.log("Opa", vaccineList);
   return (
     <div className={styles.container}>
       <div className="statusbar"></div>

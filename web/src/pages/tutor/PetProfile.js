@@ -16,7 +16,7 @@ function PetProfile() {
   const { selectedPet, isLoggedIn } = props;
 
   if (!isLoggedIn) {
-    navigate("/tutor");
+    navigate("/entrar");
     return null;
   }
 

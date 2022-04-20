@@ -43,14 +43,14 @@ function CreatePet() {
 
   useEffect(() => {
     const executeAsync = async () => {
-      if (await updateContextData()) return navigate("/tutor");
+      if (await updateContextData()) return navigate("/entrar");
     };
     executeAsync();
     // eslint-disable-next-line
   }, []);
 
   if (!isLoggedIn) {
-    navigate("/tutor");
+    navigate("/entrar");
     return null;
   }
 

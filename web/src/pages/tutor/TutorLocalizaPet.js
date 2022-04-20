@@ -32,7 +32,7 @@ function TutorLocalizaPet() {
   }
 
   if (!isLoggedIn) {
-    navigate("/tutor");
+    navigate("/entrar");
     return null;
   }
 

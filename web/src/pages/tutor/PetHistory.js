@@ -17,16 +17,14 @@ function PetHistory() {
 
   useEffect(() => {
     const executeAsync = async () => {
-      console.log("ENTREI");
-      if (await updateContextData()) return navigate("/tutor");
-      console.log("EXECUTEI");
+      if (await updateContextData()) return navigate("/entrar");
     };
     executeAsync();
     // eslint-disable-next-line
   }, []);
 
   if (!isLoggedIn) {
-    navigate("/tutor");
+    navigate("/entrar");
     return null;
   }
 

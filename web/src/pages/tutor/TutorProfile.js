@@ -116,7 +116,7 @@ function TutorProfile() {
   };
 
   if (!isLoggedIn) {
-    navigate("/tutor");
+    navigate("/entrar");
     return null;
   }
 
