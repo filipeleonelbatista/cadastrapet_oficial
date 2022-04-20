@@ -145,6 +145,13 @@
     text-align: center;
   }
 
+  .aboutQr {
+    color: #566dea;
+    font-weight: 400;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
   .wContainer {
     display: flex;
     flex-direction: column;
@@ -220,6 +227,13 @@
     font-weight: 400;
     font-size: 1.4rem;
     margin: 2.4rem;
+    text-align: center;
+  }
+
+  .aboutQr {
+    color: #566dea;
+    font-weight: 400;
+    font-size: 1.4rem;
     text-align: center;
   }
 
