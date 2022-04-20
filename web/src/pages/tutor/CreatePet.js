@@ -197,7 +197,7 @@ function CreatePet() {
             <QrReader
               delay={300}
               legacyMode
-              facingMode="front"
+              facingMode="rear"
               onError={handleError}
               onScan={handleScan}
               style={{ height: 240, width: 320 }}
