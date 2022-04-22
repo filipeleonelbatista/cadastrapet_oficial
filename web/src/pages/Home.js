@@ -198,7 +198,7 @@ function HomeComponent() {
             <button onClick={handleCadastrar}>
               Quero ter um cadastro digital do meu pet
             </button>
-
+            {/* 
             <div className={styles.mobile}>
               <a
                 href="https://play.google.com/store/apps/details?id=com.cadastrapet.co"
@@ -221,7 +221,7 @@ function HomeComponent() {
                   }}
                 />
               </a>
-            </div>
+            </div> */}
           </div>
           <img
             className={[styles.hideImg, styles.ctaImg]}
