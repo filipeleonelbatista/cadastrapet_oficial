@@ -195,9 +195,11 @@ function CreatePet() {
             </>
           ) : (
             <QrReader
-              delay={300}
-              legacyMode
-              facingMode="rear"
+              // onImageLoad={() => console.log("imageloaded")}
+              delay={500}
+              facingMode="front"
+              // legacyMode="true"
+              // chooseDeviceId={(props) => console.log(props)}
               onError={handleError}
               onScan={handleScan}
               style={{ height: 240, width: 320 }}
