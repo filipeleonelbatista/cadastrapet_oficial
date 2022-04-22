@@ -6,6 +6,7 @@ import { useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
+import Version from "../../components/Version";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/TutorLocalizaPet.module.css";
 import { yearNow } from "../../utils/string";
@@ -93,6 +94,7 @@ function TutorLocalizaPet() {
           </Marker>
         </MapContainer>
       </div>
+      <Version />
     </div>
   );
 }

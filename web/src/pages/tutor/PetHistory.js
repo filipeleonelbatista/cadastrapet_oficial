@@ -7,6 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetHistory.module.css";
 import noDataImg from "../../assets/images/no_data.svg";
 import { dateToString, yearNow } from "../../utils/string";
+import Version from "../../components/Version";
 
 function PetHistory() {
   const navigate = useNavigate();
@@ -106,6 +107,8 @@ function PetHistory() {
           Adicionar histórico
         </Button>
       </div>
+
+      <Version />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetVaccineHistory.module.css";
 import noDataImg from "../../assets/images/no_data.svg";
 import { dateToString, isStringEmpty, yearNow } from "../../utils/string";
+import Version from "../../components/Version";
 
 function PetVaccineHistory() {
   const navigate = useNavigate();
@@ -130,6 +131,7 @@ function PetVaccineHistory() {
           Adicionar vacinação
         </Button>
       </div>
+      <Version />
     </div>
   );
 }

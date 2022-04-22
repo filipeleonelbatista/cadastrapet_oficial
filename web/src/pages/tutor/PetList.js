@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { FaPlus, FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
+import Version from "../../components/Version";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetList.module.css";
 
@@ -106,6 +107,7 @@ function PetList() {
           <h4 className={styles.petName}>Adicionar Pet</h4>
         </div>
       </div>
+      <Version />
     </div>
   );
 }

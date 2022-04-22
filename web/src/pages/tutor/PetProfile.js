@@ -9,6 +9,7 @@ import BackButton from "../../components/BackButton";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetProfile.module.css";
 import { yearNow } from "../../utils/string";
+import Version from "../../components/Version";
 
 function PetProfile() {
   const navigate = useNavigate();
@@ -97,6 +98,8 @@ function PetProfile() {
           />
         </button>
       </div>
+
+      <Version />
     </div>
   );
 }

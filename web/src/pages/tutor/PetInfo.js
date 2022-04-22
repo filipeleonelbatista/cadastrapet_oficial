@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import Version from "../../components/Version";
 import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetInfo.module.css";
@@ -206,6 +207,7 @@ function PetInfo() {
           Salvar
         </Button>
       )}
+      <Version />
     </div>
   );
 }

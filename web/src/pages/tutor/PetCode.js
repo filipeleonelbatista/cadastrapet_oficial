@@ -3,6 +3,7 @@ import QRCode from "react-qr-code";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
+import Version from "../../components/Version";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetCode.module.css";
 import { yearNow } from "../../utils/string";
@@ -114,6 +115,7 @@ function PetCode() {
         Codigo do pet: <br />
         <strong>{selectedPet.uid}</strong>
       </h4>
+      <Version />
     </div>
   );
 }
