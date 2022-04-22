@@ -37,6 +37,13 @@ function HomeComponent() {
   }
 
   function handleToggleModal() {
+    const isContacted = localStorage.getItem("contact");
+
+    if (isContacted) {
+      setIsShow(false);
+      return;
+    }
+
     if (!isClose) {
       if (isSendedMessage) {
         alert(
@@ -107,6 +114,8 @@ function HomeComponent() {
       setIsSendedMessage(true);
       setIsClose(true);
       setIsShow(false);
+
+      localStorage.setItem("contact", true);
       return;
     } else {
       handleToggleModal();
@@ -128,6 +137,7 @@ function HomeComponent() {
             <button
               onClick={() => {
                 setIsClose(true);
+                localStorage.setItem("contact", true);
                 handleToggleModal();
               }}
               type="button"
