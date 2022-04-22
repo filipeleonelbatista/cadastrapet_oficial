@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import {
-  FaMobileAlt,
   FaArrowRight,
   FaDiscord,
   FaFacebook,
   FaFacebookMessenger,
   FaHandHoldingHeart,
   FaInstagram,
+  FaLinkedin,
+  FaMobileAlt,
   FaQrcode,
   FaWhatsapp,
-  FaLinkedin,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AcceptTerms from "../components/AcceptTerms";
@@ -46,6 +46,13 @@ function VeterinarioComponent() {
   }
 
   function handleToggleModal() {
+    const isContacted = localStorage.getItem("contact");
+
+    if (isContacted) {
+      setIsShow(false);
+      return;
+    }
+
     if (!isClose) {
       if (isSendedMessage) {
         alert(
@@ -101,7 +108,7 @@ function VeterinarioComponent() {
     const isConversionSaved = await conversion(
       name,
       email,
-      "Modal leaving veterinario",
+      "Modal leaving home",
       telefone,
       myIp,
       window.location.href,
@@ -116,6 +123,8 @@ function VeterinarioComponent() {
       setIsSendedMessage(true);
       setIsClose(true);
       setIsShow(false);
+
+      localStorage.setItem("contact", true);
       return;
     } else {
       handleToggleModal();
@@ -137,6 +146,7 @@ function VeterinarioComponent() {
             <button
               onClick={() => {
                 setIsClose(true);
+                localStorage.setItem("contact", true);
                 handleToggleModal();
               }}
               type="button"
