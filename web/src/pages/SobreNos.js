@@ -10,6 +10,7 @@ import jeremiasImg from "../assets/images/teamMembers/jeremias.png";
 import raphaelImg from "../assets/images/teamMembers/raphael.png";
 import teamLogo from "../assets/images/teamMembers/team_logo.png";
 import logoWhite from "../assets/images/teamMembers/logo_white.png";
+import AcceptTerms from "../components/AcceptTerms";
 
 function SobreNos() {
   return (
@@ -129,6 +130,7 @@ function SobreNos() {
       </main>
       <Footer />
       <Floating />
+      <AcceptTerms />
     </div>
   );
 }

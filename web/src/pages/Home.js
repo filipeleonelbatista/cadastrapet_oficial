@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaHandHoldingHeart, FaMobile, FaShareAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import AcceptTerms from "../components/AcceptTerms";
 import Floating from "../components/Floating";
 import Footer from "../components/Footer";
 import HomeNavigation from "../components/HomeNavigation";
@@ -304,6 +305,7 @@ function HomeComponent() {
       </main>
       <Footer />
       <Floating location="tutor" />
+      <AcceptTerms />
     </div>
   );
 }

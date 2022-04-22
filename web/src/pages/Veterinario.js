@@ -12,6 +12,7 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import AcceptTerms from "../components/AcceptTerms";
 import Floating from "../components/Floating";
 import HomeNavigation from "../components/HomeNavigation";
 import { ConversionContextProvider } from "../context/ConversionContext";
@@ -328,6 +329,7 @@ function VeterinarioComponent() {
         </div>
       </footer>
       <Floating location="veterinario" />
+      <AcceptTerms />
     </div>
   );
 }
