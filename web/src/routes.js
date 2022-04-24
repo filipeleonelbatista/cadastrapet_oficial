@@ -34,12 +34,15 @@ import VetVaccineHistory from "./pages/vet/VetVaccineHistory";
 import Veterinario from "./pages/Veterinario";
 import DashboardUserList from "./pages/admin/DashboardUsersList";
 import DashboardPetList from "./pages/admin/DashboardPetList";
+import Playground from "./pages/Playground";
 
 function Routes() {
   return (
     <BrowserRouter>
       <AuthContextProvider>
         <Switch>
+          <Route path="/playground" exact element={<Playground />} />
+
           <Route path="/localizapet/:id" exact element={<LocalizaPet />} />
           <Route
             path="/tutor/localizapet"
