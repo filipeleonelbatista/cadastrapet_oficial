@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { FaHandHoldingHeart, FaMobile, FaShareAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AcceptTerms from "../components/AcceptTerms";
+import ContactForm from "../components/ContactForm";
 import Floating from "../components/Floating";
 import Footer from "../components/Footer";
 import HomeNavigation from "../components/HomeNavigation";
-import InstaFeed from "../components/InstaFeed";
 import { ConversionContextProvider } from "../context/ConversionContext";
 import { useConversion } from "../hooks/useConversion";
 import styles from "../styles/pages/Home.module.css";
@@ -289,7 +289,7 @@ function HomeComponent() {
         </section>
         {/* features */}
 
-        <InstaFeed />
+        <ContactForm location="Homepage" />
         {/* how */}
         <section id="how" className={styles.how}>
           <h2>Veja como seu veterinário irá adicionar dados no seu pet</h2>

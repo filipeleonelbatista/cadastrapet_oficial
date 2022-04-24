@@ -11,6 +11,7 @@ import raphaelImg from "../assets/images/teamMembers/raphael.png";
 import teamLogo from "../assets/images/teamMembers/team_logo.png";
 import logoWhite from "../assets/images/teamMembers/logo_white.png";
 import AcceptTerms from "../components/AcceptTerms";
+import ContactForm from "../components/ContactForm";
 
 function SobreNos() {
   return (
@@ -115,6 +116,8 @@ function SobreNos() {
               </a>
             </div>
           </div>
+
+          <ContactForm location="AboutUsPage" />
         </section>
         {/* features */}
 

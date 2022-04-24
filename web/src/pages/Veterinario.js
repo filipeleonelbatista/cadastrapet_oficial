@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AcceptTerms from "../components/AcceptTerms";
+import ContactForm from "../components/ContactForm";
 import Floating from "../components/Floating";
 import HomeNavigation from "../components/HomeNavigation";
 import { ConversionContextProvider } from "../context/ConversionContext";
@@ -287,6 +288,9 @@ function VeterinarioComponent() {
                 <h2>Funciona em computadores e celulares</h2>
               </div>
             </div>
+
+            <ContactForm location="VeterinaryPage" />
+
             <div className={styles.featuresButtonContainer}>
               <button className={styles.featuresButton}>
                 Acessar o histórico de um Pet <FaArrowRight size={12} />
