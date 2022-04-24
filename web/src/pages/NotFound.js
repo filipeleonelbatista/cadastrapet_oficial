@@ -1,8 +1,15 @@
-function NotFound(){
+import logoImg from "../assets/logo_x.png";
+import styles from "../styles/pages/NotFound.module.css";
+
+function NotFound() {
   return (
-    <h2>
-      NotFound
-    </h2>
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <img src={logoImg} alt="CadastraPet" />
+        <h1>404</h1>
+        <p>Esta página não foi encontrada</p>
+      </div>
+    </div>
   );
 }
 
