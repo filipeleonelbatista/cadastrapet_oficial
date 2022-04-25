@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import InputUpload from "../../components/InputUpload";
 import Textarea from "../../components/Textarea";
 import Version from "../../components/Version";
 import { uploadImageAsync } from "../../firebase/functions";
@@ -35,18 +36,10 @@ function AddPetHistory() {
   const [consulta, setConsulta] = useState();
   const [dt_consulta, setDtConsulta] = useState();
   const [anotacoes, setAnotacoes] = useState();
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
   const handleFilePreview = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    setFile(file);
-    reader.onloadend = (e) => {
-      setSelectedImage(reader.result);
-    };
+    setFiles(e.target.files);
   };
 
   const ValidateFields = () => {
@@ -67,9 +60,12 @@ function AddPetHistory() {
   async function handleCreateMedicalHistory() {
     if (ValidateFields()) return;
 
-    let uploadURLImage = "";
-    if (file) {
-      uploadURLImage = await uploadImageAsync(file, "medical-history");
+    let uploadURLImage = [];
+    if (files) {
+      for (const file of files) {
+        const newUrl = await uploadImageAsync(file, "medical-history");
+        uploadURLImage.push(newUrl);
+      }
     }
 
     const medicalHistoryID = await getNewMedicalHistoryID();
@@ -98,12 +94,10 @@ function AddPetHistory() {
       if (isView) {
         setConsulta(selectedMedicalHistory.title);
         setDtConsulta(dateToString(selectedMedicalHistory.event_date));
-        setSelectedImage(selectedMedicalHistory.attachment);
         setAnotacoes(selectedMedicalHistory.notes);
       } else {
         setConsulta(null);
         setDtConsulta(null);
-        setSelectedImage(null);
         setAnotacoes(null);
       }
     }
@@ -206,30 +200,14 @@ function AddPetHistory() {
             />
           )}
           {selectedNav === "documentos" && (
-            <label className={styles.uploadButton}>
-              <input
-                disabled={isView}
-                required
-                className={styles.uploadInput}
-                type="file"
-                accept="image/png, image/jpeg"
-                onChange={(e) => handleFilePreview(e)}
-              ></input>
-              {selectedImage ? (
-                <div
-                  alt="Imagem Selecionada"
-                  style={{
-                    background: `url(${selectedImage}) no-repeat center center`,
-                    borderRadius: "50%",
-                    width: "100%",
-                    height: "100%",
-                    backgroundSize: "cover",
-                  }}
-                ></div>
-              ) : (
-                <FaCamera />
-              )}
-            </label>
+            <InputUpload
+              id="medicalhistory"
+              label={"Enviar documentos"}
+              onChange={(e) => handleFilePreview(e)}
+              accept="image/png, image/jpeg"
+              disabled={isView}
+              required
+            />
           )}
         </div>
       </div>

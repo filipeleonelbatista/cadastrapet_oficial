@@ -17,7 +17,6 @@ function InputUpload({ id, label, onChange, value, ...rest }) {
     });
 
     let res = await Promise.all(files);
-    console.log(res);
     setfiles(res);
   };
 
@@ -74,6 +73,7 @@ function InputUpload({ id, label, onChange, value, ...rest }) {
               <div className={styles.imageList}>
                 {files.map((file) => (
                   <button
+                    key={file.data_url}
                     onClick={() => handleShowModal(file)}
                     className={styles.imageContainer}
                   >

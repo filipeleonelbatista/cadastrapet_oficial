@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import InputUpload from "../../components/InputUpload";
 import Version from "../../components/Version";
 import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from "../../hooks/useAuth";
@@ -31,18 +32,10 @@ function AddPetVaccineHistory() {
   const [crmv, setCrmv] = useState();
   const [dt_aplicacao, setDtAplicacao] = useState();
   const [dt_proxima_aplicacao, setDtProximaAplicacao] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
   const handleFilePreview = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    setFile(file);
-    reader.onloadend = (e) => {
-      setSelectedImage(reader.result);
-    };
+    setFiles(e.target.files);
   };
 
   const ValidateFields = () => {
@@ -63,9 +56,12 @@ function AddPetVaccineHistory() {
   async function handleCreateVaccine() {
     if (ValidateFields()) return;
 
-    let uploadURLImage = "";
-    if (file) {
-      uploadURLImage = await uploadImageAsync(file, "vaccine");
+    let uploadURLImage = [];
+    if (files) {
+      for (const file of files) {
+        const newUrl = await uploadImageAsync(file, "medical-history");
+        uploadURLImage.push(newUrl);
+      }
     }
 
     const vaccineID = await getNewVaccineID();
@@ -105,11 +101,9 @@ function AddPetVaccineHistory() {
             ? ""
             : dateToString(selectedVaccine.vaccine_next_application_date)
         );
-        setSelectedImage(selectedVaccine.vaccine_receipt);
       } else {
         setVacina(null);
         setDtAplicacao(null);
-        setSelectedImage(null);
         setLaboratorio(null);
         setCrmv(null);
         setDtProximaAplicacao(null);
@@ -218,32 +212,14 @@ function AddPetVaccineHistory() {
             ? "Comprovante de vacinação"
             : "Envie o comprovante de vacinação"}
         </h4>
-        <label className={styles.uploadButton}>
-          <input
-            disabled={isView}
-            required
-            className={styles.uploadInput}
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={(e) => handleFilePreview(e)}
-          ></input>
-          {selectedImage ? (
-            <img
-              download={selectedImage}
-              src={selectedImage}
-              alt="Imagem Selecionada"
-              style={{
-                background: `url(${selectedImage}) no-repeat center center`,
-                borderRadius: "50%",
-                width: "100%",
-                height: "100%",
-                backgroundSize: "cover",
-              }}
-            />
-          ) : (
-            <FaCamera />
-          )}
-        </label>
+        <InputUpload
+          id="vaccineHistory"
+          label={"Enviar documentos"}
+          onChange={(e) => handleFilePreview(e)}
+          accept="image/png, image/jpeg"
+          disabled={isView}
+          required
+        />
       </div>
       {!isView && <Button onClick={handleCreateVaccine}>Salvar</Button>}
       <Version />
