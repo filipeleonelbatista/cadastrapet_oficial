@@ -81,6 +81,12 @@
     color: #566dea;
     fill: #566dea;
   }
+  
+  .imagePreviewContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 
   .imageList {
     width: 100%;

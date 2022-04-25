@@ -2,7 +2,15 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import styles from "../styles/components/InputUpload.module.css";
 
-function InputUpload({ id, label, onChange, value, ...rest }) {
+function InputUpload({
+  id,
+  label,
+  onChange,
+  value,
+  attachment = [],
+  disabled,
+  ...rest
+}) {
   const [file, setfile] = useState();
   const [files, setfiles] = useState([]);
   const [isShow, setIsShow] = useState(false);
@@ -51,43 +59,73 @@ function InputUpload({ id, label, onChange, value, ...rest }) {
           <div className={styles.imageData}>{file.file.name}</div>
         </button>
       )}
-      <div className={styles.container}>
-        <div className={styles.content}>
-          <div className={styles.inputContainer}>
-            {label && <label htmlFor={id}>{label}</label>}
-            <input
-              id={id}
-              value={value}
-              onChange={(e) => handlePreview(e)}
-              multiple
-              type="file"
-              {...rest}
-            />
-            <button onClick={handleClickInput} title={label}>
-              <FaPlus />
-            </button>
-          </div>
-          {files.length > 0 && (
+      {disabled ? (
+        <>
+          {attachment.length > 0 && (
             <div className={styles.imagePreviewContainer}>
-              <p>Imagens selecionadas</p>
+              <p>Documentos Carregados</p>
               <div className={styles.imageList}>
-                {files.map((file) => (
+                {attachment.map((file) => (
                   <button
-                    key={file.data_url}
-                    onClick={() => handleShowModal(file)}
+                    key={file}
+                    onClick={() =>
+                      handleShowModal({
+                        data_url: file,
+                        file: { name: "Imagem Carregada" },
+                      })
+                    }
                     className={styles.imageContainer}
                   >
                     <div className={styles.imageContent}>
-                      <img alt="Imagem Selecionada" src={file.data_url} />
+                      <img alt="Imagem Selecionada" src={file} />
                     </div>
-                    <p>{file.file.name}</p>
                   </button>
                 ))}
               </div>
             </div>
           )}
-        </div>
-      </div>
+        </>
+      ) : (
+        <>
+          <div className={styles.container}>
+            <div className={styles.content}>
+              <div className={styles.inputContainer}>
+                {label && <label htmlFor={id}>{label}</label>}
+                <input
+                  id={id}
+                  value={value}
+                  onChange={(e) => handlePreview(e)}
+                  multiple
+                  type="file"
+                  {...rest}
+                />
+                <button onClick={handleClickInput} title={label}>
+                  <FaPlus />
+                </button>
+              </div>
+              {files.length > 0 && (
+                <div className={styles.imagePreviewContainer}>
+                  <p>Imagens selecionadas</p>
+                  <div className={styles.imageList}>
+                    {files.map((file) => (
+                      <button
+                        key={file.data_url}
+                        onClick={() => handleShowModal(file)}
+                        className={styles.imageContainer}
+                      >
+                        <div className={styles.imageContent}>
+                          <img alt="Imagem Selecionada" src={file.data_url} />
+                        </div>
+                        <p>{file.file.name}</p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

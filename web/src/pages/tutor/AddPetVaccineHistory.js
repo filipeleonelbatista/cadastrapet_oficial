@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaCamera } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
@@ -218,6 +217,7 @@ function AddPetVaccineHistory() {
           onChange={(e) => handleFilePreview(e)}
           accept="image/png, image/jpeg"
           disabled={isView}
+          attachment={isView && selectedVaccine.vaccine_receipt}
           required
         />
       </div>
