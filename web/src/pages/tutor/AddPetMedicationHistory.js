@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
@@ -21,16 +22,30 @@ function AddPetMedicationHistory() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { props, functions } = useAuth();
+  const { props, functions, deleteFunctions } = useAuth();
   const { selectedPet, selectedMedication, isLoggedIn } = props;
   const { updateMedicationByID, getNewMedicationID, updateContextData } =
     functions;
+
+  const { deleteMedication } = deleteFunctions;
 
   const [isView, setIsView] = useState(false);
 
   const [vacina, setVacina] = useState();
   const [dt_aplicacao, setDtAplicacao] = useState();
   const [files, setFiles] = useState([]);
+  const [attachments, setAttachments] = useState([]);
+
+  const handleDeleteMedication = async () => {
+    if (
+      window.confirm(
+        "Deseja realmente deletar este registro? Esta ação é irreversível."
+      )
+    ) {
+      await deleteMedication(selectedMedication);
+      navigate("/tutor/petmedicationhistory");
+    }
+  };
 
   const handleFilePreview = (e) => {
     setFiles(e.target.files);
@@ -88,6 +103,7 @@ function AddPetMedicationHistory() {
         setDtAplicacao(
           dateToString(selectedMedication.medication_application_date)
         );
+        setAttachments(selectedMedication.medication_receipe);
       } else {
         setVacina(null);
         setDtAplicacao(null);
@@ -173,11 +189,20 @@ function AddPetMedicationHistory() {
           onChange={(e) => handleFilePreview(e)}
           accept="image/png, image/jpeg"
           disabled={isView}
-          attachment={isView && selectedMedication.medication_receipt}
+          attachment={attachments}
           required
         />
       </div>
       {!isView && <Button onClick={handleCreateVaccine}>Salvar</Button>}
+      {isView && (
+        <Button
+          onClick={handleDeleteMedication}
+          style={{ backgroundColor: "red", cursor: "pointer" }}
+        >
+          <FaTrash />
+          Deletar Registro
+        </Button>
+      )}
       <Version />
       <Widget />
     </div>

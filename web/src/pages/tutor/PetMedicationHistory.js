@@ -41,8 +41,6 @@ function PetMedicationHistory() {
     return null;
   }
 
-  console.log("Estou aqui", medicationList);
-
   return (
     <div className={styles.container}>
       <div className="statusbar"></div>

@@ -7,6 +7,7 @@ import {
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -673,7 +674,6 @@ export function AuthContextProvider(props) {
   }
 
   async function updateMedicationList() {
-    console.log("selectedPet", selectedPet);
     let currentMedicationList = [];
 
     for (const id of selectedPet.medications) {
@@ -981,6 +981,49 @@ export function AuthContextProvider(props) {
     return database;
   }
 
+  async function deleteMedication(medication) {
+    await deleteDoc(doc(db, "medication", medication.uid));
+    return true;
+  }
+
+  async function deleteVaccine(vaccine) {
+    await deleteDoc(doc(db, "vaccine", vaccine.uid));
+    return true;
+  }
+
+  async function deleteMedicalHistory(medicalHistory) {
+    await deleteDoc(doc(db, "medical-history", medicalHistory.uid));
+    return true;
+  }
+
+  async function deletePet(selectedPet) {
+    if (selectedPet.medications.length > 0) {
+      selectedPet.medications.map(async (item) => {
+        await deleteMedication(item);
+      });
+    }
+
+    if (selectedPet.vaccines.length > 0) {
+      selectedPet.vaccines.map(async (item) => {
+        await deleteVaccine(item);
+      });
+    }
+
+    if (selectedPet.events.length > 0) {
+      selectedPet.events.map(async (item) => {
+        await deleteMedicalHistory(item);
+      });
+    }
+
+    const newPetsArray = user.pets.filter((item) => item !== selectedPet.uid);
+
+    await updateUserByID(user.uid, { pets: [...newPetsArray] });
+
+    await deleteDoc(doc(db, "pets", selectedPet.uid));
+
+    return true;
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -1012,6 +1055,7 @@ export function AuthContextProvider(props) {
           handleSetSelectedPet,
           handleSetSelectedMedicalHistory,
           handleSetSelectedVaccine,
+          handleSetSelectedMedication,
           setMedicationList,
           setSelectedMedication,
         },
@@ -1046,12 +1090,17 @@ export function AuthContextProvider(props) {
           getMedicationByID,
           getNewMedicationID,
           updateMedicationByID,
-          handleSetSelectedMedication,
           updatePetLists,
         },
         databaseFunctions: {
           downloadDatabase,
           updateDatabase,
+        },
+        deleteFunctions: {
+          deleteMedication,
+          deleteVaccine,
+          deleteMedicalHistory,
+          deletePet,
         },
       }}
     >

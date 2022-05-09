@@ -144,6 +144,7 @@ function CreatePet() {
       pin_number: isStringEmpty(pin_number) ? "Sem Coleira" : pin_number,
       events: [],
       vaccines: [],
+      medications: [],
       created_at: Date.now(),
       updated_at: Date.now(),
     };

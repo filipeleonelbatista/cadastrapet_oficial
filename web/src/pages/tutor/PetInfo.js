@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { FaCamera } from "react-icons/fa";
+import { FaCamera, FaTrash } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Version from "../../components/Version";
+import { Widget } from "../../components/Widget";
 import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetInfo.module.css";
 import { date } from "../../utils/masks";
 import { dateToString, isStringEmpty, stringToDate } from "../../utils/string";
-import { Widget } from "../../components/Widget";
 
 function PetInfo() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { functions, props } = useAuth();
+  const { functions, props, deleteFunctions } = useAuth();
   const { updatePetByID, updateContextData } = functions;
   const { selectedPet, isLoggedIn, user } = props;
+
+  const { deletePet } = deleteFunctions;
 
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
@@ -32,6 +34,17 @@ function PetInfo() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [file, setFile] = useState(null);
   const [isView, setIsView] = useState(false);
+
+  const handleDeletePet = async () => {
+    if (
+      window.confirm(
+        "Deseja realmente deletar este registro? Esta ação é irreversível."
+      )
+    ) {
+      await deletePet(selectedPet);
+      navigate("/tutor/petlist");
+    }
+  };
 
   useEffect(() => {
     setIsView(location.pathname === "/tutor/petinfo/view");
@@ -292,9 +305,18 @@ function PetInfo() {
         </div>
       </div>
       {isView ? (
-        <Button id="nome" onClick={() => navigate("/tutor/petinfo/edit")}>
-          Editar
-        </Button>
+        <>
+          <Button id="nome" onClick={() => navigate("/tutor/petinfo/edit")}>
+            Editar
+          </Button>
+          <Button
+            onClick={handleDeletePet}
+            style={{ backgroundColor: "red", cursor: "pointer" }}
+          >
+            <FaTrash />
+            Deletar Registro
+          </Button>
+        </>
       ) : (
         <Button id="nome" onClick={handlUpdatePet}>
           Salvar

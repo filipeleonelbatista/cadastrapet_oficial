@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import InputUpload from "../../components/InputUpload";
 import Version from "../../components/Version";
+import { Widget } from "../../components/Widget";
 import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/AddPetVaccineHistory.module.css";
@@ -15,15 +17,16 @@ import {
   stringToDate,
   yearNow,
 } from "../../utils/string";
-import { Widget } from "../../components/Widget";
 
 function AddPetVaccineHistory() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { props, functions } = useAuth();
+  const { props, functions, deleteFunctions } = useAuth();
   const { selectedPet, selectedVaccine, isLoggedIn } = props;
   const { updateVaccineByID, getNewVaccineID, updateContextData } = functions;
+
+  const { deleteVaccine } = deleteFunctions;
 
   const [isView, setIsView] = useState(false);
 
@@ -33,6 +36,17 @@ function AddPetVaccineHistory() {
   const [dt_aplicacao, setDtAplicacao] = useState();
   const [dt_proxima_aplicacao, setDtProximaAplicacao] = useState("");
   const [files, setFiles] = useState([]);
+
+  const handleDeleteVaccine = async () => {
+    if (
+      window.confirm(
+        "Deseja realmente deletar este registro? Esta ação é irreversível."
+      )
+    ) {
+      await deleteVaccine(selectedVaccine);
+      navigate("/tutor/petvaccinehistory");
+    }
+  };
 
   const handleFilePreview = (e) => {
     setFiles(e.target.files);
@@ -223,6 +237,15 @@ function AddPetVaccineHistory() {
         />
       </div>
       {!isView && <Button onClick={handleCreateVaccine}>Salvar</Button>}
+      {isView && (
+        <Button
+          onClick={handleDeleteVaccine}
+          style={{ backgroundColor: "red", cursor: "pointer" }}
+        >
+          <FaTrash />
+          Deletar Registro
+        </Button>
+      )}
       <Version />
       <Widget />
     </div>

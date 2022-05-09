@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
@@ -6,6 +7,7 @@ import Input from "../../components/Input";
 import InputUpload from "../../components/InputUpload";
 import Textarea from "../../components/Textarea";
 import Version from "../../components/Version";
+import { Widget } from "../../components/Widget";
 import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/AddPetHistory.module.css";
@@ -16,19 +18,20 @@ import {
   stringToDate,
   yearNow,
 } from "../../utils/string";
-import { Widget } from "../../components/Widget";
 
 function AddPetHistory() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { props, functions } = useAuth();
+  const { props, functions, deleteFunctions } = useAuth();
   const { selectedPet, selectedMedicalHistory, isLoggedIn } = props;
   const {
     updateMedicalHistoryByID,
     getNewMedicalHistoryID,
     updateContextData,
   } = functions;
+
+  const { deleteMedicalHistory } = deleteFunctions;
 
   const [isView, setIsView] = useState(false);
   const [selectedNav, setSelectedNav] = useState("anotacoes");
@@ -37,6 +40,17 @@ function AddPetHistory() {
   const [dt_consulta, setDtConsulta] = useState();
   const [anotacoes, setAnotacoes] = useState();
   const [files, setFiles] = useState([]);
+
+  const handleDeleteMedicalHistory = async () => {
+    if (
+      window.confirm(
+        "Deseja realmente deletar este registro? Esta ação é irreversível."
+      )
+    ) {
+      await deleteMedicalHistory(selectedMedicalHistory);
+      navigate("/tutor/pethistory");
+    }
+  };
 
   const handleFilePreview = (e) => {
     setFiles(e.target.files);
@@ -213,6 +227,15 @@ function AddPetHistory() {
         </div>
       </div>
       {!isView && <Button onClick={handleCreateMedicalHistory}>Salvar</Button>}
+      {isView && (
+        <Button
+          onClick={handleDeleteMedicalHistory}
+          style={{ backgroundColor: "red", cursor: "pointer" }}
+        >
+          <FaTrash />
+          Deletar Registro
+        </Button>
+      )}
       <Version />
       <Widget />
     </div>

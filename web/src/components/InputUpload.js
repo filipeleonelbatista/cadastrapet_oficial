@@ -46,7 +46,6 @@ function InputUpload({
     setfile(null);
     setIsShow(false);
   }
-
   return (
     <>
       {isShow && (
