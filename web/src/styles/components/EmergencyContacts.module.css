@@ -1,0 +1,143 @@
+/* PC */
+@media (min-width: 720px) {
+  .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+  }
+
+  .uploadButton svg {
+    width: 3rem;
+    height: auto;
+  }
+
+  .uploadButton {
+    width: 6.4rem;
+    height: 6.4rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+    background-color: #566dea;
+  }
+  .uploadButton:hover {
+    filter: brightness(0.9);
+  }
+
+  .uploadButton:active {
+    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  .wContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.8rem;
+    max-width: 32rem;
+    width: 100%;
+    padding: 1.8rem;
+    border-radius: 0.8rem;
+    background-color: #fff;
+    border: none;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+    transition: 0.2s;
+  }
+
+  .wContainer:hover {
+    filter: brightness(0.9);
+  }
+
+  .wContainer:active {
+    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  .wContainer svg {
+    fill: #FFF;
+  }
+
+  .emergencyData{
+    display: flex;
+    flex-direction: column;
+  }
+  .emergencyData p{
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+  .noData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
+  .noDataTitle {
+    text-align: center;
+    color: #566dea;
+    margin: 1.4rem 0;
+  }
+  .noDataImg {
+    height: 30rem;
+    width: auto;
+    margin: 1.4rem 0;
+  }
+}
+/* Tablet */
+@media (min-width: 320px) and (max-width: 720px) {
+  .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .noData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
+  .noDataTitle {
+    text-align: center;
+    color: #566dea;
+    margin: 1.4rem 0;
+  }
+  .noDataImg {
+    height: 30rem;
+    width: auto;
+    margin: 1.4rem 0;
+  }
+}
+/* Celular */
+@media (max-width: 320px) {
+  .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .noData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    height: auto;
+  }
+  .noDataTitle {
+    text-align: center;
+    color: #566dea;
+    margin: 1.4rem 0;
+  }
+  .noDataImg {
+    height: 28rem;
+    width: auto;
+    margin: 1.4rem 0;
+  }
+}

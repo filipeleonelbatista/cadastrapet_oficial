@@ -17,6 +17,7 @@ import { dateToString, isStringEmpty, stringToDate } from "../../utils/string";
 import { Widget } from "../../components/Widget";
 import { getCepInformation } from "../../utils/cep";
 import { uploadImageAsync } from "../../firebase/functions";
+import EmergencyContacts from "../../components/EmergencyContacts";
 
 function TutorProfile() {
   const navigate = useNavigate();
@@ -397,7 +398,9 @@ function TutorProfile() {
         {isView && (
           <>
             {selectedNav === "contatos-seguranca" && (
-              <div className={styles.inputForm}></div>
+              <div className={styles.inputForm}>
+                <EmergencyContacts />
+              </div>
             )}
           </>
         )}
