@@ -115,6 +115,7 @@ function RegisterComponent() {
           pais: "",
         },
         pets: [],
+        emergency_contacts: [],
         medical_appointments: {
           medical_history: [],
           vaccine_history: [],

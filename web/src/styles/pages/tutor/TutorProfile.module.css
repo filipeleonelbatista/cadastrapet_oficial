@@ -19,6 +19,7 @@
 
   .content {
     max-width: 90rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -95,6 +96,7 @@
   }
 
   .inputForm{
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -122,6 +124,7 @@
 
   .content {
     max-width: 70rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -198,6 +201,7 @@
   }
 
   .inputForm{
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -227,6 +231,7 @@
 
   .content {
     max-width: 32rem;
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

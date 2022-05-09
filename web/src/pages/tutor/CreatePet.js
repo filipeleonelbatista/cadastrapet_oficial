@@ -81,10 +81,10 @@ function CreatePet() {
     }
     if (isStringEmpty(adoption_date)) {
       if (adoption_date.length < 10) {
-        alert("O campo data de nascimento não está completo");
+        alert("O campo data de adoção não está completo");
         return true;
       }
-      alert("O campo data de nascimento não foi preenchido");
+      alert("O campo data de adoção não foi preenchido");
       return true;
     }
 

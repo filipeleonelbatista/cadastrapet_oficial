@@ -45,11 +45,14 @@ const userObject = {
     pais: "",
   },
   pets: [],
+  emergency_contacts: [],
   medical_appointments: {
     medical_history: [],
     vaccine_history: [],
     medication_history: [],
   },
+  created_at: 0,
+  updated_at: 0,
 };
 
 const petObject = {
@@ -359,6 +362,7 @@ export function AuthContextProvider(props) {
 
       return true;
     } catch (err) {
+      console.error(err);
       alert(
         `Houve um erro ao atualizar dados do usuário. Tente novamente mais tarde`
       );
