@@ -5,6 +5,7 @@ import Logo from "../../assets/logo.png";
 import Version from "../../components/Version";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetList.module.css";
+import { Widget } from "../../components/Widget";
 
 function PetList() {
   const navigate = useNavigate();
@@ -108,6 +109,7 @@ function PetList() {
         </div>
       </div>
       <Version />
+      <Widget />
     </div>
   );
 }

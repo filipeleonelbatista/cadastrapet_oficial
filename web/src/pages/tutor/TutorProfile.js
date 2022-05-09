@@ -9,6 +9,7 @@ import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/TutorProfile.module.css";
 import { cpf as cpfMask, date, phone as phoneMask } from "../../utils/masks";
 import { dateToString, isStringEmpty } from "../../utils/string";
+import { Widget } from "../../components/Widget";
 
 function TutorProfile() {
   const navigate = useNavigate();
@@ -319,6 +320,7 @@ function TutorProfile() {
         <FaSignOutAlt /> Sair
       </Button>
       <Version />
+      <Widget />
     </div>
   );
 }

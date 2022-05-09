@@ -8,6 +8,7 @@ import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetCode.module.css";
 import { yearNow } from "../../utils/string";
 
+import { Widget } from "../../components/Widget";
 function PetCode() {
   const navigate = useNavigate();
   const [selectedNav, setSelectedNav] = useState("veterinario");
@@ -116,6 +117,7 @@ function PetCode() {
         <strong>{selectedPet.uid}</strong>
       </h4>
       <Version />
+      <Widget />
     </div>
   );
 }

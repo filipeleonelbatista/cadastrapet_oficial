@@ -10,6 +10,7 @@ import Version from "../../components/Version";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/TutorLocalizaPet.module.css";
 import { yearNow } from "../../utils/string";
+import { Widget } from "../../components/Widget";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -95,6 +96,7 @@ function TutorLocalizaPet() {
         </MapContainer>
       </div>
       <Version />
+      <Widget />
     </div>
   );
 }

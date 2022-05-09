@@ -16,6 +16,7 @@ import {
   stringToDate,
   yearNow,
 } from "../../utils/string";
+import { Widget } from "../../components/Widget";
 
 function AddPetHistory() {
   const location = useLocation();
@@ -213,6 +214,7 @@ function AddPetHistory() {
       </div>
       {!isView && <Button onClick={handleCreateMedicalHistory}>Salvar</Button>}
       <Version />
+      <Widget />
     </div>
   );
 }

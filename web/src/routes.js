@@ -35,6 +35,8 @@ import Veterinario from "./pages/Veterinario";
 import DashboardUserList from "./pages/admin/DashboardUsersList";
 import DashboardPetList from "./pages/admin/DashboardPetList";
 import Playground from "./pages/Playground";
+import AddPetMedicationHistory from "./pages/tutor/AddPetMedicationHistory";
+import PetMedicationHistory from "./pages/tutor/PetMedicationHistory";
 
 function Routes() {
   return (
@@ -92,6 +94,21 @@ function Routes() {
             path="/tutor/petvaccinehistory/view"
             exact
             element={<AddPetVaccineHistory />}
+          />
+          <Route
+            path="/tutor/petmedicationhistory"
+            exact
+            element={<PetMedicationHistory />}
+          />
+          <Route
+            path="/tutor/petmedicationhistory/add"
+            exact
+            element={<AddPetMedicationHistory />}
+          />
+          <Route
+            path="/tutor/petmedicationhistory/view"
+            exact
+            element={<AddPetMedicationHistory />}
           />
           <Route path="/" exact element={<Home />} />
           <Route path="/links" exact element={<Links />} />

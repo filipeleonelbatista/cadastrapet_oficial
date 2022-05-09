@@ -20,6 +20,8 @@ import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
 import { isStringEmpty } from "../utils/string";
 
+import database from "../database.json";
+
 const userObject = {
   is_admin: false,
   user_role: "tutor",
@@ -56,8 +58,15 @@ const petObject = {
   tutor: [],
   adoption_date: 0,
   birth_date: 0,
+  pelage: "",
+  species: "",
+  animal_race: "",
+  sex: "",
+  castration: "",
+  pin_number: "",
   events: [],
   vaccines: [],
+  medications: [],
   created_at: 0,
   updated_at: 0,
 };
@@ -85,6 +94,23 @@ const vaccineObject = {
   updated_at: "",
 };
 
+const medicationObject = {
+  uid: "",
+  medication: "",
+  medication_application_date: "",
+  medication_receipe: "",
+  created_at: "",
+  updated_at: "",
+};
+
+const feedbackObject = {
+  uid: "",
+  screenshot: "",
+  comment: "",
+  user: "",
+  created_at: "",
+};
+
 export const AuthContext = createContext({});
 
 export function AuthContextProvider(props) {
@@ -93,9 +119,11 @@ export function AuthContextProvider(props) {
   const [selectedPet, setSelectedPet] = useState();
   const [medicalHistoryList, setMedicalHistoryList] = useState([]);
   const [vaccineList, setVaccineList] = useState([]);
+  const [medicationList, setMedicationList] = useState([]);
   const [petList, setPetList] = useState([]);
   const [selectedMedicalHistory, setSelectedMedicalHistory] = useState();
   const [selectedVaccine, setSelectedVaccine] = useState();
+  const [selectedMedication, setSelectedMedication] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -191,6 +219,39 @@ export function AuthContextProvider(props) {
       });
     return result;
   }
+  async function getAllmedications() {
+    const medicationsRef = collection(db, "medication");
+    const result = getDocs(medicationsRef)
+      .then((snap) => {
+        const medicationArray = [];
+        snap.docs.forEach((doc) => {
+          medicationArray.push(doc.data());
+        });
+        return medicationArray;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    return result;
+  }
+  async function getAllfeedbacks() {
+    const feedbackRef = collection(db, "feedback");
+    const result = getDocs(feedbackRef)
+      .then((snap) => {
+        const feedbackArray = [];
+        snap.docs.forEach((doc) => {
+          feedbackArray.push(doc.data());
+        });
+        return feedbackArray;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    return result;
+  }
+
   async function getAllmedicalHistory() {
     const medicalHistoryRef = collection(db, "medical-history");
     const result = getDocs(medicalHistoryRef)
@@ -402,6 +463,17 @@ export function AuthContextProvider(props) {
       });
   }
 
+  async function createFeedback(data) {
+    try {
+      await addDoc(collection(db, "feedback"), data);
+
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  }
+
   async function getNewPetID() {
     const petRef = collection(db, "pets");
     const newPet = await addDoc(petRef, {});
@@ -491,9 +563,21 @@ export function AuthContextProvider(props) {
 
     return signInWithEmailAndPassword(authentication, email, password)
       .then(async (re) => {
+        setIsLoggedIn(true);
         setKeyLocalStorage("UID", re.user.uid);
         const currentUser = await getUserByID(re.user.uid);
-        setIsLoggedIn(true);
+        let currentPetList = [];
+
+        for (const id of currentUser.pets) {
+          const loadedPet = await getPetByID(id);
+          if (loadedPet) {
+            currentPetList.push(loadedPet);
+          }
+        }
+
+        setUser(currentUser);
+        setUserId(currentUser.uid);
+        setPetList(currentPetList);
         const status = {
           user: currentUser,
           status: true,
@@ -588,6 +672,69 @@ export function AuthContextProvider(props) {
     }
   }
 
+  async function updateMedicationList() {
+    console.log("selectedPet", selectedPet);
+    let currentMedicationList = [];
+
+    for (const id of selectedPet.medications) {
+      const loadedMedication = await getMedicationByID(id);
+      if (loadedMedication) {
+        currentMedicationList.push(loadedMedication);
+      }
+    }
+
+    setMedicationList(currentMedicationList);
+  }
+
+  async function getMedicationByID(id) {
+    const medicationRef = doc(db, "medication", id);
+    const medicationSnap = await getDoc(medicationRef);
+    const medication = medicationSnap.data();
+    return medication;
+  }
+
+  async function getNewMedicationID() {
+    const medicationRef = collection(db, "medication");
+    const newMedication = await addDoc(medicationRef, {});
+    return newMedication.id;
+  }
+
+  async function updateMedicationByID(id, data, pet) {
+    const medicationData = await getMedicationByID(id);
+
+    const updatedMedication = {
+      ...medicationData,
+      ...data,
+    };
+    try {
+      await setDoc(doc(db, "medication", id), updatedMedication);
+      setSelectedMedication(updatedMedication);
+
+      const updateMedicationsArray = pet.medications.includes(id)
+        ? [...pet.medications]
+        : [...pet.medications, id];
+      if (
+        !(await updatePetVaccineByID(pet.uid, {
+          medications: [...updateMedicationsArray],
+        }))
+      )
+        return false;
+      updateMedicationList();
+      return true;
+    } catch (err) {
+      sendDiscordNotification(
+        `Houve um erro ao adicionar histórico de vermífugos\n\n ${JSON.stringify(
+          data
+        )}\n\nlog do erro:\n\n${err}`,
+        "doguinho"
+      );
+      alert(
+        `Houve um erro ao adicionar histórico de vermífugos. Tente novamente mais tarde`
+      );
+      return false;
+    }
+  }
+
   async function getVaccineByID(id) {
     const vaccineRef = doc(db, "vaccine", id);
     const vaccineSnap = await getDoc(vaccineRef);
@@ -652,6 +799,11 @@ export function AuthContextProvider(props) {
     setKeyLocalStorage("SVUID", vaccine.uid);
   }
 
+  async function handleSetSelectedMedication(medication) {
+    setSelectedMedication(medication);
+    setKeyLocalStorage("SMUID", medication.uid);
+  }
+
   async function updateContextData() {
     const uid = getKeyLocalStorage("UID");
     const localUserId = uid ? uid : user_id;
@@ -688,8 +840,19 @@ export function AuthContextProvider(props) {
         const sv = await getMedicalHistoryID(svuid);
         setSelectedMedicalHistory(sv);
       }
+
+      const smuid = getKeyLocalStorage("SMUID");
+      if (smuid) {
+        const sm = await getMedicationByID(smuid);
+        setSelectedMedication(sm);
+      }
     }
     return false;
+  }
+  async function updatePetLists() {
+    await updateMedicalHistoryList();
+    await updateVaccineList();
+    await updateMedicationList();
   }
 
   useEffect(() => {
@@ -707,6 +870,7 @@ export function AuthContextProvider(props) {
       const executeAsync = async () => {
         await updateMedicalHistoryList();
         await updateVaccineList();
+        await updateMedicationList();
       };
       executeAsync();
     }
@@ -727,6 +891,44 @@ export function AuthContextProvider(props) {
     return normalizedArray;
   }
 
+  async function loadDatabase(table, content) {
+    console.log(content, table);
+    for (const row of content) {
+      await setDoc(doc(db, table, row.uid), row);
+    }
+  }
+
+  async function loadDatabaseConversion(table, content) {
+    for (const row of content) {
+      await addDoc(collection(db, table), row);
+    }
+  }
+
+  async function updateDatabase() {
+    const {
+      conversionNotification,
+      feedback,
+      medicalHistory,
+      medicationHistory,
+      pets,
+      users,
+      vaccine,
+    } = database;
+
+    await loadDatabase(medicalHistory.title, medicalHistory.content);
+    await loadDatabaseConversion(
+      conversionNotification.title,
+      conversionNotification.content
+    );
+    await loadDatabase(feedback.title, feedback.content);
+    await loadDatabase(medicationHistory.title, medicationHistory.content);
+    await loadDatabase(pets.title, pets.content);
+    await loadDatabase(users.title, users.content);
+    await loadDatabase(vaccine.title, vaccine.content);
+
+    console.log("Finito", database);
+  }
+
   async function downloadDatabase() {
     const users = await getAllTutors();
     const usersNormalized = normalizeArray(users, userObject);
@@ -734,6 +936,10 @@ export function AuthContextProvider(props) {
     const petsNormalized = normalizeArray(pets, petObject);
     const vaccines = await getAllvaccines();
     const vaccinesNormalized = normalizeArray(vaccines, vaccineObject);
+    const medications = await getAllmedications();
+    const medicationsNormalized = normalizeArray(medications, medicationObject);
+    const feedbacks = await getAllfeedbacks();
+    const feedbacksNormalized = normalizeArray(feedbacks, feedbackObject);
     const medicalHistory = await getAllmedicalHistory();
     const medicalHistoryNormalized = normalizeArray(
       medicalHistory,
@@ -758,9 +964,17 @@ export function AuthContextProvider(props) {
         title: "medical-history",
         content: medicalHistoryNormalized,
       },
+      medicationHistory: {
+        title: "medication",
+        content: medicationsNormalized,
+      },
       conversionNotification: {
         title: "conversion-notification",
         content: contacts,
+      },
+      feedback: {
+        title: "feedback",
+        content: feedbacksNormalized,
       },
     };
 
@@ -781,6 +995,8 @@ export function AuthContextProvider(props) {
           selectedVaccine,
           isLoggedIn,
           isLoaded,
+          medicationList,
+          selectedMedication,
         },
         setFunctions: {
           setUser,
@@ -796,8 +1012,11 @@ export function AuthContextProvider(props) {
           handleSetSelectedPet,
           handleSetSelectedMedicalHistory,
           handleSetSelectedVaccine,
+          setMedicationList,
+          setSelectedMedication,
         },
         functions: {
+          createFeedback,
           RegisterUser,
           logout,
           handleForgotUser,
@@ -823,9 +1042,16 @@ export function AuthContextProvider(props) {
           updateVaccineList,
           getAllPets,
           getAllTutors,
+          updateMedicationList,
+          getMedicationByID,
+          getNewMedicationID,
+          updateMedicationByID,
+          handleSetSelectedMedication,
+          updatePetLists,
         },
         databaseFunctions: {
           downloadDatabase,
+          updateDatabase,
         },
       }}
     >

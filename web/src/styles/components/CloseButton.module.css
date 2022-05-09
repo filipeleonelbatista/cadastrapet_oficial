@@ -1,0 +1,14 @@
+.container{
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: transparent;
+}
+.icon{
+  width: 1.6rem;
+  height: 1.6rem;
+}

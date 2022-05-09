@@ -10,6 +10,7 @@ import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetInfo.module.css";
 import { date } from "../../utils/masks";
 import { dateToString, isStringEmpty, stringToDate } from "../../utils/string";
+import { Widget } from "../../components/Widget";
 
 function PetInfo() {
   const navigate = useNavigate();
@@ -22,6 +23,12 @@ function PetInfo() {
   const [name, setName] = useState("");
   const [birth_date, setBirthDate] = useState("");
   const [adoption_date, setAdoptionDate] = useState("");
+  const [species, setSpecies] = useState("");
+  const [animal_race, setAnimalRace] = useState("");
+  const [sex, setSex] = useState("");
+  const [castration, setCastration] = useState("");
+  const [pelage, setPelage] = useState("");
+  const [pin_number, setPinNumber] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [file, setFile] = useState(null);
   const [isView, setIsView] = useState(false);
@@ -36,6 +43,12 @@ function PetInfo() {
       setBirthDate(dateToString(selectedPet.birth_date));
       setAdoptionDate(dateToString(selectedPet.adoption_date));
       setSelectedImage(selectedPet.avatar);
+      setSpecies(selectedPet.species);
+      setAnimalRace(selectedPet.animal_race);
+      setSex(selectedPet.sex);
+      setPelage(selectedPet.pelage);
+      setPinNumber(selectedPet.pin_number);
+      setCastration(dateToString(selectedPet.castration));
     }
   }, [selectedPet]);
 
@@ -62,6 +75,26 @@ function PetInfo() {
         return true;
       }
       alert("O campo data de nascimento não foi preenchido");
+      return true;
+    }
+
+    if (isStringEmpty(species)) {
+      alert("O campo Tipo/Especie não foi preenchido");
+      return true;
+    }
+
+    if (isStringEmpty(pelage)) {
+      alert("O campo Pelagem/Cor não foi preenchido");
+      return true;
+    }
+
+    if (isStringEmpty(animal_race)) {
+      alert("O campo Raça não foi preenchido");
+      return true;
+    }
+
+    if (isStringEmpty(sex)) {
+      alert("O campo Sexo não foi preenchido");
       return true;
     }
   };
@@ -94,6 +127,14 @@ function PetInfo() {
       tutor: [user.uid],
       adoption_date: stringToDate(adoption_date).getTime(),
       birth_date: stringToDate(birth_date).getTime(),
+      pelage,
+      species,
+      animal_race,
+      sex,
+      castration: isStringEmpty(castration)
+        ? ""
+        : stringToDate(castration).getTime(),
+      pin_number: isStringEmpty(pin_number) ? "Sem Coleira" : pin_number,
       events: [],
       vaccines: [],
       created_at: Date.now(),
@@ -196,6 +237,58 @@ function PetInfo() {
             value={adoption_date}
             onChange={(e) => setAdoptionDate(date(e.target.value))}
           />
+
+          <Input
+            disabled={isView}
+            required
+            id="tipo"
+            label="Tipo/Especie"
+            value={species}
+            onChange={(e) => setSpecies(e.target.value)}
+          />
+
+          <Input
+            disabled={isView}
+            required
+            id="raca"
+            label="Raça"
+            value={animal_race}
+            onChange={(e) => setAnimalRace(e.target.value)}
+          />
+
+          <Input
+            disabled={isView}
+            required
+            id="pelagem"
+            label="Pelagem/Cor"
+            value={pelage}
+            onChange={(e) => setPelage(e.target.value)}
+          />
+
+          <Input
+            disabled={isView}
+            required
+            id="sexo"
+            label="Sexo"
+            value={sex}
+            onChange={(e) => setSex(e.target.value)}
+          />
+
+          <Input
+            disabled={isView}
+            id="castrado"
+            label="Data de Castração"
+            value={castration}
+            onChange={(e) => setCastration(date(e.target.value))}
+          />
+
+          <Input
+            disabled={isView}
+            id="coleira"
+            label="Coleira"
+            value={pin_number}
+            onChange={(e) => setPinNumber(e.target.value)}
+          />
         </div>
       </div>
       {isView ? (
@@ -208,6 +301,7 @@ function PetInfo() {
         </Button>
       )}
       <Version />
+      <Widget />
     </div>
   );
 }

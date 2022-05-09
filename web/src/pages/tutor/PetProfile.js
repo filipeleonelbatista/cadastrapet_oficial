@@ -1,15 +1,17 @@
 import React from "react";
+import { CgPill } from "react-icons/cg";
 import { FaBookMedical, FaBookOpen, FaTh } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import CodigoPetImage from "../../assets/codigopet.png";
 import LocalizaPetImage from "../../assets/localizapet.png";
-import QrImage from "../../assets/qr.png";
 import MarkerImage from "../../assets/marker.png";
+import QrImage from "../../assets/qr.png";
 import BackButton from "../../components/BackButton";
+import Version from "../../components/Version";
+import { Widget } from "../../components/Widget";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/PetProfile.module.css";
 import { yearNow } from "../../utils/string";
-import Version from "../../components/Version";
 
 function PetProfile() {
   const navigate = useNavigate();
@@ -76,6 +78,13 @@ function PetProfile() {
           <h4 className={styles.title}>Carteira de Vacinação</h4>
         </button>
         <button
+          onClick={() => navigate("/tutor/petmedicationhistory")}
+          className={styles.wContainer}
+        >
+          <CgPill size={64} />
+          <h4 className={styles.title}>Histórico de Vermífugos</h4>
+        </button>
+        <button
           onClick={() => navigate("/tutor/localizapet")}
           className={styles.wContainer}
         >
@@ -100,6 +109,7 @@ function PetProfile() {
       </div>
 
       <Version />
+      <Widget />
     </div>
   );
 }

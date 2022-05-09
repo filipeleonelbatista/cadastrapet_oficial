@@ -5,9 +5,10 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import InputUpload from "../../components/InputUpload";
 import Version from "../../components/Version";
+import { Widget } from "../../components/Widget";
 import { uploadImageAsync } from "../../firebase/functions";
 import { useAuth } from "../../hooks/useAuth";
-import styles from "../../styles/pages/tutor/AddPetVaccineHistory.module.css";
+import styles from "../../styles/pages/tutor/AddPetMedicationHistory.module.css";
 import { date } from "../../utils/masks";
 import {
   dateToString,
@@ -15,23 +16,20 @@ import {
   stringToDate,
   yearNow,
 } from "../../utils/string";
-import { Widget } from "../../components/Widget";
 
-function AddPetVaccineHistory() {
+function AddPetMedicationHistory() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const { props, functions } = useAuth();
-  const { selectedPet, selectedVaccine, isLoggedIn } = props;
-  const { updateVaccineByID, getNewVaccineID, updateContextData } = functions;
+  const { selectedPet, selectedMedication, isLoggedIn } = props;
+  const { updateMedicationByID, getNewMedicationID, updateContextData } =
+    functions;
 
   const [isView, setIsView] = useState(false);
 
   const [vacina, setVacina] = useState();
-  const [laboratorio, setLaboratorio] = useState();
-  const [crmv, setCrmv] = useState();
   const [dt_aplicacao, setDtAplicacao] = useState();
-  const [dt_proxima_aplicacao, setDtProximaAplicacao] = useState("");
   const [files, setFiles] = useState([]);
 
   const handleFilePreview = (e) => {
@@ -59,57 +57,43 @@ function AddPetVaccineHistory() {
     let uploadURLImage = [];
     if (files) {
       for (const file of files) {
-        const newUrl = await uploadImageAsync(file, "medical-history");
+        const newUrl = await uploadImageAsync(file, "medication");
         uploadURLImage.push(newUrl);
       }
     }
 
-    const vaccineID = await getNewVaccineID();
+    const medicationId = await getNewMedicationID();
 
     const data = {
-      uid: vaccineID,
-      vaccine: vacina,
-      vaccineLab: laboratorio,
-      doctorId: crmv,
-      vaccine_receipt: uploadURLImage,
-      vaccine_application_date: stringToDate(dt_aplicacao).getTime(),
-      vaccine_next_application_date:
-        dt_proxima_aplicacao !== ""
-          ? stringToDate(dt_proxima_aplicacao).getTime()
-          : "",
+      uid: medicationId,
+      medication: vacina,
+      medication_application_date: stringToDate(dt_aplicacao).getTime(),
+      medication_receipe: uploadURLImage,
       created_at: Date.now(),
       updated_at: Date.now(),
     };
 
-    if (await updateVaccineByID(vaccineID, data, selectedPet))
-      return navigate("/tutor/petvaccinehistory");
+    if (await updateMedicationByID(medicationId, data, selectedPet))
+      return navigate("/tutor/petmedicationhistory");
   }
 
   useEffect(() => {
-    setIsView(location.pathname === "/tutor/petvaccinehistory/view");
+    setIsView(location.pathname === "/tutor/petmedicationhistory/view");
   }, [location.pathname]);
 
   useEffect(() => {
-    if (selectedVaccine) {
+    if (selectedMedication) {
       if (isView) {
-        setVacina(selectedVaccine.vaccine);
-        setLaboratorio(selectedVaccine.vaccineLab);
-        setCrmv(selectedVaccine.doctorId);
-        setDtAplicacao(dateToString(selectedVaccine.vaccine_application_date));
-        setDtProximaAplicacao(
-          selectedVaccine.vaccine_next_application_date === ""
-            ? ""
-            : dateToString(selectedVaccine.vaccine_next_application_date)
+        setVacina(selectedMedication.medication);
+        setDtAplicacao(
+          dateToString(selectedMedication.medication_application_date)
         );
       } else {
         setVacina(null);
         setDtAplicacao(null);
-        setLaboratorio(null);
-        setCrmv(null);
-        setDtProximaAplicacao(null);
       }
     }
-  }, [isView, selectedVaccine]);
+  }, [isView, selectedMedication]);
 
   useEffect(() => {
     const executeAsync = async () => {
@@ -132,7 +116,7 @@ function AddPetVaccineHistory() {
   return (
     <div className={styles.container}>
       <div className="statusbar"></div>
-      <BackButton path="/tutor/petvaccinehistory" />
+      <BackButton path="/tutor/petmedicationhistory" />
       <div className={styles.header}>
         <div className={styles.petInfo}>
           <div
@@ -161,29 +145,10 @@ function AddPetVaccineHistory() {
           <Input
             disabled={isView}
             required
-            id="vacina"
-            placeholder="Ex:. Vacina Antirrábica"
-            label="Vacina"
+            id="vermifugo"
+            label="Tipo/Marca"
             value={vacina}
             onChange={(e) => setVacina(e.target.value)}
-          />
-          <Input
-            disabled={isView}
-            required
-            id="rotulo"
-            placeholder="Ex:. Pfizer"
-            label="Laboratório da vacina"
-            value={laboratorio}
-            onChange={(e) => setLaboratorio(e.target.value)}
-          />
-          <Input
-            disabled={isView}
-            required
-            id="crmv"
-            placeholder="Ex:. 123456"
-            label="CRMV do aplicador"
-            value={crmv}
-            onChange={(e) => setCrmv(e.target.value)}
           />
           <Input
             disabled={isView}
@@ -195,22 +160,12 @@ function AddPetVaccineHistory() {
             value={dt_aplicacao}
             onChange={(e) => setDtAplicacao(date(e.target.value))}
           />
-          <Input
-            disabled={isView}
-            required
-            maxLength={10}
-            id="dt_proxima_aplicacao"
-            placeholder="DD/MM/AAAA"
-            label="Data da próxima aplicação"
-            value={dt_proxima_aplicacao}
-            onChange={(e) => setDtProximaAplicacao(date(e.target.value))}
-          />
         </div>
 
         <h4 className={styles.petName}>
           {isView
-            ? "Comprovante de vacinação"
-            : "Envie o comprovante de vacinação"}
+            ? "Comprovante de aplicação do vermífugo"
+            : "Envie o comprovante de aplicação do vermífugo"}
         </h4>
         <InputUpload
           id="vaccineHistory"
@@ -218,7 +173,7 @@ function AddPetVaccineHistory() {
           onChange={(e) => handleFilePreview(e)}
           accept="image/png, image/jpeg"
           disabled={isView}
-          attachment={isView && selectedVaccine.vaccine_receipt}
+          attachment={isView && selectedMedication.medication_receipt}
           required
         />
       </div>
@@ -229,4 +184,4 @@ function AddPetVaccineHistory() {
   );
 }
 
-export default AddPetVaccineHistory;
+export default AddPetMedicationHistory;

@@ -30,9 +30,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 2.4rem;
   }
-
   .petInfo {
     display: flex;
     flex-direction: row;
@@ -48,18 +46,26 @@
   }
 
   .petName {
+    color: #566dea;
     font-weight: 600;
     font-size: 2.4rem;
   }
 
+  .headerTitle {
+    color: #566dea;
+    font-weight: 400;
+    font-size: 2.4rem;
+    margin: 2.4rem;
+  }
+
   .petAge {
     font-weight: 400;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .wContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     width: 100%;
     padding: 1.8rem;
@@ -70,34 +76,49 @@
     transition: 0.2s;
   }
 
-  .wContainer:hover {
-    filter: brightness(0.9);
-  }
-
-  .wContainer:active {
-    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
-  }
-
   .wContainer svg {
-    color: #566dea;
     fill: #566dea;
   }
 
-  .title {
-    font-weight: 600;
-    font-size: 1.8rem;
-    margin-left: 1.8rem;
-    color: #566dea;
+  .uploadInput {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
   }
 
-  .qrCode {
-    height: 6.4rem;
-    width: auto;
+  .uploadButton svg {
+    width: 5rem;
+    height: auto;
   }
-  .codigoPet {
-    height: 2.4rem;
-    width: auto;
-    margin-left: 2.4rem;
+
+  .uploadButton {
+    margin: 0.8rem;
+    width: 10rem;
+    height: 10rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+  }
+  .uploadButton:hover {
+    filter: brightness(0.9);
+  }
+
+  .uploadButton:active {
+    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  .inputForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.4rem;
   }
 }
 /* Tablet */
@@ -132,9 +153,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 2.4rem;
   }
-
   .petInfo {
     display: flex;
     flex-direction: row;
@@ -150,18 +169,26 @@
   }
 
   .petName {
+    color: #566dea;
     font-weight: 600;
     font-size: 2.4rem;
   }
 
+  .headerTitle {
+    color: #566dea;
+    font-weight: 400;
+    font-size: 2.4rem;
+    margin: 2.4rem;
+  }
+
   .petAge {
     font-weight: 400;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .wContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     width: 100%;
     padding: 1.8rem;
@@ -172,33 +199,49 @@
     transition: 0.2s;
   }
 
-  .wContainer:hover {
-    filter: brightness(0.9);
-  }
-
-  .wContainer:active {
-    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
-  }
-
   .wContainer svg {
     fill: #566dea;
   }
 
-  .title {
-    font-weight: 600;
-    font-size: 1.8rem;
-    margin-left: 1.8rem;
-    color: #566dea;
+  .uploadInput {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
   }
 
-  .qrCode {
-    height: 6.4rem;
-    width: auto;
+  .uploadButton svg {
+    width: 5rem;
+    height: auto;
   }
-  .codigoPet {
-    height: 2.4rem;
-    width: auto;
-    margin-left: 2.4rem;
+
+  .uploadButton {
+    margin: 0.8rem;
+    width: 10rem;
+    height: 10rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+  }
+  .uploadButton:hover {
+    filter: brightness(0.9);
+  }
+
+  .uploadButton:active {
+    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  .inputForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.4rem;
   }
 }
 /* Celular */
@@ -209,7 +252,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f3f5ff;
+    background-color: #f3f5ff; 
     background-image: url(../../../assets/background-brand.png);
     background-repeat: no-repeat;
     background-position: -25rem 80rem;
@@ -234,9 +277,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 2.4rem;
   }
-
   .petInfo {
     display: flex;
     flex-direction: row;
@@ -252,18 +293,26 @@
   }
 
   .petName {
+    color: #566dea;
     font-weight: 600;
     font-size: 2.4rem;
   }
 
+  .headerTitle {
+    color: #566dea;
+    font-weight: 400;
+    font-size: 2.4rem;
+    margin: 2.4rem;
+  }
+
   .petAge {
     font-weight: 400;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .wContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     width: 100%;
     padding: 1.8rem;
@@ -274,33 +323,49 @@
     transition: 0.2s;
   }
 
-  .wContainer:hover {
-    filter: brightness(0.9);
-  }
-
-  .wContainer:active {
-    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
-  }
-
   .wContainer svg {
     fill: #566dea;
   }
 
-  .title {
-    font-weight: 600;
-    font-size: 1.8rem;
-    margin-left: 1.8rem;
-    color: #566dea;
+  .uploadInput {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
   }
 
-  .qrCode {
-    height: 6.4rem;
-    width: auto;
+  .uploadButton svg {
+    width: 4rem;
+    height: auto;
   }
-  .codigoPet {
-    height: 2.4rem;
-    width: auto;
-    margin-left: 2.4rem;
+
+  .uploadButton {
+    margin: 0.8rem;
+    width: 8rem;
+    height: 8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+  }
+  .uploadButton:hover {
+    filter: brightness(0.9);
+  }
+
+  .uploadButton:active {
+    box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  .inputForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.4rem;
   }
 }
 

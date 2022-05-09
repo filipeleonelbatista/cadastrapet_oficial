@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { FaCalendar, FaPlus, FaSearch, FaUser } from "react-icons/fa";
+import {
+  FaCalendar,
+  FaPlus,
+  FaSearch,
+  FaUser,
+  FaDownload,
+  FaUpload,
+} from "react-icons/fa";
 import Sidebar from "../../components/admin/Sidebar";
 import { AuthContextProvider } from "../../context/AuthContext";
 import { ConversionContextProvider } from "../../context/ConversionContext";
@@ -9,12 +16,13 @@ import styles from "../../styles/pages/admin/Dashboard.module.css";
 import { dateToString } from "../../utils/string";
 
 function DashboardComponent() {
-  const { props } = useAuth();
+  const { props, databaseFunctions } = useAuth();
   const { user, isLoggedIn } = props;
 
   const [pets, setPets] = useState([]);
   const [tutores, setTutores] = useState([]);
   const [contatos, setContatos] = useState([]);
+  const [Database, setDatabase] = useState([]);
 
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalContacts, setTotalContacts] = useState(0);
@@ -24,6 +32,23 @@ function DashboardComponent() {
     useConversion();
   const { functions } = useAuth();
   const { getNumberOfUsers, getAllPets, getAllTutors } = functions;
+
+  const { updateDatabase, downloadDatabase } = databaseFunctions;
+
+  async function handleDownloadDatabase() {
+    const database = await downloadDatabase();
+    console.log(database);
+    const textFile = new Blob([
+      [JSON.stringify(database)],
+      { type: "text/plain" },
+    ]);
+
+    setDatabase(URL.createObjectURL(textFile));
+  }
+
+  async function handleUploadDatabase() {
+    await updateDatabase();
+  }
 
   useEffect(() => {
     const executeAsync = async () => {
@@ -73,6 +98,23 @@ function DashboardComponent() {
             <button type="button" title="Adicionar pet">
               <FaPlus />
             </button>
+            {/* <button
+              type="button"
+              onClick={handleUploadDatabase}
+              title="Adicionar pet"
+            >
+              <FaUpload />
+            </button>
+            <button
+              type="button"
+              onClick={handleDownloadDatabase}
+              title="Adicionar pet"
+            >
+              <FaDownload />
+            </button>
+            <a href={Database} download="database.json" target="_blank">
+              <FaDownload />
+            </a> */}
           </div>
         </header>
         <main className={styles.mainContent}>

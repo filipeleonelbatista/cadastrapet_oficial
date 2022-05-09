@@ -8,6 +8,7 @@ import styles from "../../styles/pages/tutor/PetVaccineHistory.module.css";
 import noDataImg from "../../assets/images/no_data.svg";
 import { dateToString, isStringEmpty, yearNow } from "../../utils/string";
 import Version from "../../components/Version";
+import { Widget } from "../../components/Widget";
 
 function PetVaccineHistory() {
   const navigate = useNavigate();
@@ -132,6 +133,7 @@ function PetVaccineHistory() {
         </Button>
       </div>
       <Version />
+      <Widget />
     </div>
   );
 }

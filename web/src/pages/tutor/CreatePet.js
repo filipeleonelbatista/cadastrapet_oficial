@@ -11,6 +11,7 @@ import { useAuth } from "../../hooks/useAuth";
 import styles from "../../styles/pages/tutor/CreatePet.module.css";
 import { date } from "../../utils/masks";
 import { dateToString, isStringEmpty, stringToDate } from "../../utils/string";
+import { Widget } from "../../components/Widget";
 
 function CreatePet() {
   const navigate = useNavigate();
@@ -24,6 +25,12 @@ function CreatePet() {
   const [selectedNav, setSelectedNav] = useState("add_new");
   const [birth_date, setBirthDate] = useState("");
   const [adoption_date, setAdoptionDate] = useState("");
+  const [species, setSpecies] = useState("");
+  const [animal_race, setAnimalRace] = useState("");
+  const [sex, setSex] = useState("");
+  const [castration, setCastration] = useState("");
+  const [pelage, setPelage] = useState("");
+  const [pin_number, setPinNumber] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [sharedPet, setSharedPet] = useState();
   const [file, setFile] = useState(null);
@@ -80,6 +87,26 @@ function CreatePet() {
       alert("O campo data de nascimento não foi preenchido");
       return true;
     }
+
+    if (isStringEmpty(species)) {
+      alert("O campo Tipo/Especie não foi preenchido");
+      return true;
+    }
+
+    if (isStringEmpty(pelage)) {
+      alert("O campo Pelagem/Cor não foi preenchido");
+      return true;
+    }
+
+    if (isStringEmpty(animal_race)) {
+      alert("O campo Raça não foi preenchido");
+      return true;
+    }
+
+    if (isStringEmpty(sex)) {
+      alert("O campo Sexo não foi preenchido");
+      return true;
+    }
   };
 
   const handleFilePreview = (e) => {
@@ -99,6 +126,7 @@ function CreatePet() {
     let uploadURLImage = await uploadImageAsync(file, "pets");
 
     const petID = await getNewPetID();
+
     const data = {
       uid: petID,
       name,
@@ -106,6 +134,14 @@ function CreatePet() {
       tutor: [user.uid],
       adoption_date: stringToDate(adoption_date).getTime(),
       birth_date: stringToDate(birth_date).getTime(),
+      pelage,
+      species,
+      animal_race,
+      sex,
+      castration: isStringEmpty(castration)
+        ? ""
+        : stringToDate(castration).getTime(),
+      pin_number: isStringEmpty(pin_number) ? "Sem Coleira" : pin_number,
       events: [],
       vaccines: [],
       created_at: Date.now(),
@@ -180,13 +216,6 @@ function CreatePet() {
                     label="Data de Nascimento"
                     value={dateToString(sharedPet.birth_date)}
                   />
-                  <Input
-                    disabled
-                    id="dt_adocao"
-                    maxLength={10}
-                    label="Data de Adoção"
-                    value={dateToString(sharedPet.adoption_date)}
-                  />
                 </div>
               </div>
               <p>Deseja adicionar o pet compartilhado com você?</p>
@@ -211,6 +240,7 @@ function CreatePet() {
       {selectedNav === "add_new" && (
         <>
           <div className={styles.content}>
+            <p>Clique na câmera para adicionar uma foto do seu Pet</p>
             <label className={styles.uploadButton}>
               <input
                 required
@@ -259,6 +289,52 @@ function CreatePet() {
                 value={adoption_date}
                 onChange={(e) => setAdoptionDate(date(e.target.value))}
               />
+
+              <Input
+                required
+                id="tipo"
+                label="Tipo/Especie"
+                value={species}
+                onChange={(e) => setSpecies(e.target.value)}
+              />
+
+              <Input
+                required
+                id="raca"
+                label="Raça"
+                value={animal_race}
+                onChange={(e) => setAnimalRace(e.target.value)}
+              />
+
+              <Input
+                required
+                id="pelagem"
+                label="Pelagem/Cor"
+                value={pelage}
+                onChange={(e) => setPelage(e.target.value)}
+              />
+
+              <Input
+                required
+                id="sexo"
+                label="Sexo"
+                value={sex}
+                onChange={(e) => setSex(e.target.value)}
+              />
+
+              <Input
+                id="castrado"
+                label="Data de Castração"
+                value={castration}
+                onChange={(e) => setCastration(date(e.target.value))}
+              />
+
+              <Input
+                id="coleira"
+                label="Coleira"
+                value={pin_number}
+                onChange={(e) => setPinNumber(e.target.value)}
+              />
             </div>
           </div>
 
@@ -268,6 +344,7 @@ function CreatePet() {
         </>
       )}
       <Version />
+      <Widget />
     </div>
   );
 }

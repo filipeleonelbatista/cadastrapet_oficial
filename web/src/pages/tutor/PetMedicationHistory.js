@@ -1,21 +1,27 @@
 import React, { useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import noDataImg from "../../assets/images/no_data.svg";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
-import { useAuth } from "../../hooks/useAuth";
-import styles from "../../styles/pages/tutor/PetHistory.module.css";
-import noDataImg from "../../assets/images/no_data.svg";
-import { dateToString, yearNow } from "../../utils/string";
 import Version from "../../components/Version";
 import { Widget } from "../../components/Widget";
+import { useAuth } from "../../hooks/useAuth";
+import styles from "../../styles/pages/tutor/PetMedicationHistory.module.css";
+import { dateToString, yearNow } from "../../utils/string";
 
-function PetHistory() {
+function PetMedicationHistory() {
   const navigate = useNavigate();
+
   const { props, setFunctions, functions } = useAuth();
-  const { selectedPet, medicalHistoryList, isLoggedIn } = props;
-  const { handleSetSelectedMedicalHistory } = setFunctions;
+  const { selectedPet, medicationList, isLoggedIn } = props;
+  const { handleSetSelectedMedication } = setFunctions;
   const { updateContextData } = functions;
+
+  function handleSelectMedication(medication) {
+    handleSetSelectedMedication(medication);
+    navigate("/tutor/petmedicationhistory/view");
+  }
 
   useEffect(() => {
     const executeAsync = async () => {
@@ -35,10 +41,7 @@ function PetHistory() {
     return null;
   }
 
-  function handleSelectMedicalHistory(history) {
-    handleSetSelectedMedicalHistory(history);
-    navigate("/tutor/pethistory/view");
-  }
+  console.log("Estou aqui", medicationList);
 
   return (
     <div className={styles.container}>
@@ -67,31 +70,30 @@ function PetHistory() {
           </div>
         </div>
       </div>
-      <h4 className={styles.headerTitle}>Historico Médico</h4>
+      <h4 className={styles.headerTitle}>Historico de Vermífugos</h4>
       <div className={styles.content}>
-        {medicalHistoryList && medicalHistoryList.length > 0 ? (
+        {medicationList && medicationList.length > 0 ? (
           <>
-            {medicalHistoryList.map((history) => (
+            {medicationList.map((medication) => (
               <div
-                key={history.uid}
-                onClick={() => handleSelectMedicalHistory(history)}
+                key={medication.uid}
+                onClick={() => handleSelectMedication(medication)}
                 className={styles.wContainer}
               >
                 <div className={styles.itemRow}>
-                  <p className={styles.itemTitle}>{history.title}</p>
+                  <p className={styles.itemTitle}>{medication.medication}</p>
                   <div className={styles.divider}></div>
                   <p className={styles.itemDate}>
-                    {dateToString(history.event_date)}
+                    {dateToString(medication.medication_application_date)}
                   </p>
                 </div>
-                <p className={styles.itemNotation}>{history.notes}</p>
               </div>
             ))}
           </>
         ) : (
           <div className={styles.noData}>
             <h2 className={styles.noDataTitle}>
-              Não há registros médicos disponíveis.
+              Não há registro de Vermífugos disponível.
             </h2>
             <img
               className={styles.noDataImg}
@@ -101,18 +103,17 @@ function PetHistory() {
           </div>
         )}
         <Button
-          transparent={medicalHistoryList.length > 0}
-          onClick={() => navigate("/tutor/pethistory/add")}
+          transparent={medicationList.length > 0}
+          onClick={() => navigate("/tutor/petmedicationhistory/add")}
         >
           <FaPlus />
-          Adicionar histórico
+          Adicionar aplicação
         </Button>
       </div>
-
       <Version />
       <Widget />
     </div>
   );
 }
 
-export default PetHistory;
+export default PetMedicationHistory;

@@ -1,0 +1,45 @@
+.container {
+  position: absolute;
+  bottom: 3.4rem;
+  right: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.button {
+  cursor: pointer;
+  background-color: #566dea;
+  border-radius: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  color: #fff;
+  border: none;
+  transition: all 0.3s;
+  transition: width 0.3s ease-in-out;
+}
+
+.button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.button:hover {
+  background-color: #4253b4;
+}
+
+.title {
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+}
+
+.button:hover .title {
+  width: 10rem;
+}
+
+.titlePadding {
+  padding: 0 0 0 1rem;
+}

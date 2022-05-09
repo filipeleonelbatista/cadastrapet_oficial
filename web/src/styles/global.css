@@ -21,6 +21,10 @@
   box-shadow: inset 7px 10px 12px #f0f0f0;
  }
 
+p.firebase-emulator-warning{
+  display: none;
+}
+
 html {
   font-size: 62.5%
 }

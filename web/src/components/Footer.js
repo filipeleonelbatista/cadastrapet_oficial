@@ -10,7 +10,7 @@ import styles from "../styles/components/Footer.module.css";
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className={styles.footer}>
       <div className={styles.footerContent}>
         <img src="./images/logo.png" alt="CadastraPet" />
         <div className="social-networks">
