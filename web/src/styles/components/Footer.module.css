@@ -45,7 +45,7 @@
 }
 
 @media (max-width: 720px) {
-   footer {
+   .footer {
     background-color: #232323;
     width: 100vw;
     display: flex;
