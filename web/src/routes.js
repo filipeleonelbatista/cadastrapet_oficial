@@ -40,8 +40,8 @@ import PetMedicationHistory from "./pages/tutor/PetMedicationHistory";
 
 function Routes() {
   return (
-    <BrowserRouter>
-      <AuthContextProvider>
+    <AuthContextProvider>
+      <BrowserRouter>
         <Switch>
           <Route path="/playground" exact element={<Playground />} />
 
@@ -183,8 +183,8 @@ function Routes() {
           />
           <Route path="*" element={<NotFound />} />
         </Switch>
-      </AuthContextProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthContextProvider>
   );
 }
 
