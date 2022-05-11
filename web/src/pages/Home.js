@@ -258,6 +258,19 @@ function HomeComponent() {
           </div>
         </section>
         {/* About */}
+        {/* video */}
+        <section id="video" className={styles.video}>
+          <h2>Veja um pouco mais da Cadastrapet</h2>
+          <iframe
+            src="https://www.youtube.com/embed/fEb959hHO7A"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          <button onClick={handleCadastrar}>Quero cadastrar meu pet</button>
+        </section>
+        {/* video */}
         {/* features */}
         <section id="features" className={styles.features}>
           <h2>Confira os benefícios de ter seu pet cadastrado:</h2>
