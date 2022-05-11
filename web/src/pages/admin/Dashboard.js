@@ -3,8 +3,9 @@ import {
   FaCalendar,
   FaPlus,
   FaSearch,
-  FaUser,
-  FaDownload,
+  FaUser, // eslint-disable-next-line
+  FaDownload, // eslint-disable-next-line
+  FaDog, // eslint-disable-next-line
   FaUpload,
 } from "react-icons/fa";
 import Sidebar from "../../components/admin/Sidebar";
@@ -22,6 +23,7 @@ function DashboardComponent() {
   const [pets, setPets] = useState([]);
   const [tutores, setTutores] = useState([]);
   const [contatos, setContatos] = useState([]);
+  // eslint-disable-next-line
   const [Database, setDatabase] = useState([]);
 
   const [totalUsers, setTotalUsers] = useState(0);
@@ -33,8 +35,9 @@ function DashboardComponent() {
   const { functions } = useAuth();
   const { getNumberOfUsers, getAllPets, getAllTutors } = functions;
 
-  const { updateDatabase, downloadDatabase } = databaseFunctions;
-
+  // eslint-disable-next-line
+  const { updateDatabase, downloadDatabase, verifyPets } = databaseFunctions;
+  // eslint-disable-next-line
   async function handleDownloadDatabase() {
     const database = await downloadDatabase();
     console.log(database);
@@ -46,6 +49,7 @@ function DashboardComponent() {
     setDatabase(URL.createObjectURL(textFile));
   }
 
+  // eslint-disable-next-line
   async function handleUploadDatabase() {
     await updateDatabase();
   }
@@ -98,7 +102,10 @@ function DashboardComponent() {
             <button type="button" title="Adicionar pet">
               <FaPlus />
             </button>
-            {/* <button
+            {/* <button type="button" onClick={verifyPets} title="Adicionar pet">
+              <FaDog />
+            </button>
+            <button
               type="button"
               onClick={handleUploadDatabase}
               title="Adicionar pet"

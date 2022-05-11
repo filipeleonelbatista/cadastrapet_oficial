@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.1.10",
     "apexcharts": "^3.33.1",
     "axios": "^0.24.0",
+    "dotenv": "^16.0.1",
     "firebase": "^9.6.3",
     "html2canvas": "^1.4.1",
     "leaflet": "^1.7.1",
@@ -31,7 +32,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:production": "set NODE_ENV=production &&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

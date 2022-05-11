@@ -17,8 +17,13 @@ function CreatePet() {
   const navigate = useNavigate();
 
   const { functions, props } = useAuth();
-  const { getNewPetID, updatePetByID, updateContextData, getPetByID } =
-    functions;
+  const {
+    getNewPetID,
+    updatePetByID,
+    updateUserByID,
+    updateContextData,
+    getPetByID,
+  } = functions;
   const { user, isLoggedIn } = props;
 
   const [name, setName] = useState("");
@@ -34,11 +39,11 @@ function CreatePet() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [sharedPet, setSharedPet] = useState();
   const [file, setFile] = useState(null);
-
-  const [setQrscan] = useState("No result");
+  // eslint-disable-next-line
+  const [qrScann, setQrscan] = useState("No result");
   const handleScan = async (data) => {
     if (data) {
-      console.error(data);
+      console.log("Leitura", data);
       setQrscan(data.text);
       const scannedPet = await getPetByID(data.text);
       setSharedPet(scannedPet);
@@ -119,6 +124,12 @@ function CreatePet() {
       setSelectedImage(reader.result);
     };
   };
+
+  async function handleSharePet() {
+    if (await updateUserByID(user.uid, { pets: [...user.pets, qrScann] })) {
+      return navigate("/tutor/petlist");
+    }
+  }
 
   async function handleCreatePet() {
     if (ValidateFields()) return;
@@ -220,17 +231,14 @@ function CreatePet() {
                 </div>
               </div>
               <p>Deseja adicionar o pet compartilhado com você?</p>
-              <Button id="nome" onClick={handleCreatePet}>
+              <Button id="nome" onClick={handleSharePet}>
                 Adicionar Pet
               </Button>
             </>
           ) : (
             <QrReader
-              // onImageLoad={() => console.log("imageloaded")}
               delay={500}
-              facingMode="front"
-              // legacyMode="true"
-              // chooseDeviceId={(props) => console.log(props)}
+              facingmode="rear"
               onError={handleError}
               onScan={handleScan}
               style={{ height: 240, width: 320 }}

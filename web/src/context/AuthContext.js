@@ -590,12 +590,13 @@ export function AuthContextProvider(props) {
         return status;
       })
       .catch((err) => {
-        console.log("Erro", AuthErrorHandler[err.code]);
-
         const status = {
           status: false,
           message: AuthErrorHandler[err.code],
+          err,
         };
+
+        console.log("Erro", status);
         return status;
       });
   }
@@ -1028,6 +1029,39 @@ export function AuthContextProvider(props) {
     return true;
   }
 
+  async function verifyPets() {
+    console.log("Iniciando limpeza de dogs!");
+    const { users } = database;
+    let petsArray = [];
+
+    for (const user of users.content) {
+      if (user.pets.length > 0) {
+        for (const pet of user.pets) {
+          petsArray.push(pet);
+        }
+      }
+    }
+
+    const allPets = await getAllPets();
+
+    const allPetsUidArray = [];
+
+    for (const pet of allPets) {
+      allPetsUidArray.push(pet.uid);
+    }
+
+    const trashPetsArray = allPetsUidArray.filter(
+      (pet) => !petsArray.includes(pet)
+    );
+
+    for (const pet of trashPetsArray) {
+      const selectedPetForExclusion = await getPetByID(pet);
+      await deletePet(selectedPetForExclusion);
+    }
+
+    console.log("Concluido!");
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -1099,6 +1133,7 @@ export function AuthContextProvider(props) {
         databaseFunctions: {
           downloadDatabase,
           updateDatabase,
+          verifyPets,
         },
         deleteFunctions: {
           deleteMedication,
