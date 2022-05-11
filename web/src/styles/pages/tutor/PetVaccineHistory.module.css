@@ -70,6 +70,8 @@
   }
 
   .headerTitle {
+    width: 100%;
+    text-align: center;
     color: #566dea;
     font-weight: 400;
     font-size: 2.4rem;
@@ -211,6 +213,8 @@
   }
 
   .headerTitle {
+    width: 100%;
+    text-align: center;
     color: #566dea;
     font-weight: 400;
     font-size: 2.4rem;
@@ -351,6 +355,8 @@
   }
 
   .headerTitle {
+    width: 100%;
+    text-align: center;
     color: #566dea;
     font-weight: 400;
     font-size: 2.4rem;
