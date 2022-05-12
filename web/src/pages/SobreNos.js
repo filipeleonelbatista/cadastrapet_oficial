@@ -71,28 +71,6 @@ function SobreNos() {
                 </div>
               </a>
               <a
-                href="https://linkedin.com/in/eric-fortes-michael-aa2548163"
-                rel="noopener noreferrer"
-                className={styles.teamMember}
-              >
-                <img src={ericImg} alt="Eric Fortes" />
-                <div className={styles.teamMembersInfo}>
-                  <strong>Eric Fortes</strong>
-                  <p>Negócios</p>
-                </div>
-              </a>
-              <a
-                href="https://linkedin.com/in/leonardodenega"
-                rel="noopener noreferrer"
-                className={styles.teamMember}
-              >
-                <img src={leoImg} alt="Leo Denega" />
-                <div className={styles.teamMembersInfo}>
-                  <strong>Leo Denega</strong>
-                  <p>Designer</p>
-                </div>
-              </a>
-              <a
                 href="https://linkedin.com/in/jeremias-pauperio-003bb9169"
                 rel="noopener noreferrer"
                 className={styles.teamMember}
