@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { FaBars, FaDog, FaSignInAlt, FaUserMd, FaHome } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "../styles/components/HomeNavigation.module.css";
 import logoImg from "../assets/logo_x.png";
 
 export default function HomeNavigation() {
+  const navigate = useNavigate();
   const location = useLocation();
   const [isShow, setIsShow] = useState(false);
 
@@ -14,13 +15,13 @@ export default function HomeNavigation() {
 
   return (
     <header className={styles.header}>
-      <a href="/">
-        <img
-          className={styles.navImage}
-          src={logoImg}
-          alt="CadastraPet | Cadastrando e prolongando vidas"
-        />
-      </a>
+      <img
+        onClick={() => navigate("/")}
+        style={{ cursor: "pointer" }}
+        className={styles.navImage}
+        src={logoImg}
+        alt="CadastraPet | Cadastrando e prolongando vidas"
+      />
       <div className={styles.container}>
         <div className={styles.navItems}>
           <Link
