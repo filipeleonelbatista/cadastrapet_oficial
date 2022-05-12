@@ -201,6 +201,9 @@ function CreatePet() {
           {sharedPet ? (
             <>
               <div className={styles.content}>
+                <p style={{ textAlign: "center" }}>
+                  Deseja adicionar o pet compartilhado com você?
+                </p>
                 <label className={styles.uploadButton}>
                   <div
                     alt="Imagem Selecionada"
@@ -230,19 +233,30 @@ function CreatePet() {
                   />
                 </div>
               </div>
-              <p>Deseja adicionar o pet compartilhado com você?</p>
               <Button id="nome" onClick={handleSharePet}>
                 Adicionar Pet
               </Button>
             </>
           ) : (
-            <QrReader
-              delay={500}
-              facingmode="rear"
-              onError={handleError}
-              onScan={handleScan}
-              style={{ height: 240, width: 320 }}
-            />
+            <>
+              <p style={{ textAlign: "center" }}>
+                Para adicionar um Pet compartilhado com você
+                <br />
+                Leia o Código do Pet localizado em <br />
+                <b>Menu do pet</b> {">"} <b>CódigoPet</b> {">"} Selecione a
+                opção <b>TUTOR</b>
+              </p>
+              <div className={styles.qrContainer}>
+                <div className={styles.qrMarker}></div>
+                <QrReader
+                  delay={500}
+                  facingmode="rear"
+                  onError={handleError}
+                  onScan={handleScan}
+                  className={styles.qrCam}
+                />
+              </div>
+            </>
           )}
         </div>
       )}

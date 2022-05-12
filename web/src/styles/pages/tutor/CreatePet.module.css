@@ -17,6 +17,7 @@
   }
 
   .content {
+    width: 100%;
     max-width: 90rem;
     display: flex;
     flex-direction: column;
@@ -26,9 +27,11 @@
   }
 
   .header {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
   }
 
   .petInfo {
@@ -99,6 +102,29 @@
     align-items: center;
     padding: 1.4rem;
   }
+
+  .qrContainer{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #566dea;
+    position: relative;
+  }
+  .qrMarker{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url(../../../assets/qr_overlay.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .qrCam{
+    width: 100%;
+    height: auto;
+  }
 }
 /* Tablet */
 @media (min-width: 320px) and (max-width: 720px) {
@@ -119,6 +145,7 @@
   }
 
   .content {
+    width: 100%;
     max-width: 70rem;
     display: flex;
     flex-direction: column;
@@ -128,9 +155,11 @@
   }
 
   .header {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
   }
 
   .petInfo {
@@ -200,6 +229,29 @@
     align-items: center;
     padding: 1.4rem;
   }
+
+  .qrContainer{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #566dea;
+    position: relative;
+  }
+  .qrMarker{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url(../../../assets/qr_overlay.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .qrCam{
+    width: 100%;
+    height: auto;
+  }
 }
 /* Celular */
 @media (max-width: 320px) {
@@ -221,6 +273,7 @@
   }
 
   .content {
+    width: 100%;
     max-width: 32rem;
     display: flex;
     flex-direction: row;
@@ -230,9 +283,11 @@
   }
 
   .header {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
   }
 
   .petInfo {
@@ -294,6 +349,29 @@
 
   .uploadButton:active {
     box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  .qrContainer{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #566dea;
+    position: relative;
+  }
+  .qrMarker{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url(../../../assets/qr_overlay.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .qrCam{
+    width: 100%;
+    height: auto;
   }
 }
 
