@@ -37,6 +37,7 @@ import DashboardPetList from "./pages/admin/DashboardPetList";
 import Playground from "./pages/Playground";
 import AddPetMedicationHistory from "./pages/tutor/AddPetMedicationHistory";
 import PetMedicationHistory from "./pages/tutor/PetMedicationHistory";
+import CreateQuickAppoinment from "./pages/vet/CreateQuickAppointment";
 
 function Routes() {
   return (
@@ -180,6 +181,12 @@ function Routes() {
             path="/veterinario/medicationhistory/view"
             exact
             element={<MedicationHistory />}
+          />
+
+          <Route
+            path="/veterinario/createquickappointment"
+            exact
+            element={<CreateQuickAppoinment />}
           />
           <Route path="*" element={<NotFound />} />
         </Switch>

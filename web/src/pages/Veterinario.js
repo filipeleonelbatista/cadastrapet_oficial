@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
 import {
   FaArrowRight,
-  FaDiscord,
-  FaFacebook,
-  FaFacebookMessenger,
   FaHandHoldingHeart,
-  FaInstagram,
-  FaLinkedin,
   FaMobileAlt,
   FaQrcode,
-  FaWhatsapp,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AcceptTerms from "../components/AcceptTerms";
@@ -226,7 +220,7 @@ function VeterinarioComponent() {
               Acessar o histórico de um Pet
             </button>
 
-            <div className={styles.mobile}>
+            {/* <div className={styles.mobile}>
               <a
                 href="https://play.google.com/store/apps/details?id=com.cadastrapet.co"
                 target="_blank"
@@ -248,7 +242,7 @@ function VeterinarioComponent() {
                   }}
                 />
               </a>
-            </div>
+            </div> */}
           </div>
         </section>
         {/* CTA */}

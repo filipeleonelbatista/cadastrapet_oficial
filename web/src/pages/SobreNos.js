@@ -1,17 +1,15 @@
+import teamImg from "../assets/images/about_team.png";
+import filipeImg from "../assets/images/teamMembers/filipe.png";
+import jeremiasImg from "../assets/images/teamMembers/jeremias.png";
+import logoWhite from "../assets/images/teamMembers/logo_white.png";
+import raphaelImg from "../assets/images/teamMembers/raphael.png";
+import teamLogo from "../assets/images/teamMembers/team_logo.png";
+import AcceptTerms from "../components/AcceptTerms";
+import ContactForm from "../components/ContactForm";
 import Floating from "../components/Floating";
 import Footer from "../components/Footer";
 import HomeNavigation from "../components/HomeNavigation";
 import styles from "../styles/pages/SobreNos.module.css";
-import teamImg from "../assets/images/about_team.png";
-import filipeImg from "../assets/images/teamMembers/filipe.png";
-import ericImg from "../assets/images/teamMembers/eric.png";
-import leoImg from "../assets/images/teamMembers/leo.png";
-import jeremiasImg from "../assets/images/teamMembers/jeremias.png";
-import raphaelImg from "../assets/images/teamMembers/raphael.png";
-import teamLogo from "../assets/images/teamMembers/team_logo.png";
-import logoWhite from "../assets/images/teamMembers/logo_white.png";
-import AcceptTerms from "../components/AcceptTerms";
-import ContactForm from "../components/ContactForm";
 
 function SobreNos() {
   return (

@@ -106,7 +106,7 @@ function PetCode() {
           <QRCode
             value={
               selectedNav === "veterinario"
-                ? `https://cadastrapet.com.br/veterinario/medicalappointment/add?petUid=${selectedPet.uid}`
+                ? `https://cadastrapet.com.br/veterinario/createquickappointment?petUid=${selectedPet.uid}`
                 : `${selectedPet.uid}`
             }
           />

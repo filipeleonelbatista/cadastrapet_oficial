@@ -1,0 +1,33 @@
+.container{
+  width: 100%;
+  height: auto;
+}
+
+.container label{
+  color: #566DEA;
+  font-weight: 600;
+  margin: 0.8rem 0;
+}
+
+.container select{
+  width: 100%;
+  border-radius: 0.8rem;
+  background-color: #fff;
+  color: #000;
+  font-weight: 500;
+  padding: 0.8rem 1.4rem;
+  border: none;
+  margin: 0.4rem 0;
+}
+
+.container select::placeholder{  
+  color: #0000004D;
+}
+
+.container select:disabled{
+  background-color: #F3F5FF;
+  border: 1px solid #0000004D;
+  color: #0000004D;
+  font-weight: 500;
+  cursor: no-drop;
+}

@@ -1,0 +1,118 @@
+/* PC */
+@media (min-width: 720px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f5ff;
+    background-image: url(../../../assets/background-brand.png);
+    background-repeat: no-repeat;
+    background-position: -25rem 40rem;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 2.4rem;
+  }
+
+  .content {
+    flex: 1;
+    max-width: 80rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+
+  }
+  .userInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+  .userInfo h2{
+    color: #566DEA;
+  }
+  .userInfo p{
+    color: #6CA6FD;
+  }
+
+  .divider{
+    width: 1px;
+    height: 60%;
+    background-color: #566DEA;
+  }
+
+  .petInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+  .logoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .petInfo p{
+    color: #6CA6FD;
+  }
+}
+/* Tablet */
+@media (min-width: 320px) and (max-width: 720px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f5ff;
+    background-image: url(../../../assets/background-brand.png);
+    background-repeat: no-repeat;
+    background-position: -25rem 80rem;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 2.4rem;
+  }
+
+  .content {
+    max-width: 70rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    align-items: center;
+  }
+}
+
+/* Celular */
+@media (max-width: 320px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f5ff;
+    background-image: url(../../../assets/background-brand.png);
+    background-repeat: no-repeat;
+    background-position: -25rem 80rem;
+    background-size: auto 45rem;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 2.4rem;
+  }
+
+  .content {
+    max-width: 32rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+  }
+}
