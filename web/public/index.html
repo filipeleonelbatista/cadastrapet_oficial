@@ -1,52 +1,118 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="%PUBLIC_URL%/favicon.png"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#566DEA" />
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="shortcut icon" type="image/png" href="%PUBLIC_URL%/favicon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#566DEA" />
-  
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/pwa/ios/192.png" />
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/pwa/ios/192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-  <!-- SEO  -->
-  <title>CadastraPet | Cadastrando e prolongando vidas</title>
-  <meta name="title" content="CadastraPet | Cadastrando e prolongando vidas" />
-  <meta name="description"
-    content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet." />
-  <link rel="canonical" href='https://cadastrapet.com.br' />
-  <meta name="author" content="CadastraPet | Cadastrando e prolongando vidas" />
-  <meta name="robots" content="index" />
+    <!-- SEO  -->
+    <title>CadastraPet | Cadastrando e prolongando vidas</title>
+    <meta
+      name="title"
+      content="CadastraPet | Cadastrando e prolongando vidas"
+    />
+    <meta
+      name="description"
+      content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet."
+    />
+    <link rel="canonical" href="https://cadastrapet.com.br" />
+    <meta
+      name="author"
+      content="CadastraPet | Cadastrando e prolongando vidas"
+    />
+    <meta name="robots" content="index" />
 
-  <meta itemProp="name" content="CadastraPet | Cadastrando e prolongando vidas" />
-  <meta itemProp="description"
-    content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet." />
-  <meta itemProp="image" content="/images/banner.png" />
+    <meta
+      itemprop="name"
+      content="CadastraPet | Cadastrando e prolongando vidas"
+    />
+    <meta
+      itemprop="description"
+      content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet."
+    />
+    <meta itemprop="image" content="/images/banner.png" />
 
-  <meta property="og:title" content="CadastraPet | Cadastrando e prolongando vidas" />
-  <meta property="og:description"
-    content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet." />
-  <meta property="og:url" content=https://cadastrapet.com.br />
-  <meta property="og:site_name" content="CadastraPet | Cadastrando e prolongando vidas" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/images/banner.png" />
+    <meta
+      property="og:title"
+      content="CadastraPet | Cadastrando e prolongando vidas"
+    />
+    <meta
+      property="og:description"
+      content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet."
+    />
+    <meta property="og:url" content=https://cadastrapet.com.br />
+    <meta
+      property="og:site_name"
+      content="CadastraPet | Cadastrando e prolongando vidas"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/banner.png" />
 
-  <meta name="twitter:title" content="CadastraPet | Cadastrando e prolongando vidas" />
-  <meta name="twitter:description"
-    content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet." />
-  <meta name="twitter:url" content=https://cadastrapet.com.br />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="/images/banner.png" />
-  <!-- Fim SEO  -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-  
-</head>
+    <meta
+      name="twitter:title"
+      content="CadastraPet | Cadastrando e prolongando vidas"
+    />
+    <meta
+      name="twitter:description"
+      content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet."
+    />
+    <meta name="twitter:url" content=https://cadastrapet.com.br />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="/images/banner.png" />
+    <!-- Fim SEO  -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-<body>
-  <noscript>Voce precisa habilitar o javascript para usar este app.</noscript>
-  <div id="root"></div>
-</body>
+    <!-- Meta Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("init", "405331121440599");
+      fbq("track", "PageView");
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=405331121440599&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+  </head>
 
+  <body>
+    <noscript>Voce precisa habilitar o javascript para usar este app.</noscript>
+    <div id="root"></div>
+  </body>
 </html>
