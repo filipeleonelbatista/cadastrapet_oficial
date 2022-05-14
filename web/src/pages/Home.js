@@ -10,6 +10,7 @@ import { ConversionContextProvider } from "../context/ConversionContext";
 import { useConversion } from "../hooks/useConversion";
 import styles from "../styles/pages/Home.module.css";
 import { isStringEmpty } from "../utils/string";
+import ReactPlayer from "react-player";
 
 function HomeComponent() {
   const navigate = useNavigate();
@@ -261,13 +262,15 @@ function HomeComponent() {
         {/* video */}
         <section id="video" className={styles.video}>
           <h2>Veja um pouco mais da Cadastrapet</h2>
-          <iframe
-            src="https://www.youtube.com/embed/fEb959hHO7A"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          <div className={styles.videoIframe}>
+            <ReactPlayer
+              className="react-player fixed-bottom"
+              url="./videos/Cadastrapet.mp4"
+              width="100%"
+              height="100%"
+              controls={true}
+            />
+          </div>
           <button onClick={handleCadastrar}>Quero cadastrar meu pet</button>
         </section>
         {/* video */}
