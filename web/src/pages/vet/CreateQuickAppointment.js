@@ -20,8 +20,8 @@ function CreateQuickAppoinment() {
   const navigate = useNavigate();
 
   const { functions } = useAuth();
-  const { RegisterUser } = functions;
-
+  const { RegisterUser, verifyUser } = functions;
+  // eslint-disable-next-line
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [isInteractive, setIsInteractive] = useState(false);
@@ -86,6 +86,24 @@ function CreateQuickAppoinment() {
     if (isStringEmpty(codigopet)) {
       alert("O campo CódigoPet não foi preenchido");
       return true;
+    }
+
+    const isUserPhoneExists = await verifyUser("phone", phone);
+    const isUserEmailExists = await verifyUser("email", email);
+    const isUserCPFExists = await verifyUser("cpf", cpf);
+    const isUserCNPJExists = await verifyUser("cnpj", cnpj);
+
+    const existUser =
+      isUserPhoneExists ||
+      isUserEmailExists ||
+      isUserCPFExists ||
+      isUserCNPJExists;
+
+    if (existUser) {
+      alert(
+        "Você ja foi cadastrado. Faça o login para poder continuar digitando este documento."
+      );
+      return navigate("/entrar");
     }
 
     const data = {

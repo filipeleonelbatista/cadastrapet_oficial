@@ -6,13 +6,14 @@ import {
   FaLinkedin,
   // FaWhatsapp,
 } from "react-icons/fa";
+import logoImg from "../assets/logo_x.png";
 import styles from "../styles/components/Footer.module.css";
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
-        <img src="./images/logo.png" alt="CadastraPet" />
+        <img src={logoImg} alt="CadastraPet" />
         <div className="social-networks">
           {/* <a href="https://wa.me/+5551986320477">
             <FaWhatsapp />

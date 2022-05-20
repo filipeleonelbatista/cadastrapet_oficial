@@ -16,12 +16,11 @@ import {
   where,
 } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
+import database from "../database.json";
 import { authentication, db } from "../firebase/firebase-config";
 import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
 import { isStringEmpty } from "../utils/string";
-
-import database from "../database.json";
 
 const userObject = {
   is_admin: false,
@@ -1062,6 +1061,26 @@ export function AuthContextProvider(props) {
     console.log("Concluido!");
   }
 
+  async function verifyUser(key, value) {
+    const usersRef = collection(db, "users");
+    const queryResult = query(usersRef, where(key, "==", value));
+
+    let data = {
+      status: false,
+      user: [],
+      key,
+      value,
+    };
+
+    const querySnapshot = await getDocs(queryResult);
+    querySnapshot.forEach((doc) => {
+      data.user.push(doc.data());
+      data.status = true;
+    });
+
+    return data;
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -1129,6 +1148,7 @@ export function AuthContextProvider(props) {
           getNewMedicationID,
           updateMedicationByID,
           updatePetLists,
+          verifyUser,
         },
         databaseFunctions: {
           downloadDatabase,

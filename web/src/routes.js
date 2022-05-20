@@ -38,6 +38,7 @@ import Playground from "./pages/Playground";
 import AddPetMedicationHistory from "./pages/tutor/AddPetMedicationHistory";
 import PetMedicationHistory from "./pages/tutor/PetMedicationHistory";
 import CreateQuickAppoinment from "./pages/vet/CreateQuickAppointment";
+import Contacts from "./pages/Contacts";
 
 function Routes() {
   return (
@@ -113,6 +114,7 @@ function Routes() {
           />
           <Route path="/" exact element={<Home />} />
           <Route path="/links" exact element={<Links />} />
+          <Route path="/in/:url" exact element={<Contacts />} />
           <Route path="/sobre-nos" exact element={<SobreNos />} />
           <Route path="/veterinario" exact element={<Veterinario />} />
           <Route
