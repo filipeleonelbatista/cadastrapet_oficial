@@ -39,6 +39,7 @@ import AddPetMedicationHistory from "./pages/tutor/AddPetMedicationHistory";
 import PetMedicationHistory from "./pages/tutor/PetMedicationHistory";
 import CreateQuickAppoinment from "./pages/vet/CreateQuickAppointment";
 import Contacts from "./pages/Contacts";
+import Pitch from "./pages/Pitch";
 
 function Routes() {
   return (
@@ -113,6 +114,7 @@ function Routes() {
             element={<AddPetMedicationHistory />}
           />
           <Route path="/" exact element={<Home />} />
+          <Route path="/pitch" exact element={<Pitch />} />
           <Route path="/links" exact element={<Links />} />
           <Route path="/in/:url" exact element={<Contacts />} />
           <Route path="/sobre-nos" exact element={<SobreNos />} />
