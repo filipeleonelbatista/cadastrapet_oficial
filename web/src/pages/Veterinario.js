@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  FaArrowRight,
-  FaHandHoldingHeart,
-  FaMobileAlt,
-  FaQrcode,
-} from "react-icons/fa";
+import { FaCheck, FaQuoteLeft } from "react-icons/fa";
+import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import AcceptTerms from "../components/AcceptTerms";
-import ContactForm from "../components/ContactForm";
+import ContactSection from "../components/ContactSection";
 import Floating from "../components/Floating";
 import Footer from "../components/Footer";
 import HomeNavigation from "../components/HomeNavigation";
@@ -203,110 +199,178 @@ function VeterinarioComponent() {
       <main>
         {/* CTA */}
         <section id="cta" className={styles.cta}>
-          <img
-            className={[styles.hideImg, styles.ctaImg]}
-            src="./images/landing/mockup-cta-vet.png"
-            alt=""
-          />
-          <div className={styles.content}>
-            <h2>Ajude a salvar e prolongar mais vidas de Pet</h2>
-            <u></u>
-            <p>
-              A cadastrapet nasceu com o intuito de acabar com a falta de
-              informação entre Veterinários e pais de pet, assim salvando mais
-              vidas.
-            </p>
-            <button onClick={handleCadastrar}>
-              Acessar o histórico de um Pet
-            </button>
-
-            {/* <div className={styles.mobile}>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.cadastrapet.co"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img
-                  src="./images/googleplay.png"
-                  alt="android"
-                  className={styles.mobileBanner}
-                />
-              </a>
-              <a href="/">
-                <img
-                  src="./images/applestore.png"
-                  alt="apple"
-                  className={styles.mobileBanner}
-                  style={{
-                    opacity: "0.6",
-                  }}
-                />
-              </a>
-            </div> */}
-          </div>
-        </section>
-        {/* CTA */}
-        {/* About */}
-        <section id="about" className={styles.about}>
-          <div className={styles.contentAbout}>
-            <h2>Registre consultas e vacinas de forma segura</h2>
-            <u></u>
-            <p>
-              Com o nosso sistema é possível fazer registros seguros, usando seu
-              número de cmrv
-            </p>
-          </div>
-          <img
-            className={styles.hideImg}
-            src="./images/landing/landing-about-vet.png"
-            alt=""
-          />
-        </section>
-        {/* About */}
-        {/* features */}
-        <section id="features" className={styles.features}>
-          <div className={styles.featuresContainer}>
-            <h2>
-              Sem mais confusão em falta de informação na hora da consulta
-            </h2>
-            <div className={styles.cardList}>
-              <div className={styles.card}>
-                <FaQrcode size={42} color="#566dea" />
-                <h2>Conexão fácil via QR code</h2>
-              </div>
-              <div className={styles.card}>
-                <FaHandHoldingHeart size={42} color="#566dea" />
-                <h2>Controle completo do histórico médico </h2>
-              </div>
-              <div className={styles.card}>
-                <FaMobileAlt size={42} color="#566dea" />
-                <h2>Funciona em computadores e celulares</h2>
-              </div>
-            </div>
-
-            <ContactForm location="VeterinaryPage" />
-
-            <div className={styles.featuresButtonContainer}>
-              <button className={styles.featuresButton}>
-                Acessar o histórico de um Pet <FaArrowRight size={12} />
+          <div className={styles.rowContent}>
+            <div className={styles.content}>
+              <p className={styles.toptitle}>BOAS-VINDAS A CADASTRAPET 👋</p>
+              <h2>Ajude a salvar e prolongar mais vidas de Pet</h2>
+              <u></u>
+              <p className={styles.contentSubtitle}>
+                A cadastrapet nasceu com o intuito de acabar com a falta de
+                informação entre Veterinários e pais de pet, assim salvando mais
+                vidas.
+              </p>
+              <button onClick={handleCadastrar}>
+                Acessar o historico de um Pet
               </button>
             </div>
-            <img src="./images/landing/how_vet.png" alt="" />
+            <img
+              className={[styles.hideImg, styles.ctaImg]}
+              src="./images/landing/mockup-cta-vet.png"
+              alt=""
+            />
+          </div>
+        </section>
+
+        <div className={styles.ctaCards}>
+          <div className={styles.ctaCard}>
+            <h3>+139,3 Mi</h3>
+            <p>Pets em lares do Brasil</p>
+          </div>
+          <div className={styles.ctaCard}>
+            <h3>154,9 mil</h3>
+            <p>
+              Profissionais registrados no CFMV
+              <br />
+              <small>Conselho Federal de Medicina Veterinária</small>
+            </p>
+          </div>
+          <div className={styles.ctaCard}>
+            <h3>53,1 mil</h3>
+            <p>Clinicas em todo o Brasil</p>
+          </div>
+        </div>
+        {/* CTA */}
+
+        {/* features */}
+        <section id="features" className={styles.features}>
+          <p>SERVIÇOS</p>
+          <h2>Como podemos ajudá-lo a cuidar do seu pet?</h2>
+          <div className={styles.cardList}>
+            <div className={styles.card}>
+              <div className={styles.cardIcon}>
+                <FaCheck color="#566dea" />
+              </div>
+              <h2>Registros médicos</h2>
+              <p>
+                Armazene os Registros médicos do seu pet, como alergias,
+                cirurgias e fraturas.
+              </p>
+            </div>
+            <div className={styles.card}>
+              <div className={styles.cardIcon}>
+                <FaCheck color="#566dea" />
+              </div>
+              <h2>Carteria de vacinação</h2>
+              <p>Saiba o momento de renovar as doses das vacinas do seu pet.</p>
+            </div>
+            <div className={styles.card}>
+              <div className={styles.cardIcon}>
+                <FaCheck color="#566dea" />
+              </div>
+              <h2>Histórico de vermífugos</h2>
+              <p>
+                Tenha em mãos as marcas, os dias em que foram usados e o
+                lembrete de quando vermifugar novamente!
+              </p>
+            </div>
+            <div className={styles.card}>
+              <div className={styles.cardIcon}>
+                <FaCheck color="#566dea" />
+              </div>
+              <h2>Localizador do pet</h2>
+              <p>Tenha na palma da sua mão a localização do seu pet 24h.</p>
+            </div>
+            <div className={styles.card}>
+              <div className={styles.cardIcon}>
+                <FaCheck color="#566dea" />
+              </div>
+              <h2>Agendamentos</h2>
+              <p>
+                Agende consultas com nossos profissionais cadastrados e tenha o
+                lembrete do dia e cashback das consultas.
+              </p>
+            </div>
+            <div className={styles.card}>
+              <div className={styles.cardIcon}>
+                <FaCheck color="#566dea" />
+              </div>
+              <h2>Rede de veterinários</h2>
+              <p>
+                Fornecemos uma rede referenciada de veterinários cadastrados
+                mais perto de você!
+              </p>
+            </div>
           </div>
         </section>
         {/* features */}
-        {/* cta2 */}
-        <section id="cta2" className={styles.cta2}>
-          <h2>
-            Com o CadastraPet, você cria a ficha do seu pet, mantem os dados
-            clinicos atualizados e tem essas informaçõe disponíveis para seu
-            veterinário!
-          </h2>
-          <button onClick={() => navigate("/tutor/cadastrar")}>
-            Cadastre meu pet agora
-          </button>
+
+        {/* testemonials */}
+        {/* <section id="testemonials" className={styles.testemonials}>
+          <p>DEPOIMENTOS</p>
+          <h2>O que os clientes dizem sobre a CadastraPet</h2>
+          <div className={styles.testemonialsList}>
+            <div className={styles.testemonial}>
+              <FaQuoteLeft color="#566dea" />
+              <p>
+                Tenha históricos médicos, de vacinação e de medicação completo
+                do seu pet em qualquer lugar.
+              </p>
+              <div className={styles.userInfo}>
+                <img src="./images/favicon.png" alt="imagem do usuario" />
+                <p>Nome</p>
+              </div>
+            </div>
+            <div className={styles.testemonial}>
+              <FaQuoteLeft color="#566dea" />
+              <p>
+                Tenha históricos médicos, de vacinação e de medicação completo
+                do seu pet em qualquer lugar.
+              </p>
+              <div className={styles.userInfo}>
+                <img src="./images/favicon.png" alt="imagem do usuario" />
+                <p>Nome</p>
+              </div>
+            </div>
+          </div>
+        </section> */}
+        {/* testemonials */}
+
+        {/* ctaContact */}
+        <section id="contact" className={styles.contact}>
+          <h2>Comece a cuidar dos pets na sua volta agora mesmo!</h2>
+          <button onClick={handleCadastrar}>Quero me cadastrar</button>
         </section>
-        {/* cta2 */}
+        {/* ctaContact */}
+        {/* video */}
+        <section id="video" className={styles.video}>
+          <div className={styles.videoContainer}>
+            <p className={styles.titleVideoContainer}>SOBRE NÓS</p>
+            <h2>Entenda quem somos e por que existimos</h2>
+            <p className={styles.aboutText}>
+              A cadastrapet nasceu para os tutores terem uma forma de armazenar
+              os registros médicos, vacinação e outros registros de forma online
+              e segura para você ter sempre na mão os registros do seu pet.
+              <br />
+              <br />
+              Com uma equipe empenhada a encontrar soluções que agregam aos
+              tutores e veterinários e principalmente no cuidado do seu
+              bichinho.
+            </p>
+            <button onClick={handleCadastrar}>Quero me cadastrar</button>
+          </div>
+          <div className={styles.videoIframe}>
+            <ReactPlayer
+              className={styles.videoIframe}
+              url="./videos/Cadastrapet.mp4"
+              width="100%"
+              height="100%"
+              controls={true}
+            />
+          </div>
+        </section>
+        {/* video */}
+
+        <ContactSection location="Home" />
       </main>
       <Footer />
       <Floating location="veterinario" />

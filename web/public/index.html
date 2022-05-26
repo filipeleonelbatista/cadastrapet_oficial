@@ -114,5 +114,23 @@
   <body>
     <noscript>Voce precisa habilitar o javascript para usar este app.</noscript>
     <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/blip-chat-widget"
+      type="text/javascript"
+    ></script>
+    <script>
+      (function () {
+        window.onload = function () {
+          new BlipChat()
+            .withAppKey(
+              "bWV1Y2hhdGJvdGV4Y2x1c2l2bzplM2NlODBjOS04NjM3LTQxYjctODhhMC02YjNkY2UzMTQ0MjU="
+            )
+            .withButton({ color: "#1971C2", icon: "" })
+            .withCustomCommonUrl("https://filipe-batista-z79si.chat.blip.ai/")
+            .build();
+        };
+      })();
+    </script>
   </body>
 </html>

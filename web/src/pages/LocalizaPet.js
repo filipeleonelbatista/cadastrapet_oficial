@@ -67,6 +67,7 @@ function LocalizaPet() {
   return (
     <div className={styles.container}>
       <HomeNavigation />
+      <div className={styles.navSpacer}></div>
       <div className={styles.content}>
         <MapContainer
           center={position}

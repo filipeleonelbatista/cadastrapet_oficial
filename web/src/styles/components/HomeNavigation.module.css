@@ -1,12 +1,16 @@
 .header {
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 2.4rem;
   padding: 2.8rem 4.8rem;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 1.4rem;
+  z-index: 100;
+}
+
+.headerFloating{
+  background-color: #D0EBFF;
 }
 
 .navImage {
@@ -15,9 +19,6 @@
 }
 /* PC */
 @media (min-width: 720px) {
-  
-
-
   .roundedButton,
   .menuItems,
   .navItemsTablet,
@@ -36,7 +37,7 @@
     justify-content: center;
     padding: 0.4rem 1.6rem;
     border-radius: 1.6rem;
-    background-color: #566dea;
+    background-color: #1971C2;
     color: #fff;
     font-size: small;
   }
@@ -48,17 +49,17 @@
   .navItem {
     padding: 0.4rem 1.6rem;
     border-radius: 1.6rem;
-    background-color: #fff;
-    color: #566dea;
+    background-color: transparent;
+    color: #1971C2;
     font-size: small;
   }
   
 
   .navItemActive {
     padding: 0.4rem 1.6rem;
-    border-radius: 1.6rem;
-    background-color: #fff;
-    color: #566dea;
+    border-bottom: 2px solid #1971C2;
+    background-color: transparent;
+    color: #1971C2;
     font-size: small;
     font-weight: bold;
   }
@@ -84,7 +85,7 @@
     justify-content: center;
     padding: 0.4rem 1.6rem;
     border-radius: 1.6rem;
-    background-color: #566dea;
+    background-color: #1971C2;
     color: #fff;
     font-size: small;
     transition: 0.3s;
@@ -116,14 +117,14 @@
     cursor: pointer;
     padding: 1.4rem;
     transition: 0.3s;
-    color: #566dea;
+    color: #1971C2;
     display: flex;
     align-items: center;
   }
 
   .menuItem svg {
     margin-right: 0.8rem;
-    fill: #566dea;
+    fill: #1971C2;
   }
 
   .menuItem:hover {
@@ -146,7 +147,7 @@
     justify-content: center;
     padding: 0.4rem 1.6rem;
     border-radius: 1.6rem;
-    background-color: #566dea;
+    background-color: #1971C2;
     color: #fff;
     font-size: small;
   }
@@ -161,7 +162,7 @@
     justify-content: center;
     padding: 0.4rem 1.6rem;
     border-radius: 1.6rem;
-    background-color: #566dea;
+    background-color: #1971C2;
     color: #fff;
     font-size: small;
   }
@@ -174,7 +175,7 @@
     padding: 0.4rem 1.6rem;
     border-radius: 1.6rem;
     background-color: #fff;
-    color: #566dea;
+    color: #1971C2;
     font-size: small;
   }
 
@@ -198,7 +199,7 @@
     justify-content: center;
     padding: 0.4rem 1.6rem;
     border-radius: 1.6rem;
-    background-color: #566dea;
+    background-color: #1971C2;
     color: #fff;
     font-size: small;
     transition: 0.3s;
@@ -228,14 +229,14 @@
     cursor: pointer;
     padding: 1.4rem;
     transition: 0.3s;
-    color: #566dea;
+    color: #1971C2;
     display: flex;
     align-items: center;
   }
   .menuItem svg,
   .menuItemCelular svg {
     margin-right: 0.8rem;
-    fill: #566dea;
+    fill: #1971C2;
   }
   .menuItem:hover
   .menuItemCelular:hover {

@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useConversion } from "../hooks/useConversion";
 
-export default function Floating({ location = "" }) {
+export default function Floating() {
+  return <></>;
+}
+
+function FloatingComponent({ location = "" }) {
   const { conversion } = useConversion();
 
   const [whatsNome, setWhatsNome] = useState("");

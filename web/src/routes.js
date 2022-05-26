@@ -1,29 +1,36 @@
 import React from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
-import ListaMensagens from "./pages/admin/ListaMensagens";
 import Dashboard from "./pages/admin/Dashboard";
+import DashboardPetList from "./pages/admin/DashboardPetList";
+import DashboardUserList from "./pages/admin/DashboardUsersList";
+import ListaMensagens from "./pages/admin/ListaMensagens";
 import LoginAdmin from "./pages/admin/LoginAdmin";
+import Contacts from "./pages/Contacts";
 import Home from "./pages/Home";
 import Links from "./pages/Links";
 import LocalizaPet from "./pages/LocalizaPet";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import Pitch from "./pages/Pitch";
+import Playground from "./pages/Playground";
 import PoliticasDePrivacidade from "./pages/PoliticasDePrivacidade";
 import Register from "./pages/Register";
-import SobreNos from "./pages/SobreNos";
 import TermosECondicoes from "./pages/TermosECondicoes";
 import AddPetHistory from "./pages/tutor/AddPetHistory";
+import AddPetMedicationHistory from "./pages/tutor/AddPetMedicationHistory";
 import AddPetVaccineHistory from "./pages/tutor/AddPetVaccineHistory";
 import CreatePet from "./pages/tutor/CreatePet";
 import PetCode from "./pages/tutor/PetCode";
 import PetHistory from "./pages/tutor/PetHistory";
 import PetInfo from "./pages/tutor/PetInfo";
 import PetList from "./pages/tutor/PetList";
+import PetMedicationHistory from "./pages/tutor/PetMedicationHistory";
 import PetProfile from "./pages/tutor/PetProfile";
 import PetVaccineHistory from "./pages/tutor/PetVaccineHistory";
 import TutorLocalizaPet from "./pages/tutor/TutorLocalizaPet";
 import TutorProfile from "./pages/tutor/TutorProfile";
+import CreateQuickAppoinment from "./pages/vet/CreateQuickAppointment";
 import MedicalAppointmenmt from "./pages/vet/MedicalAppointment";
 import MedicationHistory from "./pages/vet/MedicationHistory";
 import VaccineHistory from "./pages/vet/VaccineHistory";
@@ -32,14 +39,6 @@ import VetMedicationHistory from "./pages/vet/VetMedicationHistory";
 import VetProfile from "./pages/vet/VetProfile";
 import VetVaccineHistory from "./pages/vet/VetVaccineHistory";
 import Veterinario from "./pages/Veterinario";
-import DashboardUserList from "./pages/admin/DashboardUsersList";
-import DashboardPetList from "./pages/admin/DashboardPetList";
-import Playground from "./pages/Playground";
-import AddPetMedicationHistory from "./pages/tutor/AddPetMedicationHistory";
-import PetMedicationHistory from "./pages/tutor/PetMedicationHistory";
-import CreateQuickAppoinment from "./pages/vet/CreateQuickAppointment";
-import Contacts from "./pages/Contacts";
-import Pitch from "./pages/Pitch";
 
 function Routes() {
   return (
@@ -117,7 +116,6 @@ function Routes() {
           <Route path="/pitch" exact element={<Pitch />} />
           <Route path="/links" exact element={<Links />} />
           <Route path="/in/:url" exact element={<Contacts />} />
-          <Route path="/sobre-nos" exact element={<SobreNos />} />
           <Route path="/veterinario" exact element={<Veterinario />} />
           <Route
             path="/termos-e-condicoes"

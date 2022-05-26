@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { FaBars, FaDog, FaSignInAlt, FaUserMd, FaHome } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaBars, FaDog, FaSignInAlt, FaUserMd } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import logoImg from "../assets/new_logo.svg";
 import styles from "../styles/components/HomeNavigation.module.css";
-import logoImg from "../assets/logo_x.png";
 
 export default function HomeNavigation() {
   const navigate = useNavigate();
@@ -13,8 +13,22 @@ export default function HomeNavigation() {
     setIsShow(!isShow);
   };
 
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => setOffset(window.pageYOffset);
+    // clean up code
+    window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className={styles.header}>
+    <header
+      className={`${styles.header} ${
+        offset > 100 ? styles.headerFloating : ""
+      }`}
+    >
       <img
         onClick={() => navigate("/")}
         style={{ cursor: "pointer" }}
@@ -42,24 +56,7 @@ export default function HomeNavigation() {
           >
             Sou Veterinário
           </Link>
-          <Link
-            to="/sobre-nos"
-            className={
-              location.pathname.includes("sobre-nos")
-                ? styles.navItemActive
-                : styles.navItem
-            }
-          >
-            Sobre nós
-          </Link>
           <Link to="/entrar" className={styles.navItemDestaque}>
-            <FaSignInAlt />
-            Entrar
-          </Link>
-        </div>
-
-        <div className={styles.navItemsTablet}>
-          <Link to="/entrar" className={styles.menuItemTablet}>
             <FaSignInAlt />
             Entrar
           </Link>
@@ -76,10 +73,7 @@ export default function HomeNavigation() {
             <Link to="/veterinario" className={styles.menuItem}>
               <FaUserMd /> Sou Veterinário
             </Link>
-            <Link to="/sobre-nos" className={styles.menuItem}>
-              <FaHome /> Sobre nós
-            </Link>
-            <Link to="/entrar" className={styles.menuItemCelular}>
+            <Link to="/entrar" className={styles.menuItem}>
               <FaSignInAlt />
               Entrar
             </Link>

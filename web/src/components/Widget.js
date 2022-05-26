@@ -3,7 +3,8 @@ import { ChatTeardropDots } from "phosphor-react";
 import { Popover } from "@headlessui/react";
 import { WidgetForm } from "./WidgetForm";
 
-export const Widget = () => {
+export const Widget = () => <></>;
+export const WidgetComponent = () => {
   return (
     <Popover className={styles.container}>
       <Popover.Panel>
