@@ -178,6 +178,7 @@ function AddPetHistory() {
             maxLength={10}
             id="dt_consulta"
             placeholder="Data da consulta"
+            type={"date"}
             value={dt_consulta}
             onChange={(e) => setDtConsulta(date(e.target.value))}
           />

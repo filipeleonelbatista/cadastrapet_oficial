@@ -207,6 +207,7 @@ function AddPetVaccineHistory() {
             placeholder="DD/MM/AAAA"
             label="Data da aplicação"
             value={dt_aplicacao}
+            type={"date"}
             onChange={(e) => setDtAplicacao(date(e.target.value))}
           />
           <Input
@@ -217,6 +218,7 @@ function AddPetVaccineHistory() {
             placeholder="DD/MM/AAAA"
             label="Data da próxima aplicação"
             value={dt_proxima_aplicacao}
+            type={"date"}
             onChange={(e) => setDtProximaAplicacao(date(e.target.value))}
           />
         </div>

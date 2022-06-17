@@ -172,6 +172,7 @@ function AddPetMedicationHistory() {
             maxLength={10}
             id="dt_aplicacao"
             placeholder="DD/MM/AAAA"
+            type={"date"}
             label="Data da aplicação"
             value={dt_aplicacao}
             onChange={(e) => setDtAplicacao(date(e.target.value))}

@@ -229,6 +229,7 @@ function CreatePet() {
                     maxLength={10}
                     id="dt_nascimento"
                     label="Data de Nascimento"
+                    type="date"
                     value={dateToString(sharedPet.birth_date)}
                   />
                 </div>
@@ -301,6 +302,7 @@ function CreatePet() {
                 maxLength={10}
                 id="dt_nascimento"
                 label="Data de Nascimento"
+                type={"date"}
                 value={birth_date}
                 onChange={(e) => setBirthDate(date(e.target.value))}
               />
@@ -309,6 +311,7 @@ function CreatePet() {
                 id="dt_adocao"
                 maxLength={10}
                 label="Data de Adoção"
+                type={"date"}
                 value={adoption_date}
                 onChange={(e) => setAdoptionDate(date(e.target.value))}
               />
@@ -348,6 +351,7 @@ function CreatePet() {
               <Input
                 id="castrado"
                 label="Data de Castração"
+                type={"date"}
                 value={castration}
                 onChange={(e) => setCastration(date(e.target.value))}
               />

@@ -271,6 +271,7 @@ function PetInfo() {
                 required
                 id="dt_nascimento"
                 label="Data de Nascimento"
+                type={"date"}
                 value={birth_date}
                 onChange={(e) => setBirthDate(date(e.target.value))}
               />
@@ -279,6 +280,7 @@ function PetInfo() {
                 required
                 id="dt_adocao"
                 label="Data de Adoção"
+                type={"date"}
                 value={adoption_date}
                 onChange={(e) => setAdoptionDate(date(e.target.value))}
               />
@@ -323,6 +325,7 @@ function PetInfo() {
                 disabled={isView}
                 id="castrado"
                 label="Data de Castração"
+                type={"date"}
                 value={castration}
                 onChange={(e) => setCastration(date(e.target.value))}
               />
