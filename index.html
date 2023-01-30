@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#566DEA" />
+
+  <link rel="apple-touch-icon" href="pwa/ios/192.png" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- SEO  -->
+  <title>CadastraPet | Cadastrando e prolongando vidas</title>
+  <meta name="title" content="CadastraPet | Cadastrando e prolongando vidas" />
+  <meta name="description"
+    content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet." />
+  <link rel="canonical" href="https://cadastrapet.com.br" />
+  <meta name="author" content="CadastraPet | Cadastrando e prolongando vidas" />
+  <meta name="robots" content="index" />
+
+  <meta itemprop="name" content="CadastraPet | Cadastrando e prolongando vidas" />
+  <meta itemprop="description"
+    content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet." />
+  <meta itemprop="image" content="/images/banner.png" />
+
+  <meta property="og:title" content="CadastraPet | Cadastrando e prolongando vidas" />
+  <meta property="og:description"
+    content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet." />
+  <meta property="og:url" content=https://cadastrapet.com.br />
+  <meta property="og:site_name" content="CadastraPet | Cadastrando e prolongando vidas" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/images/banner.png" />
+
+  <meta name="twitter:title" content="CadastraPet | Cadastrando e prolongando vidas" />
+  <meta name="twitter:description"
+    content="Cadastre seu pet e mantenha registros clinicos e de vacinação para cuidados do seu pet." />
+  <meta name="twitter:url" content=https://cadastrapet.com.br />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/banner.png" />
+  <!-- Fim SEO  -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <noscript>Voce precisa habilitar o javascript para usar este app.</noscript>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script src="https://unpkg.com/blip-chat-widget" type="text/javascript"></script>
+  <script>
+    (function () {
+      window.onload = function () {
+        new BlipChat()
+          .withAppKey(
+            "bWV1Y2hhdGJvdGV4Y2x1c2l2bzplM2NlODBjOS04NjM3LTQxYjctODhhMC02YjNkY2UzMTQ0MjU="
+          )
+          .withButton({ color: "#1971C2", icon: "" })
+          .withCustomCommonUrl("https://filipe-batista-z79si.chat.blip.ai/")
+          .build();
+      };
+    })();
+  </script>
+</body>
+
+</html>

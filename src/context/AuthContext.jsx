@@ -16,7 +16,6 @@ import {
   where,
 } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
-import database from "../database.json";
 import { authentication, db } from "../firebase/firebase-config";
 import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
@@ -151,6 +150,8 @@ export function AuthContextProvider(props) {
       if (user) {
         setIsLoggedIn(true);
         setKeyLocalStorage("UID", user.uid);
+
+        console.log("USER", user)
         const loggedUser = await getUserByID(user.uid);
         let currentPetList = [];
 
@@ -332,14 +333,12 @@ export function AuthContextProvider(props) {
       return true;
     } catch (err) {
       sendDiscordNotification(
-        `Houve um erro ao ${
-          message ? "adicionar" : "atualizar dados do"
+        `Houve um erro ao ${message ? "adicionar" : "atualizar dados do"
         } pet\n\n \`${JSON.stringify(data)}\`\n\nlog do erro:\n\n\`${err}\``,
         "doguinho"
       );
       alert(
-        `Houve um erro ao ${
-          message ? "adicionar" : "atualizar dados do"
+        `Houve um erro ao ${message ? "adicionar" : "atualizar dados do"
         } pet. Tente novamente mais tarde`
       );
       return false;

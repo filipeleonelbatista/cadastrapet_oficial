@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { connectAuthEmulator, getAuth } from "firebase/auth";
-import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
-import { connectStorageEmulator, getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCYOBJLPPn9rr1NBP-xfG2Dp7oT1ul10qI",
@@ -17,9 +17,3 @@ const app = initializeApp(firebaseConfig);
 export const authentication = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
-
-// if (process.env.NODE_ENV === "development") {
-//   connectAuthEmulator(authentication, "http://localhost:9099");
-//   connectFirestoreEmulator(db, "localhost", 8080);
-//   connectStorageEmulator(storage, "localhost", 9199);
-// }
