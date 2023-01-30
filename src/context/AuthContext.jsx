@@ -17,6 +17,8 @@ import {
 } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import { authentication, db } from "../firebase/firebase-config";
+import { useLoading } from "../hooks/useLoading";
+import { useToast } from "../hooks/useToast";
 import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
 import { isStringEmpty } from "../utils/string";
@@ -116,6 +118,10 @@ const feedbackObject = {
 export const AuthContext = createContext({});
 
 export function AuthContextProvider(props) {
+
+  const { addToast } = useToast();
+  const { setIsLoading } = useLoading();
+
   const [user, setUser] = useState();
   const [user_id, setUserId] = useState();
   const [selectedPet, setSelectedPet] = useState();
@@ -148,10 +154,10 @@ export function AuthContextProvider(props) {
   useEffect(() => {
     const unsubscribe = authentication.onAuthStateChanged(async (user) => {
       if (user) {
+        setIsLoading(true);
         setIsLoggedIn(true);
         setKeyLocalStorage("UID", user.uid);
 
-        console.log("USER", user)
         const loggedUser = await getUserByID(user.uid);
         let currentPetList = [];
 
@@ -165,6 +171,8 @@ export function AuthContextProvider(props) {
         setUser(loggedUser);
         setUserId(loggedUser.uid);
         setPetList(currentPetList);
+
+        setIsLoading(false);
       } else {
         setIsLoggedIn(false);
       }
@@ -566,6 +574,7 @@ export function AuthContextProvider(props) {
 
     return signInWithEmailAndPassword(authentication, email, password)
       .then(async (re) => {
+        setIsLoading(true)
         setIsLoggedIn(true);
         setKeyLocalStorage("UID", re.user.uid);
         const currentUser = await getUserByID(re.user.uid);
@@ -581,6 +590,8 @@ export function AuthContextProvider(props) {
         setUser(currentUser);
         setUserId(currentUser.uid);
         setPetList(currentPetList);
+
+        setIsLoading(false)
         const status = {
           user: currentUser,
           status: true,
@@ -607,6 +618,7 @@ export function AuthContextProvider(props) {
           ...user,
         };
         try {
+          setIsLoading(true)
           await setDoc(doc(db, "users", re.user.uid), newUser);
 
           setKeyLocalStorage("UID", re.user.uid);
@@ -621,20 +633,22 @@ export function AuthContextProvider(props) {
           );
           setUser(newUser);
           setUserId(newUser.uid);
+          setIsLoading(false)
           return true;
         } catch (err) {
+          addToast({
+            message: "Houve um erro ao cadastrar usuário! Tente mais tarde",
+            severity: "error"
+          })
           sendDiscordNotification(
             `Houve um erro ao cadastrar o usuário\n\nlog do erro:\n\n${err}`,
             "doguinho"
-          );
-          alert(
-            "Houve um erro ao cadastrar o usuario. Tente novamente mais tarde"
           );
           return false;
         }
       })
       .catch((err) => {
-        alert(AuthErrorHandler[err.code]);
+        addToast({ message: AuthErrorHandler[err.code], severity: 'warning' });
         return false;
       });
   }

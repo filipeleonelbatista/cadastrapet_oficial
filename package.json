@@ -9,7 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@headlessui/react": "^1.6.0",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.6",
     "@react-pdf-viewer/core": "3.3.2",
     "@sentry/react": "^6.18.2",
     "@sentry/tracing": "^6.18.2",
@@ -18,8 +22,8 @@
     "@testing-library/user-event": "^12.1.10",
     "apexcharts": "^3.33.1",
     "axios": "^0.24.0",
-    "blip-chat-widget": "^1.9.1",
     "firebase": "^9.6.3",
+    "formik": "^2.2.9",
     "html2canvas": "^1.4.1",
     "leaflet": "^1.7.1",
     "pdfjs-dist": "2.13.216",
@@ -37,7 +41,8 @@
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
     "serve": "^13.0.2",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
