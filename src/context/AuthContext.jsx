@@ -16,7 +16,6 @@ import {
   where,
 } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
-import database from "../database.json";
 import { authentication, db } from "../firebase/firebase-config";
 import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
