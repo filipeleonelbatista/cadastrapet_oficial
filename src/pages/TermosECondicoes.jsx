@@ -1,6 +1,7 @@
 import Floating from "../components/Floating";
 import Footer from "../components/Footer";
 import HomeNavigation from "../components/HomeNavigation";
+
 import styles from "../styles/pages/TermosECondicoes.module.css";
 
 function TermosECondicoes() {

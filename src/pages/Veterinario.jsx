@@ -12,6 +12,7 @@ import { useConversion } from "../hooks/useConversion";
 import styles from "../styles/pages/Veterinario.module.css";
 import { isStringEmpty } from "../utils/string";
 
+
 function VeterinarioComponent() {
   const navigate = useNavigate();
 

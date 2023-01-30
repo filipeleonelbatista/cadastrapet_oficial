@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaCheck, FaQuoteLeft } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import AcceptTerms from "../components/AcceptTerms";
@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import HomeNavigation from "../components/HomeNavigation";
 import { ConversionContextProvider } from "../context/ConversionContext";
 import { useConversion } from "../hooks/useConversion";
+
 import styles from "../styles/pages/Home.module.css";
 import { isStringEmpty } from "../utils/string";
 
@@ -128,7 +129,6 @@ function HomeComponent() {
   }, []);
   return (
     <div
-      id="landing-page"
       onMouseLeave={handleToggleModal}
       className={styles.container}
     >

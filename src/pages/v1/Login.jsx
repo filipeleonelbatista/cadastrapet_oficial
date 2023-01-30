@@ -50,13 +50,7 @@ function Login() {
   async function handleSubmitForm(formValues) {
     const isLogged = await signInUser(formValues.email, formValues.password);
     if (isLogged.status) {
-      if (isLogged.user.user_role === "tutor") navigate("/tutor/petlist");
-      if (isLogged.user.user_role === "veterinario")
-        if (sessionStorage.getItem("petUid") !== null) {
-          navigate("/veterinario/medicalappointment/add");
-        } else {
-          navigate("/veterinario/vetprofile");
-        }
+      navigate("/inicio")
     } else {
       addToast({ message: isLogged.message ?? "Houve um problema ao realizar o login", severity: isLogged.message ? 'info' : 'error' });
     }
@@ -65,9 +59,7 @@ function Login() {
   useEffect(() => {
     if (isLoggedIn) {
       if (user) {
-        if (user.user_role === "tutor") navigate("/tutor/petlist");
-        if (user.user_role === "veterinario")
-          navigate("/veterinario/vetprofile");
+        navigate("/inicio")
       }
     } else {
       navigate("/entrar");
@@ -78,9 +70,7 @@ function Login() {
   useEffect(() => {
     if (isLoggedIn) {
       if (user) {
-        if (user.user_role === "tutor") navigate("/tutor/petlist");
-        if (user.user_role === "veterinario")
-          navigate("/veterinario/vetprofile");
+        navigate("/inicio")
       }
     } else {
       navigate("/entrar");

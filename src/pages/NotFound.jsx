@@ -1,4 +1,5 @@
 import logoImg from "../assets/logo_x.png";
+
 import styles from "../styles/pages/NotFound.module.css";
 
 function NotFound() {

@@ -177,6 +177,7 @@ main {
   line-height: 5rem;
   color: #000;
 }
+
 .content u {
   margin: 0.4rem auto 0 0;
   width: 4.8rem;
@@ -189,6 +190,7 @@ main {
   margin-right: auto;
   color: #6c757d;
 }
+
 .content button {
   outline: none;
   border: none;
@@ -279,6 +281,7 @@ main {
   font-size: 2.4rem;
   color: rgba(0, 0, 0, 0.85);
 }
+
 .about .contentAbout u {
   margin: 0.4rem 0;
   width: 4.8rem;
@@ -290,6 +293,7 @@ main {
   margin: 1.4rem 0 2.8rem 0;
   color: #6c757d;
 }
+
 .about .contentAbout button {
   outline: none;
   border: none;
@@ -337,7 +341,7 @@ main {
   color: #1971c2;
 }
 
-.videoContainer > h2 {
+.videoContainer>h2 {
   font-weight: 600;
   font-size: 3rem;
   line-height: 1;
@@ -386,7 +390,7 @@ main {
   margin: 4rem 0;
 }
 
-.testemonials > p {
+.testemonials>p {
   font-weight: 500;
   font-size: 1.4rem;
   text-align: center;
@@ -394,7 +398,7 @@ main {
   margin-bottom: 2rem;
 }
 
-.testemonials > h2 {
+.testemonials>h2 {
   max-width: 55rem;
   margin-bottom: 4rem;
   font-weight: 700;
@@ -496,7 +500,7 @@ main {
   margin: 4rem 0;
 }
 
-.features > p {
+.features>p {
   font-weight: 500;
   font-size: 1.4rem;
   text-align: center;
@@ -504,7 +508,7 @@ main {
   margin-bottom: 2rem;
 }
 
-.features > h2 {
+.features>h2 {
   max-width: 55rem;
   margin-bottom: 4rem;
   font-weight: 700;
@@ -537,6 +541,7 @@ main {
   align-items: flex-start;
   justify-content: flex-start;
 }
+
 .cardIcon {
   width: 2.4rem;
   height: 2.4rem;
@@ -547,6 +552,7 @@ main {
   background-color: #f0f9ff;
   border-radius: 50%;
 }
+
 .card h2 {
   margin: 1.4rem 0;
   font-weight: 600;
@@ -569,6 +575,7 @@ main {
   padding: 0 12px;
   margin: 2.4rem 0 0 0;
 }
+
 .how img {
   width: 70vw;
   height: auto;
@@ -632,12 +639,14 @@ main {
     align-items: center;
     justify-content: center;
   }
+
   .formGroup label {
     color: #1971c2;
     opacity: 1 !important;
     font-weight: 600;
     margin: 0.8rem 0;
   }
+
   .formGroup input {
     border: 1px solid #6ca6fd;
   }

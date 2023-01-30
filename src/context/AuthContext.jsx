@@ -25,7 +25,7 @@ import { isStringEmpty } from "../utils/string";
 
 const userObject = {
   is_admin: false,
-  user_role: "tutor",
+  user_role: ["tutor"],
   name: "",
   avatar: "",
   cpf: "",

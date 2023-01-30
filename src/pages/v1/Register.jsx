@@ -92,7 +92,7 @@ function Register() {
       password: formValues.password,
       user: {
         is_admin: false,
-        user_role: userRole,
+        user_role: [userRole],
         name: formValues.name,
         avatar: "",
         cpf: formValues.cpf,
