@@ -883,9 +883,11 @@ export function AuthContextProvider(props) {
   useEffect(() => {
     if (selectedPet) {
       const executeAsync = async () => {
+        setIsLoading(true)
         await updateMedicalHistoryList();
         await updateVaccineList();
         await updateMedicationList();
+        setIsLoading(false)
       };
       executeAsync();
     }
