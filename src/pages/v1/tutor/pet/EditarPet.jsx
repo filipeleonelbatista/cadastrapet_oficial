@@ -86,7 +86,6 @@ export default function EditarPet() {
       uid: selectedPet?.uid,
       name: formValues.name,
       avatar: uploadURLImage,
-      tutor: [user.uid],
       adoption_date: new Date(formValues.adoption_date).getTime(),
       birth_date: new Date(formValues.birth_date).getTime(),
       pelage: formValues.pelage,

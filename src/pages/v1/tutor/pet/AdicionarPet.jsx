@@ -168,6 +168,7 @@ export default function AdicionarPet() {
       addToast({
         message: "Pet cadastrado com sucesso!"
       })
+      await updateContextData();
       return navigate("/inicio");
     }
   }
