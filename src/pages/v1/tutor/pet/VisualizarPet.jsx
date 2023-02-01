@@ -6,15 +6,29 @@ import {
   Avatar, Box, Button, IconButton, TextField, Typography
 } from '@mui/material';
 import dayjs from 'dayjs';
-import { FaCamera, FaEdit } from 'react-icons/fa';
+import { FaCamera, FaEdit, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../hooks/useAuth';
 
 export default function VisualizarPet() {
 
   const navigate = useNavigate();
-  const { props } = useAuth();
+  const { props, deleteFunctions, functions } = useAuth();
   const { selectedPet } = props;
+  const { deletePet } = deleteFunctions;
+  const { updateContextData } = functions;
+
+  const handleDeletePet = async () => {
+    if (
+      window.confirm(
+        "Deseja realmente deletar este registro? Esta ação é irreversível."
+      )
+    ) {
+      await deletePet(selectedPet);
+      await updateContextData();
+      navigate("/inicio");
+    }
+  };
 
   return (
     <DrawerComponent title="Visualizar Pet">
@@ -120,6 +134,7 @@ export default function VisualizarPet() {
           />
 
           <Button type='button' onClick={() => navigate("/tutor/pet/editar")} variant="contained" color="success" startIcon={<FaEdit />}>Editar Pet</Button>
+          <Button type='button' onClick={handleDeletePet} variant="contained" color="error" startIcon={<FaTrash />}>Excluir Pet</Button>
 
         </Box>
       </ContainerComponent>

@@ -314,6 +314,7 @@ export function AuthContextProvider(props) {
       ...data,
     };
     try {
+      setIsLoading(true)
       await setDoc(doc(db, "pets", id), updatedPet);
       setSelectedPet(updatedPet);
       removeKeyLocalStorage("SPUID");
@@ -333,17 +334,16 @@ export function AuthContextProvider(props) {
           \`${JSON.stringify(data)}\``,
           "doguinho"
         );
+
+      setIsLoading(false)
       return true;
     } catch (err) {
-      sendDiscordNotification(
-        `Houve um erro ao ${message ? "adicionar" : "atualizar dados do"
-        } pet\n\n \`${JSON.stringify(data)}\`\n\nlog do erro:\n\n\`${err}\``,
-        "doguinho"
-      );
-      alert(
-        `Houve um erro ao ${message ? "adicionar" : "atualizar dados do"
-        } pet. Tente novamente mais tarde`
-      );
+      console.log("ERRO", err)
+      addToast({
+        message: `Houve um erro ao ${message ? "adicionar" : "atualizar dados do"
+          } pet. Tente novamente mais tarde`,
+        severity: "error"
+      })
       return false;
     }
   }
@@ -456,11 +456,11 @@ export function AuthContextProvider(props) {
       return true;
     }
 
-    setIsLoaded(true);
+    setIsLoading(true);
     sendPasswordResetEmail(authentication, email)
       .then(() => {
         alert("Foi enviado um email com as instruções de recuperação.");
-        setIsLoaded(false);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -480,8 +480,10 @@ export function AuthContextProvider(props) {
   }
 
   async function getNewPetID() {
+    setIsLoading(true)
     const petRef = collection(db, "pets");
     const newPet = await addDoc(petRef, {});
+    setIsLoading(false)
     return newPet.id;
   }
 
@@ -816,6 +818,7 @@ export function AuthContextProvider(props) {
   }
 
   async function updateContextData() {
+    setIsLoading(true)
     const uid = getKeyLocalStorage("UID");
     const localUserId = uid ? uid : user_id;
 
@@ -858,6 +861,7 @@ export function AuthContextProvider(props) {
         setSelectedMedication(sm);
       }
     }
+    setIsLoading(false)
     return false;
   }
   async function updatePetLists() {
@@ -1008,6 +1012,7 @@ export function AuthContextProvider(props) {
   }
 
   async function deletePet(selectedPet) {
+    setIsLoading(true)
     if (selectedPet.medications.length > 0) {
       selectedPet.medications.map(async (item) => {
         await deleteMedication(item);
@@ -1032,6 +1037,7 @@ export function AuthContextProvider(props) {
 
     await deleteDoc(doc(db, "pets", selectedPet.uid));
 
+    setIsLoading(false)
     return true;
   }
 

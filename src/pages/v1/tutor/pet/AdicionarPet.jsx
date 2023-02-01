@@ -22,6 +22,8 @@ import Tabs from '@mui/material/Tabs';
 import qrImageOverlay from '../../../../assets/qr_overlay.png';
 import QrReader from "react-qr-scanner";
 import dayjs from 'dayjs';
+import { useToast } from '../../../../hooks/useToast';
+import { useLoading } from '../../../../hooks/useLoading';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,6 +60,10 @@ export default function AdicionarPet() {
   };
 
   const navigate = useNavigate();
+
+  const { addToast } = useToast();
+  const { setIsLoading } = useLoading();
+
   const { functions, props } = useAuth();
   const {
     getNewPetID,
@@ -128,7 +134,9 @@ export default function AdicionarPet() {
   };
 
   const handleSubmitForm = async (formValues) => {
+    setIsLoading(true)
     let uploadURLImage = await uploadImageAsync(formValues.selectedImage, "pets");
+    setIsLoading(false)
 
     const petID = await getNewPetID();
 
@@ -157,6 +165,9 @@ export default function AdicionarPet() {
     };
 
     if (await updatePetByID(petID, data, user, true)) {
+      addToast({
+        message: "Pet cadastrado com sucesso!"
+      })
       return navigate("/inicio");
     }
   }

@@ -15,9 +15,11 @@ import * as Yup from 'yup';
 import { uploadImageAsync } from '../../../../firebase/functions';
 import { useAuth } from '../../../../hooks/useAuth';
 import { isStringEmpty } from '../../../../utils/string';
+import { useToast } from '../../../../hooks/useToast';
 
 export default function EditarPet() {
   const navigate = useNavigate();
+  const { addToast } = useToast()
   const { functions, props } = useAuth();
   const { updatePetByID, updateContextData } = functions;
   const { user, selectedPet } = props;
@@ -35,18 +37,7 @@ export default function EditarPet() {
       sex: Yup.string().required("O campo Sexo é obrigatório"),
       castration: Yup.string(),
       pin_number: Yup.string(),
-      selectedImage: Yup.mixed()
-        .test(
-          'fileFormat',
-          'Arquivo deve ser uma imagem PNG ou JPG',
-          value => value && (value.type === 'image/png' || value.type === 'image/jpeg')
-        )
-        .test(
-          'fileSize',
-          'Arquivo deve ter menos de 3 MB',
-          value => value && value.size <= 3000000
-        )
-        .required("O campo Imagem do pet é obrigatório"),
+      selectedImage: Yup.mixed(),
     })
   }, [])
 
@@ -112,6 +103,10 @@ export default function EditarPet() {
     };
 
     if (await updatePetByID(selectedPet.uid, data, user)) {
+      addToast({
+        message: "Informações do Pet atualizadas com sucesso!",
+        severity: 'success'
+      })
       await updateContextData()
       return navigate("/tutor/pet/visualizar");
     }
