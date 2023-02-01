@@ -70,15 +70,16 @@ export default function LocalizarPet() {
                         você receberá a localização do pet.
                       </Typography>
 
-                      <Box sx={{ p: 2, gap: 1, backgroundColor: "#FFF", borderRadius: 2, width: 'fit-content', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', my: 2 }}>
+                      <Box sx={{ py: 1, px: 2, gap: 1, backgroundColor: "#FFF", borderRadius: 2, width: 'fit-content', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', my: 2 }}>
                         <Typography variant="body1" color="#000">
                           Me ajude a voltar pra casa!
                         </Typography>
                         <QRCode
-                          value={`https://cadastrapet.com.be/localizapet?id=${selectedPet?.uid}`}
+                          value={`https://cadastrapet.com.be/localizapet?id=`}
                         />
                         <Typography variant="body1" color="#000">
-                          cadastrapet.com.br
+                          <b>Cod:. {selectedPet?.uid}</b><br />
+                          cadastrapet.com.br/localiza-pet
                         </Typography>
                       </Box>
                     </>
