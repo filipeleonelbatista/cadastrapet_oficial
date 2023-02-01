@@ -10,6 +10,7 @@ import Dashboard from "./pages/v1/Dashboard";
 import Login from "./pages/v1/Login";
 import Register from "./pages/v1/Register";
 import AdicionarPet from "./pages/v1/tutor/pet/AdicionarPet";
+import CodigoPet from "./pages/v1/tutor/pet/CodigoPet";
 import EditarPet from "./pages/v1/tutor/pet/EditarPet";
 import VisualizarPet from "./pages/v1/tutor/pet/VisualizarPet";
 import Veterinario from "./pages/Veterinario";
@@ -40,6 +41,7 @@ function Routes() {
         <Route path="/tutor/pet/adicionar" exact element={<AdicionarPet />} />
         <Route path="/tutor/pet/editar" exact element={<EditarPet />} />
         <Route path="/tutor/pet/visualizar" exact element={<VisualizarPet />} />
+        <Route path="/codigo-pet" exact element={<CodigoPet />} />
         <Route path="*" element={<NotFound />} />
       </Switch>
     </BrowserRouter>
