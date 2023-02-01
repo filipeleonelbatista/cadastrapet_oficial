@@ -37,6 +37,9 @@ function Copyright() {
         </Link>{' '}
         {new Date().getFullYear()}.
       </Typography>
+      <Typography variant="body2" color="text.secondary" align="center">
+        Ver 2.0.1
+      </Typography>
     </Box>
   );
 }
@@ -278,7 +281,7 @@ function DrawerComponent({ title, children }) {
                   )
                 }
                 <Tooltip placement="right" title="Inicio">
-                  <ListItemButton selected={location.pathname === "/inicio"} onClick={() => handleLogout()}>
+                  <ListItemButton selected={location.pathname === "/inicio"} onClick={() => navigate("/inicio")}>
                     <ListItemIcon>
                       <FaTachometerAlt />
                     </ListItemIcon>
@@ -286,7 +289,7 @@ function DrawerComponent({ title, children }) {
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Dados Gerais">
-                  <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                  <ListItemButton selected={location.pathname === "/tutor/pet/visualizar"} onClick={() => navigate("/tutor/pet/visualizar")}>
                     <ListItemIcon>
                       <FaBookOpen />
                     </ListItemIcon>

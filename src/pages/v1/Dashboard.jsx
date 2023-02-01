@@ -15,6 +15,7 @@ import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/leaflet.css";
 
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { useNavigate } from "react-router-dom";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -45,6 +46,7 @@ dayjs.updateLocale('en', {
 })
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const { props, setFunctions } = useAuth();
   const { user, petList, selectedPet, medicalHistoryList } = props;
   const { handleSetSelectedPet } = setFunctions;
@@ -61,7 +63,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (petList.length > 0) {
-      handleSetSelectedPet(petList[0])
+      if (!selectedPet) {
+        handleSetSelectedPet(petList[0])
+      }
     }
   }, [petList.length])
 
@@ -163,21 +167,23 @@ export default function Dashboard() {
             </Card>
           ))
         }
-        <Card component="button" sx={{
-          border: '2px dashed #1976d2',
-          p: 2,
-          width: 150,
-          minWidth: 150,
-          height: 200,
-          display: 'flex',
-          alignItems: "center",
-          justifyContent: "center",
-          transition: '0.2s',
+        <Card
+          onClick={() => navigate('/tutor/pet/adicionar')}
+          component="button" sx={{
+            border: '2px dashed #1976d2',
+            p: 2,
+            width: 150,
+            minWidth: 150,
+            height: 200,
+            display: 'flex',
+            alignItems: "center",
+            justifyContent: "center",
+            transition: '0.2s',
 
-          '&:hover': {
-            filter: 'brightness(0.8)'
-          }
-        }}>
+            '&:hover': {
+              filter: 'brightness(0.8)'
+            }
+          }}>
           <Box sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -201,7 +207,7 @@ export default function Dashboard() {
       </Box>
       <ContainerComponent>
         {
-          !selectedPet?.pin_number === 'Sem Coleira'
+          selectedPet?.pin_number === 'Sem Coleira'
             ? (
               <Box sx={{ width: '100%', display: "flex", flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                 <Typography>Seu pet não possui coleria localizadora?</Typography>
@@ -314,6 +320,14 @@ export default function Dashboard() {
 
         <Box sx={{ mt: 2 }}>
           <Typography variant="h5" color="primary">Pets para adoção</Typography>
+          {
+            petList.length === 0 && (
+              <Box sx={{ width: '100%', display: "flex", flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                <Typography>Não encontramos pets proximos a você!</Typography>
+                <Button variant="contained" color="primary">Ver Pets para adoção</Button>
+              </Box>
+            )
+          }
           <Box sx={{
             display: "flex",
             alignItems: "flex-start",

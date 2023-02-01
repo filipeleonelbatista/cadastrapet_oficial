@@ -9,14 +9,15 @@ import TermosECondicoes from "./pages/TermosECondicoes";
 import Dashboard from "./pages/v1/Dashboard";
 import Login from "./pages/v1/Login";
 import Register from "./pages/v1/Register";
+import AdicionarPet from "./pages/v1/tutor/pet/AdicionarPet";
+import EditarPet from "./pages/v1/tutor/pet/EditarPet";
+import VisualizarPet from "./pages/v1/tutor/pet/VisualizarPet";
 import Veterinario from "./pages/Veterinario";
 
 function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/entrar" exact element={<Login />} />
-        <Route path="/inicio" exact element={<Dashboard />} />
         <Route path="/" exact element={<Home />} />
         <Route path="/pitch" exact element={<Pitch />} />
         <Route path="/links" exact element={<Links />} />
@@ -33,6 +34,12 @@ function Routes() {
           exact
           element={<PoliticasDePrivacidade />}
         />
+        <Route path="/entrar" exact element={<Login />} />
+
+        <Route path="/inicio" exact element={<Dashboard />} />
+        <Route path="/tutor/pet/adicionar" exact element={<AdicionarPet />} />
+        <Route path="/tutor/pet/editar" exact element={<EditarPet />} />
+        <Route path="/tutor/pet/visualizar" exact element={<VisualizarPet />} />
         <Route path="*" element={<NotFound />} />
       </Switch>
     </BrowserRouter>
