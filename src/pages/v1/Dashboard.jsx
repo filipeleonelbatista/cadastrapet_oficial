@@ -69,7 +69,6 @@ export default function Dashboard() {
     }
   }, [petList.length])
 
-  console.log("user", user, petList, selectedPet, medicalHistoryList)
   return (
     <DrawerComponent title="Inicio">
       <Typography variant="h5">Bem vindo, {user?.name} 👋</Typography>

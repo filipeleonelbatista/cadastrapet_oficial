@@ -125,7 +125,6 @@ function DrawerComponent({ title, children }) {
     }
     if (localStorage.getItem("@dark-theme") !== null) {
       const selectedTheme = localStorage.getItem("@dark-theme")
-      console.log("Entrei aqui", selectedTheme)
       setMode(selectedTheme)
     } else {
       localStorage.setItem("@dark-theme", prefersDarkMode ? 'dark' : 'light')

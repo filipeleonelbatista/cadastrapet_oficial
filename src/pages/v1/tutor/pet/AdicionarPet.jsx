@@ -177,7 +177,6 @@ export default function AdicionarPet() {
   const [qrScann, setQrscan] = useState("No result");
 
   const handleScan = async (data) => {
-    console.log("Olha o qr", data)
     if (data) {
       setQrscan(data.text);
       const scannedPet = await getPetByID(data.text);
