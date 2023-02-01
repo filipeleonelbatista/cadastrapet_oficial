@@ -17,7 +17,7 @@ import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { CgPill } from "react-icons/cg";
-import { FaBookMedical, FaBookOpen, FaCog, FaDog, FaQrcode, FaTh, FaUser, FaUserShield } from "react-icons/fa";
+import { FaBookMedical, FaBookOpen, FaCog, FaDog, FaMapMarkedAlt, FaQrcode, FaTachometerAlt, FaTh, FaUser, FaUserShield } from "react-icons/fa";
 import { MdOutlineAdsClick } from 'react-icons/md';
 import { TiContacts } from 'react-icons/ti';
 
@@ -186,7 +186,7 @@ function DrawerComponent({ title, children }) {
             </Tooltip>
             <Tooltip title="Perfil">
               <IconButton onClick={() => handleNavigate("/perfil")}>
-                <Avatar alt={user.name} src={user.Avatar} />
+                <Avatar alt={user.name} src={user.avatar} />
               </IconButton>
             </Tooltip>
           </Toolbar>
@@ -277,6 +277,14 @@ function DrawerComponent({ title, children }) {
                     </ListSubheader>
                   )
                 }
+                <Tooltip placement="right" title="Inicio">
+                  <ListItemButton selected={location.pathname === "/inicio"} onClick={() => handleLogout()}>
+                    <ListItemIcon>
+                      <FaTachometerAlt />
+                    </ListItemIcon>
+                    <ListItemText primary="Inicio" />
+                  </ListItemButton>
+                </Tooltip>
                 <Tooltip placement="right" title="Dados Gerais">
                   <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
                     <ListItemIcon>
@@ -307,6 +315,14 @@ function DrawerComponent({ title, children }) {
                       <CgPill />
                     </ListItemIcon>
                     <ListItemText primary="Hist. de Vermífugos" />
+                  </ListItemButton>
+                </Tooltip>
+                <Tooltip placement="right" title="Localiza Pet">
+                  <ListItemButton selected={location.pathname === "/localizar"} onClick={() => handleLogout()}>
+                    <ListItemIcon>
+                      <FaMapMarkedAlt />
+                    </ListItemIcon>
+                    <ListItemText primary="Localiza Pet" />
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Código Pet">
@@ -385,9 +401,14 @@ function DrawerComponent({ title, children }) {
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
+            mt: 7,
           }}
         >
-          <Container maxWidth="lg" sx={{ mt: 1, mb: 1 }}>
+          <Container maxWidth="lg" sx={{ mt: 1, mb: 1, pt: 2 }}>
             {children}
             <Copyright sx={{ pt: 4 }} />
           </Container>

@@ -143,20 +143,20 @@ function Login() {
               </FormHelperText>
             </FormControl>
             <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+            >
+              Login
+            </Button>
+
+            <Button
               type="button"
               variant="outlined"
               color="warning"
               onClick={() => handleForgotUser(formik.values.email)}
             >
               Esqueceu sua senha?
-            </Button>
-
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              Login
             </Button>
 
             <Typography variant="caption" sx={{ textAlign: "center", margin: "0.8rem" }}>
@@ -166,6 +166,7 @@ function Login() {
 
             <Box sx={{ width: '100%', display: 'flex', gap: 2 }}>
               <Button
+                sx={{ width: "100%"}}
                 type="button"
                 variant="outlined"
                 color="primary"
@@ -175,6 +176,7 @@ function Login() {
               </Button>
 
               <Button
+                sx={{ width: "100%"}}
                 type="button"
                 variant="outlined"
                 color="primary"

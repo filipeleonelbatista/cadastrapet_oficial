@@ -263,7 +263,6 @@ export function AuthContextProvider(props) {
       });
     return result;
   }
-
   async function getAllmedicalHistory() {
     const medicalHistoryRef = collection(db, "medical-history");
     const result = getDocs(medicalHistoryRef)
@@ -280,7 +279,6 @@ export function AuthContextProvider(props) {
       });
     return result;
   }
-
   async function getAllContacts() {
     const medicalHistoryRef = collection(db, "conversion-notification");
     const result = getDocs(medicalHistoryRef)
@@ -297,20 +295,17 @@ export function AuthContextProvider(props) {
       });
     return result;
   }
-
   async function getMedicalHistoryID(id) {
     const medicalHistoryRef = doc(db, "medical-history", id);
     const medicalHistorySnap = await getDoc(medicalHistoryRef);
     const medicalHistory = medicalHistorySnap.data();
     return medicalHistory;
   }
-
   async function getNewMedicalHistoryID() {
     const medicalHistoryRef = collection(db, "medical-history");
     const newMedicalHistory = await addDoc(medicalHistoryRef, {});
     return newMedicalHistory.id;
   }
-
   async function updatePetByID(id, data, user, message = false) {
     const petData = await getPetByID(id);
 
@@ -352,7 +347,6 @@ export function AuthContextProvider(props) {
       return false;
     }
   }
-
   async function updateUserByID(id, data) {
     const userData = await getUserByID(id);
 
