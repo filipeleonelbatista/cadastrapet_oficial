@@ -295,12 +295,12 @@ function DrawerComponent({ title, children }) {
                     <ListItemText primary="Dados Gerais" />
                   </ListItemButton>
                 </Tooltip>
-                <Tooltip placement="right" title="Hist. de consultas">
-                  <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                <Tooltip placement="right" title="Hist. Médico">
+                  <ListItemButton selected={location.pathname === "/tutor/historico-medico"} onClick={() => navigate("/tutor/historico-medico")}>
                     <ListItemIcon>
                       <FaBookMedical />
                     </ListItemIcon>
-                    <ListItemText primary="Hist. de consultas" />
+                    <ListItemText primary="Hist. Médico" />
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Carteira de Vacinação">

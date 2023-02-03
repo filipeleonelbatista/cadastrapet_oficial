@@ -49,7 +49,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const { props, setFunctions } = useAuth();
   const { user, petList, selectedPet, medicalHistoryList } = props;
-  const { handleSetSelectedPet } = setFunctions;
+  const { handleSetSelectedPet, setSelectedMedicalHistory } = setFunctions;
 
   const [position, setPosition] = useState(selectedPet?.currentLocation);
 
@@ -83,6 +83,43 @@ export default function Dashboard() {
         my: 2,
         pb: 1
       }}>
+        <Card
+          onClick={() => navigate('/tutor/pet/adicionar')}
+          component="button" sx={{
+            border: '2px dashed #1976d2',
+            p: 2,
+            width: 150,
+            minWidth: 150,
+            height: 200,
+            display: 'flex',
+            alignItems: "center",
+            justifyContent: "center",
+            transition: '0.2s',
+
+            '&:hover': {
+              filter: 'brightness(0.8)'
+            }
+          }}>
+          <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+            <Box sx={{
+              border: '2px dashed #1976d2',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: "center",
+              justifyContent: "center",
+              p: 1,
+              borderRadius: "50%",
+            }}>
+              <FaPlus color="#1976d2" />
+            </Box>
+            <Typography variant="body2" sx={{ mt: 1 }} color="#1976d2">Adicionar Pet</Typography>
+          </Box>
+        </Card>
         {
           petList.length > 0 && petList?.map(pet => (
             <Card
@@ -166,43 +203,6 @@ export default function Dashboard() {
             </Card>
           ))
         }
-        <Card
-          onClick={() => navigate('/tutor/pet/adicionar')}
-          component="button" sx={{
-            border: '2px dashed #1976d2',
-            p: 2,
-            width: 150,
-            minWidth: 150,
-            height: 200,
-            display: 'flex',
-            alignItems: "center",
-            justifyContent: "center",
-            transition: '0.2s',
-
-            '&:hover': {
-              filter: 'brightness(0.8)'
-            }
-          }}>
-          <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: "center",
-            justifyContent: "center",
-          }}>
-            <Box sx={{
-              border: '2px dashed #1976d2',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: "center",
-              justifyContent: "center",
-              p: 1,
-              borderRadius: "50%",
-            }}>
-              <FaPlus color="#1976d2" />
-            </Box>
-            <Typography variant="body2" sx={{ mt: 1 }} color="#1976d2">Adicionar Pet</Typography>
-          </Box>
-        </Card>
       </Box>
       <ContainerComponent>
         {
@@ -243,10 +243,15 @@ export default function Dashboard() {
         }
 
         <Box sx={{ mt: 2 }}>
-          <Typography variant="h5" color="primary">Históricos médicos recentes</Typography>
+          <Typography variant="h5" color="primary">Históricos médicos</Typography>
           <Typography variant="body2">Históricos medicos do pet selecionado</Typography>
           <Box sx={{ height: 350, width: '100%', mt: 2 }}>
             <DataGrid
+              initialState={{
+                sorting: {
+                  sortModel: [{ field: 'created_at', sort: 'desc' }],
+                },
+              }}
               rows={medicalHistoryList}
               getRowId={(row) => row.uid}
               columns={[
@@ -259,19 +264,25 @@ export default function Dashboard() {
                   field: "action",
                   headerName: "Ações",
                   sortable: false,
-                  renderCell: (params) => {
-                    const onClick = (event) => {
+                  renderCell: (params) => {                    
+                    const handleViewMedicalRecord = (event) => {
                       event.stopPropagation();
-
+                      setSelectedMedicalHistory(params.row)
+                      navigate("/tutor/historico-medico/visualizar")
                     };
 
+                    const handleEditMedicalRecord = (event) => {
+                      event.stopPropagation();
+                      setSelectedMedicalHistory(params.row)
+                      navigate("/tutor/historico-medico/editar")
+                    };
                     return (
                       <>
-                        <IconButton size="small" variant="contained" color="primary" onClick={onClick}>
+                        <IconButton size="small" variant="contained" color="primary" onClick={handleViewMedicalRecord}>
                           <FaEye />
                         </IconButton>
 
-                        <IconButton size="small" variant="contained" color="success" onClick={onClick}>
+                        <IconButton size="small" variant="contained" color="success" onClick={handleEditMedicalRecord}>
                           <FaEdit />
                         </IconButton>
                       </>
