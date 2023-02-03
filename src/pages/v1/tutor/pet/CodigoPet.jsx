@@ -6,6 +6,7 @@ import ContainerComponent from "../../../../components/v1/ContainerComponent";
 import DrawerComponent from "../../../../components/v1/DrawerComponent";
 import { useAuth } from '../../../../hooks/useAuth';
 import QRCode from "react-qr-code";
+import { Height } from '@mui/icons-material';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -19,7 +20,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 0.5 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -50,7 +51,7 @@ export default function CodigoPet() {
       <ContainerComponent>
         <Box sx={{ width: '100%' }}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="Painel para adicionar pet ou vincular">
+            <Tabs centered value={value} onChange={handleChange} aria-label="Painel para adicionar pet ou vincular">
               <Tab label="Veterinário" {...a11yProps(0)} />
               <Tab label="Tutor" {...a11yProps(1)} />
             </Tabs>
@@ -64,8 +65,19 @@ export default function CodigoPet() {
                 Leia o <b>Qr Code</b> para adicionar informações medicas ao pet.
               </Typography>
 
-              <Box sx={{ p: 2, backgroundColor: "#FFF", borderRadius: 2, width: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', my: 2 }}>
+              <Box sx={{
+                p: 2,
+                backgroundColor: "#FFF",
+                borderRadius: 2,
+                width: "fit-content",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                my: 2,
+                boxShadow: 3, 
+              }}>
                 <QRCode
+                  size={200}
                   value={`https://cadastrapet.com.br/veterinario/createquickappointment?petUid=${selectedPet.uid}`}
                 />
               </Box>
@@ -90,8 +102,19 @@ export default function CodigoPet() {
                 Leia o <b>Qr Code</b> para compartilhar os dados do pet com outro tutor.
               </Typography>
 
-              <Box sx={{ p: 2, backgroundColor: "#FFF", borderRadius: 2, width: 'fit-content', display: 'flex', alignItems: 'center', justifyContent: 'center', my: 2 }}>
+              <Box sx={{
+                p: 2,
+                backgroundColor: "#FFF",
+                borderRadius: 2,
+                width: "fit-content",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                my: 2,
+                boxShadow: 3, 
+              }}>
                 <QRCode
+                  size={200}
                   value={`${selectedPet.uid}`}
                 />
               </Box>
