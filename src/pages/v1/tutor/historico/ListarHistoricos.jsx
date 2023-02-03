@@ -1,9 +1,9 @@
-import { Avatar, Box, IconButton, Typography } from "@mui/material";
+import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
 import { DataGrid, ptBR } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
-import { FaEdit, FaEye } from "react-icons/fa";
+import { FaEdit, FaEye, FaPlus } from "react-icons/fa";
 import ContainerComponent from "../../../../components/v1/ContainerComponent";
 import DrawerComponent from "../../../../components/v1/DrawerComponent";
 import { useAuth } from "../../../../hooks/useAuth";
@@ -65,8 +65,13 @@ export default function ListarHistoricos() {
       </Box>
       <ContainerComponent>
         <Box sx={{ mt: 2 }}>
-          <Typography variant="h5" color="primary">Históricos médicos</Typography>
-          <Typography variant="body2">Históricos medicos do pet selecionado</Typography>
+          <Box>
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="h5" color="primary">Históricos médicos</Typography>
+              <Typography variant="body2">Históricos medicos do <b>{selectedPet?.name}</b></Typography>
+            </Box>
+            <Button type='button' onClick={() => navigate("/tutor/historico-medico/adicionar")} variant="contained" color="primary" startIcon={<FaPlus />}>Adicionar</Button>
+          </Box>
           <Box sx={{ height: 350, width: '100%', mt: 2 }}>
             <DataGrid
               initialState={{
