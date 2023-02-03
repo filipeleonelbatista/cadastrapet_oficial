@@ -1,9 +1,9 @@
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { default as Logout, default as LogoutIcon } from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, CardMedia, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Tooltip, useMediaQuery } from '@mui/material';
+import { Avatar, CardMedia, ListItemButton, ListItemIcon, ListItemText, ListSubheader, MenuItem, Tooltip, useMediaQuery } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -16,14 +16,15 @@ import List from '@mui/material/List';
 import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import { CgPill } from "react-icons/cg";
 import { FaBookMedical, FaBookOpen, FaCog, FaDog, FaMapMarkedAlt, FaQrcode, FaTachometerAlt, FaTh, FaUser, FaUserShield } from "react-icons/fa";
 import { MdOutlineAdsClick } from 'react-icons/md';
 import { TiContacts } from 'react-icons/ti';
-
-import * as React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+
+import Menu from '@mui/material/Menu';
 
 import logo from "../../assets/admin/logo.png";
 
@@ -110,6 +111,18 @@ function DrawerComponent({ title, children }) {
   const { logout } = functions;
   const { isLoggedIn, user } = props;
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const openMenu = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const [open, setOpen] = React.useState(false);
@@ -186,11 +199,68 @@ function DrawerComponent({ title, children }) {
                 {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
               </IconButton>
             </Tooltip>
-            <Tooltip title="Perfil">
-              <IconButton onClick={() => handleNavigate("/perfil")}>
-                <Avatar alt={user.name} src={user.avatar} />
+            <Tooltip title={user?.name}>
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={openMenu ? 'account-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={openMenu ? 'true' : undefined}
+              >
+                <Avatar src={user?.avatar} sx={{ width: 32, height: 32 }} />
               </IconButton>
             </Tooltip>
+
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={openMenu}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1.5,
+                  '& .MuiAvatar-root': {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <MenuItem onClick={() => navigate("/tutor/perfil")}>
+                <ListItemIcon>
+                  <FaUser />
+                </ListItemIcon>
+                Perfil
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={() => handleLogout()}>
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Sair
+              </MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -376,7 +446,7 @@ function DrawerComponent({ title, children }) {
               </ListItemButton>
             </Tooltip>
             <Tooltip placement="right" title="Perfil">
-              <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+              <ListItemButton selected={location.pathname === "/tutor/perfil"} onClick={() => navigate("/tutor/perfil")}>
                 <ListItemIcon>
                   <FaUser />
                 </ListItemIcon>

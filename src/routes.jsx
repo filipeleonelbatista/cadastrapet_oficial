@@ -13,6 +13,7 @@ import AdicionarHistorico from "./pages/v1/tutor/historico/AdicionarHistorico";
 import EditarHistorico from "./pages/v1/tutor/historico/EditarHistorico";
 import ListarHistoricos from "./pages/v1/tutor/historico/ListarHistoricos";
 import VisualizarHistorico from "./pages/v1/tutor/historico/VisualizarHistorico";
+import Perfil from "./pages/v1/tutor/perfil/perfil";
 import AdicionarPet from "./pages/v1/tutor/pet/AdicionarPet";
 import CodigoPet from "./pages/v1/tutor/pet/CodigoPet";
 import EditarPet from "./pages/v1/tutor/pet/EditarPet";
@@ -50,6 +51,7 @@ function Routes() {
         <Route path="/tutor/historico-medico/visualizar" exact element={<VisualizarHistorico />} />
         <Route path="/tutor/historico-medico/adicionar" exact element={<AdicionarHistorico />} />
         <Route path="/tutor/historico-medico/editar" exact element={<EditarHistorico />} />
+        <Route path="/tutor/perfil" exact element={<Perfil />} />
         <Route path="/codigo-pet" exact element={<CodigoPet />} />
         <Route path="/localizar-pet" exact element={<LocalizarPet />} />
         <Route path="*" element={<NotFound />} />
