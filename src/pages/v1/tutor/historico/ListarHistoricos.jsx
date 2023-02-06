@@ -3,24 +3,11 @@ import { DataGrid, ptBR } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
-import { FaEdit, FaEye, FaPlus } from "react-icons/fa";
+import { FaEdit, FaEye, FaPlus, FaTrash } from "react-icons/fa";
 import ContainerComponent from "../../../../components/v1/ContainerComponent";
 import DrawerComponent from "../../../../components/v1/DrawerComponent";
 import { useAuth } from "../../../../hooks/useAuth";
-
-import L from "leaflet";
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import "leaflet/dist/leaflet.css";
-
 import { useNavigate } from "react-router-dom";
-
-let DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-});
-
-L.Marker.prototype.options.icon = DefaultIcon;
 
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocale)
@@ -45,9 +32,11 @@ dayjs.updateLocale('en', {
 
 export default function ListarHistoricos() {
   const navigate = useNavigate();
-  const { props, setFunctions } = useAuth();
+  const { props, setFunctions, functions, deleteFunctions } = useAuth();
   const { selectedPet, medicalHistoryList } = props;
   const { setSelectedMedicalHistory } = setFunctions;
+  const { deleteMedicalHistory } = deleteFunctions;
+  const { updateContextData } = functions;
 
   return (
     <DrawerComponent title="Histórico médico">
@@ -104,14 +93,28 @@ export default function ListarHistoricos() {
                       navigate("/tutor/historico-medico/editar")
                     };
 
+                    const handleDelete = async (event) => {
+                      event.stopPropagation();
+                      if (
+                        window.confirm(
+                          "Deseja realmente deletar este registro? Esta ação é irreversível."
+                        )
+                      ) {
+                        await deleteMedicalHistory(params.row);
+                        await updateContextData();
+                      }
+                    };
+
                     return (
                       <>
                         <IconButton size="small" variant="contained" color="primary" onClick={handleViewMedicalRecord}>
                           <FaEye />
                         </IconButton>
-
                         <IconButton size="small" variant="contained" color="success" onClick={handleEditMedicalRecord}>
                           <FaEdit />
+                        </IconButton>
+                        <IconButton size="small" variant="contained" color="error" onClick={handleDelete}>
+                          <FaTrash />
                         </IconButton>
                       </>
                     );

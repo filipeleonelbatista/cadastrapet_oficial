@@ -58,7 +58,7 @@ export default function VisualizarHistorico() {
     ) {
       await deleteMedicalHistory(selectedMedicalHistory);
       await updateContextData();
-      navigate("/inicio");
+      navigate("/tutor/historico-medico");
     }
   };
 

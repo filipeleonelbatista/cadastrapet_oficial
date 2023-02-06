@@ -13,7 +13,7 @@ import AdicionarHistorico from "./pages/v1/tutor/historico/AdicionarHistorico";
 import EditarHistorico from "./pages/v1/tutor/historico/EditarHistorico";
 import ListarHistoricos from "./pages/v1/tutor/historico/ListarHistoricos";
 import VisualizarHistorico from "./pages/v1/tutor/historico/VisualizarHistorico";
-import Perfil from "./pages/v1/tutor/perfil/perfil";
+import Perfil from "./pages/v1/tutor/perfil/Perfil";
 import AdicionarPet from "./pages/v1/tutor/pet/AdicionarPet";
 import CodigoPet from "./pages/v1/tutor/pet/CodigoPet";
 import EditarPet from "./pages/v1/tutor/pet/EditarPet";
