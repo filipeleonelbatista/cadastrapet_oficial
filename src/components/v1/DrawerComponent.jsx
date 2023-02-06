@@ -18,7 +18,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { CgPill } from "react-icons/cg";
-import { FaBookMedical, FaBookOpen, FaCog, FaDog, FaMapMarkedAlt, FaQrcode, FaTachometerAlt, FaTh, FaUser, FaUserShield } from "react-icons/fa";
+import { FaBookMedical, FaBookOpen, FaCog, FaDog, FaHospital, FaMapMarkedAlt, FaQrcode, FaTachometerAlt, FaTh, FaUser, FaUserShield } from "react-icons/fa";
 import { MdOutlineAdsClick } from 'react-icons/md';
 import { TiContacts } from 'react-icons/ti';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -156,6 +156,8 @@ function DrawerComponent({ title, children }) {
     }
   };
 
+  console.log("user", user)
+
   return (
     <ThemeProvider theme={mode === 'light' ? mdTheme : mdThemeDark}>
       <Box sx={{ display: 'flex' }}>
@@ -292,20 +294,28 @@ function DrawerComponent({ title, children }) {
                 {
                   open && (
                     <ListSubheader component="div">
-                      Administrativo
+                      Administrativo CP 😸
                     </ListSubheader>
                   )
                 }
                 <Tooltip placement="right" title="Usuários">
-                  <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                  <ListItemButton selected={location.pathname === "/admin/usuarios"} onClick={() => navigate("/admin/usuarios")}>
                     <ListItemIcon>
                       <FaUser />
                     </ListItemIcon>
                     <ListItemText primary="Usuários" />
                   </ListItemButton>
                 </Tooltip>
+                <Tooltip placement="right" title="Clinicas/Petshops">
+                  <ListItemButton selected={location.pathname === "/admin/locais"} onClick={() => navigate("/admin/locais")}>
+                    <ListItemIcon>
+                      <FaHospital />
+                    </ListItemIcon>
+                    <ListItemText primary="Clinicas/Petshops" />
+                  </ListItemButton>
+                </Tooltip>
                 <Tooltip placement="right" title="Contatos">
-                  <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                  <ListItemButton selected={location.pathname === "/admin/contatos"} onClick={() => navigate("/admin/contatos")}>
                     <ListItemIcon>
                       <TiContacts />
                     </ListItemIcon>
@@ -313,7 +323,7 @@ function DrawerComponent({ title, children }) {
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Pets">
-                  <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                  <ListItemButton selected={location.pathname === "/admin/pets"} onClick={() => navigate("/admin/pets")}>
                     <ListItemIcon>
                       <FaDog />
                     </ListItemIcon>
@@ -321,7 +331,7 @@ function DrawerComponent({ title, children }) {
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Anúncios">
-                  <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                  <ListItemButton selected={location.pathname === "/admin/anuncios"} onClick={() => navigate("/admin/anuncios")}>
                     <ListItemIcon>
                       <MdOutlineAdsClick />
                     </ListItemIcon>
@@ -329,7 +339,7 @@ function DrawerComponent({ title, children }) {
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Config. Aplicação">
-                  <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                  <ListItemButton selected={location.pathname === "/admin/configuracao-aplicacao"} onClick={() => navigate("/admin/configuracao-aplicacao")}>
                     <ListItemIcon>
                       <FaCog />
                     </ListItemIcon>

@@ -6,6 +6,11 @@ import NotFound from "./pages/NotFound";
 import Pitch from "./pages/Pitch";
 import PoliticasDePrivacidade from "./pages/PoliticasDePrivacidade";
 import TermosECondicoes from "./pages/TermosECondicoes";
+import ConfiguracoesApp from "./pages/v1/admin/ConfiguracoesApp";
+import Contatos from "./pages/v1/admin/Contatos";
+import Locais from "./pages/v1/admin/Locais";
+import Pets from "./pages/v1/admin/Pets";
+import Users from "./pages/v1/admin/Users";
 import Dashboard from "./pages/v1/Dashboard";
 import Login from "./pages/v1/Login";
 import Register from "./pages/v1/Register";
@@ -54,6 +59,14 @@ function Routes() {
         <Route path="/tutor/perfil" exact element={<Perfil />} />
         <Route path="/codigo-pet" exact element={<CodigoPet />} />
         <Route path="/localizar-pet" exact element={<LocalizarPet />} />
+
+        <Route path="/admin/usuarios" exact element={<Users />} />
+        <Route path="/admin/locais" exact element={<Locais />} />
+        <Route path="/admin/contatos" exact element={<Contatos />} />
+        <Route path="/admin/pets" exact element={<Pets />} />
+        <Route path="/admin/anuncios" exact element={<Users />} />
+        <Route path="/admin/configuracao-aplicacao" exact element={<ConfiguracoesApp />} />
+
         <Route path="*" element={<NotFound />} />
       </Switch>
     </BrowserRouter>
