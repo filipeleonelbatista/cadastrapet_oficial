@@ -6,7 +6,6 @@ import ContainerComponent from "../../../../components/v1/ContainerComponent";
 import DrawerComponent from "../../../../components/v1/DrawerComponent";
 import { useAuth } from '../../../../hooks/useAuth';
 import QRCode from "react-qr-code";
-import { Height } from '@mui/icons-material';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

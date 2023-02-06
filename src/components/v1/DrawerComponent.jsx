@@ -251,7 +251,7 @@ function DrawerComponent({ title, children }) {
                 <ListItemIcon>
                   <FaUser />
                 </ListItemIcon>
-                Perfil
+                Meu Perfil
               </MenuItem>
               <Divider />
               <MenuItem onClick={() => handleLogout()}>
@@ -437,20 +437,12 @@ function DrawerComponent({ title, children }) {
               </>
             )}
 
-            <Tooltip placement="right" title="Configurações">
-              <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
-                <ListItemIcon>
-                  <FaCog />
-                </ListItemIcon>
-                <ListItemText primary="Configurações" />
-              </ListItemButton>
-            </Tooltip>
-            <Tooltip placement="right" title="Perfil">
+            <Tooltip placement="right" title="Meu Perfil">
               <ListItemButton selected={location.pathname === "/tutor/perfil"} onClick={() => navigate("/tutor/perfil")}>
                 <ListItemIcon>
                   <FaUser />
                 </ListItemIcon>
-                <ListItemText primary="Perfil" />
+                <ListItemText primary="Meu Perfil" />
               </ListItemButton>
             </Tooltip>
             <Tooltip placement="right" title="Sair">
