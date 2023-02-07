@@ -784,6 +784,7 @@ export function AuthContextProvider(props) {
       updateVaccineList();
       return true;
     } catch (err) {
+      console.log(err)
       sendDiscordNotification(
         `Houve um erro ao adicionar histórico de vacina\n\n ${JSON.stringify(
           data

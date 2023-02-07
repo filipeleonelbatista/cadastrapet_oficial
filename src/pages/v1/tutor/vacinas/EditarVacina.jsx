@@ -38,20 +38,19 @@ dayjs.updateLocale('en', {
   }
 })
 
-export default function EditarHistorico() {
+export default function EditarVacina() {
   const navigate = useNavigate();
   const { setIsLoading } = useLoading();
   const { addToast } = useToast();
   const { props, functions } = useAuth();
-  const { selectedPet, selectedMedicalHistory } = props;
+  const { selectedPet, selectedVaccine } = props;
   const {
-    updateMedicalHistoryByID,
-    getNewMedicalHistoryID,
+    updateVaccineByID,
     updateContextData,
   } = functions;
 
   const [showAttachment, setShowAttachment] = useState('')
-  const [selectedAttachment, setSelectedAttachment] = useState([...selectedMedicalHistory?.attachment])
+  const [selectedAttachment, setSelectedAttachment] = useState([...selectedVaccine?.vaccine_receipt])
 
   const handleFilePreview = (e) => {
     const files = e.target.files;
@@ -73,18 +72,22 @@ export default function EditarHistorico() {
 
   const formSchema = useMemo(() => {
     return Yup.object().shape({
-      consulta: Yup.string().required("O campo Consulta é obrigatório"),
-      dt_consulta: Yup.string().required("O campo Data da consulta é obrigatório"),
-      anotacoes: Yup.string(),
+      vaccine: Yup.string().required("O campo Vacina é obrigatório"),
+      vaccineLab: Yup.string().required("O campo Laboratório da vacina é obrigatório"),
+      doctorId: Yup.string().required("O campo CRMV do aplicador é obrigatório"),
+      vaccine_application_date: Yup.string().required("O campo Data de aplicação é obrigatório"),
+      vaccine_next_application_date: Yup.string(),
       selectedImage: Yup.mixed(),
     })
   }, [])
 
   const formik = useFormik({
     initialValues: {
-      consulta: selectedMedicalHistory?.title,
-      dt_consulta: dayjs(selectedMedicalHistory?.event_date).format("YYYY-MM-DD"),
-      anotacoes: selectedMedicalHistory?.notes,
+      vaccine: selectedVaccine?.vaccine,
+      vaccineLab: selectedVaccine?.vaccineLab,
+      doctorId: selectedVaccine?.doctorId,
+      vaccine_application_date: dayjs(new Date(selectedVaccine?.vaccine_application_date)).format("YYYY-MM-DD"),
+      vaccine_next_application_date: dayjs(new Date(selectedVaccine?.vaccine_next_application_date)).format("YYYY-MM-DD"),
       selectedImage: '',
     },
     validationSchema: formSchema,
@@ -99,33 +102,35 @@ export default function EditarHistorico() {
     let uploadURLImage = [];
     if (formValues.selectedImage !== '') {
       for (const file of formValues.selectedImage) {
-        const newUrl = await uploadImageAsync(file, "medical-history");
+        const newUrl = await uploadImageAsync(file, "vaccines");
         uploadURLImage.push(newUrl);
       }
     } else {
-      uploadURLImage = selectedImage;
+      uploadURLImage = selectedVaccine?.vaccine_receipt;
     }
 
     setIsLoading(false)
 
     const data = {
-      ...selectedMedicalHistory,
-      pet_uid: selectedPet.uid,
-      attachment: uploadURLImage,
-      title: formValues.consulta,
-      notes: formValues.anotacoes,
-      event_date: new Date(formValues.dt_consulta).getTime(),
+      ...selectedVaccine,
+      vaccine: formValues.vaccine,
+      vaccineLab: formValues.vaccineLab,
+      doctorId: formValues.doctorId,
+      vaccine_receipt: uploadURLImage,
+      vaccine_application_date: new Date(formValues.vaccine_application_date).getTime(),
+      vaccine_next_application_date: new Date(formValues.vaccine_next_application_date).getTime(),
       updated_at: Date.now(),
     };
 
-    if (await updateMedicalHistoryByID(selectedMedicalHistory.uid, data, selectedPet)) {
+    if (await updateVaccineByID(selectedVaccine.uid, data, selectedPet)) {
       addToast({
-        message: "Histórico médico atualizado com sucesso!"
+        message: "Aplicação da vacina atualizada com sucesso!"
       })
       await updateContextData();
-      return navigate("/tutor/historico-medico");
+      return navigate("/tutor/carteira-vacinacao");
     }
   }
+  console.log("VACINA", selectedVaccine)
 
   return (
     <>
@@ -180,48 +185,75 @@ export default function EditarHistorico() {
 
               <TextField
                 fullWidth
-                id="consulta"
-                label="Consulta"
+                id="vaccine"
+                label="Vacina"
                 variant="outlined"
-                value={formik.values.consulta}
+                value={formik.values.vaccine}
                 onChange={formik.handleChange}
-                error={!!formik.errors.consulta}
-                helperText={formik.errors.consulta}
+                error={!!formik.errors.vaccine}
+                helperText={formik.errors.vaccine}
+              />
+
+              <TextField
+                fullWidth
+                id="vaccineLab"
+                label="Laboratório da vacina"
+                variant="outlined"
+                value={formik.values.vaccineLab}
+                onChange={formik.handleChange}
+                error={!!formik.errors.vaccineLab}
+                helperText={formik.errors.vaccineLab}
+              />
+
+              <TextField
+                fullWidth
+                id="doctorId"
+                label="CRMV do aplicador ou responsável pelo procedimento"
+                variant="outlined"
+                value={formik.values.doctorId}
+                onChange={formik.handleChange}
+                error={!!formik.errors.doctorId}
+                helperText={formik.errors.doctorId}
               />
 
               <DatePicker
-                label="Data da consulta"
+                label="Data da aplicação"
                 inputFormat="DD/MM/YYYY"
-                value={formik.values.dt_consulta}
-                onChange={(value) => { value && formik.setFieldValue('dt_consulta', new Date(value)) }}
+                value={formik.values.vaccine_application_date}
+                onChange={(value) => { value && formik.setFieldValue('vaccine_application_date', new Date(value)) }}
                 renderInput={(params) => (
                   <TextField
                     fullWidth
-                    value={formik.values.dt_consulta}
-                    error={!!formik.errors.dt_consulta}
-                    helperText={formik.errors.dt_consulta}
-                    name="dt_consulta"
+                    value={formik.values.vaccine_application_date}
+                    error={!!formik.errors.vaccine_application_date}
+                    helperText={formik.errors.vaccine_application_date}
+                    name="vaccine_application_date"
                     variant="outlined"
                     {...params}
                   />
                 )}
               />
 
-              <TextField
-                fullWidth
-                multiline
-                rows={8}
-                id="anotacoes"
-                label="Observações"
-                variant="outlined"
-                value={formik.values.anotacoes}
-                onChange={formik.handleChange}
-                error={!!formik.errors.anotacoes}
-                helperText={formik.errors.anotacoes}
+              <DatePicker
+                label="Data da próxima aplicação"
+                inputFormat="DD/MM/YYYY"
+                value={formik.values.vaccine_next_application_date}
+                onChange={(value) => { value && formik.setFieldValue('vaccine_next_application_date', new Date(value)) }}
+                renderInput={(params) => (
+                  <TextField
+                    fullWidth
+                    value={formik.values.vaccine_next_application_date}
+                    error={!!formik.errors.vaccine_next_application_date}
+                    helperText={formik.errors.vaccine_next_application_date}
+                    name="vaccine_next_application_date"
+                    variant="outlined"
+                    {...params}
+                  />
+                )}
               />
 
               <Typography variant="h6">Anexos</Typography>
-              <Typography variant="body1">Adicione fotos das rececitas ou caixas de remédios usadas para os tratamentos do seu pet.</Typography>
+              <Typography variant="body1">Adicione a imagens da vacina contendo o máximo de informações possível.</Typography>
               <Box sx={{
                 display: "flex",
                 alignItems: "flex-start",
@@ -339,11 +371,11 @@ export default function EditarHistorico() {
                 }
               </Box>
 
-              <Button type='submit' variant="contained" color="success" startIcon={<FaSave />}>Salvar Histórico</Button>
+              <Button type='submit' variant="contained" color="success" startIcon={<FaSave />}>Salvar Aplicação</Button>
               <Button onClick={() => {
-                if(window.confirm("Deseja descartar as alterações?")){
+                if (window.confirm("Deseja descartar as alterações?")) {
                   formik.resetForm();
-                  navigate("/tutor/historico-medico")
+                  navigate("/tutor/carteira-vacinacao")
                 }
               }} type='button' variant="contained" color="error" startIcon={<FaTrash />}>Descartar</Button>
             </Box>

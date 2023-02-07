@@ -382,7 +382,7 @@ function DrawerComponent({ title, children }) {
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Carteira de Vacinação">
-                  <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                  <ListItemButton selected={location.pathname === "/tutor/carteira-vacinacao"} onClick={() => navigate("/tutor/carteira-vacinacao")}>
                     <ListItemIcon>
                       <FaTh />
                     </ListItemIcon>

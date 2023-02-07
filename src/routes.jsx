@@ -24,6 +24,10 @@ import CodigoPet from "./pages/v1/tutor/pet/CodigoPet";
 import EditarPet from "./pages/v1/tutor/pet/EditarPet";
 import LocalizarPet from "./pages/v1/tutor/pet/LocalizarPet";
 import VisualizarPet from "./pages/v1/tutor/pet/VisualizarPet";
+import AdicionarVacina from "./pages/v1/tutor/vacinas/AdicionarVacina";
+import EditarVacina from "./pages/v1/tutor/vacinas/EditarVacina";
+import ListarVacinas from "./pages/v1/tutor/vacinas/ListarVacinas";
+import VisualizarVacina from "./pages/v1/tutor/vacinas/VisualizarVacina";
 import Veterinario from "./pages/Veterinario";
 
 function Routes() {
@@ -56,6 +60,10 @@ function Routes() {
         <Route path="/tutor/historico-medico/visualizar" exact element={<VisualizarHistorico />} />
         <Route path="/tutor/historico-medico/adicionar" exact element={<AdicionarHistorico />} />
         <Route path="/tutor/historico-medico/editar" exact element={<EditarHistorico />} />
+        <Route path="/tutor/carteira-vacinacao" exact element={<ListarVacinas />} />
+        <Route path="/tutor/carteira-vacinacao/visualizar" exact element={<VisualizarVacina />} />
+        <Route path="/tutor/carteira-vacinacao/adicionar" exact element={<AdicionarVacina />} />
+        <Route path="/tutor/carteira-vacinacao/editar" exact element={<EditarVacina />} />
         <Route path="/tutor/perfil" exact element={<Perfil />} />
         <Route path="/codigo-pet" exact element={<CodigoPet />} />
         <Route path="/localizar-pet" exact element={<LocalizarPet />} />
