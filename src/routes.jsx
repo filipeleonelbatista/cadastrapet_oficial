@@ -14,6 +14,7 @@ import Users from "./pages/v1/admin/Users";
 import Dashboard from "./pages/v1/Dashboard";
 import Login from "./pages/v1/Login";
 import Register from "./pages/v1/Register";
+import ListarAdocao from "./pages/v1/tutor/adocao/ListarAdocao";
 import AdicionarHistorico from "./pages/v1/tutor/historico/AdicionarHistorico";
 import EditarHistorico from "./pages/v1/tutor/historico/EditarHistorico";
 import ListarHistoricos from "./pages/v1/tutor/historico/ListarHistoricos";
@@ -72,6 +73,7 @@ function Routes() {
         <Route path="/tutor/historico-vermifugos/visualizar" exact element={<VisualizarVermifugo />} />
         <Route path="/tutor/historico-vermifugos/adicionar" exact element={<AdicionarVermifugo />} />
         <Route path="/tutor/historico-vermifugos/editar" exact element={<EditarVermifugo />} />
+        <Route path="/tutor/adocao" exact element={<ListarAdocao />} />
         <Route path="/tutor/perfil" exact element={<Perfil />} />
         <Route path="/codigo-pet" exact element={<CodigoPet />} />
         <Route path="/localizar-pet" exact element={<LocalizarPet />} />

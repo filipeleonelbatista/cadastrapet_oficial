@@ -413,14 +413,26 @@ function DrawerComponent({ title, children }) {
                     <ListItemText primary="Código Pet" />
                   </ListItemButton>
                 </Tooltip>
-                <Tooltip placement="right" title="Seja premium">
-                  <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                <Tooltip placement="right" title="Adoção">
+                  <ListItemButton selected={location.pathname === "/tutor/adocao"} onClick={() => navigate("/tutor/adocao")}>
                     <ListItemIcon>
-                      <FaUserShield />
+                      <FaDog />
                     </ListItemIcon>
-                    <ListItemText primary="Seja premium" />
+                    <ListItemText primary="Adoção" />
                   </ListItemButton>
                 </Tooltip>
+                {
+                  false && (
+                    <Tooltip placement="right" title="Seja premium">
+                      <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                        <ListItemIcon>
+                          <FaUserShield />
+                        </ListItemIcon>
+                        <ListItemText primary="Seja premium" />
+                      </ListItemButton>
+                    </Tooltip>
+                  )
+                }
                 <Divider sx={{ my: 1 }} />
               </>
             )}
