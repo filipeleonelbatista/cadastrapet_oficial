@@ -112,6 +112,7 @@ export default function ContatosSeguranca() {
   return (
     <Box>
       <Typography sx={{ mt: 2 }} >As informações de contatos de segurança aparecerão caso seu pet esteja perdido e alguem leia a coleira do pet.</Typography>
+      <Typography variant="body2" >Não ultilizamos para nenhuma outra finalidade a não ser mostrar para quem localizar seu pet!</Typography>
       {
         !showForm && (
           <Button
