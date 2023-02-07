@@ -91,7 +91,7 @@ const vaccineObject = {
   vaccine: "",
   vaccineLab: "",
   doctorId: "",
-  vaccine_receipt: "",
+  vaccine_receipt: [],
   vaccine_application_date: "",
   vaccine_next_application_date: "",
   created_at: "",
@@ -102,7 +102,7 @@ const medicationObject = {
   uid: "",
   medication: "",
   medication_application_date: "",
-  medication_receipe: "",
+  medication_receipe: [],
   created_at: "",
   updated_at: "",
 };

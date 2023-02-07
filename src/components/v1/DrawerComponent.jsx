@@ -390,7 +390,7 @@ function DrawerComponent({ title, children }) {
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Hist. de Vermífugos">
-                  <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                  <ListItemButton selected={location.pathname === "/tutor/historico-vermifugos"} onClick={() => navigate("/tutor/historico-vermifugos")}>
                     <ListItemIcon>
                       <CgPill />
                     </ListItemIcon>
