@@ -118,6 +118,8 @@ function Register() {
           vaccine_history: [],
           medication_history: [],
         },
+        created_at: Date.now(),
+        updated_at: Date.now(),
       },
     };
 

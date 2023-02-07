@@ -156,8 +156,6 @@ function DrawerComponent({ title, children }) {
     }
   };
 
-  console.log("user", user)
-
   return (
     <ThemeProvider theme={mode === 'light' ? mdTheme : mdThemeDark}>
       <Box sx={{ display: 'flex' }}>

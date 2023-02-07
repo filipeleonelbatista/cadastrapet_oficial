@@ -16,10 +16,12 @@ import { uploadImageAsync } from '../../../../firebase/functions';
 import { useAuth } from '../../../../hooks/useAuth';
 import { isStringEmpty } from '../../../../utils/string';
 import { useToast } from '../../../../hooks/useToast';
+import { useLoading } from '../../../../hooks/useLoading';
 
 export default function EditarPet() {
   const navigate = useNavigate();
-  const { addToast } = useToast()
+  const { addToast } = useToast();
+  const { setIsLoading } = useLoading();
   const { functions, props } = useAuth();
   const { updatePetByID, updateContextData } = functions;
   const { user, selectedPet } = props;
@@ -74,12 +76,13 @@ export default function EditarPet() {
   const handleSubmitForm = async (formValues) => {
 
     let uploadURLImage = "";
-
+    setIsLoading(true)
     if (formValues.selectedImage !== '') {
       uploadURLImage = await uploadImageAsync(formValues.selectedImage, "pets");
     } else {
       uploadURLImage = selectedImage;
     }
+    setIsLoading(false)
 
     const data = {
       ...selectedPet,
