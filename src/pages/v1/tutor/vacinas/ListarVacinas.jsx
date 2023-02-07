@@ -39,7 +39,7 @@ export default function ListarVacinas() {
   const { updateContextData } = functions;
 
   return (
-    <DrawerComponent title="Histórico médico">
+    <DrawerComponent title="Carteira de vacinação">
       <Box>
         <Typography variant="caption">Pet selecionado:</Typography>
         <Box sx={{ my: 1, display: 'flex', alignItems: 'center', gap: 2 }}>
