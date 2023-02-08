@@ -31,6 +31,7 @@ export default function HomeNavigation() {
         py: 2.8,
         px: 4,
         backgroundColor: '#D0EBFF',
+        zIndex:100,
       }}
     >
       <CardMedia
