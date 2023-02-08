@@ -1,16 +1,61 @@
+import { Box, Typography } from "@mui/material";
 import Floating from "../components/Floating";
 import Footer from "../components/Footer";
 import HomeNavigation from "../components/HomeNavigation";
 
-import styles from "../styles/pages/TermosECondicoes.module.css";
-
 function TermosECondicoes() {
   return (
-    <div id="landing-page" className={styles.container}>
+    <Box
+      sx={{
+        margin: 0,
+        padding: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100vw',
+        height: 'auto',
+        backgroundColor: '#fff',
+        color: '#000',
+      }}
+    >
       <HomeNavigation />
-      <main>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         {/* how */}
-        <section id="how" className={styles.how}>
+        <Box
+          sx={{
+            maxWidth: 720,
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            py: 2,
+            mt: 10,
+
+            '& > ol, & > ul': {
+              mx: 4,
+            },
+
+            '& > h2': {
+              textAlign: 'left',
+              mb: 2,
+              fontWeight: 700,
+              fontSize: 26,
+              color: '#000'
+            },
+
+            '& > p': {
+              mb: 2,
+              fontSize: 16,
+              color: '#000',
+              textAlign: 'justify',
+            }
+          }}
+        >
           <h2 style={{ textAlign: "center" }}>Termos e Condições</h2>
           <h2>1. Termos</h2>{" "}
           <p>
@@ -114,21 +159,32 @@ function TermosECondicoes() {
             as leis do CadastraPet e você se submete irrevogavelmente à
             jurisdição exclusiva dos tribunais naquele estado ou localidade.
           </p>
-        </section>
+        </Box>
         {/* how */}
         {/* cta2 */}
-        <section id="cta2" className={styles.cta2}>
-          <h2>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            py: 8,
+            px: 4,
+            width: '100vw',
+            backgroundColor: '#232323'
+
+          }} >
+          <Typography variant="h5" color="white" textAlign="center">
             Com o CadastraPet, você cria a ficha do seu pet, mantem os dados
             clinicos atualizados e tem essas informaçõe disponíveis para seu
             veterinário!
-          </h2>
-        </section>
+          </Typography>
+        </Box>
         {/* cta2 */}
-      </main>
+      </Box>
       <Footer />
       <Floating />
-    </div>
+    </Box >
   );
 }
 

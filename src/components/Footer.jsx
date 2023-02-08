@@ -2,7 +2,6 @@ import { Box, Link, Typography } from "@mui/material";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import logoImg from "../assets/logo_white.svg";
 import { useResize } from "../hooks/useResize";
-import styles from "../styles/components/Footer.module.css";
 
 export default function Footer() {
   const { size } = useResize();

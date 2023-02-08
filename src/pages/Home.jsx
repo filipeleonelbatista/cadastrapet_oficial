@@ -304,6 +304,7 @@ function HomeComponent() {
             alignItems: size[0] < 720 ? 'center' : 'flex-start',
             gap: 3,
             mt: -12,
+            zIndex: 50,
           }}
         >
           <Box
