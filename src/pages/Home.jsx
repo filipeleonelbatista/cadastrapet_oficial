@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
-import { FaCheck } from "react-icons/fa";
+import { Box, Button, Card, CardMedia, Grid, IconButton, Modal, TextField, Typography } from "@mui/material";
+import { useFormik } from 'formik';
+import { useEffect, useMemo, useState } from "react";
+import { FaCheck, FaDog, FaTimes } from "react-icons/fa";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
+import * as Yup from 'yup';
+import petImage from "../assets/images/pet.jpg";
 import AcceptTerms from "../components/AcceptTerms";
 import ContactSection from "../components/ContactSection";
 import Floating from "../components/Floating";
@@ -9,21 +13,17 @@ import Footer from "../components/Footer";
 import HomeNavigation from "../components/HomeNavigation";
 import { ConversionContextProvider } from "../context/ConversionContext";
 import { useConversion } from "../hooks/useConversion";
-
+import { useResize } from "../hooks/useResize";
+import { useToast } from "../hooks/useToast";
+import { phone as phoneMask } from "../utils/masks";
 import styles from "../styles/pages/Home.module.css";
-import { isStringEmpty } from "../utils/string";
 
 function HomeComponent() {
+  const { size } = useResize()
   const navigate = useNavigate();
-
+  const { addToast } = useToast();
   const { conversion } = useConversion();
   const [isShow, setIsShow] = useState(false);
-  const [isClose, setIsClose] = useState(false);
-  const [isSendedMessage, setIsSendedMessage] = useState(false);
-  const [name, setname] = useState("");
-  const [telefone, settelefone] = useState("");
-  const [email, setemail] = useState("");
-  const [quant, setquant] = useState("");
   const [myIp, setMyIp] = useState("");
 
   function handleCadastrar() {
@@ -38,89 +38,44 @@ function HomeComponent() {
       });
   }
 
-  function handleToggleModal() {
-    const isContacted = localStorage.getItem("contact");
+  const formSchema = useMemo(() => {
+    return Yup.object().shape({
+      name: Yup.string().required("O campo Nome é obrigatório"),
+      phone: Yup.string().required("O campo Celular/Whatsapp é obrigatório").length(15, "Numero digitado incorreto!"),
+      email: Yup.string().required("O campo Email é obrigatório").email("Digite um Email válido"),
+      quant: Yup.number().required("O campo Quantidade de pets é obrigatório"),
+    })
+  }, [])
 
-    if (isContacted) {
-      setIsShow(false);
-      return;
-    }
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      phone: '',
+      quant: 1,
+    },
+    validationSchema: formSchema,
+    onSubmit: values => {
+      handleSubmitForm(values)
+    },
+  });
 
-    if (!isClose) {
-      if (isSendedMessage) {
-        alert(
-          "Seu cadastro já foi realizado, aguarde nosso email de contato. Obrigado!"
-        );
-      } else {
-        setIsShow(true);
-      }
-    } else {
-      setIsShow(false);
-    }
-  }
-
-  function handleNumberOnly(value) {
-    value = value.replace(/\D/g, "");
-    return value;
-  }
-
-  function handleMaskPhoneNumber(value) {
-    value = value.replace(/\D/g, "");
-    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
-    value = value.replace(/(\d)(\d{4})$/, "$1-$2");
-    return value;
-  }
-
-  const ValidateFields = () => {
-    if (isStringEmpty(name)) {
-      alert("O campo nome não foi preenchido");
-      return true;
-    }
-    if (telefone.length < 15) {
-      if (isStringEmpty(telefone)) {
-        alert("O campo Telefone não foi preenchido");
-        return true;
-      } else {
-        alert("O campo Telefone não está completo");
-        return true;
-      }
-    }
-    if (isStringEmpty(email)) {
-      alert("O campo Email não foi preenchido");
-      return true;
-    }
-    if (isStringEmpty(quant)) {
-      alert("O campo Quantidade de pets não foi preenchido");
-      return true;
-    }
-  };
-
-  async function handleForm() {
-    if (ValidateFields()) return;
-
-    const isConversionSaved = await conversion(
-      name,
-      email,
+  async function handleSubmitForm(formValues) {
+    if (await conversion(
+      formValues.name,
+      formValues.email,
       "Modal leaving home",
-      telefone,
+      formValues.phone,
       myIp,
       window.location.href,
-      `Quantidade de pets: ${quant}`
-    );
-
-    if (isConversionSaved) {
-      setname("");
-      settelefone("");
-      setemail("");
-      setquant("");
-      setIsSendedMessage(true);
-      setIsClose(true);
+      `Quantidade de pets: ${formValues.quant}`
+    )) {
       setIsShow(false);
-
       localStorage.setItem("contact", true);
+      addToast({
+        message: 'Contato enviado com sucesso! Aguarde que enviaremos seu conteúdo!'
+      })
       return;
-    } else {
-      handleToggleModal();
     }
   }
 
@@ -128,75 +83,160 @@ function HomeComponent() {
     getCurrentIP();
   }, []);
   return (
-    <div
-      onMouseLeave={handleToggleModal}
-      className={styles.container}
+    <Box
+      component="div"
+      onMouseLeave={() => {
+        const isContacted = localStorage.getItem('contact')
+        if (isContacted === null || JSON.parse(isContacted) === false) {
+          setIsShow(true)
+        }
+      }}
+      sx={{
+        margin: 0,
+        padding: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100vw',
+        height: 'auto',
+        backgroundColor: '#fff',
+        color: '#000',
+      }}
     >
-      {isShow && (
-        <div id="modal-cta" className={styles.modalCta}>
-          <div className={styles.cardContainer}>
-            <button
-              onClick={() => {
-                setIsClose(true);
-                localStorage.setItem("contact", true);
-                handleToggleModal();
-              }}
-              type="button"
-              className={styles.closeButton}
-            >
-              X
-            </button>
-            <div className={styles.imageContainer}></div>
-            <div className={styles.formContainer}>
-              <h2>Não vá agora. Preparamos um conteúdo especial</h2>
-              <p>
-                Deixe seu email e Whatsapp que enviaremos pra você conteúdo
-                especial sobre cuidados com o pet. É de graça e prometemos que
-                não enviaremos Span.
-              </p>
-
-              <div>
-                <label htmlFor="nome">Nome</label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setname(e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="telefone">Whatsapp</label>
-                <input
-                  type="text"
-                  maxLength={15}
-                  value={telefone}
-                  onChange={(e) =>
-                    settelefone(handleMaskPhoneNumber(e.target.value))
-                  }
-                />
-              </div>
-              <div>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setemail(e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="quant">Quantos pets você tem hoje?</label>
-                <input
-                  type="text"
-                  value={quant}
-                  onChange={(e) => setquant(handleNumberOnly(e.target.value))}
-                />
-              </div>
-              <button onClick={handleForm}>Enviar</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        open={isShow}
+        onClose={() => {
+          setIsShow(false);
+          localStorage.setItem("contact", true);
+        }}
+      >
+        <Card
+          sx={{
+            width: '90vw',
+            height: '90vh',
+            outline: 'none',
+            position: 'relative',
+          }}
+        >
+          <IconButton onClick={() => {
+            setIsShow(false);
+            localStorage.setItem("contact", true);
+          }} sx={{ position: 'absolute', top: 8, left: 8, backgroundColor: "#00000033" }}>
+            <FaTimes />
+          </IconButton>
+          <Grid container sx={{ height: '100vh' }}>
+            {
+              size[0] > 720 && (
+                <Grid item xs={6} sx={{ pl: 0, pt: 0, height: '100vh' }}>
+                  <CardMedia
+                    component="img"
+                    src={petImage}
+                    sx={{
+                      height: '100vh'
+                    }}
+                    alt="PET"
+                  />
+                </Grid>
+              )
+            }
+            <Grid item xs={size[0] > 720 ? 6 : 12} sx={{ p: 0, height: '100vh' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  width: '100%',
+                  flexDirection: 'column',
+                  gap: 1,
+                  overflow: 'auto',
+                  alignItems: 'center',
+                  py: 2,
+                  px: 1,
+                }}
+              >
+                <Typography variant="h5" textAlign="center">
+                  Não vá agora. Preparamos um conteúdo especial
+                </Typography>
+                <Typography variant="body1" textAlign="center">
+                  Deixe seu email e Whatsapp que enviaremos pra você conteúdo
+                  especial sobre cuidados com o pet. É de graça e prometemos que
+                  não enviaremos Span.
+                </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    maxWidth: 320,
+                    width: '100%',
+                    flexDirection: 'column',
+                    gap: 2,
+                    pt: 2
+                  }}
+                  component="form"
+                  onSubmit={formik.handleSubmit}
+                >
+                  <TextField
+                    fullWidth
+                    id="modal-name"
+                    name="name"
+                    label="Nome completo"
+                    value={formik.values.name}
+                    error={!!formik.errors.name}
+                    helperText={formik.errors.name}
+                    onChange={formik.handleChange}
+                  />
+                  <TextField
+                    fullWidth
+                    id="modal-phone"
+                    name="phone"
+                    label="Celular/WhatsApp"
+                    value={formik.values.phone}
+                    error={!!formik.errors.phone}
+                    helperText={formik.errors.phone}
+                    inputProps={{ maxLength: 15 }}
+                    onChange={(event) => {
+                      formik.setFieldValue('phone', phoneMask(event.target.value))
+                    }}
+                  />
+                  <TextField
+                    fullWidth
+                    id="modal-email"
+                    name="email"
+                    label="Coloque seu melhor email"
+                    value={formik.values.email}
+                    error={!!formik.errors.email}
+                    helperText={formik.errors.email}
+                    onChange={formik.handleChange}
+                  />
+                  <TextField
+                    fullWidth
+                    type="number"
+                    id="modal-how-many-pets"
+                    name="quant"
+                    label="Quantos pets você tem hoje?"
+                    value={formik.values.quant}
+                    error={!!formik.errors.quant}
+                    helperText={formik.errors.quant}
+                    onChange={formik.handleChange}
+                  />
+                  <Button type="submit" variant="contained" color="primary" startIcon={<FaDog />}>Quero receber o conteúdo</Button>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+        </Card>
+      </Modal>
       <HomeNavigation />
-      <main>
+      <Box
+        sx={{
+          backgroundColor: '#f9f9f9',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         {/* CTA */}
         <section id="cta" className={styles.cta}>
           <div className={styles.rowContent}>
@@ -365,11 +405,11 @@ function HomeComponent() {
         </section>
         {/* video */}
         <ContactSection location="Home" />
-      </main>
+      </Box>
       <Footer />
-      <Floating location="tutor" />
       <AcceptTerms />
-    </div>
+      <Floating location="tutor" />
+    </Box >
   );
 }
 

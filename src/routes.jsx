@@ -76,7 +76,7 @@ function Routes() {
         <Route path="/tutor/adocao" exact element={<ListarAdocao />} />
         <Route path="/tutor/perfil" exact element={<Perfil />} />
         <Route path="/codigo-pet" exact element={<CodigoPet />} />
-        <Route path="/localizar-pet" exact element={<LocalizarPet />} />
+        <Route path="/tutor/localizar-pet" exact element={<LocalizarPet />} />
 
         <Route path="/admin/usuarios" exact element={<Users />} />
         <Route path="/admin/locais" exact element={<Locais />} />

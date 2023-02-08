@@ -398,7 +398,7 @@ function DrawerComponent({ title, children }) {
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Localiza Pet">
-                  <ListItemButton selected={location.pathname === "/localizar-pet"} onClick={() => navigate("/localizar-pet")}>
+                  <ListItemButton selected={location.pathname === "/tutor/localizar-pet"} onClick={() => navigate("/tutor/localizar-pet")}>
                     <ListItemIcon>
                       <FaMapMarkedAlt />
                     </ListItemIcon>
