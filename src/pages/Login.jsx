@@ -19,8 +19,8 @@ function Login() {
   async function handleOnSubmit() {
     const isLogged = await signInUser(email, password);
     if (isLogged.status) {
-      if (isLogged.user.user_role === "tutor") navigate("/tutor/petlist");
-      if (isLogged.user.user_role === "veterinario")
+      if (isLogged.user.user_role.includes("tutor")) navigate("/tutor/petlist");
+      if (isLogged.user.user_role.includes("veterinario"))
         if (sessionStorage.getItem("petUid") !== null) {
           navigate("/veterinario/medicalappointment/add");
         } else {
@@ -34,8 +34,8 @@ function Login() {
   useEffect(() => {
     if (isLoggedIn) {
       if (user) {
-        if (user.user_role === "tutor") navigate("/tutor/petlist");
-        if (user.user_role === "veterinario")
+        if (user.user_role.includes("tutor")) navigate("/tutor/petlist");
+        if (user.user_role.includes("veterinario"))
           navigate("/veterinario/vetprofile");
       }
     } else {
