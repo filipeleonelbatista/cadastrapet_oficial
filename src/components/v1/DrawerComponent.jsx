@@ -28,6 +28,10 @@ import Menu from '@mui/material/Menu';
 
 import logo from "../../assets/admin/logo.png";
 import Floating from '../Floating';
+import { ToastContextProvider } from '../../context/ToastContext';
+import { LoadingContextProvider } from '../../context/LoadingContext';
+import { AuthContextProvider } from '../../context/AuthContext';
+import { ConversionContextProvider } from '../../context/ConversionContext';
 
 function Copyright() {
   return (
@@ -104,7 +108,7 @@ const mdThemeDark = createTheme({
   }
 });
 
-function DrawerComponent({ title, children }) {
+function DrawerComponentFULL({ title, children }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -511,4 +515,16 @@ function DrawerComponent({ title, children }) {
   );
 }
 
-export default DrawerComponent;
+export default function DrawerComponent({ title, children }) {
+  return (
+    <ToastContextProvider>
+      <LoadingContextProvider>
+        <AuthContextProvider>
+          <ConversionContextProvider>
+            <DrawerComponentFULL title={title} children={children} />
+          </ConversionContextProvider>
+        </AuthContextProvider>
+      </LoadingContextProvider>
+    </ToastContextProvider>
+  )
+}
