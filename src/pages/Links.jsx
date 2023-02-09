@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import React from "react";
-import { FaDog, FaEnvelope, FaFilePowerpoint, FaGlobeAmericas, FaInstagram, FaMapMarked, FaMarker, FaUserNurse } from "react-icons/fa";
+import { FaDog, FaEnvelope, FaFilePowerpoint, FaGlobeAmericas, FaInstagram, FaMapMarked, FaUserNurse } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
 import profilePic from "../assets/icon.png";
 import Floating from "../components/Floating";
