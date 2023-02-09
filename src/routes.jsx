@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Links from "./pages/Links";
+import LocalizaPet from "./pages/LocalizaPet";
 import NotFound from "./pages/NotFound";
 import Pitch from "./pages/Pitch";
 import PoliticasDePrivacidade from "./pages/PoliticasDePrivacidade";
@@ -40,6 +41,8 @@ function Routes() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact element={<Home />} />
+        <Route path="/localizapet/:id" element={<LocalizaPet />} />
+        <Route path="/localizapet" element={<LocalizaPet />} />
         <Route path="/pitch" exact element={<Pitch />} />
         <Route path="/links" exact element={<Links />} />
         <Route path="/tutor/cadastrar" exact element={<Register />} />

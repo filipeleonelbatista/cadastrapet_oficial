@@ -306,6 +306,39 @@ export function AuthContextProvider(props) {
     const newMedicalHistory = await addDoc(medicalHistoryRef, {});
     return newMedicalHistory.id;
   }
+  async function updatePetByIDLocalization(id, data) {
+    const petData = await getPetByID(id);
+
+    const updatedPet = {
+      ...petData,
+      ...data,
+    };
+
+    try {
+      setIsLoading(true)
+      await setDoc(doc(db, "pets", id), updatedPet);
+
+      sendDiscordNotification(
+        `Localização do pet atualizada: 
+          **Pet:** 
+          Codigo pet: \`${updatedPet.uid}\`
+          Nome do pet: ${updatedPet.name}
+          ${updatedPet.avatar}`,
+        "doguinho"
+      );
+
+      setIsLoading(false)
+      return true;
+    } catch (err) {
+      console.log("ERRO", err)
+      addToast({
+        message: `Houve um erro ao atualizar dados do pet. Tente novamente mais tarde`,
+        severity: "error"
+      })
+      return false;
+    }
+  }
+
   async function updatePetByID(id, data, user, message = false) {
     const petData = await getPetByID(id);
 
@@ -1148,6 +1181,7 @@ export function AuthContextProvider(props) {
           getMedicalHistoryID,
           getNewMedicalHistoryID,
           updatePetByID,
+          updatePetByIDLocalization,
           updateUserByID,
           updatePetMedicalHistoryByID,
           updateMedicalHistoryList,

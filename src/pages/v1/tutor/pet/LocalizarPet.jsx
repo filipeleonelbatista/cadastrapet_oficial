@@ -50,7 +50,6 @@ export default function LocalizarPet() {
 
   const [showCode, setShowCode] = useState(false)
 
-
   return (
     <DrawerComponent title="Localizar Pet">
       <ContainerComponent>
@@ -88,32 +87,38 @@ export default function LocalizarPet() {
                 }
               </Box>
             ) : (
-              <Box sx={{ mt: 2 }}>
-                <Typography variant="h5" color="primary">Localização do seu pet</Typography>
-                <Typography variant="body2">Ultimo local onde sua Tag da coleira foi lida ou a posição do rastreador</Typography>
-                <Box
-                  sx={{
-                    width: '100%',
-                    height: 300,
-                    borderRadius: 2,
-                    mt: 2,
-                    overflow: 'hidden',
-                  }}
-                >
-                  <MapContainer
-                    key="pet-location"
-                    id="pet-location"
-                    center={[-29.9357, -51.0166]}
-                    zoom={15}
-                    style={{ width: "100%", height: "100%", zIndex: 1 }}
-                  >
-                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                    <Marker position={[-29.9357, -51.0166]}>
-                      <Popup>"Teste"</Popup>
-                    </Marker>
-                  </MapContainer>
-                </Box>
-              </Box>
+              <>
+                {
+                  selectedPet?.currentLocation && (
+                    <Box sx={{ mt: 2 }}>
+                      <Typography variant="h5" color="primary">Localização do seu pet</Typography>
+                      <Typography variant="body2">Ultimo local onde sua Tag da coleira foi lida ou a posição do rastreador</Typography>
+                      <Box
+                        sx={{
+                          width: '100%',
+                          height: 300,
+                          borderRadius: 2,
+                          mt: 2,
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <MapContainer
+                          key="pet-location"
+                          id="pet-location"
+                          center={selectedPet?.currentLocation}
+                          zoom={15}
+                          style={{ width: "100%", height: "100%", zIndex: 1 }}
+                        >
+                          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                          <Marker position={selectedPet?.currentLocation}>
+                            <Popup>"Teste"</Popup>
+                          </Marker>
+                        </MapContainer>
+                      </Box>
+                    </Box>
+                  )
+                }
+              </>
             )
         }
       </ContainerComponent>
