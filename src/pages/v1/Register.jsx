@@ -15,12 +15,8 @@ import { useResize } from "../../hooks/useResize";
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { ToastContextProvider } from "../../context/ToastContext";
-import { LoadingContextProvider } from "../../context/LoadingContext";
-import { AuthContextProvider } from "../../context/AuthContext";
-import { ConversionContextProvider } from "../../context/ConversionContext";
 
-function RegisterComponent() {
+function Register() {
   const { size } = useResize()
   const [showPassword, setShowPassword] = useState(false);
 
@@ -351,16 +347,4 @@ function RegisterComponent() {
   );
 }
 
-export default function Register() {
-  return (
-    <ToastContextProvider>
-      <LoadingContextProvider>
-        <AuthContextProvider>
-          <ConversionContextProvider>
-            <RegisterComponent />
-          </ConversionContextProvider>
-        </AuthContextProvider>
-      </LoadingContextProvider>
-    </ToastContextProvider>
-  )
-}
+export default Register;

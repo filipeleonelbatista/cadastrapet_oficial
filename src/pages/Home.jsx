@@ -17,9 +17,6 @@ import { useConversion } from "../hooks/useConversion";
 import { useResize } from "../hooks/useResize";
 import { useToast } from "../hooks/useToast";
 import { phone as phoneMask } from "../utils/masks";
-import { ToastContextProvider } from "../context/ToastContext";
-import { LoadingContextProvider } from "../context/LoadingContext";
-import { AuthContextProvider } from "../context/AuthContext";
 
 function HomeComponent() {
   const { size } = useResize();
@@ -700,15 +697,9 @@ function HomeComponent() {
 
 function Home() {
   return (
-    <ToastContextProvider>
-      <LoadingContextProvider>
-        <AuthContextProvider>
-          <ConversionContextProvider>
-            <HomeComponent />
-          </ConversionContextProvider>
-        </AuthContextProvider>
-      </LoadingContextProvider>
-    </ToastContextProvider>
+    <ConversionContextProvider>
+      <HomeComponent />
+    </ConversionContextProvider>
   );
 }
 

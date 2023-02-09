@@ -11,12 +11,8 @@ import { Box, Button, CardMedia, Typography, TextField, Grid, FormControl, Input
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useToast } from "../../hooks/useToast";
-import { ConversionContextProvider } from "../../context/ConversionContext";
-import { AuthContextProvider } from "../../context/AuthContext";
-import { LoadingContextProvider } from "../../context/LoadingContext";
-import { ToastContextProvider } from "../../context/ToastContext";
 
-function LoginComponent() {
+function Login() {
   const { size } = useResize()
   const { addToast } = useToast()
   const [showPassword, setShowPassword] = useState(false);
@@ -170,7 +166,7 @@ function LoginComponent() {
 
             <Box sx={{ width: '100%', display: 'flex', gap: 2 }}>
               <Button
-                sx={{ width: "100%" }}
+                sx={{ width: "100%"}}
                 type="button"
                 variant="outlined"
                 color="primary"
@@ -180,7 +176,7 @@ function LoginComponent() {
               </Button>
 
               <Button
-                sx={{ width: "100%" }}
+                sx={{ width: "100%"}}
                 type="button"
                 variant="outlined"
                 color="primary"
@@ -197,16 +193,4 @@ function LoginComponent() {
   );
 }
 
-export default function Login() {
-  return (
-    <ToastContextProvider>
-      <LoadingContextProvider>
-        <AuthContextProvider>
-          <ConversionContextProvider>
-            <LoginComponent />
-          </ConversionContextProvider>
-        </AuthContextProvider>
-      </LoadingContextProvider>
-    </ToastContextProvider>
-  )
-}
+export default Login;

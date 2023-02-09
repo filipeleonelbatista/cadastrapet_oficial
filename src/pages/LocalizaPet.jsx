@@ -19,10 +19,6 @@ import { FaEnvelope, FaPhone, FaSearch } from "react-icons/fa";
 import { useLoading } from "../hooks/useLoading";
 import { useToast } from "../hooks/useToast";
 import { useAuth } from "../hooks/useAuth";
-import { ToastContextProvider } from "../context/ToastContext";
-import { LoadingContextProvider } from "../context/LoadingContext";
-import { AuthContextProvider } from "../context/AuthContext";
-import { ConversionContextProvider } from "../context/ConversionContext";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -52,7 +48,7 @@ dayjs.updateLocale('en', {
   }
 })
 
-function LocalizaPetComponent() {
+export default function LocalizaPet() {
   const { id } = useParams();
 
   const { addToast } = useToast();
@@ -317,19 +313,7 @@ function LocalizaPetComponent() {
 
       </Box >
       <Footer />
-      <Floating location="Localiza Pet" />
+      <Floating location="Localiza Pet"/>
     </Box >
   );
-}
-
-export default function LocalizaPet() {
-  <ToastContextProvider>
-    <LoadingContextProvider>
-      <AuthContextProvider>
-        <ConversionContextProvider>
-          <LocalizaPetComponent />
-        </ConversionContextProvider>
-      </AuthContextProvider>
-    </LoadingContextProvider>
-  </ToastContextProvider>
 }

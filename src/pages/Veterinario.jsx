@@ -5,17 +5,14 @@ import { FaCheck, FaDog, FaTimes } from "react-icons/fa";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
-import ctaPhone from "../assets/images/landing/mockup-cta-vet.png";
 import petImage from "../assets/images/pet.jpg";
+import ctaPhone from "../assets/images/landing/mockup-cta-vet.png";
 import AcceptTerms from "../components/AcceptTerms";
 import ContactSection from "../components/ContactSection";
 import Floating from "../components/Floating";
 import Footer from "../components/Footer";
 import HomeNavigation from "../components/HomeNavigation";
-import { AuthContextProvider } from "../context/AuthContext";
 import { ConversionContextProvider } from "../context/ConversionContext";
-import { LoadingContextProvider } from "../context/LoadingContext";
-import { ToastContextProvider } from "../context/ToastContext";
 import { useConversion } from "../hooks/useConversion";
 import { useResize } from "../hooks/useResize";
 import { useToast } from "../hooks/useToast";
@@ -700,15 +697,9 @@ function VeterinarioComponent() {
 
 function Veterinario() {
   return (
-    <ToastContextProvider>
-      <LoadingContextProvider>
-        <AuthContextProvider>
-          <ConversionContextProvider>
-            <VeterinarioComponent />
-          </ConversionContextProvider>
-        </AuthContextProvider>
-      </LoadingContextProvider>
-    </ToastContextProvider>
+    <ConversionContextProvider>
+      <VeterinarioComponent />
+    </ConversionContextProvider>
   );
 }
 
