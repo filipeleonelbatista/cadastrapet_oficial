@@ -84,7 +84,7 @@ function NotFound() {
         {/* cta2 */}
       </Box>
       <Footer />
-      <Floating />
+      <Floating location="Não encontrado"/>
     </Box >
   );
 }

@@ -187,7 +187,7 @@ function TermosECondicoes() {
         {/* cta2 */}
       </Box>
       <Footer />
-      <Floating />
+      <Floating location="Termos e condições" />
     </Box >
   );
 }

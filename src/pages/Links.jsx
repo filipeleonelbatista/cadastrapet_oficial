@@ -1,38 +1,15 @@
-import React, { useState } from "react";
-import {
-  FaArrowLeft,
-  FaDog,
-  FaInstagram,
-  FaLinkedin,
-  FaUserMd,
-  FaMobile,
-} from "react-icons/fa";
-import { FiMail } from "react-icons/fi";
-import {
-  IoCopyOutline,
-  IoQrCodeOutline,
-  IoShareSocialOutline,
-} from "react-icons/io5";
-import QRCode from "react-qr-code";
+import { Avatar, Box, Button, Typography } from "@mui/material";
+import React from "react";
+import { FaDog, FaEnvelope, FaFilePowerpoint, FaGlobeAmericas, FaInstagram, FaMapMarked, FaMarker, FaUserNurse } from "react-icons/fa";
+import { IoShareSocialOutline } from "react-icons/io5";
 import profilePic from "../assets/icon.png";
-import pixLogo from "../assets/pix_logo.png";
-
-import styles from "../styles/pages/Links.module.css";
+import Floating from "../components/Floating";
 
 export default function Links() {
-  const [showPix, setShowPix] = useState(false);
   const sharableContent = {
     title: "CadastraPet",
     text: "Vi este Este contato no site https://cadastrapet.com.br",
     url: "https://cadastrapet.com.br",
-  };
-
-  const pixKey =
-    "00020126580014BR.GOV.BCB.PIX013649b3aa64-47eb-47a3-b439-b765a4d0f22c5204000053039865802BR5925FILIPE DE LEONEL BATISTA 6009SAO PAULO61080540900062250521hGjPosyoJ4dswj614vgvd63046514";
-
-  const handleCopyPix = () => {
-    navigator.clipboard.writeText(pixKey);
-    alert("Copiado!");
   };
 
   const handleShare = async () => {
@@ -45,180 +22,214 @@ export default function Links() {
   };
 
   return (
-    <div className={styles.container}>
-      <img className={styles.imageProfile} src={profilePic} alt="Cadastrapet" />
-      {showPix ? (
-        <div className={styles.content} style={{ position: "relative" }}>
-          <button
-            onClick={() => setShowPix(false)}
-            style={{ position: "absolute", top: 15, left: 15 }}
-            className={styles.actionTransparent}
+    <Box
+      sx={{
+        width: '100vw',
+        display: 'flex',
+        justifyContent: 'center',
+        pt: 8
+      }}
+    >
+      <Box
+        sx={{
+          width: 420,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar src={profilePic} alt="cadastrapet avatar" sx={{ width: 150, height: 150, zIndex: 10, boxShadow: 6, }} />
+        <Box
+          sx={{
+            width: '100%',
+            mt: -10,
+            mb: 4,
+            pt: 12,
+            px: 2,
+            pb: 2,
+            borderRadius: 4,
+            boxShadow: 4,
+            backgroundColor: "#566dea",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 1
+          }}
+        >
+          <Typography variant="h6" color="white"><b>Cadastrapet</b></Typography>
+          <Typography variant="body2" color="white" textAlign="center">
+            Mantenha os registros médicos e vacinais do seu pet na palma da sua mão
+          </Typography>
+
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 2,
+              my: 4,
+            }}
           >
-            <FaArrowLeft size={18} />
-          </button>
-          <div className={styles.aboutContainer}>
-            <div className={styles.aboutInfo}>
-              <h3 className={styles.title}>Cadastrapet</h3>
-              <p className={styles.subtitle}>
-                Mantenha os registros médicos e vacinais do seu pet na palma da
-                sua mão
-              </p>
-              <p className={styles.label}>
-                O Pix sairá no nome de Leonel Informatica a empresa mantenedora
-                da Cadastrapet
-              </p>
-            </div>
-          </div>
-
-          <div className={styles.pixContainer} style={{ alignItems: "center" }}>
-            <div className={styles.pixContainerImage}>
-              <img
-                className={styles.pixImage}
-                src={pixLogo}
-                alt="Pix Banco central do Brasil"
-              />
-            </div>
-            <div className={styles.pixContainerImage}>
-              <QRCode value={pixKey} />
-            </div>
-            <p className={styles.pixText}>
-              Abra o App do seu banco e pague atravez do <b>QRCode</b> ou{" "}
-              <b>Pix Copia e Cola</b>
-            </p>
-
-            <button
-              onClick={handleCopyPix}
-              className={styles.action}
-              style={{
-                width: "100%",
-                margin: "1.6rem 0 0 0",
-                fontSize: "small",
+            <Button
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 1,
+                p: 0.2,
+                borderRadius: 2,
               }}
-            >
-              <IoCopyOutline />
-              Copiar Código Pix
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className={styles.content}>
-          <div className={styles.aboutContainer}>
-            <div className={styles.aboutInfo}>
-              <h3 className={styles.title}>Cadastrapet</h3>
-              <p className={styles.subtitle}>
-                Mantenha os registros médicos e vacinais do seu pet na palma da
-                sua mão
-              </p>
-            </div>
-            <div className={styles.aboutActions}>
-              <button
-                onClick={() => setShowPix(true)}
-                className={styles.actionTransparent}
-              >
-                <IoQrCodeOutline size={18} />
-                <p className={styles.actionTransparentLabel}>Pix</p>
-              </button>
-              <a href="/vcard.vcf" download className={styles.action}>
-                Salvar na agenda
-              </a>
-              <button
-                onClick={handleShare}
-                className={styles.actionTransparent}
-              >
-                <IoShareSocialOutline size={18} />
-                <p className={styles.actionTransparentLabel}>Compartilhar</p>
-              </button>
-            </div>
-          </div>
-          <div className={styles.divider}></div>
-          <div className={styles.actionsList}>
-            <a
-              href="https://www.linkedin.com/company/cadastrapet/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.actionsLink}
-            >
-              <FaLinkedin size={48} /> <p className={styles.label}>Linkedin</p>
-            </a>
-            <a
+              variant="text"
+              component="a"
               href="https://instagram.com/cadastra.pet"
-              target="_blank"
               rel="noopener noreferrer"
-              className={styles.actionsLink}
             >
-              <FaInstagram size={48} />{" "}
-              <p className={styles.label}>Instagram</p>
-            </a>
-            <a
-              href="mailto:contato@cadastrapet.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.actionsLink}
-            >
-              <FiMail size={48} /> <p className={styles.label}>E-mail</p>
-            </a>
-          </div>
-          <div className={styles.divider}></div>
-          <div className={styles.linksContainer}>
-            <h4 className={styles.title} style={{ textTransform: "uppercase" }}>
-              Meus Links
-            </h4>
+              <FaInstagram size={52} color="#FFF" />
+              <Typography sx={{ lineHeight: 1 }} variant="caption" color="white">Instagram</Typography>
+            </Button>
 
-            <button
-              onClick={handleCopyPix}
-              className={styles.link}
-              style={{
-                width: "100%",
-                margin: "1.6rem 0 0 0",
-                fontSize: "small",
+            <Button
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 1,
+                p: 0.2,
+                borderRadius: 2,
               }}
-            >
-              <IoCopyOutline />
-              Copiar Código Pix
-            </button>
-            <a
-              href="https://cadastrapet.com.br/tutor/cadastrar"
-              target="_blank"
+              variant="text"
+              component="a"
+              href="mailto:contato@cadastrapet.com.br"
               rel="noopener noreferrer"
-              className={styles.link}
             >
-              <FaDog /> Cadastre seu pet agora
-            </a>
-            <a
-              href="https://cadastrapet.com.br/veterinario/cadastrar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
-            >
-              <FaUserMd /> Veterinário, atenda seus pets por aqui!
-            </a>
-            <a
-              href="https://cadastrapet.com.br"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
-            >
-              <FaDog /> Acesse nosso site
-            </a>
-            <a
-              href="https://play.google.com/store/apps/details?id=com.cadastrapet.co"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
-            >
-              <FaMobile /> Baixar o app
-            </a>
-          </div>
-          <button
-            onClick={handleShare}
-            className={styles.action}
-            style={{ margin: "1.6rem 0", fontSize: "small" }}
+              <FaEnvelope size={52} color="#FFF" />
+              <Typography sx={{ lineHeight: 1 }} variant="caption" color="white">E-mail</Typography>
+            </Button>
+
+          </Box>
+
+          <Typography variant="h6" color="white"><b>MEUS LINKS</b></Typography>
+
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 1,
+              my: 2,
+            }}
           >
-            <IoShareSocialOutline />
+            <Button
+              fullWidth
+              size="large"
+              component="a"
+              href="https://cadastrapet.com.br/tutor/cadastrar"
+              variant="contained"
+              color="inherit"
+              sx={{
+                backgroundColor: '#FFF',
+                '&:hover': {
+                  backgroundColor: '#DDD'
+                }
+              }}
+              startIcon={<FaDog />}
+            >
+              Cadastre seus pets agora!
+            </Button>
+            <Button
+              fullWidth
+              size="large"
+              component="a"
+              href="https://cadastrapet.com.br/veterinario/cadastrar"
+              variant="contained"
+              color="inherit"
+              sx={{
+                backgroundColor: '#FFF',
+                '&:hover': {
+                  backgroundColor: '#DDD'
+                }
+              }}
+              startIcon={<FaUserNurse />}
+            >
+              Veterinário, atenda seus pets aqui!
+            </Button>
+            <Button
+              fullWidth
+              size="large"
+              component="a"
+              href="https://cadastrapet.com.br/"
+              variant="contained"
+              color="inherit"
+              sx={{
+                backgroundColor: '#FFF',
+                '&:hover': {
+                  backgroundColor: '#DDD'
+                }
+              }}
+              startIcon={<FaGlobeAmericas />}
+            >
+              Acesse nosso site
+            </Button>
+            <Button
+              fullWidth
+              size="large"
+              component="a"
+              href="https://cadastrapet.com.br/localizapet"
+              variant="contained"
+              color="inherit"
+              sx={{
+                backgroundColor: '#FFF',
+                '&:hover': {
+                  backgroundColor: '#DDD'
+                }
+              }}
+              startIcon={<FaMapMarked />}
+            >
+              Localize um pet
+            </Button>
+            <Button
+              fullWidth
+              size="large"
+              component="a"
+              href="https://cadastrapet.com.br/pitch"
+              variant="contained"
+              color="inherit"
+              sx={{
+                backgroundColor: '#FFF',
+                '&:hover': {
+                  backgroundColor: '#DDD'
+                }
+              }}
+              startIcon={<FaFilePowerpoint />}
+            >
+              Veja nosso pitch
+            </Button>
+
+          </Box>
+
+          <Button
+            size="large"
+            variant="contained"
+            color="inherit"
+            onClick={handleShare}
+            sx={{
+              backgroundColor: '#FFF',
+              '&:hover': {
+                backgroundColor: '#DDD'
+              }
+            }}
+            startIcon={<IoShareSocialOutline />}
+          >
             Compartilhar
-          </button>
-        </div>
-      )}
-    </div>
+          </Button>
+
+        </Box>
+      </Box>
+      <Floating location="Links" />
+    </Box>
   );
 }

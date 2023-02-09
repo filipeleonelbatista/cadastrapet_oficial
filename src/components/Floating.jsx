@@ -9,7 +9,6 @@ import { useToast } from "../hooks/useToast";
 import { phone as phoneMask } from "../utils/masks";
 
 export default function Floating({ location = "" }) {
-  // return <></>;
   const { conversion } = useConversion();
   const { setIsLoading } = useLoading();
   const { addToast } = useToast();

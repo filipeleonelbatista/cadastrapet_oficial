@@ -690,7 +690,7 @@ function HomeComponent() {
       </Box>
       <Footer />
       <AcceptTerms />
-      <Floating location="tutor" />
+      <Floating location="Home Tutor" />
     </Box >
   );
 }

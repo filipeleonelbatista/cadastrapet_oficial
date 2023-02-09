@@ -333,7 +333,7 @@ function PoliticasDePrivacidade() {
         {/* cta2 */}
       </Box>
       <Footer />
-      <Floating />
+      <Floating location="Políticas de privacidade" />
     </Box >
   );
 }

@@ -313,7 +313,7 @@ export default function LocalizaPet() {
 
       </Box >
       <Footer />
-      <Floating />
+      <Floating location="Localiza Pet"/>
     </Box >
   );
 }

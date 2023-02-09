@@ -503,7 +503,7 @@ function DrawerComponent({ title, children }) {
           <Container maxWidth="lg" sx={{ mt: 1, mb: 1, pt: 2 }}>
             {children}
             <Copyright sx={{ pt: 4 }} />
-            <Floating />
+            <Floating location='Administrativo' />
           </Container>
         </Box>
       </Box>

@@ -690,7 +690,7 @@ function VeterinarioComponent() {
       </Box>
       <Footer />
       <AcceptTerms />
-      <Floating location="tutor" />
+      <Floating location="Home Veterinário" />
     </Box >
   );
 }
