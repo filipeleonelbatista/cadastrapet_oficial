@@ -1,48 +1,45 @@
-import React from "react";
-import { useState } from "react";
-import { useConversion } from "../hooks/useConversion";
-import styles from "../styles/components/ContactSection.module.css";
-import Button from "./Button";
-import Input from "./Input";
-import Textarea from "./Textarea";
+import { Box, Button, Container, Link, TextField, Typography } from "@mui/material";
+import { useFormik } from 'formik';
+import React, { useMemo } from "react";
 import { FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import * as Yup from 'yup';
+import { useConversion } from "../hooks/useConversion";
+import { useLoading } from "../hooks/useLoading";
+import { useResize } from "../hooks/useResize";
+import { useToast } from "../hooks/useToast";
+import { phone as phoneMask } from "../utils/masks";
 
 export default function ContactSection({ location = "" }) {
   const { conversion } = useConversion();
-  const [name, setname] = useState("");
-  const [phone, setphone] = useState("");
-  const [email, setemail] = useState("");
-  const [message, setmessage] = useState("");
-  const [errormsg, seterrormsg] = useState("");
+  const { size } = useResize();
+  const { addToast } = useToast();
+  const { setIsLoading } = useLoading();
 
-  function ValidateFields() {
-    if (name === "") {
-      seterrormsg("Nome não foi digitado!");
-      return false;
-    }
-    if (phone === "") {
-      seterrormsg("Número não foi digitado!");
-      return false;
-    }
-    if (phone.length < 15) {
-      seterrormsg("O Formato do numero digitado está incorreto!");
-      return false;
-    }
-    if (email === "") {
-      seterrormsg("Email não foi digitado!");
-      return false;
-    }
-    if (message === "") {
-      seterrormsg("Email não foi digitado!");
-      return false;
-    }
-    return true;
-  }
+  const formSchema = useMemo(() => {
+    return Yup.object().shape({
+      name: Yup.string().required("O campo Nome é obrigatório"),
+      phone: Yup.string().required("O campo Whatsapp é obrigatório").length(15, "Numero digitado incorreto!"),
+      email: Yup.string().required("O campo Email é obrigatório").email("Digite um email válido!"),
+      message: Yup.string().required("O campo Mensagem é obrigatório"),
+    })
+  }, [])
 
-  async function handleSendMessage() {
-    if (!ValidateFields()) return;
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      phone: '',
+      email: '',
+      message: '',
+    },
+    validationSchema: formSchema,
+    onSubmit: values => {
+      handleSubmitForm(values)
+    },
+  });
 
+  async function handleSubmitForm(formValues) {
     let myIp;
+    setIsLoading(true)
 
     await fetch("https://api.ipify.org/?format=json")
       .then((results) => results.json())
@@ -51,83 +48,158 @@ export default function ContactSection({ location = "" }) {
       });
 
     const isConversionSaved = await conversion(
-      name,
-      email,
+      formValues.name,
+      formValues.email,
       `Form de Contato - ${location}`,
-      phone,
+      formValues.phone,
       myIp,
       window.location.href,
-      message
+      formValues.message
     );
 
-    if (!isConversionSaved)
-      seterrormsg(
-        "Houve um problema ao enviar sua mensagem! Tente novamente mais tarde"
-      );
+    if (!isConversionSaved) {
+      addToast({
+        message: "Houve um problema ao tentar enviar a mensagem. Tente novamente mais tarde!",
+        severity: 'error'
+      })
+    } else {
+      addToast({
+        message: "Mensagem enviada com sucesso!",
+        severity: 'success'
+      })
+      setIsLoading(false);
+      formik.resetForm();
+    }
 
-    seterrormsg("");
-    setname("");
-    setphone("");
-    setemail("");
-    setmessage("");
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.aboutContact}>
-          <h2>Entre em contato com a gente</h2>
-          <p>Ficou com duvidas ou quer conversar mais?</p>
-          <p>
+    <Box
+      sx={{
+        width: '100vw',
+        backgroundColor: '#FFF',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        py: 4,
+      }}>
+      <Container
+        sx={{
+          display: 'flex',
+          flexDirection: size[0] < 720 ? 'column': 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 2,
+          my: 8
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          <Typography variant="h4" color="#212529">Entre em contato com a gente</Typography>
+          <Typography variant="body1" color="#212529">Ficou com duvidas ou quer conversar mais?</Typography>
+          <Typography sx={{ display: 'flex', alignItems: 'center', gap: 2 }} variant="body1" color="#212529">
             <FaMapMarkerAlt color="#0A4378" size={24} /> <b>Gravataí-RS</b>
-          </p>
-          <p>
+          </Typography>
+          <Typography sx={{ display: 'flex', alignItems: 'center', gap: 2 }} variant="body1" color="#212529">
             <FaEnvelope color="#0A4378" size={24} />{" "}
             <b>
-              <a href="mailto:contato@cadastrapet.com.br">
+              <Link color="#212529" underline="none" target="_blank" rel="noopener noreferrer" href="mailto:contato@cadastrapet.com.br">
                 contato@cadastrapet.com.br
-              </a>
+              </Link>
             </b>
-          </p>
-        </div>
-        <div className={styles.form}>
-          <div className={styles.formTitle}>
-            <FaEnvelope color="#0A4378" size={24} />{" "}
-            <h2>Preencha o formulário</h2>
-          </div>
-          {errormsg !== "" && <p className={styles.errorMessage}>{errormsg}</p>}
-          <Input
-            id={"name"}
-            label={"Nome"}
-            placeholder={"Digite seu nome"}
-            value={name}
-            onChange={(e) => setname(e.target.value)}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            maxWidth: '480px',
+            width: '100%',
+            borderRadius: 2,
+            py: 6,
+            px: 4,
+            backgroundColor: '#eceaea',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2.5
+          }}
+          component="form"
+          onSubmit={formik.handleSubmit}
+        >
+          <Typography sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }} variant="h5" color="#212529">
+            <FaEnvelope color="#0A4378" size={24} /> <b>Preencha o formulário</b>
+          </Typography>
+          <TextField
+            fullWidth
+            inputProps={{
+              sx: {
+                backgroundColor: '#FFF'
+              }
+            }}
+            id="contact-name"
+            name="name"
+            label="Seu Nome"
+            placeholder={"Digite seu nome completo"}
+            value={formik.values.name}
+            helperText={formik.errors.name}
+            error={!!formik.errors.name}
+            onChange={formik.handleChange}
           />
-          <Input
-            id={"phone"}
-            label={"Telefone"}
-            placeholder={"(00) 00000-0000"}
-            value={phone}
-            onChange={(e) => setphone(e.target.value)}
+          <TextField
+            fullWidth
+            inputProps={{
+              maxLength: 15,
+              sx: {
+                backgroundColor: '#FFF'
+              }
+            }}
+            id="contact-phone"
+            name="phone"
+            label="Seu WhatsApp"
+            placeholder={"(51) 00000-0000"}
+            value={formik.values.phone}
+            helperText={formik.errors.phone}
+            error={!!formik.errors.phone}
+            onChange={(event) => {
+              formik.setFieldValue('phone', phoneMask(event.target.value))
+            }}
           />
-          <Input
-            id={"email"}
-            label={"Email"}
+          <TextField
+            fullWidth
+            inputProps={{
+              sx: {
+                backgroundColor: '#FFF'
+              }
+            }}
+            id="contact-email"
+            name="email"
+            label="Seu melhor email"
             placeholder={"doguinho@petmail.com"}
-            value={email}
-            onChange={(e) => setemail(e.target.value)}
+            value={formik.values.email}
+            helperText={formik.errors.email}
+            error={!!formik.errors.email}
+            onChange={formik.handleChange}
           />
-          <Textarea
-            id={"message"}
-            label={"Mensagem"}
-            placeholder={"Queria saber sobre..."}
-            value={message}
-            onChange={(e) => setmessage(e.target.value)}
-            rows={4}
+          <TextField
+            fullWidth
+            sx={{ backgroundColor: "#FFF" }}
+            multiline
+            id="message"
+            name="message"
+            label="Mensagem"
+            placeholder="Queria saber sobre..."
+            value={formik.values.message}
+            helperText={formik.errors.message}
+            error={!!formik.errors.message}
+            onChange={formik.handleChange}
+            rows={6}
           />
-          <Button onClick={handleSendMessage}>Enviar</Button>
-        </div>
-      </div>
-    </div>
+          <Button variant="contained" color="primary" type="submit">Enviar Mensagem</Button>
+        </Box>
+      </Container>
+    </Box>
   );
 }

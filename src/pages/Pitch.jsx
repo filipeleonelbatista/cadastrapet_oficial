@@ -1,13 +1,21 @@
-import React from "react";
-import styles from "../styles/pages/Pitch.module.css";
+import { Box } from "@mui/material";
 
 export default function Pitch() {
   return (
-    <object
+    <Box
+      component="object"
       aria-label="pdf"
-      className={styles.container}
+      sx={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        backgroundColor: '#181818',
+        overflowX: 'hidden',
+      }}
       type="application/pdf"
       data="./images/pitch/Pitch.pdf"
-    ></object>
+    ></Box>
   );
 }

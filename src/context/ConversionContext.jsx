@@ -39,18 +39,12 @@ export function ConversionContextProvider(props) {
                 `:tada: Novo cadastro realizado em ${from}\n\n**Nome:** ${name}\n**Email:** ${email}\n**Celular:** ${phone}\n**IP:** ${ip}\n**URL:** ${url}\n\n**Mensagem:** ${message}\n\n**Whatsapp:** https://wa.me/+55${phone.replace(/\D/g, "")}`,
                 "doguinho"
             );
-            alert(
-                "Cadastro realizado com sucesso!"
-            );
             return true;
 
         } catch (err) {
             sendDiscordNotification(
                 `:red_circle: Houve um erro ao cadastrar o usuário\n\nlog do erro:\n\n${err}`,
                 "doguinho"
-            );
-            alert(
-                "Houve um erro ao cadastrar o usuario. Tente novamente mais tarde"
             );
             return false;
         }

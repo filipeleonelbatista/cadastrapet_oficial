@@ -16,6 +16,7 @@ import {
 import QRCode from "react-qr-code";
 import profilePic from "../assets/icon.png";
 import pixLogo from "../assets/pix_logo.png";
+
 import styles from "../styles/pages/Links.module.css";
 
 export default function Links() {

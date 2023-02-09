@@ -17,13 +17,15 @@ import {
 } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import { authentication, db } from "../firebase/firebase-config";
+import { useLoading } from "../hooks/useLoading";
+import { useToast } from "../hooks/useToast";
 import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
 import { isStringEmpty } from "../utils/string";
 
 const userObject = {
   is_admin: false,
-  user_role: "tutor",
+  user_role: ["tutor"],
   name: "",
   avatar: "",
   cpf: "",
@@ -89,7 +91,7 @@ const vaccineObject = {
   vaccine: "",
   vaccineLab: "",
   doctorId: "",
-  vaccine_receipt: "",
+  vaccine_receipt: [],
   vaccine_application_date: "",
   vaccine_next_application_date: "",
   created_at: "",
@@ -100,7 +102,7 @@ const medicationObject = {
   uid: "",
   medication: "",
   medication_application_date: "",
-  medication_receipe: "",
+  medication_receipe: [],
   created_at: "",
   updated_at: "",
 };
@@ -116,6 +118,10 @@ const feedbackObject = {
 export const AuthContext = createContext({});
 
 export function AuthContextProvider(props) {
+
+  const { addToast } = useToast();
+  const { setIsLoading } = useLoading();
+
   const [user, setUser] = useState();
   const [user_id, setUserId] = useState();
   const [selectedPet, setSelectedPet] = useState();
@@ -148,10 +154,10 @@ export function AuthContextProvider(props) {
   useEffect(() => {
     const unsubscribe = authentication.onAuthStateChanged(async (user) => {
       if (user) {
+        setIsLoading(true);
         setIsLoggedIn(true);
         setKeyLocalStorage("UID", user.uid);
 
-        console.log("USER", user)
         const loggedUser = await getUserByID(user.uid);
         let currentPetList = [];
 
@@ -165,6 +171,8 @@ export function AuthContextProvider(props) {
         setUser(loggedUser);
         setUserId(loggedUser.uid);
         setPetList(currentPetList);
+
+        setIsLoading(false);
       } else {
         setIsLoggedIn(false);
       }
@@ -255,7 +263,6 @@ export function AuthContextProvider(props) {
       });
     return result;
   }
-
   async function getAllmedicalHistory() {
     const medicalHistoryRef = collection(db, "medical-history");
     const result = getDocs(medicalHistoryRef)
@@ -272,7 +279,6 @@ export function AuthContextProvider(props) {
       });
     return result;
   }
-
   async function getAllContacts() {
     const medicalHistoryRef = collection(db, "conversion-notification");
     const result = getDocs(medicalHistoryRef)
@@ -289,18 +295,48 @@ export function AuthContextProvider(props) {
       });
     return result;
   }
-
   async function getMedicalHistoryID(id) {
     const medicalHistoryRef = doc(db, "medical-history", id);
     const medicalHistorySnap = await getDoc(medicalHistoryRef);
     const medicalHistory = medicalHistorySnap.data();
     return medicalHistory;
   }
-
   async function getNewMedicalHistoryID() {
     const medicalHistoryRef = collection(db, "medical-history");
     const newMedicalHistory = await addDoc(medicalHistoryRef, {});
     return newMedicalHistory.id;
+  }
+  async function updatePetByIDLocalization(id, data) {
+    const petData = await getPetByID(id);
+
+    const updatedPet = {
+      ...petData,
+      ...data,
+    };
+
+    try {
+      setIsLoading(true)
+      await setDoc(doc(db, "pets", id), updatedPet);
+
+      sendDiscordNotification(
+        `Localização do pet atualizada: 
+          **Pet:** 
+          Codigo pet: \`${updatedPet.uid}\`
+          Nome do pet: ${updatedPet.name}
+          ${updatedPet.avatar}`,
+        "doguinho"
+      );
+
+      setIsLoading(false)
+      return true;
+    } catch (err) {
+      console.log("ERRO", err)
+      addToast({
+        message: `Houve um erro ao atualizar dados do pet. Tente novamente mais tarde`,
+        severity: "error"
+      })
+      return false;
+    }
   }
 
   async function updatePetByID(id, data, user, message = false) {
@@ -311,6 +347,7 @@ export function AuthContextProvider(props) {
       ...data,
     };
     try {
+      setIsLoading(true)
       await setDoc(doc(db, "pets", id), updatedPet);
       setSelectedPet(updatedPet);
       removeKeyLocalStorage("SPUID");
@@ -330,21 +367,19 @@ export function AuthContextProvider(props) {
           \`${JSON.stringify(data)}\``,
           "doguinho"
         );
+
+      setIsLoading(false)
       return true;
     } catch (err) {
-      sendDiscordNotification(
-        `Houve um erro ao ${message ? "adicionar" : "atualizar dados do"
-        } pet\n\n \`${JSON.stringify(data)}\`\n\nlog do erro:\n\n\`${err}\``,
-        "doguinho"
-      );
-      alert(
-        `Houve um erro ao ${message ? "adicionar" : "atualizar dados do"
-        } pet. Tente novamente mais tarde`
-      );
+      console.log("ERRO", err)
+      addToast({
+        message: `Houve um erro ao ${message ? "adicionar" : "atualizar dados do"
+          } pet. Tente novamente mais tarde`,
+        severity: "error"
+      })
       return false;
     }
   }
-
   async function updateUserByID(id, data) {
     const userData = await getUserByID(id);
 
@@ -454,11 +489,11 @@ export function AuthContextProvider(props) {
       return true;
     }
 
-    setIsLoaded(true);
+    setIsLoading(true);
     sendPasswordResetEmail(authentication, email)
       .then(() => {
         alert("Foi enviado um email com as instruções de recuperação.");
-        setIsLoaded(false);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -478,8 +513,10 @@ export function AuthContextProvider(props) {
   }
 
   async function getNewPetID() {
+    setIsLoading(true)
     const petRef = collection(db, "pets");
     const newPet = await addDoc(petRef, {});
+    setIsLoading(false)
     return newPet.id;
   }
 
@@ -566,6 +603,7 @@ export function AuthContextProvider(props) {
 
     return signInWithEmailAndPassword(authentication, email, password)
       .then(async (re) => {
+        setIsLoading(true)
         setIsLoggedIn(true);
         setKeyLocalStorage("UID", re.user.uid);
         const currentUser = await getUserByID(re.user.uid);
@@ -581,6 +619,8 @@ export function AuthContextProvider(props) {
         setUser(currentUser);
         setUserId(currentUser.uid);
         setPetList(currentPetList);
+
+        setIsLoading(false)
         const status = {
           user: currentUser,
           status: true,
@@ -607,6 +647,7 @@ export function AuthContextProvider(props) {
           ...user,
         };
         try {
+          setIsLoading(true)
           await setDoc(doc(db, "users", re.user.uid), newUser);
 
           setKeyLocalStorage("UID", re.user.uid);
@@ -621,20 +662,22 @@ export function AuthContextProvider(props) {
           );
           setUser(newUser);
           setUserId(newUser.uid);
+          setIsLoading(false)
           return true;
         } catch (err) {
+          addToast({
+            message: "Houve um erro ao cadastrar usuário! Tente mais tarde",
+            severity: "error"
+          })
           sendDiscordNotification(
             `Houve um erro ao cadastrar o usuário\n\nlog do erro:\n\n${err}`,
             "doguinho"
-          );
-          alert(
-            "Houve um erro ao cadastrar o usuario. Tente novamente mais tarde"
           );
           return false;
         }
       })
       .catch((err) => {
-        alert(AuthErrorHandler[err.code]);
+        addToast({ message: AuthErrorHandler[err.code], severity: 'warning' });
         return false;
       });
   }
@@ -774,6 +817,7 @@ export function AuthContextProvider(props) {
       updateVaccineList();
       return true;
     } catch (err) {
+      console.log(err)
       sendDiscordNotification(
         `Houve um erro ao adicionar histórico de vacina\n\n ${JSON.stringify(
           data
@@ -808,6 +852,7 @@ export function AuthContextProvider(props) {
   }
 
   async function updateContextData() {
+    setIsLoading(true)
     const uid = getKeyLocalStorage("UID");
     const localUserId = uid ? uid : user_id;
 
@@ -850,6 +895,7 @@ export function AuthContextProvider(props) {
         setSelectedMedication(sm);
       }
     }
+    setIsLoading(false)
     return false;
   }
   async function updatePetLists() {
@@ -871,9 +917,11 @@ export function AuthContextProvider(props) {
   useEffect(() => {
     if (selectedPet) {
       const executeAsync = async () => {
+        setIsLoading(true)
         await updateMedicalHistoryList();
         await updateVaccineList();
         await updateMedicationList();
+        setIsLoading(false)
       };
       executeAsync();
     }
@@ -1000,6 +1048,7 @@ export function AuthContextProvider(props) {
   }
 
   async function deletePet(selectedPet) {
+    setIsLoading(true)
     if (selectedPet.medications.length > 0) {
       selectedPet.medications.map(async (item) => {
         await deleteMedication(item);
@@ -1024,6 +1073,7 @@ export function AuthContextProvider(props) {
 
     await deleteDoc(doc(db, "pets", selectedPet.uid));
 
+    setIsLoading(false)
     return true;
   }
 
@@ -1131,6 +1181,7 @@ export function AuthContextProvider(props) {
           getMedicalHistoryID,
           getNewMedicalHistoryID,
           updatePetByID,
+          updatePetByIDLocalization,
           updateUserByID,
           updatePetMedicalHistoryByID,
           updateMedicalHistoryList,

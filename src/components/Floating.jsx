@@ -1,61 +1,43 @@
-import React, { useEffect, useState } from "react";
+import { Box, Button, Card, IconButton, TextField, Typography } from "@mui/material";
+import { useFormik } from 'formik';
+import React, { useMemo, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
+import * as Yup from 'yup';
 import { useConversion } from "../hooks/useConversion";
+import { useLoading } from "../hooks/useLoading";
+import { useToast } from "../hooks/useToast";
+import { phone as phoneMask } from "../utils/masks";
 
-export default function Floating() {
+export default function Floating({ location = "" }) {
   return <></>;
-}
-
-function FloatingComponent({ location = "" }) {
   const { conversion } = useConversion();
+  const { setIsLoading } = useLoading();
+  const { addToast } = useToast();
 
-  const [whatsNome, setWhatsNome] = useState("");
-  const [whatsFone, setWhatsFone] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [showForm, setShowForm] = useState(false)
 
-  useEffect(() => {
-    document.getElementById("call-to-action").classList.toggle("hidden");
+  const formSchema = useMemo(() => {
+    return Yup.object().shape({
+      name: Yup.string().required("O campo Nome é obrigatório"),
+      phone: Yup.string().required("O campo Whatsapp é obrigatório").length(15, "Numero digitado incorreto!"),
+    })
+  }, [])
 
-    const timer = setTimeout(() => {
-      document.getElementById("call-to-action").classList.toggle("hidden");
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      phone: '',
+    },
+    validationSchema: formSchema,
+    onSubmit: values => {
+      handleSubmitForm(values)
+    },
+  });
 
-  async function handleSubmitForm() {
-    if (whatsNome === "") {
-      setErrorMsg("Nome não foi digitado!");
-
-      document.getElementById("errorMsg").classList.toggle("hidden");
-      setTimeout(() => {
-        document.getElementById("errorMsg").classList.toggle("hidden");
-        setErrorMsg("");
-      }, 3000);
-      return;
-    }
-    if (whatsFone === "") {
-      setErrorMsg("Número não foi digitado!");
-
-      document.getElementById("errorMsg").classList.toggle("hidden");
-      setTimeout(() => {
-        document.getElementById("errorMsg").classList.toggle("hidden");
-        setErrorMsg("");
-      }, 3000);
-      return;
-    }
-
-    if (whatsFone.length < 15) {
-      setErrorMsg("Numero digitado incorreto!");
-
-      document.getElementById("errorMsg").classList.toggle("hidden");
-      setTimeout(() => {
-        document.getElementById("errorMsg").classList.toggle("hidden");
-        setErrorMsg("");
-      }, 3000);
-      return;
-    }
-    // Enviando pra base o contato
+  async function handleSubmitForm(formValues) {
     let myIp;
+
+    setIsLoading(true);
 
     await fetch("https://api.ipify.org/?format=json")
       .then((results) => results.json())
@@ -64,106 +46,166 @@ function FloatingComponent({ location = "" }) {
       });
 
     const isConversionSaved = await conversion(
-      whatsNome,
+      formValues.name,
       "",
       `Modal Whatsapp Button - ${location}`,
-      whatsFone,
+      formValues.phone,
       myIp,
       window.location.href,
       ""
     );
 
     if (!isConversionSaved) {
-      alert(
-        `Houve um problema ao enviar seu contato. 
-         Estaremos encaminhando voce para o nosso whatsapp`
-      );
+      addToast({
+        messate: `Houve um problema ao enviar seu contato. Estaremos encaminhando você para o nosso WhatsApp`
+      });
 
       let whatsPhone = `+5551986320477`;
-      let whatsMsg = `Olá, me chamo *${whatsNome}* vi seu app e gostaria de conversar mais com você.`;
+      let whatsMsg = `Olá, me chamo *${formValues.name}* vi seu app e gostaria de conversar mais com você.`;
       let url = `https://api.whatsapp.com/send?phone=${whatsPhone}&text=${encodeURI(
         whatsMsg
       )}`;
 
       window.open(url, "_blank");
     } else {
-      alert(
-        `Salvamos seu contato. Em breve estaremos entrando em contato com você`
-      );
+      addToast({
+        messate: `Salvamos seu contato. Em breve estaremos entrando em contato com você`
+      });
     }
 
-    setErrorMsg("");
-    setWhatsFone("");
-    setWhatsNome("");
-    document.getElementById("whats-form").classList.toggle("hidden");
-  }
+    formik.resetForm();
 
-  function setMaskPhone(value) {
-    value = value.replace(/\D/g, "");
-    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
-    value = value.replace(/(\d)(\d{4})$/, "$1-$2");
-    setWhatsFone(value);
-  }
-  function handleShowForm() {
-    document.getElementById("whats-form").classList.toggle("hidden");
+    setIsLoading(false);
   }
 
   return (
-    <div>
-      <button id="whats-btn" onClick={handleShowForm} className="whats-btn">
+    <Box sx={{
+      width: '100vw',
+      height: '100vh',
+      position: 'fixed',
+      overflow: 'hidden',
+      zIndex: 20,
+    }}>
+      <IconButton
+        onClick={() => {
+          setShowForm(!showForm)
+          if (showForm) {
+            formik.resetForm()
+          }
+        }}
+        sx={{
+          backgroundColor: (theme) => theme.palette.primary.main,
+          width: 64,
+          height: 64,
+          position: 'absolute',
+          bottom: 24,
+          right: 24,
+          boxShadow: 3,
+        }}
+        color="primary"
+        variant="contained"
+      >
         <FaWhatsapp size={32} color="#FFF" />
-      </button>
-      <div id="call-to-action" className="call-to-action hidden">
-        Chama no WhatsApp!
-      </div>
-      <div id="whats-form" className="whats-form hidden">
-        <div className="form-header">
-          Digite seu Nome/WhatsApp para entrar em contato.
-        </div>
-        <div className="form-body">
-          <div id="errorMsg" className="error hidden">
-            {errorMsg}
-          </div>
-          <div className="form-input-group">
-            <label className="whats-form-label" htmlFor="whats-name">
-              Seu Nome
-            </label>
-            <input
-              id="whats-name"
-              value={whatsNome}
-              onChange={(e) => {
-                setWhatsNome(e.target.value);
-              }}
-              className="whats-form-input"
-            />
-          </div>
-
-          <div className="form-input-group">
-            <label className="whats-form-label" htmlFor="whats-phone">
-              Seu WhatsApp
-            </label>
-            <input
-              id="whats-phone"
-              maxLength={15}
-              onChange={(e) => {
-                setWhatsFone(e.target.value);
-              }}
-              onKeyUp={(e) => {
-                setMaskPhone(e.target.value);
-              }}
-              value={whatsFone}
-              className="whats-form-input"
-            />
-          </div>
-
-          <button onClick={handleSubmitForm} className="whats-form-button">
+      </IconButton>
+      <Card
+        sx={{
+          p: 1.5,
+          boxShadow: 3,
+          position: 'absolute',
+          bottom: 32,
+          right: 100,
+          transition: '0.2s',
+        }}
+      >
+        <Typography sx={{ width: '100%', textAlign: 'center' }} variant="body1">
+          Chama no WhatsApp!
+        </Typography>
+      </Card>
+      <Box
+        sx={{
+          transition: '0.5s',
+          position: 'absolute',
+          bottom: showForm ? 100 : -600,
+          right: 24,
+          width: 300,
+          borderRadius: 2,
+          overflow: "hidden",
+          boxShadow: 3,
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+        }}
+      >
+        <Box
+          sx={{
+            backgroundColor: (theme) => theme.palette.primary.main,
+            height: 90,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography sx={{ maxWidth: 250, width: '100%', textAlign: 'center' }} variant="body1" color="white">
+            Digite seu Nome/WhatsApp para entrar em contato.
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            py: 4,
+            px: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? "#FFF"
+                : theme.palette.grey[900],
+          }}
+          component="form"
+          onSubmit={formik.handleSubmit}
+        >
+          <TextField
+            fullWidth
+            id="whats-name"
+            name="name"
+            label="Seu Nome"
+            value={formik.values.name}
+            helperText={formik.errors.name}
+            error={!!formik.errors.name}
+            onChange={formik.handleChange}
+          />
+          <TextField
+            fullWidth
+            id="whats-phone"
+            name="phone"
+            label="Seu WhatsApp"
+            value={formik.values.phone}
+            helperText={formik.errors.phone}
+            error={!!formik.errors.phone}
+            inputProps={{ maxLength: 15 }}
+            onChange={(event) => {
+              formik.setFieldValue('phone', phoneMask(event.target.value))
+            }}
+          />
+          <Button color="primary" variant="contained" type="submit">
             Chamar no WhatsApp
-          </button>
-        </div>
-        <div className="form-footer">
-          Não enviamos nada além do contato. É uma promessa!
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Box>
+        <Box
+          sx={{
+            backgroundColor: (theme) => theme.palette.primary.main,
+            height: 70,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography sx={{ maxWidth: 250, width: '100%', textAlign: 'center' }} variant="caption" color="white">
+            Não enviamos nada além do contato. É uma promessa!
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
   );
 }
