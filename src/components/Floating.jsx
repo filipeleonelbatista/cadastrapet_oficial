@@ -1,6 +1,6 @@
 import { Box, Button, Card, IconButton, TextField, Typography } from "@mui/material";
 import { useFormik } from 'formik';
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import * as Yup from 'yup';
 import { useConversion } from "../hooks/useConversion";
@@ -9,12 +9,13 @@ import { useToast } from "../hooks/useToast";
 import { phone as phoneMask } from "../utils/masks";
 
 export default function Floating({ location = "" }) {
-  return <></>;
+  // return <></>;
   const { conversion } = useConversion();
   const { setIsLoading } = useLoading();
   const { addToast } = useToast();
 
   const [showForm, setShowForm] = useState(false)
+  const [showCtaForm, setShowCtaForm] = useState(true)
 
   const formSchema = useMemo(() => {
     return Yup.object().shape({
@@ -78,14 +79,16 @@ export default function Floating({ location = "" }) {
     setIsLoading(false);
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowCtaForm(false)
+    }, 5000)
+
+    return () => clearInterval(timer)
+  }, [])
+
   return (
-    <Box sx={{
-      width: '100vw',
-      height: '100vh',
-      position: 'fixed',
-      overflow: 'hidden',
-      zIndex: 20,
-    }}>
+    <>
       <IconButton
         onClick={() => {
           setShowForm(!showForm)
@@ -94,13 +97,20 @@ export default function Floating({ location = "" }) {
           }
         }}
         sx={{
-          backgroundColor: (theme) => theme.palette.primary.main,
+          backgroundColor: (theme) => theme.palette.primary.dark,
           width: 64,
           height: 64,
-          position: 'absolute',
+          position: 'fixed',
+          zIndex: 200,
           bottom: 24,
           right: 24,
           boxShadow: 3,
+          '&:hover': {
+            backgroundColor: (theme) => theme.palette.mode === 'dark' ? theme.palette.primary.main : theme.palette.primary.light,
+          },
+          '& > svg': {
+            fill: (theme) => theme.palette.mode === 'dark' ? "#181818" : "#FFF",
+          }
         }}
         color="primary"
         variant="contained"
@@ -111,10 +121,12 @@ export default function Floating({ location = "" }) {
         sx={{
           p: 1.5,
           boxShadow: 3,
-          position: 'absolute',
+          position: 'fixed',
+          zIndex: 200,
           bottom: 32,
           right: 100,
-          transition: '0.2s',
+          transition: 'all 0.5s',
+          opacity: showCtaForm ? 1 : 0,
         }}
       >
         <Typography sx={{ width: '100%', textAlign: 'center' }} variant="body1">
@@ -124,7 +136,8 @@ export default function Floating({ location = "" }) {
       <Box
         sx={{
           transition: '0.5s',
-          position: 'absolute',
+          position: 'fixed',
+          zIndex: 200,
           bottom: showForm ? 100 : -600,
           right: 24,
           width: 300,
@@ -139,11 +152,14 @@ export default function Floating({ location = "" }) {
       >
         <Box
           sx={{
-            backgroundColor: (theme) => theme.palette.primary.main,
+            backgroundColor: (theme) => theme.palette.primary.dark,
             height: 90,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            '& > p': {
+              color: (theme) => theme.palette.mode === 'dark' ? "#181818" : "#FFF",
+            },
           }}
         >
           <Typography sx={{ maxWidth: 250, width: '100%', textAlign: 'center' }} variant="body1" color="white">
@@ -194,11 +210,15 @@ export default function Floating({ location = "" }) {
         </Box>
         <Box
           sx={{
-            backgroundColor: (theme) => theme.palette.primary.main,
+            backgroundColor: (theme) => theme.palette.primary.dark,
             height: 70,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+
+            '& > span': {
+              color: (theme) => theme.palette.mode === 'dark' ? "#181818" : "#FFF",
+            }
           }}
         >
           <Typography sx={{ maxWidth: 250, width: '100%', textAlign: 'center' }} variant="caption" color="white">
@@ -206,6 +226,6 @@ export default function Floating({ location = "" }) {
           </Typography>
         </Box>
       </Box>
-    </Box>
+    </>
   );
 }

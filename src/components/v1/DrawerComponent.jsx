@@ -27,6 +27,7 @@ import { useAuth } from '../../hooks/useAuth';
 import Menu from '@mui/material/Menu';
 
 import logo from "../../assets/admin/logo.png";
+import Floating from '../Floating';
 
 function Copyright() {
   return (
@@ -155,6 +156,8 @@ function DrawerComponent({ title, children }) {
       navigate("/");
     }
   };
+
+  console.log("user", user)
 
   return (
     <ThemeProvider theme={mode === 'light' ? mdTheme : mdThemeDark}>
@@ -415,24 +418,27 @@ function DrawerComponent({ title, children }) {
                     <ListItemText primary="Código Pet" />
                   </ListItemButton>
                 </Tooltip>
-                <Tooltip placement="right" title="Adoção">
-                  <ListItemButton selected={location.pathname === "/tutor/adocao"} onClick={() => navigate("/tutor/adocao")}>
-                    <ListItemIcon>
-                      <FaDog />
-                    </ListItemIcon>
-                    <ListItemText primary="Adoção" />
-                  </ListItemButton>
-                </Tooltip>
+
                 {
                   false && (
-                    <Tooltip placement="right" title="Seja premium">
-                      <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
-                        <ListItemIcon>
-                          <FaUserShield />
-                        </ListItemIcon>
-                        <ListItemText primary="Seja premium" />
-                      </ListItemButton>
-                    </Tooltip>
+                    <>
+                      <Tooltip placement="right" title="Adoção">
+                        <ListItemButton selected={location.pathname === "/tutor/adocao"} onClick={() => navigate("/tutor/adocao")}>
+                          <ListItemIcon>
+                            <FaDog />
+                          </ListItemIcon>
+                          <ListItemText primary="Adoção" />
+                        </ListItemButton>
+                      </Tooltip>
+                      <Tooltip placement="right" title="Seja premium">
+                        <ListItemButton selected={location.pathname === "/"} onClick={() => handleLogout()}>
+                          <ListItemIcon>
+                            <FaUserShield />
+                          </ListItemIcon>
+                          <ListItemText primary="Seja premium" />
+                        </ListItemButton>
+                      </Tooltip>
+                    </>
                   )
                 }
                 <Divider sx={{ my: 1 }} />
@@ -497,6 +503,7 @@ function DrawerComponent({ title, children }) {
           <Container maxWidth="lg" sx={{ mt: 1, mb: 1, pt: 2 }}>
             {children}
             <Copyright sx={{ pt: 4 }} />
+            <Floating />
           </Container>
         </Box>
       </Box>

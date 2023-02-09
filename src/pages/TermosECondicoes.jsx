@@ -36,6 +36,10 @@ function TermosECondicoes() {
             py: 2,
             mt: 10,
 
+            '& > *': {
+              fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+            },
+
             '& > ol, & > ul': {
               mx: 4,
             },

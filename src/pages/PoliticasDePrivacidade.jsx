@@ -36,6 +36,10 @@ function PoliticasDePrivacidade() {
             py: 2,
             mt: 10,
 
+            '& > *': {
+              fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+            },
+
             '& > ol, & > ul': {
               mx: 4,
             },
@@ -45,7 +49,7 @@ function PoliticasDePrivacidade() {
               mb: 2,
               fontWeight: 700,
               fontSize: 26,
-              color: '#000'
+              color: '#000',
             },
 
             '& > p': {

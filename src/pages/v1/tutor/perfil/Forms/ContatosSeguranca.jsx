@@ -1,7 +1,5 @@
 import { Avatar, Box, Button, TextField, Typography } from '@mui/material';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import updateLocale from 'dayjs/plugin/updateLocale';
 import { useFormik } from 'formik';
 import React, { useMemo, useState } from 'react';
 import { FaSave, FaTrash } from 'react-icons/fa';
@@ -15,40 +13,8 @@ import { DataGrid, ptBR } from '@mui/x-data-grid';
 import { FaPlus } from 'react-icons/fa';
 
 import { uuidv4 } from '@firebase/util';
-import L from "leaflet";
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import "leaflet/dist/leaflet.css";
 import { phone as phoneMask } from '../../../../../utils/masks';
 
-
-let DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-});
-
-L.Marker.prototype.options.icon = DefaultIcon;
-
-dayjs.extend(relativeTime);
-dayjs.extend(updateLocale)
-
-dayjs.updateLocale('en', {
-  relativeTime: {
-    future: "em %s",
-    past: "%s atrás",
-    s: 'alguns segundos',
-    m: "um minuto",
-    mm: "%d minutos",
-    h: "uma hora",
-    hh: "%d horas",
-    d: "um dia",
-    dd: "%d dias",
-    M: "um mês",
-    MM: "%d meses",
-    y: "um ano",
-    yy: "%d anos"
-  }
-})
 
 export default function ContatosSeguranca() {
   const { setIsLoading } = useLoading();
