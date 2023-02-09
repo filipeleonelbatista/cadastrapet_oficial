@@ -23,6 +23,8 @@ import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
 import { isStringEmpty } from "../utils/string";
 
+import database from '../database.json';
+
 const userObject = {
   is_admin: false,
   user_role: ["tutor"],
@@ -43,6 +45,11 @@ const userObject = {
     cidade: "",
     uf: "",
     pais: "",
+    position: {
+      lat: 0,
+      lng: 0,
+    },
+    ratio: 10,
   },
   pets: [],
   emergency_contacts: [],
@@ -73,12 +80,16 @@ const petObject = {
   medications: [],
   created_at: 0,
   updated_at: 0,
+  currentLocation: {
+    lat: 0,
+    lng: 0,
+  }
 };
 
 const medicalHistoryObject = {
   uid: "",
   pet_uid: "",
-  attachment: "",
+  attachment: [],
   title: "",
   notes: "",
   event_date: "",
@@ -113,6 +124,29 @@ const feedbackObject = {
   comment: "",
   user: "",
   created_at: "",
+};
+
+const locationObject = {
+  uid: "",
+  pet_uid: "",
+  status: false,
+  location: {
+    lat: 0,
+    lng: 0,
+  },
+  created_at: "",
+};
+
+const conversionObject = {
+  converted: false,
+  created_at: "",
+  email: "",
+  from: "",
+  ip: "",
+  message: "",
+  name: "",
+  phone: "",
+  url: "",
 };
 
 export const AuthContext = createContext({});
@@ -279,6 +313,7 @@ export function AuthContextProvider(props) {
       });
     return result;
   }
+
   async function getAllContacts() {
     const medicalHistoryRef = collection(db, "conversion-notification");
     const result = getDocs(medicalHistoryRef)
@@ -295,6 +330,24 @@ export function AuthContextProvider(props) {
       });
     return result;
   }
+
+  async function getAllLocation() {
+    const locationRef = collection(db, "location");
+    const result = getDocs(locationRef)
+      .then((snap) => {
+        const locationArray = [];
+        snap.docs.forEach((doc) => {
+          locationArray.push(doc.data());
+        });
+        return locationArray;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    return result;
+  }
+
   async function getMedicalHistoryID(id) {
     const medicalHistoryRef = doc(db, "medical-history", id);
     const medicalHistorySnap = await getDoc(medicalHistoryRef);
@@ -964,18 +1017,39 @@ export function AuthContextProvider(props) {
       pets,
       users,
       vaccine,
+      location
     } = database;
 
+    setIsLoading(true);
+
+    console.log(medicalHistory.title)
     await loadDatabase(medicalHistory.title, medicalHistory.content);
+
+    console.log(conversionNotification.title)
     await loadDatabaseConversion(
       conversionNotification.title,
       conversionNotification.content
     );
+
+    console.log(feedback.title)
     await loadDatabase(feedback.title, feedback.content);
+
+    console.log(medicationHistory.title)
     await loadDatabase(medicationHistory.title, medicationHistory.content);
+
+    console.log(pets.title)
     await loadDatabase(pets.title, pets.content);
+
+    console.log(users.title)
     await loadDatabase(users.title, users.content);
+
+    console.log(vaccine.title)
     await loadDatabase(vaccine.title, vaccine.content);
+
+    console.log(location.title)
+    await loadDatabase(location.title, location.content);
+
+    setIsLoading(false);
 
     console.log("Finito", database);
   }
@@ -997,6 +1071,7 @@ export function AuthContextProvider(props) {
       medicalHistoryObject
     );
     const contacts = await getAllContacts();
+    const locations = await getAllLocation();
 
     const database = {
       users: {
@@ -1026,6 +1101,10 @@ export function AuthContextProvider(props) {
       feedback: {
         title: "feedback",
         content: feedbacksNormalized,
+      },
+      location: {
+        title: "location",
+        content: locations,
       },
     };
 
@@ -1079,6 +1158,7 @@ export function AuthContextProvider(props) {
 
   async function verifyPets() {
     console.log("Iniciando limpeza de dogs!");
+    setIsLoading(true)
     const { users } = database;
     let petsArray = [];
 
@@ -1103,10 +1183,13 @@ export function AuthContextProvider(props) {
     );
 
     for (const pet of trashPetsArray) {
-      const selectedPetForExclusion = await getPetByID(pet);
-      await deletePet(selectedPetForExclusion);
+      if (pet) {
+        const selectedPetForExclusion = await getPetByID(pet);
+        await deletePet(selectedPetForExclusion);
+      }
     }
 
+    setIsLoading(false)
     console.log("Concluido!");
   }
 
