@@ -268,7 +268,7 @@ function DrawerComponentFULL({ title, children }) {
             >
               <Box
                 sx={{
-                  p: 2,
+                  p: 1,
                   maxHeight: '80vh',
                   display: 'flex',
                   flexDirection: 'column',
@@ -286,7 +286,15 @@ function DrawerComponentFULL({ title, children }) {
                           display: 'flex',
                           flexDirection: 'row',
                           flexWrap: 'nowrap',
-                          gap: 2
+                          gap: 2,
+                          transition: '0.2s',
+                          cursor: 'pointer',
+                          borderRadius: 2,
+                          p: 1,
+                          backgroundColor: (theme) => theme.palette.mode === 'dark' ? "#181818" : "#FFF",
+                          '&:hover': {
+                            filter: 'brightness(0.8)'
+                          }
                         }}>
                         <Box
                           sx={{
