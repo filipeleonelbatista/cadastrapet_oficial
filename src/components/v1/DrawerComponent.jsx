@@ -3,7 +3,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { default as Logout, default as LogoutIcon } from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, CardMedia, ListItemButton, ListItemIcon, ListItemText, ListSubheader, MenuItem, Tooltip, useMediaQuery } from '@mui/material';
+import { Avatar, Badge, CardMedia, ListItemButton, ListItemIcon, ListItemText, ListSubheader, MenuItem, Tooltip, useMediaQuery } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -18,7 +18,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { CgPill } from "react-icons/cg";
-import { FaBookMedical, FaBookOpen, FaCog, FaDog, FaHospital, FaMapMarkedAlt, FaQrcode, FaTachometerAlt, FaTh, FaUser, FaUserShield } from "react-icons/fa";
+import { FaBell, FaBookMedical, FaBookOpen, FaCog, FaDog, FaHospital, FaMapMarkedAlt, FaQrcode, FaTachometerAlt, FaTh, FaUser, FaUserShield } from "react-icons/fa";
 import { MdOutlineAdsClick } from 'react-icons/md';
 import { TiContacts } from 'react-icons/ti';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -27,11 +27,12 @@ import { useAuth } from '../../hooks/useAuth';
 import Menu from '@mui/material/Menu';
 
 import logo from "../../assets/admin/logo.png";
-import Floating from '../Floating';
-import { ToastContextProvider } from '../../context/ToastContext';
-import { LoadingContextProvider } from '../../context/LoadingContext';
+import noData from "../../assets/images/no_data.png";
 import { AuthContextProvider } from '../../context/AuthContext';
 import { ConversionContextProvider } from '../../context/ConversionContext';
+import { LoadingContextProvider } from '../../context/LoadingContext';
+import { ToastContextProvider } from '../../context/ToastContext';
+import Floating from '../Floating';
 
 function Copyright() {
   return (
@@ -114,7 +115,18 @@ function DrawerComponentFULL({ title, children }) {
 
   const { functions, props } = useAuth();
   const { logout } = functions;
-  const { isLoggedIn, user } = props;
+  const { user, notificationIcons, notificationList } = props;
+  const [anchorElNotification, setAnchorElNotification] = React.useState(null);
+
+  const openMenuNotification = Boolean(anchorElNotification);
+
+  const handleClickNotification = (event) => {
+    setAnchorElNotification(event.currentTarget);
+  };
+
+  const handleCloseNotification = () => {
+    setAnchorElNotification(null);
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -161,8 +173,6 @@ function DrawerComponentFULL({ title, children }) {
     }
   };
 
-  console.log("user", user)
-
   return (
     <ThemeProvider theme={mode === 'light' ? mdTheme : mdThemeDark}>
       <Box sx={{ display: 'flex' }}>
@@ -197,7 +207,6 @@ function DrawerComponentFULL({ title, children }) {
             >
               {title}
             </Typography>
-
             <Tooltip title="Definir Modo Escuro/Claro">
               <IconButton sx={{ ml: 1 }} onClick={() => {
                 setMode(mode === "dark" ? 'light' : 'dark')
@@ -206,6 +215,133 @@ function DrawerComponentFULL({ title, children }) {
                 {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
               </IconButton>
             </Tooltip>
+            <Tooltip title="Notificações">
+              <IconButton
+                color="inherit"
+                onClick={handleClickNotification}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={openMenuNotification ? 'notification-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={openMenuNotification ? 'true' : undefined}
+              >
+                <Badge showZero={false} badgeContent={notificationList.length} color="error">
+                  <FaBell size={20} />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+
+            <Menu
+              anchorEl={anchorElNotification}
+              id="notification-menu"
+              open={openMenuNotification}
+              onClose={handleCloseNotification}
+              onClick={handleCloseNotification}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1.5,
+                  '& .MuiAvatar-root': {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <Box
+                sx={{
+                  p: 2,
+                  maxHeight: '80vh',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2,
+                  overflow: 'auto'
+                }}
+              >
+                {
+                  notificationList.length > 0 ?
+                    notificationList.map(notification => (
+                      <Box
+                        key={notification.uid}
+                        sx={{
+                          width: 300,
+                          display: 'flex',
+                          flexDirection: 'row',
+                          flexWrap: 'nowrap',
+                          gap: 2
+                        }}>
+                        <Box
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            display: 'flex',
+                            alignItems: "center",
+                            justifyContent: "center",
+                            backgroundColor: (theme) => theme.palette.primary.main,
+                            borderRadius: '50%',
+
+                            '& > svg': {
+                              fill: (theme) => theme.palette.mode === 'dark' ? "#181818" : "#FFF",
+                            }
+                          }}
+                        >
+                          {notificationIcons[notification.icon]}
+                        </Box>
+                        <Box sx={{
+                          width: 240,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          flexWrap: 'wrap',
+                          gap: 1,
+                        }}>
+
+                          <Typography variant="body1" fontWeight="bold">{notification.title}</Typography>
+                          <Typography variant="body2">{notification.message}</Typography>
+                        </Box>
+                      </Box>
+                    )) : (
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          gap: 1,
+                        }}
+                      >
+                        <CardMedia
+                          component="img"
+                          src={noData}
+                          alt="Sem notificações"
+                          sx={{
+                            height: 100,
+                            width: 'auto',
+                          }}
+                        />
+                        <Typography variant="body2"> Sem notificações nomomento! </Typography>
+                      </Box>
+                    )
+                }
+              </Box>
+
+            </Menu>
             <Tooltip title={user?.name}>
               <IconButton
                 onClick={handleClick}
@@ -313,6 +449,14 @@ function DrawerComponentFULL({ title, children }) {
                     <ListItemText primary="Usuários" />
                   </ListItemButton>
                 </Tooltip>
+                <Tooltip placement="right" title="Pets">
+                  <ListItemButton selected={location.pathname === "/admin/pets"} onClick={() => navigate("/admin/pets")}>
+                    <ListItemIcon>
+                      <FaDog />
+                    </ListItemIcon>
+                    <ListItemText primary="Pets" />
+                  </ListItemButton>
+                </Tooltip>
                 <Tooltip placement="right" title="Clinicas/Petshops">
                   <ListItemButton selected={location.pathname === "/admin/locais"} onClick={() => navigate("/admin/locais")}>
                     <ListItemIcon>
@@ -327,14 +471,6 @@ function DrawerComponentFULL({ title, children }) {
                       <TiContacts />
                     </ListItemIcon>
                     <ListItemText primary="Contatos" />
-                  </ListItemButton>
-                </Tooltip>
-                <Tooltip placement="right" title="Pets">
-                  <ListItemButton selected={location.pathname === "/admin/pets"} onClick={() => navigate("/admin/pets")}>
-                    <ListItemIcon>
-                      <FaDog />
-                    </ListItemIcon>
-                    <ListItemText primary="Pets" />
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Anúncios">
@@ -511,7 +647,7 @@ function DrawerComponentFULL({ title, children }) {
           </Container>
         </Box>
       </Box>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
 

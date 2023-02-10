@@ -2,7 +2,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  signOut,
+  signOut
 } from "firebase/auth";
 import {
   addDoc,
@@ -13,7 +13,7 @@ import {
   getDocs,
   query,
   setDoc,
-  where,
+  where
 } from "firebase/firestore";
 import React, { createContext, useEffect, useState } from "react";
 import { authentication, db } from "../firebase/firebase-config";
@@ -22,6 +22,10 @@ import { useToast } from "../hooks/useToast";
 import { sendDiscordNotification } from "../services/discord-notify";
 import { AuthErrorHandler } from "../utils/handleFirebaseError";
 import { isStringEmpty } from "../utils/string";
+
+import { uuidv4 } from '@firebase/util';
+import dayjs from 'dayjs';
+import { FaBirthdayCake, FaDog, FaMobile, FaSearchLocation } from "react-icons/fa";
 
 import database from '../database.json';
 
@@ -168,6 +172,132 @@ export function AuthContextProvider(props) {
   const [selectedMedication, setSelectedMedication] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const [notificationList, setNotificationList] = useState([])
+
+  const notificationIcons = {
+    'dog': <FaDog size={24} color="#FFF" />,
+    'birthday': <FaBirthdayCake size={24} color="#FFF" />,
+    'system': <FaMobile size={24} color="#FFF" />,
+    'location': <FaSearchLocation size={24} color="#FFF" />
+  }
+
+  const loadUserNotification = async () => {
+    const notificationArray = []
+    setIsLoading(true)
+    const user_created_at = new Date(user?.created_at)
+    const birth_date = new Date(user?.birth_date)
+    const now = new Date(Date.now())
+
+    if (user_created_at.getMonth() === now.getMonth() && user_created_at.getDate() === now.getDate()) {
+      notificationArray.push({
+        icon: 'birthday',
+        uid: uuidv4(),
+        title: 'Bem vindo ao CadastraPet 😸🐶',
+        message: 'Adicinone seus pets e comece agora a cuidar dos seus pets! 😸🐶',
+        date: Date.now()
+      })
+    }
+
+    if (user.pets.length === 0) {
+      notificationArray.push({
+        icon: 'dog',
+        uid: uuidv4(),
+        title: 'Adicione seus pets 😸🐶',
+        message: 'Adicinone seus pets e comece agora a cuidar dos seus pets! 😸🐶',
+        date: Date.now()
+      })
+    }
+
+    if (user.emergency_contacts.length === 0) {
+      notificationArray.push({
+        icon: 'dog',
+        uid: uuidv4(),
+        title: 'Adicione contatos de emergência',
+        message: 'As informações de contatos de emergência ajudam a encontrar seu pet! 😸🐶 Fica em Perfil > Contatos de emergência',
+        date: Date.now()
+      })
+    }
+
+    if (birth_date.getMonth() === now.getMonth() && birth_date.getDate() === now.getDate()) {
+      notificationArray.push({
+        icon: 'birthday',
+        uid: uuidv4(),
+        title: 'Parabéns para você! 🎂',
+        message: 'Que você tenha muita saúde, alegrias e felicidades com sua família e seus pets! 😸🐶',
+        date: Date.now()
+      })
+    }
+
+    if (user.birth_date === 0 || user.avatar === '') {
+      notificationArray.push({
+        icon: 'system',
+        uid: uuidv4(),
+        title: 'Complete seu perfil!',
+        message: 'Complete seu Perfil para ter acesso a todos os recursos do sistema!',
+        date: Date.now()
+      })
+    }
+
+    if (user.endereco.cep === '' || user.endereco.logradouro === '' || user.endereco.cidade === '' || user.endereco.uf === '' || user.endereco.pais === '') {
+      notificationArray.push({
+        icon: 'system',
+        uid: uuidv4(),
+        title: 'Complete seu perfil com endereço!',
+        message: 'Cadastre seu endereço para ajudar encontrar seu pet! 😸🐶 vá em Perfil para atualizar seus dados!',
+        date: Date.now()
+      })
+    }
+
+    for (const id of user.pets) {
+      const loadedPet = await getPetByID(id);
+      if (loadedPet) {
+        if (loadedPet.birth_date) {
+          const pet_birth_date = new Date(loadedPet?.birth_date)
+          if (pet_birth_date.getMonth() === now.getMonth() && pet_birth_date.getDate() === now.getDate()) {
+            notificationArray.push({
+              icon: 'birthday',
+              uid: uuidv4(),
+              title: 'Parabéns para seu pet! 🎂',
+              message: `Seu pet ${loadedPet.name} está completando ${dayjs().from(dayjs(new Date(loadedPet?.birth_date)), true)} hoje! Desejamos um excelente dia para vocês! 😸🐶`,
+              date: Date.now()
+            })
+          }
+        }
+        if (loadedPet.adoption_date) {
+          const pet_adoption_date = new Date(loadedPet?.adoption_date)
+          if (pet_adoption_date.getMonth() === now.getMonth() && pet_adoption_date.getDate() === now.getDate()) {
+            notificationArray.push({
+              icon: 'birthday',
+              uid: uuidv4(),
+              title: 'Aniversário de adoção! 🎂',
+              message: `Seu pet ${loadedPet.name} está completando ${dayjs().from(dayjs(new Date(loadedPet?.adoption_date)), true)} com você hoje! Parabéns pela adoção e desejamos um excelente dia para vocês! 😸🐶`,
+              date: Date.now()
+            })
+          }
+        }
+      }
+    }
+
+    const notificationRef = collection(db, "notifications");
+    const notificationResult = query(notificationRef, where("user_uid", "==", user?.uid));
+
+    const querySnapshot = await getDocs(notificationResult);
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data()
+      const notification_date = new Date(data.date);
+      const now = new Date(Date.now());
+      if (notification_date > now) {
+        notificationArray.push({
+          ...data
+        })
+      }
+    });
+
+    setIsLoading(false)
+    setNotificationList(notificationArray.sort((a, b) => b.date - a.date))
+  }
 
   function getKeyLocalStorage(key) {
     return localStorage.getItem(key) === null
@@ -948,6 +1078,7 @@ export function AuthContextProvider(props) {
         setSelectedMedication(sm);
       }
     }
+
     setIsLoading(false)
     return false;
   }
@@ -956,6 +1087,12 @@ export function AuthContextProvider(props) {
     await updateVaccineList();
     await updateMedicationList();
   }
+
+  useEffect(() => {
+    if (user) {
+      loadUserNotification();
+    }
+  }, [user])
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -1229,6 +1366,8 @@ export function AuthContextProvider(props) {
           isLoaded,
           medicationList,
           selectedMedication,
+          notificationList,
+          notificationIcons,
         },
         setFunctions: {
           setUser,
@@ -1247,6 +1386,7 @@ export function AuthContextProvider(props) {
           handleSetSelectedMedication,
           setMedicationList,
           setSelectedMedication,
+          setNotificationList
         },
         functions: {
           createFeedback,
@@ -1282,6 +1422,7 @@ export function AuthContextProvider(props) {
           updateMedicationByID,
           updatePetLists,
           verifyUser,
+          loadUserNotification,
         },
         databaseFunctions: {
           downloadDatabase,
