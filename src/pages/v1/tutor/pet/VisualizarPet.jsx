@@ -133,6 +133,15 @@ export default function VisualizarPet() {
             value={selectedPet?.pin_number}
           />
 
+          <TextField
+            fullWidth
+            disabled
+            id="death_date"
+            label="Data de Castração"
+            variant="outlined"
+            value={dayjs(new Date(selectedPet?.death_date)).format("DD/MM/YYYY")}
+          />
+
           <Button type='button' onClick={() => navigate("/tutor/pet/editar")} variant="contained" color="success" startIcon={<FaEdit />}>Editar Pet</Button>
           <Button type='button' onClick={handleDeletePet} variant="contained" color="error" startIcon={<FaTrash />}>Excluir Pet</Button>
 

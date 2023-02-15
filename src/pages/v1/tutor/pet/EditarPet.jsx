@@ -32,6 +32,7 @@ export default function EditarPet() {
     return Yup.object().shape({
       name: Yup.string().required("O campo Nome é obrigatório"),
       birth_date: Yup.string().required("O campo Data de nascimento é obrigatório"),
+      deth_date: Yup.string(),
       adoption_date: Yup.string(),
       species: Yup.string().required("O campo Tipo/Especie é obrigatório"),
       animal_race: Yup.string().required("O campo Raça é obrigatório"),
@@ -47,6 +48,7 @@ export default function EditarPet() {
     initialValues: {
       name: selectedPet?.name,
       birth_date: selectedPet?.birth_date,
+      death_date: selectedPet?.death_date,
       adoption_date: selectedPet?.adoption_date,
       species: selectedPet?.species,
       animal_race: selectedPet?.animal_race,
@@ -91,6 +93,7 @@ export default function EditarPet() {
       avatar: uploadURLImage,
       adoption_date: new Date(formValues.adoption_date).getTime(),
       birth_date: new Date(formValues.birth_date).getTime(),
+      death_date: new Date(formValues.death_date).getTime(),
       pelage: formValues.pelage,
       species: formValues.species,
       animal_race: formValues.animal_race,
@@ -270,6 +273,24 @@ export default function EditarPet() {
               error={!!formik.errors.pin_number}
               value={formik.values.pin_number}
               onChange={formik.handleChange}
+            />
+
+            <DatePicker
+              label="Data de falecimento"
+              inputFormat="DD/MM/YYYY"
+              value={formik.values.death_date}
+              onChange={(value) => { value && formik.setFieldValue('death_date', new Date(value)) }}
+              renderInput={(params) => (
+                <TextField
+                  fullWidth
+                  value={formik.values.death_date}
+                  error={!!formik.errors.death_date}
+                  helperText={"Caso o pet tenha Falecido coloque a data aqui."}
+                  name="death_date"
+                  variant="outlined"
+                  {...params}
+                />
+              )}
             />
 
             <Button type='submit' variant="contained" color="primary">Salar alterações</Button>

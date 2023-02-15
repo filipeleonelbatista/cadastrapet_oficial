@@ -147,6 +147,7 @@ export default function AdicionarPet() {
       tutor: [user.uid],
       adoption_date: new Date(formValues.adoption_date).getTime(),
       birth_date: new Date(formValues.birth_date).getTime(),
+      death_date: 0,
       pelage: formValues.pelage,
       species: formValues.species,
       animal_race: formValues.animal_race,
