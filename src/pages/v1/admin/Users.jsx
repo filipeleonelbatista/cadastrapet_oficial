@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
 import { useEffect, useState } from "react";
-import { FaDog, FaDownload, FaEdit, FaEye, FaTrash, FaUpload, FaUsers } from "react-icons/fa";
+import { FaDog, FaDownload, FaEdit, FaEye, FaPaw, FaTrash, FaUpload, FaUsers } from "react-icons/fa";
 import logo from '../../../assets/icon.png';
 import ContainerComponent from "../../../components/v1/ContainerComponent";
 import DrawerComponent from "../../../components/v1/DrawerComponent";
@@ -35,7 +35,7 @@ dayjs.updateLocale('en', {
 export default function Users() {
   const { props, databaseFunctions, functions } = useAuth();
   const { user } = props;
-  const { updateDatabase, downloadDatabase, verifyPets } = databaseFunctions;
+  const { updateDatabase, downloadDatabase, verifyPets, updateUserObject, updatePetObject } = databaseFunctions;
   const { getAllTutors } = functions;
 
   const [tutorList, setTutorList] = useState([])
@@ -303,6 +303,31 @@ export default function Users() {
       </Box>
 
       <ContainerComponent>
+        {
+          false && (
+            <>
+              <Button
+                sx={{ mx: 1 }}
+                variant="contained"
+                color="primary"
+                onClick={updateUserObject}
+                startIcon={<FaDownload />}
+              >
+                Atualizar estrutura de dados dos usuários
+              </Button>
+
+              <Button
+                sx={{ mx: 1 }}
+                variant="contained"
+                color="primary"
+                onClick={updatePetObject}
+                startIcon={<FaPaw />}
+              >
+                Atualizar estrutura de dados dos pets
+              </Button></>
+
+          )
+        }
         {
           false && (
             <>

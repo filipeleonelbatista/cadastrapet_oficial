@@ -74,6 +74,7 @@ const petObject = {
   tutor: [],
   adoption_date: 0,
   birth_date: 0,
+  death_date: 0,
   pelage: "",
   species: "",
   animal_race: "",
@@ -1528,6 +1529,45 @@ export function AuthContextProvider(props) {
     return data;
   }
 
+
+  async function updateUserObject() {
+    const allUsers = await getAllTutors();
+
+    for (const user of allUsers) {
+      try {
+        const data = {
+          ...userObject,
+          ...user
+        }
+
+        await setDoc(doc(db, "users", user.uid), data);
+        console.log("Usuário atualizado", user.uid, data)
+      } catch (err) {
+        console.log(user, err)
+      }
+    }
+    console.log("Finalizado")
+  }
+
+  async function updatePetObject() {
+    const allpets = await getAllPets();
+
+    for (const pet of allpets) {
+      try {
+        const data = {
+          ...petObject,
+          ...pet
+        }
+
+        await setDoc(doc(db, "pets", pet.uid), data);
+        console.log("Usuário atualizado", pet.uid, data)
+      } catch (err) {
+        console.log(user, err)
+      }
+    }
+    console.log("Finalizado")
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -1614,6 +1654,8 @@ export function AuthContextProvider(props) {
           downloadDatabase,
           updateDatabase,
           verifyPets,
+          updateUserObject,
+          updatePetObject,
         },
         deleteFunctions: {
           deleteMedication,
