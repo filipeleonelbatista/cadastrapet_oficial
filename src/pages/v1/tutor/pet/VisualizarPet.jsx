@@ -3,7 +3,7 @@ import ContainerComponent from "../../../../components/v1/ContainerComponent";
 import DrawerComponent from "../../../../components/v1/DrawerComponent";
 
 import {
-  Avatar, Box, Button, IconButton, TextField, Typography
+  Avatar, Box, Button, FormControlLabel, FormGroup, IconButton, Switch, TextField, Typography
 } from '@mui/material';
 import dayjs from 'dayjs';
 import { FaCamera, FaEdit, FaTrash } from 'react-icons/fa';
@@ -137,10 +137,25 @@ export default function VisualizarPet() {
             fullWidth
             disabled
             id="death_date"
-            label="Data de Castração"
+            label="Data de Falecimento"
             variant="outlined"
-            value={dayjs(new Date(selectedPet?.death_date)).format("DD/MM/YYYY")}
+            value={selectedPet?.death_date === 0 ? '' : dayjs(new Date(selectedPet?.death_date)).format("DD/MM/YYYY")}
           />
+
+          <FormGroup sx={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 2,
+            my: 2,
+          }}>
+            <FormControlLabel
+              control={
+                <Switch checked={selectedPet?.is_active} disabled name="is_active" />
+              }
+              label="Pet ativo?"
+            />
+          </FormGroup>
 
           <Button type='button' onClick={() => navigate("/tutor/pet/editar")} variant="contained" color="success" startIcon={<FaEdit />}>Editar Pet</Button>
           <Button type='button' onClick={handleDeletePet} variant="contained" color="error" startIcon={<FaTrash />}>Excluir Pet</Button>

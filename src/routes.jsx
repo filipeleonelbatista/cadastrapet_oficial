@@ -28,6 +28,7 @@ import Perfil from "./pages/v1/tutor/perfil/Perfil";
 import AdicionarPet from "./pages/v1/tutor/pet/AdicionarPet";
 import CodigoPet from "./pages/v1/tutor/pet/CodigoPet";
 import EditarPet from "./pages/v1/tutor/pet/EditarPet";
+import ListarPets from "./pages/v1/tutor/pet/ListarPets";
 import LocalizarPet from "./pages/v1/tutor/pet/LocalizarPet";
 import VisualizarPet from "./pages/v1/tutor/pet/VisualizarPet";
 import AdicionarVacina from "./pages/v1/tutor/vacinas/AdicionarVacina";
@@ -66,6 +67,7 @@ function Routes() {
         <Route path="/entrar" exact element={<Login />} />
 
         <Route path="/inicio" exact element={<Dashboard />} />
+        <Route path="/meus-pets" exact element={<ListarPets />} />
         <Route path="/tutor/pet/adicionar" exact element={<AdicionarPet />} />
         <Route path="/tutor/pet/editar" exact element={<EditarPet />} />
         <Route path="/tutor/pet/visualizar" exact element={<VisualizarPet />} />

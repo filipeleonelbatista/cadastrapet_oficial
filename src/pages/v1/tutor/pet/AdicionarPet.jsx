@@ -161,6 +161,7 @@ export default function AdicionarPet() {
       events: [],
       vaccines: [],
       medications: [],
+      is_active: true,
       created_at: Date.now(),
       updated_at: Date.now(),
     };

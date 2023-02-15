@@ -86,6 +86,7 @@ const petObject = {
   medications: [],
   created_at: 0,
   updated_at: 0,
+  is_active: true,
   currentLocation: {
     lat: 0,
     lng: 0,
@@ -1560,7 +1561,7 @@ export function AuthContextProvider(props) {
         }
 
         await setDoc(doc(db, "pets", pet.uid), data);
-        console.log("Usuário atualizado", pet.uid, data)
+        console.log("Pet atualizado", pet.uid, data)
       } catch (err) {
         console.log(user, err)
       }

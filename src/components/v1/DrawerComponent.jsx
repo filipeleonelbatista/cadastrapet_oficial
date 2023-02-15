@@ -18,7 +18,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { CgPill } from "react-icons/cg";
-import { FaBell, FaBookMedical, FaBookOpen, FaCog, FaDog, FaHospital, FaMapMarkedAlt, FaQrcode, FaTachometerAlt, FaTh, FaUser, FaUserShield } from "react-icons/fa";
+import { FaBell, FaBookMedical, FaBookOpen, FaCog, FaDog, FaHospital, FaMapMarkedAlt, FaPaw, FaQrcode, FaTachometerAlt, FaTh, FaUser, FaUserShield } from "react-icons/fa";
 import { MdOutlineAdsClick } from 'react-icons/md';
 import { TiContacts } from 'react-icons/ti';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -516,6 +516,14 @@ function DrawerComponentFULL({ title, children }) {
                       <FaTachometerAlt />
                     </ListItemIcon>
                     <ListItemText primary="Inicio" />
+                  </ListItemButton>
+                </Tooltip>
+                <Tooltip placement="right" title="Meus pets">
+                  <ListItemButton selected={location.pathname === "/meus-pets"} onClick={() => navigate("/meus-pets")}>
+                    <ListItemIcon>
+                      <FaPaw />
+                    </ListItemIcon>
+                    <ListItemText primary="Meus pets" />
                   </ListItemButton>
                 </Tooltip>
                 <Tooltip placement="right" title="Dados Gerais">

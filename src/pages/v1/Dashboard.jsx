@@ -77,9 +77,9 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    if (petList.length > 0) {
+    if (petList.filter(pet => pet.is_active).length > 0) {
       if (!selectedPet) {
-        handleSetSelectedPet(petList[0])
+        handleSetSelectedPet(petList.filter(pet => pet.is_active)[0])
       }
     }
   }, [petList.length])
@@ -140,7 +140,7 @@ export default function Dashboard() {
           </Box>
         </Card>
         {
-          petList.length > 0 && petList?.map(pet => (
+          petList.filter(pet => pet.is_active).length > 0 && petList?.filter(pet => pet.is_active).map(pet => (
             <Card
               onClick={() => handleSetSelectedPet(pet)}
               key={pet?.uid}

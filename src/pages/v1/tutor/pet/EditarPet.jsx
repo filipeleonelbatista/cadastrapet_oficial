@@ -3,7 +3,7 @@ import ContainerComponent from "../../../../components/v1/ContainerComponent";
 import DrawerComponent from "../../../../components/v1/DrawerComponent";
 
 import {
-  Avatar, Box, Button, IconButton, TextField, Typography
+  Avatar, Box, Button, FormControlLabel, FormGroup, IconButton, Switch, TextField, Typography
 } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -40,6 +40,7 @@ export default function EditarPet() {
       sex: Yup.string().required("O campo Sexo é obrigatório"),
       castration: Yup.string(),
       pin_number: Yup.string(),
+      is_active: Yup.boolean(),
       selectedImage: Yup.mixed(),
     })
   }, [])
@@ -48,7 +49,7 @@ export default function EditarPet() {
     initialValues: {
       name: selectedPet?.name,
       birth_date: selectedPet?.birth_date,
-      death_date: selectedPet?.death_date,
+      death_date: selectedPet?.death_date === 0 ? '' : selectedPet?.death_date,
       adoption_date: selectedPet?.adoption_date,
       species: selectedPet?.species,
       animal_race: selectedPet?.animal_race,
@@ -56,6 +57,7 @@ export default function EditarPet() {
       sex: selectedPet?.sex,
       castration: selectedPet?.castration,
       pin_number: selectedPet?.pin_number,
+      is_active: selectedPet?.is_active,
       selectedImage: '',
     },
     validationSchema: formSchema,
@@ -93,7 +95,7 @@ export default function EditarPet() {
       avatar: uploadURLImage,
       adoption_date: new Date(formValues.adoption_date).getTime(),
       birth_date: new Date(formValues.birth_date).getTime(),
-      death_date: new Date(formValues.death_date).getTime(),
+      death_date: formValues.death_date === '' ? 0 : new Date(formValues.death_date).getTime(),
       pelage: formValues.pelage,
       species: formValues.species,
       animal_race: formValues.animal_race,
@@ -104,6 +106,7 @@ export default function EditarPet() {
       pin_number: isStringEmpty(formValues.pin_number)
         ? "Sem Coleira"
         : formValues.pin_number,
+      is_active: formValues.is_active,
       updated_at: Date.now(),
     };
 
@@ -292,6 +295,21 @@ export default function EditarPet() {
                 />
               )}
             />
+
+            <FormGroup sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 2,
+              my: 2,
+            }}>
+              <FormControlLabel
+                control={
+                  <Switch checked={formik.values.is_active} onChange={(event) => formik.setFieldValue('is_active', event.target.checked)} name="is_active" />
+                }
+                label="Pet ativo?"
+              />
+            </FormGroup>
 
             <Button type='submit' variant="contained" color="primary">Salar alterações</Button>
 
