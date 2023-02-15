@@ -98,11 +98,12 @@ export default function ListarAdocao() {
 
     for (const pet of myPets) {
       const tutor_interested = allTutorsResponse.filter(tutor => pet.users_interested.includes(tutor.uid))
-
-      interested_tutors.push({
-        ...tutor_interested[0],
-        pet_info: pet
-      })
+      if (tutor_interested.length > 0) {
+        interested_tutors.push({
+          ...tutor_interested[0],
+          pet_info: pet
+        })
+      }
     }
 
     setTutorList(interested_tutors)
