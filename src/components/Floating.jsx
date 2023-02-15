@@ -100,7 +100,7 @@ export default function Floating({ location = "" }) {
           width: 64,
           height: 64,
           position: 'fixed',
-          zIndex: 200,
+          zIndex: 1500,
           bottom: 24,
           right: 24,
           boxShadow: 3,

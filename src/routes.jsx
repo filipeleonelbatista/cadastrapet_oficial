@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
+import AdoptionList from "./pages/AdoptionList";
 import Home from "./pages/Home";
 import Links from "./pages/Links";
 import LocalizaPet from "./pages/LocalizaPet";
@@ -15,7 +16,10 @@ import Users from "./pages/v1/admin/Users";
 import Dashboard from "./pages/v1/Dashboard";
 import Login from "./pages/v1/Login";
 import Register from "./pages/v1/Register";
+import AdicionarPetAdocao from "./pages/v1/tutor/adocao/AdicionarPetAdocao";
+import EditarPetAdocao from "./pages/v1/tutor/adocao/EditarPetAdocao";
 import ListarAdocao from "./pages/v1/tutor/adocao/ListarAdocao";
+import VisualizarPetAdocao from "./pages/v1/tutor/adocao/VisualizarPetAdocao";
 import AdicionarHistorico from "./pages/v1/tutor/historico/AdicionarHistorico";
 import EditarHistorico from "./pages/v1/tutor/historico/EditarHistorico";
 import ListarHistoricos from "./pages/v1/tutor/historico/ListarHistoricos";
@@ -43,6 +47,7 @@ function Routes() {
         <Route path="/" exact element={<Home />} />
         <Route path="/localizapet/:id" element={<LocalizaPet />} />
         <Route path="/localizapet" element={<LocalizaPet />} />
+        <Route path="/adote" element={<AdoptionList />} />
         <Route path="/pitch" exact element={<Pitch />} />
         <Route path="/links" exact element={<Links />} />
         <Route path="/tutor/cadastrar" exact element={<Register />} />
@@ -77,6 +82,9 @@ function Routes() {
         <Route path="/tutor/historico-vermifugos/adicionar" exact element={<AdicionarVermifugo />} />
         <Route path="/tutor/historico-vermifugos/editar" exact element={<EditarVermifugo />} />
         <Route path="/tutor/adocao" exact element={<ListarAdocao />} />
+        <Route path="/tutor/adocao/adicionar" exact element={<AdicionarPetAdocao />} />
+        <Route path="/tutor/adocao/visualizar" exact element={<VisualizarPetAdocao />} />
+        <Route path="/tutor/adocao/editar" exact element={<EditarPetAdocao />} />
         <Route path="/tutor/perfil" exact element={<Perfil />} />
         <Route path="/codigo-pet" exact element={<CodigoPet />} />
         <Route path="/tutor/localizar-pet" exact element={<LocalizarPet />} />

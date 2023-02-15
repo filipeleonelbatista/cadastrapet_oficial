@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardMedia, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { FaEdit, FaEye, FaPlus } from "react-icons/fa";
+import { FaDog, FaEdit, FaEye, FaPlus } from "react-icons/fa";
 import ContainerComponent from "../../components/v1/ContainerComponent";
 import DrawerComponent from "../../components/v1/DrawerComponent";
 import { useAuth } from "../../hooks/useAuth";
@@ -47,11 +47,13 @@ dayjs.updateLocale('en', {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { props, setFunctions } = useAuth();
+  const { props, setFunctions, functions } = useAuth();
   const { user, petList, selectedPet, medicalHistoryList } = props;
   const { handleSetSelectedPet, setSelectedMedicalHistory } = setFunctions;
+  const { getAllAdoptionPets } = functions;
 
   const [position, setPosition] = useState(selectedPet?.currentLocation);
+  const [petAdoptionList, setPetAdoptionList] = useState([])
 
   if (!position) {
     setPosition([-29.9357, -51.0166]);
@@ -61,6 +63,19 @@ export default function Dashboard() {
     });
   }
 
+  const loadedAdoptionPetList = async () => {
+    const response = await getAllAdoptionPets()
+
+    response.sort((a, b) => b.created_at - a.created_at)
+
+    if (user.adoption_pets_liked && user.adoption_pets_liked.length > 0) {
+      const adoption_pets_list = response.filter(pet => user.adoption_pets_liked.includes(pet.uid))
+      setFavoritePetList(adoption_pets_list)
+    }
+
+    setPetAdoptionList(response)
+  }
+
   useEffect(() => {
     if (petList.length > 0) {
       if (!selectedPet) {
@@ -68,6 +83,10 @@ export default function Dashboard() {
       }
     }
   }, [petList.length])
+
+  useEffect(() => {
+    loadedAdoptionPetList();
+  }, [])
 
   return (
     <DrawerComponent title="Inicio">
@@ -264,7 +283,7 @@ export default function Dashboard() {
                   field: "action",
                   headerName: "Ações",
                   sortable: false,
-                  renderCell: (params) => {                    
+                  renderCell: (params) => {
                     const handleViewMedicalRecord = (event) => {
                       event.stopPropagation();
                       setSelectedMedicalHistory(params.row)
@@ -330,12 +349,10 @@ export default function Dashboard() {
 
         <Box sx={{ mt: 2 }}>
           <Typography variant="h5" color="primary">Pets para adoção</Typography>
+          <Typography variant="body1">Pets proximos a você.</Typography>
           {
-            petList.length === 0 && (
-              <Box sx={{ width: '100%', display: "flex", flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-                <Typography>Não encontramos pets proximos a você!</Typography>
-                <Button variant="contained" color="primary">Ver Pets para adoção</Button>
-              </Box>
+            petAdoptionList?.filter(pet => pet.endereco.cidade === user.endereco.cidade).length === 0 && (
+              <Typography sx={{ mt: 2 }}>Não foram encontrados pets em sua localidade.</Typography>
             )
           }
           <Box sx={{
@@ -348,9 +365,9 @@ export default function Dashboard() {
             pb: 1
           }}>
             {
-              petList.length > 0 && petList?.map(pet => (
+              petAdoptionList.length > 0 && petAdoptionList?.filter(pet => pet.endereco.cidade === user.endereco.cidade).slice(0, 10).map(pet => (
                 <Card
-                  onClick={() => handleSetSelectedPet(pet)}
+                  onClick={() => { }}
                   key={pet?.uid}
                   component="button"
                   sx={{
@@ -372,8 +389,8 @@ export default function Dashboard() {
                   }}>
                   <CardMedia
                     component="img"
-                    src={pet?.avatar}
-                    alt="Doguinho"
+                    src={pet?.avatar === '' ? logo : pet?.avatar}
+                    alt={pet?.name}
                     sx={{
                       width: 150,
                       height: 200,
@@ -399,16 +416,21 @@ export default function Dashboard() {
                     }}
                   >
                     <Typography variant="body1" color="#FFF"><b>{pet?.name}</b></Typography>
-                    <Typography variant="caption" color="#FFF">
-                      <b>
-                        {dayjs().from(dayjs(new Date(pet?.birth_date)), true)}
-                      </b>
-                    </Typography>
+                    {
+                      pet?.birth_date && (
+                        <Typography variant="caption" color="#FFF">
+                          <b>
+                            {dayjs().from(dayjs(new Date(pet?.birth_date)), true)}
+                          </b>
+                        </Typography>
+                      )
+                    }
                   </Box>
                 </Card>
               ))
             }
           </Box>
+          <Button onClick={() => navigate("/tutor/adocao")} variant="contained" color="primary" startIcon={<FaDog />}>Ver todos os pets para adoção</Button>
         </Box>
 
 

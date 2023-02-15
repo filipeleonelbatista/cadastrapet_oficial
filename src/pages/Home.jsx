@@ -636,6 +636,7 @@ function HomeComponent() {
             textAlign: size[0] > 720 ? 'start' : 'center',
             alignItems: 'center',
             my: 4,
+            py:4,
 
           }}
         >

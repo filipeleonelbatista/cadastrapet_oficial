@@ -1,7 +1,7 @@
 import { Button, CardMedia, Divider, IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { FaBars, FaDog, FaHospital, FaSignInAlt } from "react-icons/fa";
+import { FaBars, FaDog, FaHospital, FaPaw, FaSignInAlt } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoImg from "../assets/new_logo.svg";
 import { useResize } from "../hooks/useResize";
@@ -100,6 +100,12 @@ export default function HomeNavigation() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
               >
+                <MenuItem onClick={() => navigate("/adote")}>
+                  <ListItemIcon>
+                    <FaPaw />
+                  </ListItemIcon>
+                  Adote um Pet
+                </MenuItem>
                 <MenuItem onClick={() => navigate("/")}>
                   <ListItemIcon>
                     <FaDog />
@@ -143,6 +149,14 @@ export default function HomeNavigation() {
                 onClick={() => navigate("/veterinario")}
               >
                 Sou Veterinário
+              </Button>
+              <Button
+                variant={location.pathname === "/adote" ? "outlined" : "text"}
+                color="primary"
+                onClick={() => navigate("/adote")}
+                startIcon={<FaPaw />}
+              >
+                Adote um Pet
               </Button>
               <Button
                 variant="contained"

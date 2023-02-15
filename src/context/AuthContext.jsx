@@ -62,6 +62,7 @@ const userObject = {
     vaccine_history: [],
     medication_history: [],
   },
+  adoption_pets_liked: [],
   created_at: 0,
   updated_at: 0,
 };
@@ -88,6 +89,64 @@ const petObject = {
     lat: 0,
     lng: 0,
   }
+};
+
+const adoptionPetObject = {
+  uid: "",
+  name: "",
+  avatar: "",
+  is_adopted: false,
+  pedigree: false,
+  tutor: [],
+  adoption_date: 0,
+  birth_date: 0,
+  pelage: "",
+  species: "",
+  animal_race: "",
+  sex: "",
+  castration: "",
+  pin_number: "",
+  events: [],
+  vaccines: [],
+  medications: [],
+  created_at: 0,
+  updated_at: 0,
+  currentLocation: {
+    lat: 0,
+    lng: 0,
+  },
+  adoption_description: "",
+  endereco: {
+    logradouro: "",
+    numero: "",
+    bairro: "",
+    cep: "",
+    cidade: "",
+    uf: "",
+    pais: "",
+    position: {
+      lat: 0,
+      lng: 0,
+    },
+    ratio: 10,
+  },
+  galery_images: [],
+  personality: {
+    afetuoso: false,
+    agressivo: false,
+    alerta: false,
+    assustado: false,
+    ativo: false,
+    curioso: false,
+    docil: false,
+    explorador: false,
+    preguicoso: false,
+    timido: false,
+    tranquilo: false,
+  },
+  phisical_size: '',
+  responsable_uid: '',
+  weight: 0,
 };
 
 const medicalHistoryObject = {
@@ -163,6 +222,7 @@ export function AuthContextProvider(props) {
   const [user, setUser] = useState();
   const [user_id, setUserId] = useState();
   const [selectedPet, setSelectedPet] = useState();
+  const [selectedAdoptionPet, setSelectedAdoptionPet] = useState();
   const [medicalHistoryList, setMedicalHistoryList] = useState([]);
   const [vaccineList, setVaccineList] = useState([]);
   const [medicationList, setMedicationList] = useState([]);
@@ -363,6 +423,24 @@ export function AuthContextProvider(props) {
       });
     return result;
   }
+
+  async function getAllAdoptionPets() {
+    const petsRef = collection(db, "adoption_pets");
+    const result = getDocs(petsRef)
+      .then((snap) => {
+        const petsArray = [];
+        snap.docs.forEach((doc) => {
+          petsArray.push(doc.data());
+        });
+        return petsArray;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    return result;
+  }
+
   async function getAllTutors() {
     const usersRef = collection(db, "users");
     const result = getDocs(usersRef)
@@ -684,6 +762,44 @@ export function AuthContextProvider(props) {
       });
   }
 
+  async function getNewAdoptionPetID() {
+    setIsLoading(true)
+    const petRef = collection(db, "adoption_pets");
+    const newPet = await addDoc(petRef, {});
+    setIsLoading(false)
+    return newPet.id;
+  }
+
+  async function getAdoptionPetByID(id) {
+    const petsRef = doc(db, "adoption_pets", id);
+    const petSnap = await getDoc(petsRef);
+    const pet = petSnap.data();
+    return pet;
+  }
+
+  async function updateAdoptionPetByID(id, data) {
+    const petData = await getAdoptionPetByID(id);
+
+    const updatedPet = {
+      ...petData,
+      ...data,
+    };
+    try {
+      setIsLoading(true)
+      await setDoc(doc(db, "adoption_pets", id), updatedPet);
+
+      setIsLoading(false)
+      return true;
+    } catch (err) {
+      console.log("ERRO", err)
+      addToast({
+        message: `Houve um erro ao atualizar dados do pet. Tente novamente mais tarde`,
+        severity: "error"
+      })
+      return false;
+    }
+  }
+
   async function createFeedback(data) {
     try {
       await addDoc(collection(db, "feedback"), data);
@@ -691,6 +807,44 @@ export function AuthContextProvider(props) {
       return true;
     } catch (err) {
       console.error(err);
+      return false;
+    }
+  }
+
+  async function getNewNotificationID() {
+    setIsLoading(true)
+    const notificationRef = collection(db, "notifications");
+    const notification = await addDoc(notificationRef, {});
+    setIsLoading(false)
+    return notification.id;
+  }
+
+  async function getNotificationByID(id) {
+    const notificationRef = doc(db, "notifications", id);
+    const notificationSnap = await getDoc(notificationRef);
+    const notification = notificationSnap.data();
+    return notification;
+  }
+
+  async function updateNotificationByID(id, data) {
+    const notificationData = await getNotificationByID(id);
+
+    const updatedNotification = {
+      ...notificationData,
+      ...data,
+    };
+    try {
+      setIsLoading(true)
+      await setDoc(doc(db, "notifications", id), updatedNotification);
+
+      setIsLoading(false)
+      return true;
+    } catch (err) {
+      console.log("ERRO", err)
+      addToast({
+        message: `Houve um erro ao atualizar notificação. Tente novamente mais tarde`,
+        severity: "error"
+      })
       return false;
     }
   }
@@ -1196,6 +1350,8 @@ export function AuthContextProvider(props) {
     const usersNormalized = normalizeArray(users, userObject);
     const pets = await getAllPets();
     const petsNormalized = normalizeArray(pets, petObject);
+    const adoption_pets = await getAllAdoptionPets();
+    const adoptionPetsNormalized = normalizeArray(adoption_pets, adoptionPetObject);
     const vaccines = await getAllvaccines();
     const vaccinesNormalized = normalizeArray(vaccines, vaccineObject);
     const medications = await getAllmedications();
@@ -1218,6 +1374,10 @@ export function AuthContextProvider(props) {
       pets: {
         title: "pets",
         content: petsNormalized,
+      },
+      adoptionPets: {
+        title: "adoption_pets",
+        content: adoptionPetsNormalized,
       },
       vaccine: {
         title: "vaccine",
@@ -1260,6 +1420,24 @@ export function AuthContextProvider(props) {
 
   async function deleteMedicalHistory(medicalHistory) {
     await deleteDoc(doc(db, "medical-history", medicalHistory.uid));
+    return true;
+  }
+
+  async function deleteAdoptionPet(id) {
+    try {
+      setIsLoading(true)
+      await deleteDoc(doc(db, "adoption_pets", id));
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+      addToast({
+        message: "Houve um problema ao remover o pet",
+        severity: 'error'
+      })
+
+    } finally {
+      setIsLoading(false)
+    }
     return true;
   }
 
@@ -1368,6 +1546,7 @@ export function AuthContextProvider(props) {
           selectedMedication,
           notificationList,
           notificationIcons,
+          selectedAdoptionPet,
         },
         setFunctions: {
           setUser,
@@ -1386,7 +1565,8 @@ export function AuthContextProvider(props) {
           handleSetSelectedMedication,
           setMedicationList,
           setSelectedMedication,
-          setNotificationList
+          setNotificationList,
+          setSelectedAdoptionPet
         },
         functions: {
           createFeedback,
@@ -1415,6 +1595,7 @@ export function AuthContextProvider(props) {
           updatePetVaccineByID,
           updateVaccineList,
           getAllPets,
+          getAllAdoptionPets,
           getAllTutors,
           updateMedicationList,
           getMedicationByID,
@@ -1423,6 +1604,11 @@ export function AuthContextProvider(props) {
           updatePetLists,
           verifyUser,
           loadUserNotification,
+          updateAdoptionPetByID,
+          getNewAdoptionPetID,
+          getNewNotificationID,
+          getNotificationByID,
+          updateNotificationByID
         },
         databaseFunctions: {
           downloadDatabase,
@@ -1434,6 +1620,7 @@ export function AuthContextProvider(props) {
           deleteVaccine,
           deleteMedicalHistory,
           deletePet,
+          deleteAdoptionPet
         },
       }}
     >

@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import React from "react";
-import { FaDog, FaEnvelope, FaFilePowerpoint, FaGlobeAmericas, FaInstagram, FaMapMarked, FaUserNurse } from "react-icons/fa";
+import { FaDog, FaEnvelope, FaFilePowerpoint, FaGlobeAmericas, FaInstagram, FaMapMarked, FaPaw, FaUserNurse } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
 import profilePic from "../assets/icon.png";
 import Floating from "../components/Floating";
@@ -123,6 +123,23 @@ export default function Links() {
               my: 2,
             }}
           >
+            <Button
+              fullWidth
+              size="large"
+              component="a"
+              href="https://cadastrapet.com.br/adote"
+              variant="contained"
+              color="inherit"
+              sx={{
+                backgroundColor: '#FFF',
+                '&:hover': {
+                  backgroundColor: '#DDD'
+                }
+              }}
+              startIcon={<FaPaw />}
+            >
+              Adote um Pet!
+            </Button>
             <Button
               fullWidth
               size="large"
