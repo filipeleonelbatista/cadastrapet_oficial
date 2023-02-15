@@ -55,7 +55,7 @@ dayjs.updateLocale('en', {
 export default function AdoptionList() {
   const navigate = useNavigate();
   const { size } = useResize();
-  const { addToast } = useToast();
+
   const { props, functions, setFunctions } = useAuth();
   const { getAllAdoptionPets } = functions;
   const { setSelectedAdoptionPet } = setFunctions;
@@ -111,11 +111,12 @@ export default function AdoptionList() {
         }}>
         <Card
           sx={{
-            width: '90vw',
+            width: size[0] < 720 ? '90vw' : 480,
             height: '90vh',
             outline: 'none',
             position: 'relative',
-            overflow: 'auto'
+            overflow: 'auto',
+            borderRadius: 2,
           }}
         >
           <IconButton
@@ -135,7 +136,9 @@ export default function AdoptionList() {
             sx={{
               width: '100%',
               height: 350,
-              backgroundColor: '#000000aa'
+              backgroundColor: '#000000aa',
+              borderRadius: 2,
+              overflow: 'hidden'
             }}
           >
             <Swiper

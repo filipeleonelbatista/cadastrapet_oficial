@@ -49,7 +49,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const { props, setFunctions, functions } = useAuth();
   const { user, petList, selectedPet, medicalHistoryList } = props;
-  const { handleSetSelectedPet, setSelectedMedicalHistory } = setFunctions;
+  const { handleSetSelectedPet, setSelectedMedicalHistory, setSelectedAdoptionPet } = setFunctions;
   const { getAllAdoptionPets } = functions;
 
   const [position, setPosition] = useState(selectedPet?.currentLocation);
@@ -318,34 +318,38 @@ export default function Dashboard() {
           </Box>
         </Box>
 
-        <Box sx={{ mt: 2 }}>
-          <Typography variant="h5" color="primary">Petshops/Clinicas Próximas</Typography>
-          <Box
-            sx={{
-              width: '100%',
-              height: 300,
-              borderRadius: 2,
-              mt: 2,
-              overflow: 'hidden',
-            }}
-          >
-            <MapContainer
-              key="pet-location"
-              id="pet-location"
-              center={[-29.9377, -51.0176]}
-              zoom={15}
-              style={{ width: "100%", height: "100%", zIndex: 1 }}
-            >
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              <Marker position={[-29.9357, -51.0166]}>
-                <Popup>Local 1</Popup>
-              </Marker>
-              <Marker position={[-29.9386, -51.0185]}>
-                <Popup>Local 2</Popup>
-              </Marker>
-            </MapContainer>
-          </Box>
-        </Box>
+        {
+          false && (
+            <Box sx={{ mt: 2 }}>
+              <Typography variant="h5" color="primary">Petshops/Clinicas Próximas</Typography>
+              <Box
+                sx={{
+                  width: '100%',
+                  height: 300,
+                  borderRadius: 2,
+                  mt: 2,
+                  overflow: 'hidden',
+                }}
+              >
+                <MapContainer
+                  key="pet-location"
+                  id="pet-location"
+                  center={[-29.9377, -51.0176]}
+                  zoom={15}
+                  style={{ width: "100%", height: "100%", zIndex: 1 }}
+                >
+                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                  <Marker position={[-29.9357, -51.0166]}>
+                    <Popup>Local 1</Popup>
+                  </Marker>
+                  <Marker position={[-29.9386, -51.0185]}>
+                    <Popup>Local 2</Popup>
+                  </Marker>
+                </MapContainer>
+              </Box>
+            </Box>
+          )
+        }
 
         <Box sx={{ mt: 2 }}>
           <Typography variant="h5" color="primary">Pets para adoção</Typography>
@@ -367,7 +371,10 @@ export default function Dashboard() {
             {
               petAdoptionList.length > 0 && petAdoptionList?.filter(pet => pet.endereco.cidade === user.endereco.cidade).slice(0, 10).map(pet => (
                 <Card
-                  onClick={() => { }}
+                  onClick={() => {
+                    setSelectedAdoptionPet(pet)
+                    navigate("/tutor/adocao/visualizar")
+                  }}
                   key={pet?.uid}
                   component="button"
                   sx={{
@@ -382,6 +389,7 @@ export default function Dashboard() {
                     overflow: "hidden",
                     border: 'none',
                     transition: '0.2s',
+                    cursor: 'pointer',
 
                     '&:hover': {
                       filter: 'brightness(0.8)'
