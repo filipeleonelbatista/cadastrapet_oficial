@@ -60,7 +60,20 @@ function HomeComponent() {
     },
   });
 
+  function handleDownload() {
+    const downloadLink = document.createElement('a');
+    downloadLink.href = './cuidados_pet.pdf';
+    downloadLink.download = 'cuidados_pet.pdf';
+    document.body.appendChild(downloadLink);
+    setTimeout(() => {
+      downloadLink.click();
+    }, 500)
+    document.body.removeChild(downloadLink);
+  }
+
   async function handleSubmitForm(formValues) {
+    handleDownload()
+
     if (await conversion(
       formValues.name,
       formValues.email,
@@ -117,7 +130,7 @@ function HomeComponent() {
       >
         <Card
           sx={{
-            width: '90vw',
+            width: size[0] > 720 ? 870 : '90vw',
             height: '90vh',
             outline: 'none',
             position: 'relative',
@@ -636,7 +649,7 @@ function HomeComponent() {
             textAlign: size[0] > 720 ? 'start' : 'center',
             alignItems: 'center',
             my: 4,
-            py:4,
+            py: 4,
 
           }}
         >
