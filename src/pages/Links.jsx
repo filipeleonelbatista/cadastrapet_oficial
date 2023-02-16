@@ -127,6 +127,24 @@ export default function Links() {
               fullWidth
               size="large"
               component="a"
+              href="https://cadastrapet.com.br/cuidados_pet.pdf"
+              target="_blank"
+              variant="contained"
+              color="inherit"
+              sx={{
+                backgroundColor: '#FFF',
+                '&:hover': {
+                  backgroundColor: '#DDD'
+                }
+              }}
+              startIcon={<FaPaw />}
+            >
+              Dicas de como cuidar melhor do seu Pet
+            </Button>
+            <Button
+              fullWidth
+              size="large"
+              component="a"
               href="https://cadastrapet.com.br/adote"
               variant="contained"
               color="inherit"
