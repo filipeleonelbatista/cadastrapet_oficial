@@ -33,6 +33,7 @@ import { ConversionContextProvider } from '../../context/ConversionContext';
 import { LoadingContextProvider } from '../../context/LoadingContext';
 import { ToastContextProvider } from '../../context/ToastContext';
 import Floating from '../Floating';
+import { useDarkMode } from '../../hooks/useDarkMode';
 
 function Copyright() {
   return (
@@ -112,6 +113,7 @@ const mdThemeDark = createTheme({
 function DrawerComponentFULL({ title, children }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { mode} = useDarkMode();
 
   const { functions, props } = useAuth();
   const { logout } = functions;
@@ -140,10 +142,8 @@ function DrawerComponentFULL({ title, children }) {
     setAnchorEl(null);
   };
 
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const [open, setOpen] = React.useState(false);
-  const [mode, setMode] = React.useState('light');
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -152,13 +152,6 @@ function DrawerComponentFULL({ title, children }) {
     const userInfo = localStorage.getItem("@user-info")
     if (userInfo !== null) {
       setUser(JSON.parse(userInfo))
-    }
-    if (localStorage.getItem("@dark-theme") !== null) {
-      const selectedTheme = localStorage.getItem("@dark-theme")
-      setMode(selectedTheme)
-    } else {
-      localStorage.setItem("@dark-theme", prefersDarkMode ? 'dark' : 'light')
-      setMode(prefersDarkMode ? 'dark' : 'light')
     }
   }, [])
 

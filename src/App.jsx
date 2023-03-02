@@ -6,6 +6,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { ResizeContextProvider } from "./context/ResizeContext";
 import { LoadingContextProvider } from "./context/LoadingContext";
 import { ToastContextProvider } from "./context/ToastContext";
+import { DarkModeContextProvider } from "./context/DarkModeContext";
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
       <LoadingContextProvider>
         <ResizeContextProvider>
           <AuthContextProvider>
-            <Routes />
+            <DarkModeContextProvider>
+              <Routes />
+            </DarkModeContextProvider>
           </AuthContextProvider>
         </ResizeContextProvider>
       </LoadingContextProvider>
